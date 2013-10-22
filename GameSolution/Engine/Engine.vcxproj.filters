@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{90511e72-7fbf-422a-becb-d1c83382e8ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -25,5 +28,13 @@
     <ClInclude Include="ExportHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector 2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Vector 2.inl">
+      <Filter>Math</Filter>
+    </None>
   </ItemGroup>
 </Project>
