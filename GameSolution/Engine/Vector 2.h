@@ -46,15 +46,6 @@ public:
 	friend inline Vector2D operator/(const Vector2D& right,  float constant     );
 	inline operator float*();
 };
-//overloads
-/*
-std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
-Vector2D operator+(const Vector2D& left,  const Vector2D& right);
-Vector2D operator-(const Vector2D& left, const Vector2D& right);
-Vector2D operator-(const Vector2D& right);
-Vector2D operator*(const Vector2D& right, float constant);
-Vector2D operator*(float constant, const Vector2D& right);
-Vector2D operator/(const Vector2D& right, float constant);
-//*/
+//inlines
 #include "Vector 2.inl"
 #endif
