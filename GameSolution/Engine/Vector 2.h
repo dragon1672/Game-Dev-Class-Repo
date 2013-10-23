@@ -12,8 +12,8 @@ public:
 		this->y = y;
 	}
 	//getters
-	float getX();
-	float getY();
+	inline float getX();
+	inline float getY();
 	//static non member declerations
 	static inline float    dot(Vector2D&,  Vector2D&);
 	static inline float    lengthSquared(Vector2D&);
@@ -37,16 +37,17 @@ public:
 	inline Vector2D projection(Vector2D& that);
 	inline Vector2D rejection (Vector2D& that);
 	//overload declerations
-	friend std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
-	friend Vector2D operator+(const Vector2D& left,           const Vector2D& right);
-	friend Vector2D operator-(const Vector2D& left,           const Vector2D& right);
-	friend Vector2D operator-(const Vector2D& right);
-	friend Vector2D operator*(const Vector2D& right,  float constant     );
-	friend Vector2D operator*(float constant,       const Vector2D& right);
-	friend Vector2D operator/(const Vector2D& right,  float constant     );
-	operator float*();
+	friend inline std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
+	friend inline Vector2D operator+(const Vector2D& left,           const Vector2D& right);
+	friend inline Vector2D operator-(const Vector2D& left,           const Vector2D& right);
+	friend inline Vector2D operator-(const Vector2D& right);
+	friend inline Vector2D operator*(const Vector2D& right,  float constant     );
+	friend inline Vector2D operator*(float constant,       const Vector2D& right);
+	friend inline Vector2D operator/(const Vector2D& right,  float constant     );
+	inline operator float*();
 };
 //overloads
+/*
 std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
 Vector2D operator+(const Vector2D& left,  const Vector2D& right);
 Vector2D operator-(const Vector2D& left, const Vector2D& right);
@@ -54,5 +55,6 @@ Vector2D operator-(const Vector2D& right);
 Vector2D operator*(const Vector2D& right, float constant);
 Vector2D operator*(float constant, const Vector2D& right);
 Vector2D operator/(const Vector2D& right, float constant);
+//*/
 #include "Vector 2.inl"
 #endif
