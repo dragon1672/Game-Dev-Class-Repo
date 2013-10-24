@@ -5,13 +5,13 @@
 
 
 class Spaceship {
-private:
-	Vector2D pos;
 public:
+	Vector2D pos;
 	Spaceship(int x=0,int y=0) {
 		pos = Vector2D(x,y);
 	}
 	void draw(Core::Graphics graphics);
+	void addWorld(int x, int y);
 };
 
 

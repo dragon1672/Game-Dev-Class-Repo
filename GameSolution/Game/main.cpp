@@ -5,6 +5,7 @@ const int SCREEN_WIDTH  = 800;
 const int SCREEN_HEIGHT = 600;
 
 Spaceship testing(SCREEN_WIDTH/2,SCREEN_HEIGHT/2+50);
+
 bool update( float dt ) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE )) return true;
 	return false;
