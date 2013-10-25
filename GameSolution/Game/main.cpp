@@ -23,6 +23,7 @@ void startCoreEngine() {
 	Core::RegisterUpdateFn(update);
 	Core::GameLoop();
 }
+
 int main() {
 	startCoreEngine();
 }

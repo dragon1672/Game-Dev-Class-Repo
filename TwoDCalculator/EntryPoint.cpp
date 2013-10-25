@@ -34,8 +34,8 @@ namespace tab_three {
 	void myDotProductDataCallBack(const DotProductData& info) {
 		right   = Vector2D(info.v1i,info.v1j);
 		left    = Vector2D(info.v2i,info.v2j);
-		project = (info.projectOntoLeftVector)? right.projection(left) : left.projection(right);
-		reject  = (info.projectOntoLeftVector)? right.rejection (left) : left.rejection (right);
+		project = (info.projectOntoLeftVector)? left.projection(right) : right.projection(left);
+		reject  = (info.projectOntoLeftVector)? left.rejection (right) : right.rejection (left);
 	}
 }
 //tab 4 LERP
