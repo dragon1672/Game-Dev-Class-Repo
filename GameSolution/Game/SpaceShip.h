@@ -3,25 +3,23 @@
 #include "Vector 2.h"
 #include "Core.h"
 #include "Shape.h"
-
-const Vector2D spaceShipPoints[] = {
-								Vector2D(10,12),
-								Vector2D(12, 0 ),
-								Vector2D( 8,  8 ),
-								Vector2D( 0, -20),//tip
-								Vector2D(-8,  8 ),
-								Vector2D(-12, 0 ),
-								Vector2D(-10, 12)
-								};
+#include <time.h>
+//change acc to mesure difference in time no update each frame
 class Spaceship {
 private:
-	//Shape thisShape(Vector2D, 7, spaceShipPoints[0], spaceShipPoints[1]);//*/
+	static Shape thisShape;
+	Vector2D acc;
+	static const float brakePower;
 public:
 	Vector2D pos;
-	Spaceship(int x=0,int y=0) {
+	Spaceship(float x=0,float y=0) {
 		pos = Vector2D(x,y);
 	}
 	void draw(Core::Graphics graphics);
+	void addAcc(Vector2D toAdd,float scalar=1);
+	void update(float dt);
+	void brake(float scalar=1);
+	void changePos(Vector2D newLocation);
 };
 
 

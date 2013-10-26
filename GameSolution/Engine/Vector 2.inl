@@ -9,7 +9,7 @@ double   Vector2D::length(Vector2D& src) {
 	return sqrt(lengthSquared(src));
 }
 Vector2D Vector2D::normalized(Vector2D& src) {
-	float Vlength = length(src);
+	double Vlength = length(src);
 	return (Vlength==0)? Vector2D(0,0) : src/Vlength;
 }
 Vector2D Vector2D::perpCW(Vector2D& src) {
@@ -73,7 +73,7 @@ std::ostream& operator<<(std::ostream& stream, const Vector2D& right) {
 Vector2D operator+(const Vector2D& left,  const Vector2D& right) {
 	return Vector2D(left.x + right.x, left.y + right.y);
 }
-Vector2D operator-(const Vector2D& left, const Vector2D& right) {
+Vector2D operator-(const Vector2D& left,  const Vector2D& right) {
 	return Vector2D(left.x - right.x, left.y - right.y);
 }
 Vector2D operator-(const Vector2D& right) {

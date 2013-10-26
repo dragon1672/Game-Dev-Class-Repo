@@ -1,24 +1,22 @@
 #include "Engine.h"
 #include "Core.h"
 #include "SpaceShip.h"
+#include "Controller.h"
 const int SCREEN_WIDTH  = 800;
 const int SCREEN_HEIGHT = 600;
 
-Spaceship testing(SCREEN_WIDTH/2,SCREEN_HEIGHT/2+50);
-
+Controller myProject(SCREEN_WIDTH,SCREEN_WIDTH);
 bool update( float dt ) {
-	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE )) return true;
-	return false;
+	return myProject.update(dt);
+	//if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE )) return true;
+	//return false;
 }
 void draw( Core::Graphics& graphics ) {
-	graphics.SetColor(RGB(255,255,0));
-	graphics.DrawString(SCREEN_WIDTH/2-50,SCREEN_HEIGHT/2-20,"Hello World");
-	//graphics.DrawLine(10,10,400,300);
-	testing.draw(graphics);
+	myProject.draw(graphics);
 }
 
 void startCoreEngine() {
-	Core::Init("Testing",SCREEN_WIDTH,SCREEN_HEIGHT );
+	Core::Init("Space Quest",SCREEN_WIDTH,SCREEN_HEIGHT);
 	Core::RegisterDrawFn(draw);
 	Core::RegisterUpdateFn(update);
 	Core::GameLoop();

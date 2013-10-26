@@ -38,12 +38,12 @@ public:
 	inline Vector2D rejection (Vector2D& that);
 	//overload declerations
 	friend inline std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
-	friend inline Vector2D operator+(const Vector2D& left,           const Vector2D& right);
-	friend inline Vector2D operator-(const Vector2D& left,           const Vector2D& right);
-	friend inline Vector2D operator-(const Vector2D& right);
-	friend inline Vector2D operator*(const Vector2D& right,  float constant     );
-	friend inline Vector2D operator*(float constant,       const Vector2D& right);
-	friend inline Vector2D operator/(const Vector2D& right,  float constant     );
+	friend inline Vector2D operator+ (const Vector2D& left,           const Vector2D& right);
+	friend inline Vector2D operator- (const Vector2D& left,           const Vector2D& right);
+	friend inline Vector2D operator- (const Vector2D& right);
+	friend inline Vector2D operator* (const Vector2D& right,  float constant     );
+	friend inline Vector2D operator* (float constant,       const Vector2D& right);
+	friend inline Vector2D operator/ (const Vector2D& right,  float constant     );
 	inline operator float*();
 };
 //inlines
