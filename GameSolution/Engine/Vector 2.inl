@@ -28,7 +28,9 @@ float    Vector2D::cross        (Vector2D& left, Vector2D& right) {
 	return left.x * right.y - left.y * right.x;
 }
 Vector2D Vector2D::projection   (Vector2D& left, Vector2D& right) {
-	return left.dot(right.normalized()) * right.normalized();
+	Vector2D norm = right.normalized();
+	float product = left.dot(norm);
+	return product * right.normalized();
 }
 Vector2D Vector2D::rejection (Vector2D& left, Vector2D& right) {
 	return left - left.projection(right);
