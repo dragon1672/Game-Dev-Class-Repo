@@ -1,11 +1,11 @@
 #include "Lerper.h"
 
 Vector2D star[] = {
-						Vector2D( .7,  1 ),
-						Vector2D(  0, -1 ),
-						Vector2D(-.6,  1 ),
-						Vector2D(  1,-.25),
-						Vector2D( -1,-.25)
+						Vector2D(   .7f,  1.0f ),
+						Vector2D(  0.0f, -1.0f ),
+						Vector2D(  -.6f,  1.0f ),
+						Vector2D(  1.0f,  -.25f),
+						Vector2D( -1.0f,  -.25f)
 					};
 Core::RGB Lerper::myColor = RGB(255,102,255);
 #define SCALAR 20
@@ -36,7 +36,7 @@ void Lerper::nextLine() {
 	catchedNextLine = path[nextIndex()];
 	//interval = (float)(catchedNextLine-path[currentLine]).lengthSquared()/distacePerSecond;
 	Vector2D temp = catchedNextLine-path[currentLine];
-	float length = temp.length();
+	float length = (float)temp.length();
 	interval = 1/(length/distacePerSecond);
 	alpha = 0;
 }
