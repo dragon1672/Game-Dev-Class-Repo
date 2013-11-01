@@ -80,7 +80,7 @@ void Spaceship::updateTurret() {
 void Spaceship::update(float dt) {
 	manageAcc(dt);
 	move(dt);
-	updateTurret(dt);
+	updateTurret();
 }
 void Spaceship::draw(Core::Graphics graphics) {
 	this->thisShape.draw(graphics,pos);
