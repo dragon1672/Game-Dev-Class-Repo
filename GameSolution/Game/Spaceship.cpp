@@ -64,7 +64,7 @@ bool Spaceship::mouseWithinTurretRange() {
 	Vector2D mouse(mouseX,mouseY);
 	return ((mouse-pos).lengthSquared()<turret.lengthSquared());
 }
-void Spaceship::updateTurret(float dt) {
+void Spaceship::updateTurret() {
 	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT) && mouseWithinTurretRange()) {
 		int error=3;
 		float mouseDist = mouseDistanceFromTurretLine();

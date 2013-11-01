@@ -28,12 +28,12 @@ class Spaceship {
 	void brake(float scalar=1);
 
 	//update functions
-	void manageAcc(float dt);
-	void move(float dt);
+	void  manageAcc(float dt);
+	void  move(float dt);
 	float mouseDistanceFromTurretLine();
-	bool mouseWithinTurretRange();
-	void updateTurret(float dt);
-	void resetTurret();
+	bool  mouseWithinTurretRange();
+	void  updateTurret();
+	void  resetTurret();
 public:
 	void init(float x, float y, GameSpace *space);
 	void addAcc(Vector2D toAdd, float scalar=1);
