@@ -1,7 +1,9 @@
 #pragma once
 
 
+#pragma warning(disable:4005)
 #include <stdarg.h>
+#pragma warning(default:4005)
 #include "Vector 2.h"
 #include "Core.h"
 class Shape {
