@@ -3,6 +3,7 @@
 #include "Shape.h"
 #include "Boundary.h"
 #include "SpaceShip.h"
+#include "Lerper.h"
 
 
 const Core::RGB defaultColor = RGB(255,0,50);
@@ -10,9 +11,11 @@ const Core::RGB defaultColor = RGB(255,0,50);
 class GameSpace {
 	Spaceship myShip;
 	Boundary *boundary;
+	Lerper myLerp;
 	Vector2D min;
 	Vector2D max;
 	Shape toDraw;
+	void initObjects();
 	void makeGameSpace(Core::RGB color, float width, float height, Vector2D pos);
 	bool hasBounds;
 public:

@@ -9,48 +9,57 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{6a631003-0eae-4cda-bd55-e10cc50d03e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\World">
+      <UniqueIdentifier>{ca6b4b6b-780b-4892-9a1d-ccad08387c28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Entities">
+      <UniqueIdentifier>{6b6e6a61-0a6b-4494-9b6d-a2b13473e0b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Spaceship.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSpace.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="Boundary.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Objects\World</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameSpace.cpp">
+      <Filter>Objects\World</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
+      <Filter>Objects\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Spaceship.cpp">
+      <Filter>Objects\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Lerper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SpaceShip.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSpace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Boundary.h">
-      <Filter>Header Files</Filter>
+      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
+      <Filter>Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSpace.h">
+      <Filter>Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Boundary.h">
+      <Filter>Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceShip.h">
+      <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Lerper.h">
+      <Filter>Objects\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

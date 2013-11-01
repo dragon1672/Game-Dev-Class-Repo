@@ -12,9 +12,6 @@
     <Filter Include="Math">
       <UniqueIdentifier>{90511e72-7fbf-422a-becb-d1c83382e8ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities">
-      <UniqueIdentifier>{9ff2589a-2a98-4544-b5e2-49432231ba1c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">

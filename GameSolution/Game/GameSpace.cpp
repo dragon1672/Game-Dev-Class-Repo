@@ -4,10 +4,22 @@ GameSpace::GameSpace() { ; }
 GameSpace::GameSpace(float width, float height, Vector2D pos, Core::RGB color) {
 	makeGameSpace(color, width, height, pos);
 }
+void GameSpace::initObjects() {
+	float width  = max.getX() - min.getX();
+	float height = max.getY() - min.getY();
+	myShip.init(min.getX()+(width/2),min.getY()+(height/2),this);
+	myLerp.init();
+	myLerp.addPoint(min);
+	myLerp.addPoint(min+Vector2D(0,         (min.getY()+height)/2));
+	myLerp.addPoint(min+Vector2D(25,        (min.getY()+height)-100));
+	myLerp.addPoint(    Vector2D(.5f*width, (min.getY()+height)));
+	myLerp.addPoint(min+Vector2D(width,     height/2));
+	myLerp.addPoint(min+Vector2D(width/2,  0));
+}
 void GameSpace::makeGameSpace(Core::RGB color, float width, float height, Vector2D pos) {
-	myShip.init(width/2,height/2,this);
 	min = pos+Vector2D(0,0);
 	max = pos+Vector2D(width,height);
+	initObjects();
 	Vector2D one   = min;
 	Vector2D two   = pos+Vector2D(width,0);
 	Vector2D three = max;
@@ -23,10 +35,12 @@ void GameSpace::draw(Core::Graphics graphics) {
 	if(hasBounds)
 		boundary->draw(graphics);
 	myShip.draw(graphics);
+	myLerp.draw(graphics);
 }
 bool GameSpace::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	myShip.update(dt);
+	myLerp.update(dt);
 	return false;
 }
 Boundary *GameSpace::getBoundary() { return boundary; }

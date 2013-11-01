@@ -16,15 +16,15 @@ const Vector2D shipPoints[] = {
 							  };
 Core::RGB Spaceship::shipColor = RGB(255,255,0);
 Shape Spaceship::thisShape( shipColor,
-			sizeof(shipPoints)/sizeof(shipPoints[0]),
-			shipPoints[0],
-			shipPoints[1],
-			shipPoints[2],
-			shipPoints[3],
-			shipPoints[4],
-			shipPoints[5],
-			shipPoints[6]
-			);
+							sizeof(shipPoints)/sizeof(shipPoints[0]),
+							shipPoints[0],
+							shipPoints[1],
+							shipPoints[2],
+							shipPoints[3],
+							shipPoints[4],
+							shipPoints[5],
+							shipPoints[6]
+							);
 void Spaceship::addAcc(Vector2D toAdd, float scalar) {
 	vel = vel+(scalar*toAdd);
 }

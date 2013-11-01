@@ -87,8 +87,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Boundary.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSpace.cpp" />
+    <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Spaceship.cpp" />
@@ -97,7 +97,7 @@
   <ItemGroup>
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="GameSpace.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Lerper.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Wall.h" />

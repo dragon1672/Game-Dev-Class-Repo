@@ -14,7 +14,7 @@ Vector2D boundPoints[] = {
 							worldPos,
 							worldPos+Vector2D(0,           (worldPos.getY()+newHeight)/2),
 							worldPos+Vector2D(25,          (worldPos.getY()+newHeight)-100),
-									 Vector2D(.5*newWidth, (worldPos.getY()+newHeight)),
+									 Vector2D(.5f*newWidth, (worldPos.getY()+newHeight)),
 							worldPos+Vector2D(newWidth,    newHeight/2),
 							worldPos+Vector2D(newWidth/2,  0)
 						};

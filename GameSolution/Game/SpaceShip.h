@@ -36,13 +36,11 @@ public:
 
 #include "Vector 2.h"
 #include "Core.h"
-#include "GameObject.h"
-//class Shape;
+#include "Shape.h"
 class GameSpace;
 
 
 class Spaceship {
-	Vector2D again;
 	static Core::RGB shipColor;
 	static const float brakePower;
 	static Shape thisShape;
@@ -61,9 +59,7 @@ class Spaceship {
 public:
 	void init(float x, float y, GameSpace *space);
 	void addAcc(Vector2D toAdd, float scalar=1);
-	//using GameObject::draw;
 	void draw(Core::Graphics graphics);
-	//using GameObject::update;
 	void update(float dt);
 
 
