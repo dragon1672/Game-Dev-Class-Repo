@@ -25,12 +25,13 @@ bool update( float dt ) {
 	return myWorld.update(dt);
 }
 void draw( Core::Graphics& graphics ) {
-	graphics.SetColor(RGB(0,155,0));
+	graphics.SetColor(RGB(200,200,0));
 	graphics.DrawString(10,10,"Welcome to SpaceWars!");
-	graphics.DrawString(300,15,"Controls:");
-	graphics.DrawString(370,3,"'arrow keys' = Accelerate Ship");
-	graphics.DrawString(370,13,"'Shift' = Brake");
-	graphics.DrawString(370,23,"'c' = ignore bounds");
+	graphics.DrawString(200,15,"Controls:");
+	graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
+	graphics.DrawString(270,13,"'Shift' = Brake");
+	graphics.DrawString(570,3, "'Z' = Ignore Bounds and Warp");
+	graphics.DrawString(570,13,"'X' = Ignore Bounds and Bounce");
 	graphics.DrawString(570,23,"Use your mouse to move the Turret");
 	myWorld.draw(graphics);
 }

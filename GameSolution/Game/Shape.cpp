@@ -100,8 +100,8 @@ void Shape::calcMinAndMax() {
 void Shape::draw(Core::Graphics graphics, Vector2D transpose, float scale) {
 	if(constructed) {
 		graphics.SetColor(myColor);
-		Vector2D& start = transpose+scale*points[0];
-		Vector2D& end   = transpose+scale*points[count-1];
+		Vector2D start = transpose+scale*points[0];
+		Vector2D end   = transpose+scale*points[count-1];
 		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
 		for(int i=1;i<count;i++) {
 			start = transpose+scale*points[i-1];

@@ -49,14 +49,18 @@ void Spaceship::manageAcc(float dt) {
 }
 void Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
-	if(Core::Input::IsPressed( Core::Input::LETTER_C      )) warp();
+	if(Core::Input::IsPressed( Core::Input::LETTER_Z      )) warp();
+	else if(Core::Input::IsPressed( Core::Input::LETTER_X      )) bounce();
 	else collide();
 }
 float Spaceship::mouseDistanceFromTurretLine() {
 	float mouseX = (float)Core::Input::GetMouseX();
 	float mouseY = (float)Core::Input::GetMouseY();
 	Vector2D mouse(mouseX,mouseY);
-	return (mouse-pos).dot(turret.perpCW().normalized());
+	Vector2D temp = mouse-pos;
+	Vector2D anotherTemp = turret.perpCW().normalized();
+	float tempFloat = temp.dot(anotherTemp);
+	return tempFloat;
 }
 bool Spaceship::mouseWithinTurretRange() {
 	float mouseX = (float)Core::Input::GetMouseX();
@@ -100,6 +104,10 @@ void Spaceship::warp() {
 	if(pos.getY() < (*space).getMin().getY()) pos = Vector2D( pos.getX(),               (*space).getMax().getY() );
 	if(pos.getX() > (*space).getMax().getX()) pos = Vector2D( (*space).getMin().getX(), pos.getY());
 	if(pos.getY() > (*space).getMax().getY()) pos = Vector2D( pos.getX(),               (*space).getMin().getY() );
+}
+void Spaceship::bounce() {
+	if(pos.getX() < (*space).getMin().getX() || pos.getX() > (*space).getMax().getX()) vel = Vector2D(-vel.getX(), vel.getY());
+	if(pos.getY() < (*space).getMin().getY() || pos.getY() > (*space).getMax().getY()) vel = Vector2D( vel.getX(),-vel.getY());
 }
 void Spaceship::collide() {
 	vel = space->collideVector(pos,vel);
