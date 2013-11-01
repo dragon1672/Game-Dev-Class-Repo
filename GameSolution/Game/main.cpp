@@ -1,18 +1,31 @@
 #include "Engine.h"
 #include "Core.h"
 #include "SpaceShip.h"
-#include "Controller.h"
+#include "GameSpace.h"
+
 const int SCREEN_WIDTH  = 800;
 const int SCREEN_HEIGHT = 600;
+const float PAD = 5;
+const float topOffset = 30;
+const float newWidth  = SCREEN_WIDTH- 2*PAD;
+const float newHeight = SCREEN_HEIGHT - topOffset - 2*PAD;
+Vector2D worldPos(PAD,topOffset+PAD);
+Vector2D boundPoints[] = {
+							worldPos,
+							worldPos+Vector2D(0,           (worldPos.getY()+newHeight)/2),
+							worldPos+Vector2D(25,          (worldPos.getY()+newHeight)-100),
+									 Vector2D(.5*newWidth, (worldPos.getY()+newHeight)),
+							worldPos+Vector2D(newWidth,    newHeight/2),
+							worldPos+Vector2D(newWidth/2,  0)
+						};
 
-Controller myProject(SCREEN_WIDTH,SCREEN_WIDTH);
+GameSpace myWorld(newWidth, newHeight,worldPos);
+Boundary bounds;
 bool update( float dt ) {
-	return myProject.update(dt);
-	//if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE )) return true;
-	//return false;
+	return myWorld.update(dt);
 }
 void draw( Core::Graphics& graphics ) {
-	myProject.draw(graphics);
+	myWorld.draw(graphics);
 }
 
 void startCoreEngine() {
@@ -23,6 +36,9 @@ void startCoreEngine() {
 }
 
 int main() {
+
+	bounds.init(sizeof(boundPoints)/sizeof(*boundPoints), boundPoints);
+	myWorld.registerBoundary(&bounds);
 	startCoreEngine();
 }
 

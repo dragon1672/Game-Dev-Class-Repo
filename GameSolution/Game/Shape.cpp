@@ -1,19 +1,73 @@
+#include <random>
 #include "Shape.h"
-Shape::Shape(int count,...) {
-	if(count!=0) {
+//#define DEBUG
+std::random_device rd;//creating engine
+std::mt19937 seed(rd()); //seed
+std::uniform_int_distribution<int>randColor(0,255);
+
+#define RANDOM_COLOR RGB(randColor(seed),randColor(seed),randColor(seed))
+const Core::RGB defaultColor = RGB(0,255,0);
+/*Shape::Shape(int count,...) {
+	constructed = false;
+	va_list temp;
+	va_start(temp,count);
+	initialize(defaultColor,count,temp);
+}//*/
+Shape::Shape(Core::RGB color, int count,...) {
+	constructed = false;
+	va_list temp;
+	va_start(temp,count);
+	initialize(color,count,temp);
+}
+Shape::Shape() {
+	constructed = false;
+	count = 0;
+}
+void Shape::destory() {
+	if(constructed) delete [] points;
+	constructed = false;
+}
+Shape::~Shape() {
+	destory();
+}
+bool Shape::initialize(Core::RGB color, int count,...) {
+	va_list temp;
+	va_start(temp,count);
+	return initialize(color,count,temp);
+}
+bool Shape::initialize(Core::RGB color, int count,va_list toStore) {
+	if(count>1 && !constructed) {
+		constructed = true;
 		this->count = count;
 		points = new Vector2D[count];
-		va_list toStore;
-		va_start(toStore,count);
 		for(int i=0;i<count;i++) {
 			points[i] = va_arg(toStore, Vector2D);
 		}
-		va_end(toStore);
 		calcMinAndMax();
+		setColor(color);
 	}
+	va_end(toStore);
+	return constructed;
 }
-Shape::Shape() {
-	count = 0;
+bool Shape::initialize(Core::RGB color, int count, Vector2D *toAdd) {
+	if(count>1 && !constructed) {
+		constructed = true;
+		this->count = count;
+		points = new Vector2D[count];
+		for(int i=0;i<count;i++) {
+			points[i] = toAdd[i];
+		}
+		calcMinAndMax();
+		setColor(color);
+	}
+	delete [] toAdd;
+	return constructed;
+}
+void Shape::setColor(Core::RGB toSet) {
+	myColor = toSet;
+}
+void Shape::setRandomColor() {
+	myColor = RANDOM_COLOR;
 }
 void Shape::calcMinAndMax() {
 	maxX = points[0].getX();
@@ -21,21 +75,54 @@ void Shape::calcMinAndMax() {
 	minX = points[0].getX();
 	minY = points[0].getY();
 	for(int i=0;i<count;i++) {
-		if(points[0].getX()>maxX) maxX = points[i].getX();
-		if(points[0].getY()>maxY) maxY = points[i].getX();
-		if(points[0].getX()<minX) minX = points[i].getX();
-		if(points[0].getY()<minY) minY = points[i].getX();
+		if(points[i].getX()>maxX) maxX = points[i].getX();
+		if(points[i].getY()>maxY) maxY = points[i].getY();
+		if(points[i].getX()<minX) minX = points[i].getX();
+		if(points[i].getY()<minY) minY = points[i].getY();
 	}
 }
+#ifdef DEBUG
+	#include <sstream>
+	#include <string>
+	using std::string;
+	string float2str(int num) {
+		std::stringstream ss;
+		string ret;
+		ss << num;
+		ss >> ret;
+		return ret;
+	}
+	string vec2str(Vector2D vec) {
+		string ret = "{"+float2str(vec.getX())+","+float2str(vec.getY())+"}";
+		return ret;
+	}
+#endif //DEBUG
 void Shape::draw(Core::Graphics graphics, Vector2D transpose, float scale) {
-	if(count!=0) {
-		Vector2D start = transpose+scale*points[0];
-		Vector2D end   = transpose+scale*points[count-1];
+	if(constructed) {
+		graphics.SetColor(myColor);
+		Vector2D& start = transpose+scale*points[0];
+		Vector2D& end   = transpose+scale*points[count-1];
 		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
 		for(int i=1;i<count;i++) {
 			start = transpose+scale*points[i-1];
 			end   = transpose+scale*points[i];
 			graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+#ifdef DEBUG
+			graphics.DrawString(start.getX(),start.getY(),vec2str(start).c_str());
+			graphics.DrawString(end.getX(),  end.getY(),  vec2str(end).c_str());
+#endif //debug
 		}
 	}
 }
+bool Shape::simpleOutOfBounds(Vector2D pos, Vector2D transpose, float scale) {
+	Vector2D maxBound = Vector2D(maxX,maxY)*scale + transpose;
+	Vector2D minBound = Vector2D(minX,minY)*scale + transpose;
+	return (pos.getX()>maxBound.getX() || pos.getY()>maxBound.getY() || pos.getX()<minBound.getX() || pos.getY()<minBound.getY());
+}
+bool Shape::isConstructed() {
+	return constructed;
+}
+float Shape::getMinX() { return minX; }
+float Shape::getMinY() { return minY; }
+float Shape::getMaxX() { return maxX; }
+float Shape::getMaxY() { return maxY; }

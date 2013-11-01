@@ -1,27 +1,70 @@
-#ifndef SPACE_SHIP
+/*#ifndef SPACE_SHIP
 #define SPACE_SHIP
-#include "Vector 2.h"
+
 #include "Core.h"
-#include "Shape.h"
-#include <time.h>
-//change acc to mesure difference in time no update each frame
-class Spaceship {
-private:
+#include "Vector 2.h"
+#include "GameObject.h"
+#include "GameSpace.h"
+
+class Spaceship : public GameObject {
+	static Core::RGB shipColor;
 	static Shape thisShape;
-	Vector2D acc;
+	Vector2D vel;
 	static const float brakePower;
+	
+	float getMinX();
+	float getMinY();
+	float getMaxX();
+	float getMaxY();
+	void bounce();
+	void warp();
+	void collide();
+	void brake(float scalar=1);
+	void move();
 public:
 	Vector2D pos;
-	Spaceship(float x=0,float y=0) {
-		pos = Vector2D(x,y);
-	}
-	void draw(Core::Graphics graphics);
+	void init(float x, float y, GameSpace *space);
+	virtual void draw(Core::Graphics graphics);
 	void addAcc(Vector2D toAdd,float scalar=1);
 	void update(float dt);
-	void brake(float scalar=1);
-	void changePos(Vector2D newLocation);
 };
 
 
 
-#endif
+#endif//*/
+#pragma once
+
+#include "Vector 2.h"
+#include "Core.h"
+#include "GameObject.h"
+//class Shape;
+class GameSpace;
+
+
+class Spaceship {
+	Vector2D again;
+	static Core::RGB shipColor;
+	static const float brakePower;
+	static Shape thisShape;
+	Vector2D vel;
+	Vector2D pos;
+	GameSpace *space;
+	float getMinX();
+	float getMinY();
+	float getMaxX();
+	float getMaxY();
+
+	void bounce();
+	void warp();
+	void collide();
+	void brake(float scalar=1);
+public:
+	void init(float x, float y, GameSpace *space);
+	void addAcc(Vector2D toAdd, float scalar=1);
+	//using GameObject::draw;
+	void draw(Core::Graphics graphics);
+	//using GameObject::update;
+	void update(float dt);
+
+
+};

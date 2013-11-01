@@ -15,16 +15,17 @@ public:
 	inline float getX();
 	inline float getY();
 	//static non member declerations
-	static inline float    dot(Vector2D&,  Vector2D&);
+	static inline float    dot          (Vector2D&,  Vector2D&);
 	static inline float    lengthSquared(Vector2D&);
-	static inline double   length(Vector2D&);
-	static inline Vector2D normalized(Vector2D&);
-	static inline Vector2D perpCW (Vector2D&);
-	static inline Vector2D perpCCW(Vector2D&);
-	static inline Vector2D LERP(float, Vector2D&, Vector2D&);
-	static inline float    cross(Vector2D&, Vector2D&);
-	static inline Vector2D projection(Vector2D& left, Vector2D& right);
-	static inline Vector2D rejection (Vector2D& left, Vector2D& right);
+	static inline double   length       (Vector2D&);
+	static inline Vector2D normalized   (Vector2D&);
+	static inline Vector2D perpCW       (Vector2D&);
+	static inline Vector2D perpCCW      (Vector2D&);
+	static inline Vector2D LERP         (float, Vector2D&, Vector2D&);
+	static inline float    cross        (Vector2D&, Vector2D&);
+	static inline Vector2D projection   (Vector2D& left, Vector2D& right);
+	static inline Vector2D rejection    (Vector2D& left, Vector2D& right);
+	static inline bool     isZero       (Vector2D& toCheck);
 	//Member definitons
 	inline float    lengthSquared();
 	inline double   length();
@@ -36,14 +37,16 @@ public:
 	inline float    cross(Vector2D& that);
 	inline Vector2D projection(Vector2D& that);
 	inline Vector2D rejection (Vector2D& that);
+	inline bool     isZero();
 	//overload declerations
 	friend inline std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
-	friend inline Vector2D operator+ (const Vector2D& left,           const Vector2D& right);
-	friend inline Vector2D operator- (const Vector2D& left,           const Vector2D& right);
+	friend inline Vector2D operator+ (const Vector2D& left, const Vector2D& right);
+	friend inline Vector2D operator- (const Vector2D& left, const Vector2D& right);
 	friend inline Vector2D operator- (const Vector2D& right);
-	friend inline Vector2D operator* (const Vector2D& right,  float constant     );
-	friend inline Vector2D operator* (float constant,       const Vector2D& right);
-	friend inline Vector2D operator/ (const Vector2D& right,  float constant     );
+	friend inline Vector2D operator* (const Vector2D& right, float constant       );
+	friend inline Vector2D operator* (float constant,        const Vector2D& right);
+	friend inline Vector2D operator/ (const Vector2D& right, float constant       );
+	friend inline bool     operator==(const Vector2D& right, const Vector2D left  );
 	inline operator float*();
 };
 //inlines
