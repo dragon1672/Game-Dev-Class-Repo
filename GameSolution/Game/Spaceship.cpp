@@ -49,8 +49,8 @@ void Spaceship::manageAcc(float dt) {
 }
 void Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
-	if(Core::Input::IsPressed( Core::Input::LETTER_Z      )) warp();
-	else if(Core::Input::IsPressed( Core::Input::LETTER_X      )) bounce();
+	if(Core::Input::IsPressed( Core::Input::LETTER_Z)) warp();
+	else if(Core::Input::IsPressed( Core::Input::LETTER_X)) bounce();
 	else collide();
 }
 float Spaceship::mouseDistanceFromTurretLine() {
