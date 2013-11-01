@@ -12,7 +12,9 @@ bool Wall::hasCollided(Vector2D pos) {
 }
 Vector2D Wall::collideVector(Vector2D pos, Vector2D vel) {
 	if(hasCollided(pos)) {
-		return vel-2*vel.projection(norm);//amount that it reflects
+		Vector2D resultVel = vel-2*vel.projection(norm);//amount that it reflects
+		if(hasCollided(pos+resultVel)) return vel;//result has already been calculated
+		return resultVel;
 	}
 	return vel;
 }
