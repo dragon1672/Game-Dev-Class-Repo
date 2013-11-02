@@ -96,7 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boundary.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="GameSpace.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SpaceShip.h" />

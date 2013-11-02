@@ -18,9 +18,6 @@ public:
 	static const int BUTTON_LEFT   = VK_LBUTTON;
 	static const int BUTTON_RIGHT  = VK_RBUTTON;
 	static const int BUTTON_SHIFT  = VK_SHIFT;
-	static const int LETTER_Z      = VK_Z;
-	static const int LETTER_X      = VK_X;
-	static const int LETTER_C      = VK_C;
 
 	static bool IsPressed( int key );
 	static void GetMousePos( int& x, int& y );

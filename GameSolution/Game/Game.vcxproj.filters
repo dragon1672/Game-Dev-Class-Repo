@@ -39,7 +39,7 @@
       <Filter>Objects\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Lerper.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Objects\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +60,12 @@
     </ClInclude>
     <ClInclude Include="Lerper.h">
       <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

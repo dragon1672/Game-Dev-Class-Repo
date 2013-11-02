@@ -55,11 +55,7 @@ namespace tab_four {
 		result   = Vector2D::LERP(info.beta,left, right);
 	}
 }
-//tab 5 Line Eq
-namespace tab_five {
-	Vector2D distance;
-	//Vector2D 
-}
+
 int main(int argc, char* argv[]) {
 	Engine::Init();
 	RenderUI renderUI;
