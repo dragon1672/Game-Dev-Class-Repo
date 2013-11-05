@@ -75,16 +75,16 @@ inline Matrix2D operator- (const Matrix2D& left, const Matrix2D& right) {
 	return Matrix2D(rowOne,rowTwo);
 }//*/
 inline Matrix2D operator* (const Matrix2D& left, const Matrix2D& right) {
-	float a00 = left.getRow(0).dot(right.getCol(0));
-	float a01 = left.getRow(0).dot(right.getCol(1));
-	float a10 = left.getRow(1).dot(right.getCol(0));
-	float a11 = left.getRow(1).dot(right.getCol(1));
-	Vector2D rowOne(a00,a01);
-	Vector2D rowTwo(a10,a11);
-	return Matrix2D(rowOne,rowTwo);
+	Matrix2D result;
+	for(int i=0;i<2;i++) {
+		for(int j=0;j<2;j++) {
+			result.matrix[i][j] = left.getRow(i).dot(right.getCol(j));
+		}
+	}
+	return result;
 }
 inline Vector2D operator* (const Matrix2D& left, const Vector2D& right) {
-	float x = left.get(0,0)*right.getX() + left.get(0,1)*right.getY();
-	float y = left.get(1,0)*right.getX() + left.get(1,1)*right.getY();
+	float x = left.getRow(0).dot(right);
+	float y = left.getRow(1).dot(right);
 	return Vector2D(x,y);
 }

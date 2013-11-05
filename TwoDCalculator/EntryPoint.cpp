@@ -1,7 +1,9 @@
 #include "RenderUI.h"
 #include "Engine.h"
 #include "Matrix2D.h"
+#include "Matrix3D.h"
 #include <Vector 2.h>
+#include <Vector3D.h>
 
 //#define DEBUG
 
@@ -69,9 +71,20 @@ namespace tab_five {
 }
 //tab 6
 namespace tab_six {
-	Vector2D result;
+	float resultVectors[15];
 	void myAffineTransformationCallback(const AffineTransformationData& info) {
-		info.data;
+		Vector3D row1(*(info.data+0),*(info.data+1),*(info.data+2));
+		Vector3D row2(*(info.data+3),*(info.data+4),*(info.data+5));
+		Vector3D row3(*(info.data+6),*(info.data+7),*(info.data+8));
+		Matrix3D max(row1,row2,row3);
+		for(int i=0;i<5;i++) {
+			Vector3D source(*(info.data+i*3+9),*(info.data+i*3+10),*(info.data+i*3+11));
+			//Vector3D result = source;
+			Vector3D result = max * source;
+			resultVectors[i*3+0] = result.getX();
+			resultVectors[i*3+1] = result.getY();
+			resultVectors[i*3+2] = result.getZ();
+		}
 	}
 }
 //tab 7
@@ -124,7 +137,7 @@ int main(int argc, char* argv[]) {
 	//renderUI.setLineEquationData(
 	renderUI.setLinearTransformationData(tab_five::result,
 									 tab_five::LinearTransformationCallback);
-	renderUI.setAffineTransformationData(tab_six::result,
+	renderUI.setAffineTransformationData(tab_six::resultVectors,
 										 tab_six::myAffineTransformationCallback);
 	/*
 	renderUI.set2DMatrixVerticesTransformData(
