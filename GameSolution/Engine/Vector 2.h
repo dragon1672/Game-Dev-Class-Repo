@@ -12,32 +12,32 @@ public:
 		this->y = y;
 	}
 	//getters
-	inline float getX();
-	inline float getY();
+	inline float getX() const;
+	inline float getY() const;
 	//static non member declerations
-	static inline float    dot          (Vector2D&,  Vector2D&);
-	static inline float    lengthSquared(Vector2D&);
-	static inline double   length       (Vector2D&);
-	static inline Vector2D normalized   (Vector2D&);
-	static inline Vector2D perpCW       (Vector2D&);
-	static inline Vector2D perpCCW      (Vector2D&);
-	static inline Vector2D LERP         (float, Vector2D&, Vector2D&);
-	static inline float    cross        (Vector2D&, Vector2D&);
-	static inline Vector2D projection   (Vector2D& left, Vector2D& right);
-	static inline Vector2D rejection    (Vector2D& left, Vector2D& right);
-	static inline bool     isZero       (Vector2D& toCheck);
+	static inline float    dot          (const Vector2D&, const Vector2D&);
+	static inline float    lengthSquared(const Vector2D&);
+	static inline double   length       (const Vector2D&);
+	static inline Vector2D normalized   (const Vector2D&);
+	static inline Vector2D perpCW       (const Vector2D&);
+	static inline Vector2D perpCCW      (const Vector2D&);
+	static inline Vector2D LERP         (float, const Vector2D&, const Vector2D&);
+	static inline float    cross        (const Vector2D&, const Vector2D&);
+	static inline Vector2D projection   (const Vector2D& left, const Vector2D& right);
+	static inline Vector2D rejection    (const Vector2D& left, const Vector2D& right);
+	static inline bool     isZero       (const Vector2D& toCheck);
 	//Member definitons
-	inline float    lengthSquared();
-	inline double   length();
-	inline Vector2D normalized();
-	inline Vector2D perpCW();
-	inline Vector2D perpCCW();
-	inline float    dot(Vector2D& that);
-	inline Vector2D LERP(float percent, Vector2D& that);
-	inline float    cross(Vector2D& that);
-	inline Vector2D projection(Vector2D& that);
-	inline Vector2D rejection (Vector2D& that);
-	inline bool     isZero();
+	inline float    lengthSquared() const;
+	inline double   length() const;
+	inline Vector2D normalized() const;
+	inline Vector2D perpCW() const;
+	inline Vector2D perpCCW() const;
+	inline float    dot(const Vector2D& that) const;
+	inline Vector2D LERP(float percent, const Vector2D& that) const;
+	inline float    cross(const Vector2D& that) const;
+	inline Vector2D projection(const Vector2D& that) const;
+	inline Vector2D rejection (const Vector2D& that) const;
+	inline bool     isZero() const;
 	//overload declerations
 	friend inline std::ostream& operator<<(std::ostream& stream, const Vector2D& right);
 	friend inline Vector2D operator+ (const Vector2D& left, const Vector2D& right);

@@ -6,6 +6,7 @@
 #pragma warning(default:4005)
 #include "Vector 2.h"
 #include "Core.h"
+
 class Shape {
 protected:
 	void destory();

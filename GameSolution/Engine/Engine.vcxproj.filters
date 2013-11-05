@@ -37,6 +37,9 @@
     <ClInclude Include="SquareMatrix.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Matrix3D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Vector 2.inl">

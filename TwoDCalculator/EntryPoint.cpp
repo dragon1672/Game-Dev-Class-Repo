@@ -1,6 +1,10 @@
 #include "RenderUI.h"
 #include "Engine.h"
+#include "Matrix2D.h"
 #include <Vector 2.h>
+
+//#define DEBUG
+
 //tab_1 BASIC
 namespace tab_one {
 	Vector2D left;
@@ -55,8 +59,45 @@ namespace tab_four {
 		result   = Vector2D::LERP(info.beta,left, right);
 	}
 }
+//tab 5 Matrix Vector Mult
+namespace tab_five {
+	Vector2D result;
+	void LinearTransformationCallback(const LinearTransformationData& info) {
+		Matrix2D input(Vector2D(info.m00,info.m01),Vector2D(info.m10, info.m11));
+		result = input * Vector2D(info.v0,info.v1);
+	}
+}
+//tab 6
+namespace tab_six {
+	Vector2D result;
+	void myAffineTransformationCallback(const AffineTransformationData& info) {
+		info.data;
+	}
+}
+//tab 7
+namespace tab_seven {
+
+}
+#ifdef DEBUG
+#include <iostream>
+#include "SquareMatrix.h"
+using namespace std;
+
+void testing() {
+	SquareMatrix max(4);
+	max.set( 1,0,0);	max.set( 3,0,1);	max.set( 5,0,2);	max.set( 2,0,3);
+	max.set( 0,1,0);	max.set(-1,1,1);	max.set( 3,1,2);	max.set( 4,1,3);
+	max.set( 2,2,0);	max.set( 1,2,1);	max.set( 9,2,2);	max.set( 6,2,3);
+	max.set( 3,3,0);	max.set( 2,3,1);	max.set( 4,3,2);	max.set( 8,3,3);
+	cout << max.calcDetermant(max) << endl;
+}
+#endif //DEBUG
 
 int main(int argc, char* argv[]) {
+#ifdef DEBUG
+	testing();
+	return 0;
+#else
 	Engine::Init();
 	RenderUI renderUI;
 	renderUI.setBasicVectorEquationData(tab_one::myBasicVectorEquationCallback,
@@ -81,7 +122,20 @@ int main(int argc, char* argv[]) {
 						 tab_four::result, 
 						 tab_four::myLerpDataCallback);
 	//renderUI.setLineEquationData(
+	renderUI.setLinearTransformationData(tab_five::result,
+									 tab_five::LinearTransformationCallback);
+	renderUI.setAffineTransformationData(tab_six::result,
+										 tab_six::myAffineTransformationCallback);
+	/*
+	renderUI.set2DMatrixVerticesTransformData(
+			const float* lines, int numLines, 
+			const float* matrices,
+			const float* currentTransform,
+			MatrixTransformCallback2D uiChangedCallback);
+	//*/
+	
 	if( ! renderUI.initialize(argc, argv))
 		return -1;
 	return renderUI.run();
+#endif // !DEBUG
 }

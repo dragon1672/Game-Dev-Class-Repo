@@ -95,6 +95,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="ExportHeader.h" />
     <ClInclude Include="Matrix2D.h" />
+    <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="SquareMatrix.h" />
     <ClInclude Include="Vector 2.h" />
   </ItemGroup>

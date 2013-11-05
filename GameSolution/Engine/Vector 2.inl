@@ -1,73 +1,73 @@
 //getters
-float Vector2D::getX() { return x; }
-float Vector2D::getY() { return y; }
+float Vector2D::getX() const { return x; }
+float Vector2D::getY() const { return y; }
 //static defines
-float    Vector2D::lengthSquared(Vector2D& src) {
+float    Vector2D::lengthSquared(const Vector2D& src) {
 	return dot(src,src);
 }
-double   Vector2D::length       (Vector2D& src) {
+double   Vector2D::length       (const Vector2D& src) {
 	return sqrt(lengthSquared(src));
 }
-Vector2D Vector2D::normalized   (Vector2D& src) {
+Vector2D Vector2D::normalized   (const Vector2D& src) {
 	float Vlength = (float)length(src);
 	return (Vlength==0)? Vector2D(0,0) : src/Vlength;
 }
-Vector2D Vector2D::perpCW       (Vector2D& src) {
+Vector2D Vector2D::perpCW       (const Vector2D& src) {
 	return Vector2D(-(src.y),src.x);
 }
-Vector2D Vector2D::perpCCW      (Vector2D& src) {
+Vector2D Vector2D::perpCCW      (const Vector2D& src) {
 	return Vector2D(src.y,-(src.x));
 }
-float    Vector2D::dot          (Vector2D& left, Vector2D& right) {
+float    Vector2D::dot          (const Vector2D& left, const Vector2D& right) {
 	return (left.x * right.x) + (left.y * right.y);
 }
-Vector2D Vector2D::LERP         (float percent,  Vector2D& right, Vector2D& left) {
+Vector2D Vector2D::LERP         (float percent,  const Vector2D& right, const Vector2D& left) {
 	return (1-percent) * right + (percent * left);
 }
-float    Vector2D::cross        (Vector2D& left, Vector2D& right) {
+float    Vector2D::cross        (const Vector2D& left, const Vector2D& right) {
 	return left.x * right.y - left.y * right.x;
 }
-Vector2D Vector2D::projection   (Vector2D& left, Vector2D& right) {
+Vector2D Vector2D::projection   (const Vector2D& left, const Vector2D& right) {
 	return (left.dot(right) * right) / right.lengthSquared();
 }
-Vector2D Vector2D::rejection (Vector2D& left, Vector2D& right) {
+Vector2D Vector2D::rejection (const Vector2D& left, const Vector2D& right) {
 	return left - left.projection(right);
 }
-bool     Vector2D::isZero(Vector2D& toCheck) {
+bool     Vector2D::isZero(const Vector2D& toCheck) {
 	return (toCheck.x==0 && toCheck.y==0);
 }
 //member functions
-float    Vector2D::lengthSquared() {
+float    Vector2D::lengthSquared() const {
 	return lengthSquared(*this);
 }
-double   Vector2D::length() {
+double   Vector2D::length() const {
 	return length(*this);
 }
-Vector2D Vector2D::normalized() {
+Vector2D Vector2D::normalized() const {
 	return normalized(*this);
 }
-Vector2D Vector2D::perpCW() {
+Vector2D Vector2D::perpCW() const {
 	return perpCW(*this);
 }
-Vector2D Vector2D::perpCCW() {
+Vector2D Vector2D::perpCCW() const {
 	return perpCCW(*this);
 }
-float    Vector2D::dot(Vector2D& that) {
+float    Vector2D::dot(const Vector2D& that) const {
 	return dot(*this,that);
 }
-Vector2D Vector2D::LERP(float percent, Vector2D& that) {
+Vector2D Vector2D::LERP(float percent, const Vector2D& that) const {
 	return LERP(percent,*this,that);
 }
-float    Vector2D::cross(Vector2D& that) {
+float    Vector2D::cross(const Vector2D& that) const {
 	return cross(*this,that);
 }
-Vector2D Vector2D::projection(Vector2D& that) {
+Vector2D Vector2D::projection(const Vector2D& that) const {
 	return projection(*this,that);
 }
-Vector2D Vector2D::rejection (Vector2D& that) {
+Vector2D Vector2D::rejection (const Vector2D& that) const {
 	return rejection(*this,that);
 }
-bool     Vector2D::isZero() {
+bool     Vector2D::isZero() const {
 	return isZero(*this);
 }
 //overloads
