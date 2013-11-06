@@ -101,6 +101,8 @@
     <ClInclude Include="Vector 2.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Matrix2D.inl" />
+    <None Include="Matrix3D.inl" />
     <None Include="Vector 2.inl" />
     <None Include="Vector3D.inl" />
   </ItemGroup>

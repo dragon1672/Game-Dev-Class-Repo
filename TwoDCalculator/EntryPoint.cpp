@@ -89,7 +89,35 @@ namespace tab_six {
 }
 //tab 7
 namespace tab_seven {
-
+	Vector2D star[] = {
+						Vector2D(   .7f,  1.0f ),
+						Vector2D(  0.0f, -1.0f ),
+						Vector2D(  -.6f,  1.0f ),
+						Vector2D(  1.0f,  -.25f),
+						Vector2D( -1.0f,  -.25f)
+					};
+	Vector2D lines[] = {
+		star[0], star[1],
+		star[1], star[2],
+		star[2], star[3],
+		star[3], star[4],
+		star[4], star[0]
+	};
+	int numLines = (sizeof(lines) / sizeof(*lines))/2;
+	Matrix3D matrices[5];
+	//float* matrices;
+	Matrix3D currentTransform;
+	void myMatrixTransformCallback2D(const MatrixTransformData2D& info) {
+		int id = info.selectedMatrix;
+		matrices[id] = Matrix3D::rotationMatrix(info.rotate)
+					 * Matrix3D::scaleX(info.scaleX)
+					 * Matrix3D::scaleY(info.scaleY)
+					 * Matrix3D::translate(info.translateX, info.translateY);
+		currentTransform = Matrix3D();
+		for(int i=0;i<sizeof(matrices)/sizeof(*matrices);i++) {
+			currentTransform = currentTransform * matrices[i];
+		}
+	}
 }
 #ifdef DEBUG
 #include <iostream>
@@ -136,9 +164,14 @@ int main(int argc, char* argv[]) {
 						 tab_four::myLerpDataCallback);
 	//renderUI.setLineEquationData(
 	renderUI.setLinearTransformationData(tab_five::result,
-									 tab_five::LinearTransformationCallback);
+										 tab_five::LinearTransformationCallback);
 	renderUI.setAffineTransformationData(tab_six::resultVectors,
 										 tab_six::myAffineTransformationCallback);
+	renderUI.set2DMatrixVerticesTransformData(*tab_seven::lines, 
+											  tab_seven::numLines, 
+											  *tab_seven::matrices,
+											  tab_seven::currentTransform,
+											  tab_seven::myMatrixTransformCallback2D);
 	/*
 	renderUI.set2DMatrixVerticesTransformData(
 			const float* lines, int numLines, 

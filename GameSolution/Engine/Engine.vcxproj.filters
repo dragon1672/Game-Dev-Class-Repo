@@ -51,5 +51,11 @@
     <None Include="Vector3D.inl">
       <Filter>Math</Filter>
     </None>
+    <None Include="Matrix2D.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Matrix3D.inl">
+      <Filter>Math</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -5,28 +5,40 @@
 class HUD {
 	int screenWith;
 	int screenHeight;
-	const int pad = 5;
-	const int addLeftPad  = 10;
-	const int addRightPad = 0;
-	const int addTopPad   = 30;
-	const int addBotPad   = 0;
-	int worldWidth;
-	int worldHeight;
+	float pad;
+	float addLeftPad;
+	float addRightPad;
+	float addTopPad;
+	float addBotPad;
+	float worldWidth;
+	float worldHeight;
 public:
 	HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeight(screenHeight) {
+		pad = 5;
+		addLeftPad  = 10;
+		addRightPad = 0;
+		addTopPad   = 30;
+		addBotPad   = 0;
 		worldWidth  = screenWidth  - addRightPad - addLeftPad - 2 * pad;
 		worldHeight = screenHeight - addTopPad   - addBotPad  - 2 * pad;
 	}
 	void draw(Core::Graphics graphics) {
-
+		graphics.SetColor(RGB(200,200,0));
+		graphics.DrawString(10,10,"Welcome to SpaceWars!");
+		graphics.DrawString(200,15,"Controls:");
+		graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
+		graphics.DrawString(270,13,"'Shift' = Brake");
+		graphics.DrawString(570,3, "'Z' = Ignore Bounds and Warp");
+		graphics.DrawString(570,13,"'X' = Ignore Bounds and Bounce");
+		graphics.DrawString(570,23,"Use your mouse to move the Turret");
 	}
 	Vector2D getWorldoffset() {
 		return Vector2D(pad+addRightPad,pad+addTopPad);
 	}
-	int getWorldWidth() {
+	float getWorldWidth() {
 		return worldWidth;
 	}
-	int getWorldHeight() {
+	float getWorldHeight() {
 		return worldHeight;
 	}
 };

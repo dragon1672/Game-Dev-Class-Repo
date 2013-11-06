@@ -2,38 +2,17 @@
 #include "Core.h"
 #include "SpaceShip.h"
 #include "GameSpace.h"
+#include "Controller.h"
 
 const int SCREEN_WIDTH  = 800;
 const int SCREEN_HEIGHT = 600;
-const float PAD = 5;
-const float topOffset = 30;
-const float newWidth  = SCREEN_WIDTH- 2*PAD;
-const float newHeight = SCREEN_HEIGHT - topOffset - 2*PAD;
-Vector2D worldPos(PAD,topOffset+PAD);
-Vector2D boundPoints[] = {
-							worldPos,
-							worldPos+Vector2D(0,           (worldPos.getY()+newHeight)/2),
-							worldPos+Vector2D(25,          (worldPos.getY()+newHeight)-100),
-									 Vector2D(.5f*newWidth, (worldPos.getY()+newHeight)),
-							worldPos+Vector2D(newWidth,    newHeight/2),
-							worldPos+Vector2D(newWidth/2,  0)
-						};
+Controller myGame(SCREEN_WIDTH,SCREEN_HEIGHT);
 
-GameSpace myWorld(newWidth, newHeight,worldPos);
-Boundary bounds;
 bool update( float dt ) {
-	return myWorld.update(dt);
+	return myGame.update(dt);
 }
 void draw( Core::Graphics& graphics ) {
-	graphics.SetColor(RGB(200,200,0));
-	graphics.DrawString(10,10,"Welcome to SpaceWars!");
-	graphics.DrawString(200,15,"Controls:");
-	graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
-	graphics.DrawString(270,13,"'Shift' = Brake");
-	graphics.DrawString(570,3, "'Z' = Ignore Bounds and Warp");
-	graphics.DrawString(570,13,"'X' = Ignore Bounds and Bounce");
-	graphics.DrawString(570,23,"Use your mouse to move the Turret");
-	myWorld.draw(graphics);
+	myGame.draw(graphics);
 }
 
 void startCoreEngine() {
@@ -44,8 +23,6 @@ void startCoreEngine() {
 }
 
 int main() {
-	bounds.init(sizeof(boundPoints)/sizeof(*boundPoints), boundPoints);
-	myWorld.registerBoundary(&bounds);
 	startCoreEngine();
 }
 
