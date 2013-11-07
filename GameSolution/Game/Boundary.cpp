@@ -13,7 +13,7 @@ void Boundary::init(int count,...) {
 }//*/
 void Boundary::init(int count, Vector2D *points, const Matrix3D& transform) {
 	numOfWalls = count;
-	walls = new Wall[numOfWalls];
+	//walls = new Wall[numOfWalls];
 	for(int i=0;i<numOfWalls;i++) {
 		Vector2D& start = transform * points[i];
 		Vector2D& end   = transform * points[(i+1)%numOfWalls];

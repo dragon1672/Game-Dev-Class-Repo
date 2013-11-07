@@ -7,7 +7,6 @@ class Wall {
 	Vector2D start;
 	Vector2D end;
 	Vector2D norm;
-	Vector2D wallVector;
 public:
 	void init(Vector2D start, Vector2D end);
 	bool hasCollided(Vector2D pos);

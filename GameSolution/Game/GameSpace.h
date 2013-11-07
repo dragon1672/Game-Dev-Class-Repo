@@ -30,4 +30,5 @@ public:
 	Vector2D getMax();
 	Vector2D collideVector(Vector2D& pos, Vector2D& vel);
 	Vector2D randomWorldPoint();
+	Vector2D getCenter();
 };

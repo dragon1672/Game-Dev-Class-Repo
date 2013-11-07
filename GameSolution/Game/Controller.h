@@ -8,6 +8,8 @@
 
 //#define DEBUG_CONTROLLER
 
+#define MAX_POINTS 1000
+
 #ifdef DEBUG_CONTROLLER
 #include <sstream>
 #endif//DEBUG_CONTROLLER
@@ -22,6 +24,7 @@ int randomnumber(int low, int high) {
 	std::uniform_int_distribution<int>dist(low,high);
 	return dist(mt);
 }
+/* V1
 Vector2D *generateRandomPolygon(int sides) {
 	float variancePercent = 15;
 	float wallLengthDiff = 20;
@@ -30,18 +33,31 @@ Vector2D *generateRandomPolygon(int sides) {
 	Vector2D points[100];
 	points[0] = Vector2D(0,0);
 	points[1] = Vector2D(0,5);
-	points[2] = Vector2D(4,7);
-	points[3] = Vector2D(10,5);
-	points[4] = Vector2D(7,5);
-
-	/*
 	Vector2D lastWall = points[1] - points[0];
-	for(int i=1;i<sides-1;i++) {
+	for(int i=1;i<sides;i++) {
 		float angle = averageAngle+randomnumber(-variance,variance);
 		Vector2D newWall = Matrix3D::rotationMatrix(angle) * lastWall.normalized();
 		newWall = newWall * randomnumber(100,100+wallLengthDiff);
 		points[i+1] = points[i] + newWall;
-	}//*/
+	}
+	return points;
+}
+
+//*/
+
+Vector2D *generateRandomPolygon(int sides, float wallLength) {
+	float anglesInCircle = 2*3.14;
+	float variancePercent = .8;
+	float averageAngle = anglesInCircle/sides;
+	float variance = averageAngle / variancePercent;
+	Vector2D points[MAX_POINTS];
+	Vector2D lastWall = wallLength * Vector2D(randomnumber(0,100),randomnumber(0,100)).normalized();//some random seedVector
+	for(int i=0;i<sides;i++) {
+		float angle = -averageAngle+(float)randomnumber(-variance,variance);
+		Vector2D newWall = Matrix3D::rotationMatrix(angle) * lastWall;
+		lastWall = newWall;
+		points[i] = newWall;
+	}
 	return points;
 }
 
@@ -75,7 +91,7 @@ public:
 		float padding = 5;
 		float worldWidth    = hud.getWorldWidth();
 		float worldHeight   = hud.getWorldHeight();
-		//*generate shape with random line and then generate random angle and have awesomeness ensue
+		/*generate shape with random line and then generate random angle and have awesomeness ensue
 		boundPoints[numOfBoundPoints++] = worldPos+Vector2D(padding,padding);//top right
 		boundPoints[numOfBoundPoints++] = worldPos+Vector2D(padding,      (worldPos.getY()+worldHeight)/2-padding);//left
 		boundPoints[numOfBoundPoints++] = worldPos+Vector2D(.1f*worldWidth,(worldHeight)-padding);
@@ -84,10 +100,22 @@ public:
 		boundPoints[numOfBoundPoints++] = worldPos+Vector2D(.7f*worldWidth, padding);
 		bounds.init(numOfBoundPoints,boundPoints);
 		//*/
-		/*random bounds
-		int sides = 5;
-		Vector2D *randomPoly = generateRandomPolygon(sides);
-		Matrix3D scaler = Matrix3D::scaleX(worldWidth-padding) * Matrix3D::scaleY(worldHeight-padding);
+		//*random bounds
+
+		int sides = randomnumber(5,10);
+		Vector2D randomPoly[MAX_POINTS];
+		float sizeOfWalls = 5;
+		Vector2D *temp = generateRandomPolygon(sides,sizeOfWalls);
+		for(int i=0;i<sides+1;i++) {
+			randomPoly[i] = temp[i];
+		}
+		float polyWidth  = 2*sizeOfWalls;
+		float polyHeight = 2*sizeOfWalls;
+		float scaleX = (worldWidth-2*padding)/polyWidth;
+		float scaleY = (worldHeight-2*padding)/polyHeight;
+		
+		Matrix3D scaler = Matrix3D::translate(myWorld.getCenter()+Vector2D(padding,padding)) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleY(scaleY);
+		
 		bounds.init(sides,randomPoly,scaler);
 		//*/
 		

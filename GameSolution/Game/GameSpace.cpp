@@ -72,3 +72,8 @@ Vector2D GameSpace::randomWorldPoint() {
 	//*/
 	//return Vector2D(5,5);
 }
+Vector2D GameSpace::getCenter() {
+	float width  = max.getX() - min.getX();
+	float height = max.getY() - min.getY();
+	return Vector2D(min.getX()+width/2, min.getY()+height/2);
+}

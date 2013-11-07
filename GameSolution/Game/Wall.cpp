@@ -1,9 +1,9 @@
 #include "Wall.h"
 
 void Wall::init(Vector2D start, Vector2D end) {
-	this->start = start;
-	this->end   = end;
-	wallVector = end-start;
+	Vector2D wallVector = end-start;
+	this->start = start;// - wallVector.normalized();
+	this->end   = end;//   + wallVector.normalized();
 	norm = wallVector.perpCCW().normalized();
 }
 bool Wall::hasCollided(Vector2D pos) {
@@ -13,11 +13,12 @@ bool Wall::hasCollided(Vector2D pos) {
 Vector2D Wall::collideVector(Vector2D pos, Vector2D vel) {
 	if(hasCollided(pos)) {
 		Vector2D lastPos = pos-vel;
+		//*
 		float distanceOne = (lastPos - start).dot(norm);
 		float distanceTwo = (    pos - start).dot(norm);
 		if(distanceOne>0 && distanceTwo<0) {//collision happened in last move
 			return vel-2*vel.projection(norm);
-		}
+		}//*/
 		/*
 		Vector2D resultVel = vel-2*vel.projection(norm);//amount that it reflects
 		if(hasCollided(pos+resultVel)) return vel;//result has already been calculated
