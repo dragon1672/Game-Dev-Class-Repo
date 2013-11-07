@@ -1,10 +1,10 @@
 #include "GameSpace.h"
-
+#include "MyRandom.h"
 GameSpace::GameSpace() { ; }
-GameSpace::GameSpace(float width, float height, Vector2D pos, Core::RGB color) {
+GameSpace::GameSpace(float width, float height, const Vector2D& pos, Core::RGB color) {
 	makeGameSpace(color, width, height, pos);
 }
-void GameSpace::initObjects() {
+void      GameSpace::initObjects() {
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
 	myShip.init(min.getX()+(width/2),min.getY()+(height/2),this);
@@ -21,7 +21,7 @@ void GameSpace::initObjects() {
 	myLerp.addPoint(min+Vector2D(width/2,  0));
 	//*/
 }
-void GameSpace::makeGameSpace(Core::RGB color, float width, float height, Vector2D pos) {
+void      GameSpace::makeGameSpace(Core::RGB color, float width, float height, Vector2D pos) {
 	min = pos+Vector2D(0,0);
 	max = pos+Vector2D(width,height);
 	initObjects();
@@ -31,27 +31,27 @@ void GameSpace::makeGameSpace(Core::RGB color, float width, float height, Vector
 	Vector2D four  = pos+Vector2D(0,height);
 	toDraw.initialize(color, Matrix3D(), 4, one,two,three,four);
 }
-void GameSpace::registerBoundary(Boundary *bounds) {
-	hasBounds = true;
+void      GameSpace::registerBoundary(Boundary *bounds) {
+	//hasBounds = true;
 	boundary = bounds;
 }
-void GameSpace::draw(Core::Graphics graphics) {
+void      GameSpace::draw(Core::Graphics& graphics) {
 	toDraw.draw(graphics);
-	if(hasBounds)
+	//if(hasBounds)
 		boundary->draw(graphics);
 	myShip.draw(graphics);
 	myLerp.draw(graphics);
 }
-bool GameSpace::update(float dt) {
+bool      GameSpace::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	myShip.update(dt);
 	myLerp.update(dt);
 	return false;
 }
 Boundary *GameSpace::getBoundary() { return boundary; }
-Vector2D GameSpace::getMin() { return min; }
-Vector2D GameSpace::getMax() { return max; }
-Vector2D GameSpace::collideVector(Vector2D& pos, Vector2D& vel) {
+Vector2D  GameSpace::getMin() { return min; }
+Vector2D  GameSpace::getMax() { return max; }
+Vector2D  GameSpace::collideVector(const Vector2D& pos, const Vector2D& vel) {
 	//if(hasBounds) {
 		return boundary->collideVector(pos,vel);
 	/*not my job if they don't include a boundary
@@ -61,18 +61,10 @@ Vector2D GameSpace::collideVector(Vector2D& pos, Vector2D& vel) {
 		return vel;
 	}//*/
 }
-//#include <random>
-Vector2D GameSpace::randomWorldPoint() {
-	//*
-	std::random_device rd;//dont like making multiple engines
-	std::mt19937 mt(rd()); //seed
-	std::uniform_int_distribution<int>distX((int)getMin().getX(),(int)getMax().getX());
-	std::uniform_int_distribution<int>distY((int)getMin().getY(),(int)getMax().getY());
-	return Vector2D(distX(mt),distY(mt));
-	//*/
-	//return Vector2D(5,5);
+Vector2D  GameSpace::randomWorldPoint() {
+	return Vector2D(Random::randomFloat(min.getX(),max.getX()), Random::randomFloat(min.getY(),max.getY()));
 }
-Vector2D GameSpace::getCenter() {
+Vector2D  GameSpace::getCenter() {
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
 	return Vector2D(min.getX()+width/2, min.getY()+height/2);

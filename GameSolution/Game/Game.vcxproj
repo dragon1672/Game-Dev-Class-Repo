@@ -87,7 +87,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Boundary.cpp" />
+    <ClCompile Include="Constroller.cpp" />
     <ClCompile Include="GameSpace.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shape.cpp" />

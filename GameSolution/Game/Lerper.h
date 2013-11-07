@@ -21,9 +21,9 @@ class Lerper {
 	float angle;
 public:
 	void init();
-	void addPoint(Vector2D toAdd);
-	int nextIndex();
+	void addPoint(const Vector2D& toAdd);
+	int  nextIndex();
 	void nextLine();
 	void update(float dt);
-	void draw(Core::Graphics graphics);
+	void draw(Core::Graphics& graphics);
 };

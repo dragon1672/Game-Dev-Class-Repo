@@ -21,14 +21,14 @@ class GameSpace {
 public:
 	bool temp;
 	GameSpace();
-	GameSpace(float width, float height, Vector2D pos=Vector2D(0,0), Core::RGB color=defaultColor);
-	void registerBoundary(Boundary *bounds);
-	void draw(Core::Graphics graphics);
-	bool update(float dt);
+	GameSpace(float width, float height, const Vector2D& pos=Vector2D(0,0), Core::RGB color=defaultColor);
+	void      registerBoundary(Boundary *bounds);
+	void      draw(Core::Graphics& graphics);
+	bool      update(float dt);
 	Boundary *getBoundary();
-	Vector2D getMin();
-	Vector2D getMax();
-	Vector2D collideVector(Vector2D& pos, Vector2D& vel);
-	Vector2D randomWorldPoint();
-	Vector2D getCenter();
+	Vector2D  getMin();
+	Vector2D  getMax();
+	Vector2D  collideVector(const Vector2D& pos, const Vector2D& vel);
+	Vector2D  randomWorldPoint();
+	Vector2D  getCenter();
 };

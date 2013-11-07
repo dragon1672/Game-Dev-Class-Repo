@@ -35,7 +35,7 @@ bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count,...
 	va_start(temp,count);
 	return initialize(color,transform,count,temp);
 }
-bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count,va_list toStore) {
+bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, va_list toStore) {
 	if(count>1 && !constructed) {
 		constructed = true;
 		this->count = count;
@@ -97,7 +97,7 @@ void Shape::calcMinAndMax() {
 		return ret;
 	}
 #endif //DEBUG
-void Shape::draw(Core::Graphics graphics, Matrix3D transform) {
+void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 	if(constructed) {
 		graphics.SetColor(myColor);
 		Vector2D start = transform*points[0];
@@ -114,14 +114,14 @@ void Shape::draw(Core::Graphics graphics, Matrix3D transform) {
 		}
 	}
 }
-void Shape::draw(Core::Graphics graphics, Vector2D transpose, float rotation, float scale) {
+void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scale) {
 	draw(graphics,transpose,rotation,scale,scale);
 }
-void Shape::draw(Core::Graphics graphics, Vector2D transpose, float rotation, float scaleX, float scaleY) {
+void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scaleX, float scaleY) {
 	Matrix3D transform = Matrix3D::translate(transpose) * Matrix3D::rotationMatrix(rotation) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleX(scaleY);
 	draw(graphics,transform);
 }
-bool Shape::simpleOutOfBounds(Vector2D pos, Vector2D transpose, float scale) {
+bool Shape::simpleOutOfBounds(const Vector2D& pos, const Vector2D& transpose, float scale) {
 	Vector2D maxBound = Vector2D(maxX,maxY)*scale + transpose;
 	Vector2D minBound = Vector2D(minX,minY)*scale + transpose;
 	return (pos.getX()>maxBound.getX() || pos.getY()>maxBound.getY() || pos.getX()<minBound.getX() || pos.getY()<minBound.getY());

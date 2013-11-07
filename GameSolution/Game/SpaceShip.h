@@ -38,7 +38,7 @@ class Spaceship {
 	void  resetTurret();
 public:
 	void init(float x, float y, GameSpace *space);
-	void addAcc(Vector2D toAdd, float scalar=1);
-	void draw(Core::Graphics graphics);
+	void addAcc(const Vector2D& toAdd, float scalar=1);
+	void draw(Core::Graphics& graphics);
 	void update(float dt);
 };

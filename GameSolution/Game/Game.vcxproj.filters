@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Objects">
       <UniqueIdentifier>{6a631003-0eae-4cda-bd55-e10cc50d03e6}</UniqueIdentifier>
     </Filter>
@@ -18,11 +10,11 @@
     <Filter Include="Objects\Entities">
       <UniqueIdentifier>{6b6e6a61-0a6b-4494-9b6d-a2b13473e0b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameManagment">
+      <UniqueIdentifier>{95f9933d-e927-4d82-8e02-da0ce1355037}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Shape.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -40,6 +32,15 @@
     </ClCompile>
     <ClCompile Include="Lerper.cpp">
       <Filter>Objects\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>GameManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>GameManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="Constroller.cpp">
+      <Filter>GameManagment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,10 +63,10 @@
       <Filter>Objects\Entities</Filter>
     </ClInclude>
     <ClInclude Include="HUD.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameManagment</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameManagment</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

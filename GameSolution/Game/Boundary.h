@@ -16,8 +16,8 @@ public:
 		started = false;
 	}
 	//void init(int count,...);
-	void init(int count, Vector2D *points,const Matrix3D& transform=Matrix3D());
-	bool hasCollided(Vector2D pos);
-	Vector2D collideVector(Vector2D pos, Vector2D vel);
-	void draw(Core::Graphics graphics);
+	void     init(int count, Vector2D *points,const Matrix3D& transform=Matrix3D());
+	bool     hasCollided  (const Vector2D& pos);
+	Vector2D collideVector(const Vector2D& pos, const Vector2D& vel);
+	void     draw(Core::Graphics& graphics);
 };

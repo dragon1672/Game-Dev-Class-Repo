@@ -11,33 +11,34 @@ void Boundary::init(int count,...) {
 	init(count,t_points);
 	delete [] t_points;
 }//*/
-void Boundary::init(int count, Vector2D *points, const Matrix3D& transform) {
+void     Boundary::init(int count, Vector2D *points, const Matrix3D& transform) {
 	numOfWalls = count;
 	//walls = new Wall[numOfWalls];
 	for(int i=0;i<numOfWalls;i++) {
-		Vector2D& start = transform * points[i];
-		Vector2D& end   = transform * points[(i+1)%numOfWalls];
+		Vector2D start = transform * points[i];
+		Vector2D end   = transform * points[(i+1)%numOfWalls];
 		walls[i].init(start,end);
 	}
 	started = true;
 }
-bool Boundary::hasCollided(Vector2D pos) {
+bool     Boundary::hasCollided  (const Vector2D& pos) {
 	for(int i=0;i<numOfWalls;i++) {
 		if(walls[i].hasCollided(pos)) return true;
 	}
 	return false;
 }
-Vector2D Boundary::collideVector(Vector2D pos, Vector2D vel) {
+Vector2D Boundary::collideVector(const Vector2D& pos, const Vector2D& vel) {
+	Vector2D ret = vel;
 	if(started) {
 		for(int i=0;i<numOfWalls;i++) {
 			if(walls[i].hasCollided(pos)) {
-				return walls[i].collideVector(pos,vel);
+				ret = walls[i].collideVector(pos,vel);
 			}
 		}
 	}
-	return vel;
+	return ret;
 }
-void Boundary::draw(Core::Graphics graphics) {
+void     Boundary::draw(Core::Graphics& graphics) {
 	graphics.SetColor(defaultColor);
 	if(started) {
 		for(int i=0;i<numOfWalls;i++) {
