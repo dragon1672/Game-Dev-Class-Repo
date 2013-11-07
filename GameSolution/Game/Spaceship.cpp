@@ -86,13 +86,23 @@ void Spaceship::updateTurret() {
 		}
 	}
 }
+void Spaceship::manageRot(float dt) {
+	float rotationAcc = 10;
+	if(Core::Input::IsPressed('A')) {
+		angle -= rotationAcc*dt;
+	}
+	if(Core::Input::IsPressed('D')) {
+		angle += rotationAcc*dt;
+	}
+}
 void Spaceship::update(float dt) {
 	manageAcc(dt);
+	manageRot(dt);
 	move(dt);
 	updateTurret();
 }
 void Spaceship::draw(Core::Graphics graphics) {
-	this->thisShape.draw(graphics,pos);
+	this->thisShape.draw(graphics,pos,angle);
 	graphics.DrawLine(pos.getX(), pos.getY(), (pos+turret).getX(), (pos+turret).getY());
 }
 void Spaceship::resetTurret() {
@@ -115,5 +125,6 @@ void Spaceship::bounce() {
 	if(pos.getY() < (*space).getMin().getY() || pos.getY() > (*space).getMax().getY()) vel = Vector2D( vel.getX(),-vel.getY());
 }
 void Spaceship::collide() {
-	vel = space->collideVector(pos,vel);
+	vel = space->collideVector(pos,vel);//need to pass dt to accuratly calc if collision will be in bounds again
+	//warp();//just in case
 }

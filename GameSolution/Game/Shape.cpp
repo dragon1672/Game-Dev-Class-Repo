@@ -17,7 +17,7 @@ Shape::Shape(Core::RGB color, int count,...) {
 	constructed = false;
 	va_list temp;
 	va_start(temp,count);
-	initialize(color,count,temp);
+	initialize(color,Matrix3D(),count,temp);
 }
 Shape::Shape() {
 	constructed = false;
@@ -30,18 +30,18 @@ void Shape::destory() {
 Shape::~Shape() {
 	destory();
 }
-bool Shape::initialize(Core::RGB color, int count,...) {
+bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count,...) {
 	va_list temp;
 	va_start(temp,count);
-	return initialize(color,count,temp);
+	return initialize(color,transform,count,temp);
 }
-bool Shape::initialize(Core::RGB color, int count,va_list toStore) {
+bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count,va_list toStore) {
 	if(count>1 && !constructed) {
 		constructed = true;
 		this->count = count;
 		points = new Vector2D[count];
 		for(int i=0;i<count;i++) {
-			points[i] = va_arg(toStore, Vector2D);
+			points[i] = transform * va_arg(toStore, Vector2D);
 		}
 		calcMinAndMax();
 		setColor(color);
@@ -49,13 +49,13 @@ bool Shape::initialize(Core::RGB color, int count,va_list toStore) {
 	va_end(toStore);
 	return constructed;
 }
-bool Shape::initialize(Core::RGB color, int count, Vector2D *toAdd) {
+bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, Vector2D *toAdd) {
 	if(count>1 && !constructed) {
 		constructed = true;
 		this->count = count;
 		points = new Vector2D[count];
 		for(int i=0;i<count;i++) {
-			points[i] = toAdd[i];
+			points[i] = transform * toAdd[i];
 		}
 		calcMinAndMax();
 		setColor(color);
@@ -97,15 +97,15 @@ void Shape::calcMinAndMax() {
 		return ret;
 	}
 #endif //DEBUG
-void Shape::draw(Core::Graphics graphics, Vector2D transpose, float scale) {
+void Shape::draw(Core::Graphics graphics, Matrix3D transform) {
 	if(constructed) {
 		graphics.SetColor(myColor);
-		Vector2D start = transpose+scale*points[0];
-		Vector2D end   = transpose+scale*points[count-1];
+		Vector2D start = transform*points[0];
+		Vector2D end   = transform*points[count-1];
 		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
 		for(int i=1;i<count;i++) {
-			start = transpose+scale*points[i-1];
-			end   = transpose+scale*points[i];
+			start = transform*points[i-1];
+			end   = transform*points[i];
 			graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
 #ifdef DEBUG
 			graphics.DrawString(start.getX(),start.getY(),vec2str(start).c_str());
@@ -113,6 +113,13 @@ void Shape::draw(Core::Graphics graphics, Vector2D transpose, float scale) {
 #endif //debug
 		}
 	}
+}
+void Shape::draw(Core::Graphics graphics, Vector2D transpose, float rotation, float scale) {
+	draw(graphics,transpose,rotation,scale,scale);
+}
+void Shape::draw(Core::Graphics graphics, Vector2D transpose, float rotation, float scaleX, float scaleY) {
+	Matrix3D transform = Matrix3D::translate(transpose) * Matrix3D::rotationMatrix(rotation) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleX(scaleY);
+	draw(graphics,transform);
 }
 bool Shape::simpleOutOfBounds(Vector2D pos, Vector2D transpose, float scale) {
 	Vector2D maxBound = Vector2D(maxX,maxY)*scale + transpose;

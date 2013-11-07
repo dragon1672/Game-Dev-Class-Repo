@@ -14,10 +14,10 @@ class HUD {
 	float worldHeight;
 public:
 	HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeight(screenHeight) {
-		pad = 5;
-		addLeftPad  = 10;
+		pad = 20;
+		addLeftPad  = 0;
 		addRightPad = 0;
-		addTopPad   = 30;
+		addTopPad   = 40;
 		addBotPad   = 0;
 		worldWidth  = screenWidth  - addRightPad - addLeftPad - 2 * pad;
 		worldHeight = screenHeight - addTopPad   - addBotPad  - 2 * pad;
@@ -33,7 +33,7 @@ public:
 		graphics.DrawString(570,23,"Use your mouse to move the Turret");
 	}
 	Vector2D getWorldoffset() {
-		return Vector2D(pad+addRightPad,pad+addTopPad);
+		return Vector2D(pad+addLeftPad,pad+addTopPad);
 	}
 	float getWorldWidth() {
 		return worldWidth;

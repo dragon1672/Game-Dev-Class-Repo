@@ -17,6 +17,8 @@ class Lerper {
 	Vector2D path[MAX_PATH_LENGTH];
 	Vector2D catchedNextLine;
 	int pathLength;
+	static float turnSpeed;
+	float angle;
 public:
 	void init();
 	void addPoint(Vector2D toAdd);

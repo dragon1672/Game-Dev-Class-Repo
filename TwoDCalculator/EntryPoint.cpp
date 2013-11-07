@@ -90,11 +90,11 @@ namespace tab_six {
 //tab 7
 namespace tab_seven {
 	Vector2D star[] = {
-						Vector2D(   .7f,  1.0f ),
-						Vector2D(  0.0f, -1.0f ),
-						Vector2D(  -.6f,  1.0f ),
-						Vector2D(  1.0f,  -.25f),
-						Vector2D( -1.0f,  -.25f)
+						Vector2D(   .7f, -1.0f ),
+						Vector2D(  0.0f,  1.0f ),
+						Vector2D(  -.6f, -1.0f ),
+						Vector2D(  1.0f,   .25f),
+						Vector2D( -1.0f,   .25f)
 					};
 	Vector2D lines[] = {
 		star[0], star[1],
@@ -104,17 +104,19 @@ namespace tab_seven {
 		star[4], star[0]
 	};
 	int numLines = (sizeof(lines) / sizeof(*lines))/2;
+	int maxMatrixId = 0;
 	Matrix3D matrices[5];
 	//float* matrices;
 	Matrix3D currentTransform;
 	void myMatrixTransformCallback2D(const MatrixTransformData2D& info) {
 		int id = info.selectedMatrix;
-		matrices[id] = Matrix3D::rotationMatrix(info.rotate)
-					 * Matrix3D::scaleX(info.scaleX)
+		maxMatrixId = (id>maxMatrixId)? id : maxMatrixId;
+		matrices[id] = Matrix3D::translate(info.translateX, info.translateY)
+					 * Matrix3D::rotationMatrix(info.rotate)
 					 * Matrix3D::scaleY(info.scaleY)
-					 * Matrix3D::translate(info.translateX, info.translateY);
+					 * Matrix3D::scaleX(info.scaleX);
 		currentTransform = Matrix3D();
-		for(int i=0;i<sizeof(matrices)/sizeof(*matrices);i++) {
+		for(int i=0;i<maxMatrixId+1;i++) {
 			currentTransform = currentTransform * matrices[i];
 		}
 	}

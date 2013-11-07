@@ -4,7 +4,7 @@
 #include "Boundary.h"
 #include "SpaceShip.h"
 #include "Lerper.h"
-
+#include <random>
 
 const Core::RGB defaultColor = RGB(255,0,50);
 //creates a sqare world where all game obects will interact in
@@ -29,4 +29,5 @@ public:
 	Vector2D getMin();
 	Vector2D getMax();
 	Vector2D collideVector(Vector2D& pos, Vector2D& vel);
+	Vector2D randomWorldPoint();
 };

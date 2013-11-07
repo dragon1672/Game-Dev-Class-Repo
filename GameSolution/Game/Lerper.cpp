@@ -8,6 +8,7 @@ Vector2D star[] = {
 						Vector2D( -1.0f,  -.25f)
 					};
 Core::RGB Lerper::myColor = RGB(255,102,255);
+float Lerper::turnSpeed = 10;
 #define SCALAR 20
 Shape Lerper::myStyle(
 						Lerper::myColor,
@@ -28,7 +29,7 @@ void Lerper::addPoint(Vector2D toAdd) {
 	assert(pathLength!=MAX_PATH_LENGTH);
 	path[pathLength++] = toAdd;
 }
-int Lerper::nextIndex() {
+int  Lerper::nextIndex() {
 	return (currentLine+1)%pathLength;
 }
 void Lerper::nextLine() {
@@ -42,10 +43,12 @@ void Lerper::nextLine() {
 }
 void Lerper::update(float dt) {
 	assert(pathLength>1);
+	angle+=turnSpeed*dt;
 	alpha+=(interval*dt);
 	if(alpha>1) nextLine();
 	pos = path[currentLine].LERP(alpha,catchedNextLine);
 }
 void Lerper::draw(Core::Graphics graphics) {
-	myStyle.draw(graphics, pos);
+	//float scale = 1+2*(angle - (int)angle);
+	myStyle.draw(graphics, pos, angle);
 }

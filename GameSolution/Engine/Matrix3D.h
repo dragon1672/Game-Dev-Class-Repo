@@ -56,7 +56,8 @@ public:
 	friend inline Matrix3D operator- (const Matrix3D& left, const Matrix3D& right);
 	friend inline Matrix3D operator* (const Matrix3D& left, const Matrix3D& right);
 	friend inline Vector3D operator* (const Matrix3D& left, const Vector3D& right);
-	friend inline Vector3D operator* (const Matrix3D& left, const Vector2D& right);
+	friend inline Vector2D operator* (const Matrix3D& left, const Vector2D& right);
+	friend inline Vector3D operator*=(const Matrix3D& left, const Vector2D& right);
 	inline operator float*();
 };
 

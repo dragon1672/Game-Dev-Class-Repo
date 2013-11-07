@@ -68,8 +68,9 @@ inline Vector3D operator* (const Matrix3D& left, const Vector3D& right) {
 	float z = left.getRow(2).dot(right);
 	return Vector3D(x,y,z);
 }
-inline Vector3D operator* (const Matrix3D& left, const Vector2D& right) {
-	return left * Vector3D(right.getX(),right.getY(),1);
+inline Vector2D operator* (const Matrix3D& left, const Vector2D& right) {
+	Vector3D ret = left * Vector3D(right.getX(),right.getY(),1);
+	return Vector2D(ret.getX(),ret.getY());
 }
 Matrix3D::operator float*() {
 	return (float*)matrix;

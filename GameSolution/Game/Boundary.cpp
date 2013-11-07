@@ -1,7 +1,6 @@
 #include "Boundary.h"
-
 Core::RGB Boundary::defaultColor = RGB(220,208,255);
-
+/*
 void Boundary::init(int count,...) {
 	va_list points;
 	va_start(points,count);
@@ -11,13 +10,13 @@ void Boundary::init(int count,...) {
 	}
 	init(count,t_points);
 	delete [] t_points;
-}
-void Boundary::init(int count, Vector2D *points) {
+}//*/
+void Boundary::init(int count, Vector2D *points, const Matrix3D& transform) {
 	numOfWalls = count;
 	walls = new Wall[numOfWalls];
 	for(int i=0;i<numOfWalls;i++) {
-		Vector2D& start = points[i];
-		Vector2D& end   = points[(i+1)%numOfWalls];
+		Vector2D& start = transform * points[i];
+		Vector2D& end   = transform * points[(i+1)%numOfWalls];
 		walls[i].init(start,end);
 	}
 	started = true;

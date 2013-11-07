@@ -16,6 +16,7 @@ class Spaceship {
 	Vector2D pos;
 	GameSpace *space;
 	Vector2D turret;
+	float angle;
 
 	float getMinX();
 	float getMinY();
@@ -29,6 +30,7 @@ class Spaceship {
 
 	//update functions
 	void  manageAcc(float dt);
+	void  manageRot(float dt);
 	void  move(float dt);
 	float mouseDistanceFromTurretLine();
 	bool  mouseWithinTurretRange();
