@@ -22,7 +22,7 @@ Shape Ship1 (17,
 
 
 
-Turret #1
+
 Shape Turret1( 3,
 	Vector2D(-5,-2),
 	Vector2D( 5,-2),

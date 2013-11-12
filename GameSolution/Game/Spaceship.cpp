@@ -53,6 +53,16 @@ std::string vec2str(Vector2D input) {
 }
 
 #endif
+
+
+void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
+	pos = Vector2D(x,y);
+	this->space = space;
+	myTurret.init();
+	bodyGuards.startup(5);
+}
+
+//acc
 void  Spaceship::addAcc(const Vector2D& toAdd, float scalar) {
 	vel = vel+(scalar*toAdd);
 }
@@ -72,10 +82,6 @@ void  Spaceship::brake(float scalar) {
 	}
 	vel = Vector2D(newX,newY);
 }
-float Spaceship::getMinX() { return pos.getX()+thisShape.getMinX(); }
-float Spaceship::getMinY() { return pos.getY()+thisShape.getMinY(); }
-float Spaceship::getMaxX() { return pos.getX()+thisShape.getMaxX(); }
-float Spaceship::getMaxY() { return pos.getY()+thisShape.getMaxY(); }
 void  Spaceship::manageAcc(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_UP        )) addAcc(-Vector2D(0,ACC),dt);
 	if(Core::Input::IsPressed( Core::Input::KEY_DOWN      )) addAcc( Vector2D(0,ACC),dt);
@@ -85,6 +91,7 @@ void  Spaceship::manageAcc(float dt) {
 	if(Core::Input::IsPressed( 'W' )) addAcc( Matrix3D::rotationMatrix(angle) * -Vector2D(0,ACC),dt);
 	if(Core::Input::IsPressed( 'S' )) addAcc( Matrix3D::rotationMatrix(angle) *  Vector2D(0,ACC),dt);
 }
+//movement
 void  Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
 	if(Core::Input::IsPressed(      'Z' )) warp();
@@ -93,6 +100,22 @@ void  Spaceship::move(float dt) {
 		collide();
 	}
 }
+//collision
+void  Spaceship::warp() {
+	if(pos.getX() < (*space).getMin().getX()) pos = Vector2D( (*space).getMax().getX(), pos.getY());
+	if(pos.getY() < (*space).getMin().getY()) pos = Vector2D( pos.getX(),               (*space).getMax().getY() );
+	if(pos.getX() > (*space).getMax().getX()) pos = Vector2D( (*space).getMin().getX(), pos.getY());
+	if(pos.getY() > (*space).getMax().getY()) pos = Vector2D( pos.getX(),               (*space).getMin().getY() );
+}
+void  Spaceship::bounce() {
+	if(pos.getX() < (*space).getMin().getX() || pos.getX() > (*space).getMax().getX()) vel = Vector2D(-vel.getX(), vel.getY());
+	if(pos.getY() < (*space).getMin().getY() || pos.getY() > (*space).getMax().getY()) vel = Vector2D( vel.getX(),-vel.getY());
+}
+void  Spaceship::collide() {
+	vel = space->collideVector(pos,vel);//need to pass dt to accuratly calc if collision will be in bounds again
+	//warp();//just in case
+}
+/*
 float Spaceship::mouseDistanceFromTurretLine() {
 	float mouseX = (float)Core::Input::GetMouseX();
 	float mouseY = (float)Core::Input::GetMouseY();
@@ -111,7 +134,7 @@ bool  Spaceship::mouseWithinTurretRange() {
 	return (testOne.dot(testTwo) < 0);
 	//return ((mouse-pos).lengthSquared()<turret.lengthSquared());//is within turrent length from shipPos
 }
-void  Spaceship::updateTurret() {
+void  Spaceship::updateTurret(float dt) {
 	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT) && mouseWithinTurretRange()) {
 		int error=5;
 		float mouseDist = mouseDistanceFromTurretLine();
@@ -124,6 +147,7 @@ void  Spaceship::updateTurret() {
 		}
 	}
 }
+//*/
 void  Spaceship::manageRot(float dt) {
 	if(Core::Input::IsPressed('A')) {
 		angle -= rotationAcc*dt;
@@ -136,37 +160,20 @@ void  Spaceship::update(float dt) {
 	manageAcc(dt);
 	manageRot(dt);
 	move(dt);
-	updateTurret();
+	//updateTurret(dt);
 	bodyGuards.update(dt);
+	myTurret.update(dt, pos);
 }
+//graphics
+float Spaceship::getMinX() { return pos.getX()+thisShape.getMinX(); }
+float Spaceship::getMinY() { return pos.getY()+thisShape.getMinY(); }
+float Spaceship::getMaxX() { return pos.getX()+thisShape.getMaxX(); }
+float Spaceship::getMaxY() { return pos.getY()+thisShape.getMaxY(); }
 void  Spaceship::draw(Core::Graphics& graphics) {
 	this->thisShape.draw(graphics,pos,angle);
-	graphics.DrawLine(pos.getX(), pos.getY(), (pos+turret).getX(), (pos+turret).getY());
+	myTurret.draw(graphics,pos);
 	bodyGuards.draw(graphics,pos);
 #ifdef DEBUG_SPACESHIP
 
 #endif
-}
-void  Spaceship::resetTurret() {
-	turret = Vector2D(0,TURRET_LENGTH);
-}
-void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
-	pos = Vector2D(x,y);
-	this->space = space;
-	resetTurret();
-}
-//collide
-void  Spaceship::warp() {
-	if(pos.getX() < (*space).getMin().getX()) pos = Vector2D( (*space).getMax().getX(), pos.getY());
-	if(pos.getY() < (*space).getMin().getY()) pos = Vector2D( pos.getX(),               (*space).getMax().getY() );
-	if(pos.getX() > (*space).getMax().getX()) pos = Vector2D( (*space).getMin().getX(), pos.getY());
-	if(pos.getY() > (*space).getMax().getY()) pos = Vector2D( pos.getX(),               (*space).getMin().getY() );
-}
-void  Spaceship::bounce() {
-	if(pos.getX() < (*space).getMin().getX() || pos.getX() > (*space).getMax().getX()) vel = Vector2D(-vel.getX(), vel.getY());
-	if(pos.getY() < (*space).getMin().getY() || pos.getY() > (*space).getMax().getY()) vel = Vector2D( vel.getX(),-vel.getY());
-}
-void  Spaceship::collide() {
-	vel = space->collideVector(pos,vel);//need to pass dt to accuratly calc if collision will be in bounds again
-	//warp();//just in case
 }

@@ -5,6 +5,7 @@
 #include "Shape.h"
 //temp
 #include "SolarSystem.h"
+#include "Turret.h"
 class GameSpace;
 
 #define DEBUG_SPACESHIP
@@ -19,11 +20,12 @@ class Spaceship {
 
 	//temp
 	SolarSystem bodyGuards;
+	
+	Turret myTurret;
 
 	Vector2D vel;
 	Vector2D pos;
 	GameSpace *space;
-	Vector2D turret;
 	float angle;
 
 	float getMinX();
@@ -45,9 +47,6 @@ class Spaceship {
 	void  updateTurret();
 	void  resetTurret();
 public:
-	Spaceship() {
-		bodyGuards.startup(5);
-	}
 	void init(float x, float y, GameSpace *space);
 	void addAcc(const Vector2D& toAdd, float scalar=1);
 	void draw(Core::Graphics& graphics);

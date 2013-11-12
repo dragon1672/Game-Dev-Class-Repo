@@ -36,6 +36,7 @@ public:
 	inline Vector3D getRow(int i) const;
 	inline Vector3D getCol(int j) const;
 	inline static Matrix3D rotationMatrix(float angle);
+	inline static Matrix3D rotateToVector(Vector2D src);
 	/*
 	Matrix3D transpose(Matrix3D max) {
 		Matrix3D result;

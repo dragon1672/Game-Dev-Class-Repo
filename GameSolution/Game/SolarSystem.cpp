@@ -20,11 +20,13 @@ void SolarSystem::update(float dt) {
 		children[i]->update(dt);
 }
 void SolarSystem::draw(Core::Graphics graphics,const Vector2D& inRefTo) {
-	Matrix3D transform = Matrix3D::rotationMatrix(orbitAngle) * Matrix3D::translate(Vector2D(0,orbitLength));
-	Vector2D myTranPos = transform * inRefTo;//Vector2D(0,0);
-	thisStyle.draw(graphics,Matrix3D::translate(inRefTo) * transform);
+	/*
+	Matrix3D transform = Matrix3D::translate(inRefTo) * Matrix3D::rotationMatrix(orbitAngle) * Matrix3D::translate(Vector2D(0,orbitLength));
+	Vector2D myPos = transform * Vector2D(0,0);
+	thisStyle.draw(graphics,transform);
 	for (unsigned int i=0; i<children.size(); i++)
-		children[i]->draw(graphics,myTranPos);
+		children[i]->draw(graphics,myPos);
+	//*/
 }
 
 const float scaleDecrease = 2;

@@ -95,6 +95,7 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="Spaceship.cpp" />
+    <ClCompile Include="Turret.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>

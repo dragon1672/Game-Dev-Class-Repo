@@ -10,6 +10,13 @@ Matrix3D Matrix3D::rotationMatrix(float angle) {
 	Vector3D rowThree(0,0,1);
 	return Matrix3D(rowOne,rowTwo,rowThree);
 }
+Matrix3D Matrix3D::rotateToVector(Vector2D src) {
+	Vector2D perp = src.perpCW();
+	Vector3D rowOne(perp.getX(),src.getX(),0);
+	Vector3D rowTwo(perp.getY(),src.getY(),0);
+	Vector3D rowThree(0,0,1);
+	return Matrix3D(rowOne,rowTwo,rowThree);
+}
 Matrix3D Matrix3D::scaleX(float alpha) {
 	Vector3D rowOne(alpha,0,0);
 	Vector3D rowTwo(0,1,0);

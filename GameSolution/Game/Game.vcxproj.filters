@@ -43,6 +43,7 @@
       <Filter>GameManagment</Filter>
     </ClCompile>
     <ClCompile Include="SolarSystem.cpp" />
+    <ClCompile Include="Turret.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
