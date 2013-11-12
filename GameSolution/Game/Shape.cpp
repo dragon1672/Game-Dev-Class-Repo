@@ -1,6 +1,7 @@
 #include <random>
 #include "Shape.h"
-//#define DEBUG
+
+
 std::random_device rd;//creating engine
 std::mt19937 seed(rd()); //seed
 std::uniform_int_distribution<int>randColor(0,255);
@@ -18,6 +19,12 @@ Shape::Shape(Core::RGB color, int count,...) {
 	va_list temp;
 	va_start(temp,count);
 	initialize(color,Matrix3D(),count,temp);
+}
+Shape::Shape(Core::RGB color, const Matrix3D& trans, int count,...) {
+	constructed = false;
+	va_list temp;
+	va_start(temp,count);
+	initialize(color,trans,count,temp);
 }
 Shape::Shape() {
 	constructed = false;
@@ -81,7 +88,7 @@ void Shape::calcMinAndMax() {
 		if(points[i].getY()<minY) minY = points[i].getY();
 	}
 }
-#ifdef DEBUG
+#ifdef DEBUG_SHAPE
 	#include <sstream>
 	#include <string>
 	using std::string;
@@ -96,7 +103,7 @@ void Shape::calcMinAndMax() {
 		string ret = "{"+float2str(vec.getX())+","+float2str(vec.getY())+"}";
 		return ret;
 	}
-#endif //DEBUG
+#endif //DEBUG_SHAPE
 void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 	if(constructed) {
 		graphics.SetColor(myColor);
@@ -107,10 +114,10 @@ void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 			start = transform*points[i-1];
 			end   = transform*points[i];
 			graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
-#ifdef DEBUG
+#ifdef DEBUG_SHAPE
 			graphics.DrawString(start.getX(),start.getY(),vec2str(start).c_str());
 			graphics.DrawString(end.getX(),  end.getY(),  vec2str(end).c_str());
-#endif //debug
+#endif //DEBUG_SHAPE
 		}
 	}
 }

@@ -47,11 +47,11 @@ void Controller::setStaticBounds() {
 	bounds.init(numOfBoundPoints,boundPoints);
 }
 void Controller::setDynamicBounds() {
+	Vector2D randomPoly[MAX_POINTS];
 	float padding = 5;
+	float sizeOfWalls = 5;
 	float worldWidth    = hud.getWorldWidth();
 	float worldHeight   = hud.getWorldHeight();
-	Vector2D randomPoly[MAX_POINTS];
-	float sizeOfWalls = 5;
 
 	int sides = Random::randomnumber(4,7);
 	generateRandomPolygon(randomPoly, sides, sizeOfWalls);//stored in randomPoly

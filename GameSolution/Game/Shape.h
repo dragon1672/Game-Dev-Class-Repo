@@ -8,6 +8,8 @@
 #include "Matrix3D.h"
 #include "Core.h"
 
+//#define DEBUG_SHAPE
+
 class Shape {
 protected:
 	void destory();

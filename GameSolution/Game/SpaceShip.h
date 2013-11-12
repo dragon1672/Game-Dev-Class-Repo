@@ -3,6 +3,8 @@
 #include "Vector 2.h"
 #include "Core.h"
 #include "Shape.h"
+//temp
+#include "SolarSystem.h"
 class GameSpace;
 
 
@@ -11,6 +13,11 @@ class Spaceship {
 	static const float brakePower;
 	static Shape thisShape;
 	static float TURRET_LENGTH;
+	static float ACC;
+	static float rotationAcc;
+
+	//temp
+	SolarSystem bodyGuards;
 
 	Vector2D vel;
 	Vector2D pos;
@@ -37,6 +44,9 @@ class Spaceship {
 	void  updateTurret();
 	void  resetTurret();
 public:
+	Spaceship() {
+		bodyGuards.startup(5);
+	}
 	void init(float x, float y, GameSpace *space);
 	void addAcc(const Vector2D& toAdd, float scalar=1);
 	void draw(Core::Graphics& graphics);

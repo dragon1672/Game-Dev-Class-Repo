@@ -2,11 +2,14 @@
 #include "GameSpace.h"
 
 const float Spaceship::brakePower = 200;
-const Vector2D accX(100, 0);
-const Vector2D accY(0, 100);
+//const Vector2D accX(100, 0);
+//const Vector2D accY(0, 100);
 
 float Spaceship::TURRET_LENGTH = 30;
+float Spaceship::ACC = 100;
+float Spaceship::rotationAcc = 5;
 Core::RGB Spaceship::shipColor = RGB(255,255,0);
+//*
 Shape Spaceship::thisShape( shipColor,
 							7,
 							Vector2D(10,12),
@@ -16,7 +19,30 @@ Shape Spaceship::thisShape( shipColor,
 							Vector2D(-8,  8 ),
 							Vector2D(-12, 0 ),
 							Vector2D(-10, 12)
-							);
+							);//*/
+/*
+const Matrix3D SpaceShipTransform = Matrix3D::scaleX(10) * Matrix3D::scaleY(-10);
+Shape Spaceship::thisShape( shipColor,
+							SpaceShipTransform,
+							17,
+							Vector2D(-1  ,-3.5),
+							Vector2D( 1  ,-3.5),
+							Vector2D( 3.5,-1  ),
+							Vector2D( 3.5, 1  ),
+							Vector2D( 1  , 3.5),
+							Vector2D( 1  , 1  ),
+							Vector2D(-1  , 1  ),
+							Vector2D(-1  , 3.5),
+							Vector2D(-3.5, 1  ),
+							Vector2D(-3.5,-1  ),
+							Vector2D(-1  ,-3.5),//return to begining
+							Vector2D(-.75,-4  ),
+							Vector2D(-.25,-4  ),
+							Vector2D( 0  ,-3.5),
+							Vector2D( .25,-4  ),
+							Vector2D( .75,-4  ),
+							Vector2D( 1  ,-3.5)
+);//*/
 void  Spaceship::addAcc(const Vector2D& toAdd, float scalar) {
 	vel = vel+(scalar*toAdd);
 }
@@ -41,11 +67,13 @@ float Spaceship::getMinY() { return pos.getY()+thisShape.getMinY(); }
 float Spaceship::getMaxX() { return pos.getX()+thisShape.getMaxX(); }
 float Spaceship::getMaxY() { return pos.getY()+thisShape.getMaxY(); }
 void  Spaceship::manageAcc(float dt) {
-	if(Core::Input::IsPressed( Core::Input::KEY_UP        )) addAcc(-accY,dt);
-	if(Core::Input::IsPressed( Core::Input::KEY_DOWN      )) addAcc( accY,dt);
-	if(Core::Input::IsPressed( Core::Input::KEY_LEFT      )) addAcc(-accX,dt);
-	if(Core::Input::IsPressed( Core::Input::KEY_RIGHT     )) addAcc( accX,dt);
+	if(Core::Input::IsPressed( Core::Input::KEY_UP        )) addAcc(-Vector2D(0,ACC),dt);
+	if(Core::Input::IsPressed( Core::Input::KEY_DOWN      )) addAcc( Vector2D(0,ACC),dt);
+	if(Core::Input::IsPressed( Core::Input::KEY_LEFT      )) addAcc(-Vector2D(ACC,0),dt);
+	if(Core::Input::IsPressed( Core::Input::KEY_RIGHT     )) addAcc( Vector2D(ACC,0),dt);
 	if(Core::Input::IsPressed( Core::Input::BUTTON_SHIFT  )) brake (dt);
+	if(Core::Input::IsPressed( 'W' )) addAcc( Matrix3D::rotationMatrix(angle) * -Vector2D(0,ACC),dt);
+	if(Core::Input::IsPressed( 'S' )) addAcc( Matrix3D::rotationMatrix(angle) *  Vector2D(0,ACC),dt);
 }
 void  Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
@@ -87,7 +115,6 @@ void  Spaceship::updateTurret() {
 	}
 }
 void  Spaceship::manageRot(float dt) {
-	float rotationAcc = 10;
 	if(Core::Input::IsPressed('A')) {
 		angle -= rotationAcc*dt;
 	}
@@ -100,10 +127,12 @@ void  Spaceship::update(float dt) {
 	manageRot(dt);
 	move(dt);
 	updateTurret();
+	bodyGuards.update(dt);
 }
 void  Spaceship::draw(Core::Graphics& graphics) {
 	this->thisShape.draw(graphics,pos,angle);
 	graphics.DrawLine(pos.getX(), pos.getY(), (pos+turret).getX(), (pos+turret).getY());
+	bodyGuards.draw(graphics,pos);
 }
 void  Spaceship::resetTurret() {
 	turret = Vector2D(0,TURRET_LENGTH);

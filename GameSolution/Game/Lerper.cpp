@@ -9,7 +9,7 @@ Vector2D star[] = {
 						SCALAR*Vector2D( -1.0f,  -.25f) //5
 					};
 Core::RGB Lerper::myColor = RGB(255,102,255);
-float Lerper::turnSpeed = 10;
+float Lerper::turnSpeed = 5;
 Shape Lerper::myStyle(
 						Lerper::myColor,
 						sizeof(star)/sizeof(*star),
