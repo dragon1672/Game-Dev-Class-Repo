@@ -43,6 +43,16 @@ Shape Spaceship::thisShape( shipColor,
 							Vector2D( .75,-4  ),
 							Vector2D( 1  ,-3.5)
 );//*/
+#ifdef DEBUG_SPACESHIP
+
+#include <sstream>
+std::string vec2str(Vector2D input) {
+	std::stringstream ss;
+	ss << input;
+	return ss.str();
+}
+
+#endif
 void  Spaceship::addAcc(const Vector2D& toAdd, float scalar) {
 	vel = vel+(scalar*toAdd);
 }
@@ -133,6 +143,9 @@ void  Spaceship::draw(Core::Graphics& graphics) {
 	this->thisShape.draw(graphics,pos,angle);
 	graphics.DrawLine(pos.getX(), pos.getY(), (pos+turret).getX(), (pos+turret).getY());
 	bodyGuards.draw(graphics,pos);
+#ifdef DEBUG_SPACESHIP
+
+#endif
 }
 void  Spaceship::resetTurret() {
 	turret = Vector2D(0,TURRET_LENGTH);

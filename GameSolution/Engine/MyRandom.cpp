@@ -1,6 +1,6 @@
 #include "MyRandom.h"
 #include <random>
-int Random::randomnumber(int low, int high) {
+int Random::randomInt(int low, int high) {
 	std::random_device rd;//dont like making multiple engines
 	std::mt19937 mt(rd()); //seed
 	std::uniform_int_distribution<int>dist(low,high);

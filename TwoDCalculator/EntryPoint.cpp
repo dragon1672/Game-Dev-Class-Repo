@@ -1,5 +1,4 @@
 #include "RenderUI.h"
-#include "Engine.h"
 #include "Matrix2D.h"
 #include "Matrix3D.h"
 #include <Vector 2.h>
@@ -141,7 +140,6 @@ int main(int argc, char* argv[]) {
 	testing();
 	return 0;
 #else
-	Engine::Init();
 	RenderUI renderUI;
 	renderUI.setBasicVectorEquationData(tab_one::myBasicVectorEquationCallback,
 										tab_one::left,

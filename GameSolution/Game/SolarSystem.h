@@ -11,19 +11,19 @@ class SolarSystem {
 	static Shape thisStyle;
 	
 	float orbitAcc;
-	float orbitPercent;
+	float orbitAngle;
 	float orbitLength;
-	float scale;
+	float size;
 
-	std::vector<SolarSystem> children;
+	std::vector<SolarSystem *> children;
 public:
 	SolarSystem() {
-		orbitAcc     = 5;
-		orbitPercent = 25;
-		orbitLength  = 40;
-		scale        = 100;
+		orbitAcc    = 5;
+		orbitAngle  = 25;
+		orbitLength = 40;
+		size        = 1;
 	}
-	void addChild(const SolarSystem& toAdd);
+	void addChild(SolarSystem *toAdd);
 	void update(float dt);
 	void draw(Core::Graphics graphic, const Vector2D& inRefTo);
 	void startup(int depth);

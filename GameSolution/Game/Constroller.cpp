@@ -3,7 +3,7 @@
 
 void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 	float anglesInCircle = 2*3.14f;
-	float variancePercent = 50;
+	float variancePercent = 2;
 	float averageAngle = anglesInCircle/sides;
 	float variance = averageAngle / variancePercent;
 	Vector2D lastWall = wallLength * Vector2D(Random::randomFloat(0,100),Random::randomFloat(0,100)).normalized();//some random seedVector
@@ -53,7 +53,7 @@ void Controller::setDynamicBounds() {
 	float worldWidth    = hud.getWorldWidth();
 	float worldHeight   = hud.getWorldHeight();
 
-	int sides = Random::randomnumber(4,7);
+	int sides = Random::randomInt(4,9);
 	generateRandomPolygon(randomPoly, sides, sizeOfWalls);//stored in randomPoly
 	
 	float polyWidth  = 2 * sizeOfWalls;

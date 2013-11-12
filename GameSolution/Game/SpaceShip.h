@@ -7,6 +7,7 @@
 #include "SolarSystem.h"
 class GameSpace;
 
+#define DEBUG_SPACESHIP
 
 class Spaceship {
 	static Core::RGB shipColor;

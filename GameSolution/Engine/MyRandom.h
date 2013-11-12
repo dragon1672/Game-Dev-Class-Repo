@@ -5,7 +5,7 @@
 #include "ExportHeader.h"
 
 namespace Random {
-	ENGINE_SHARED int   randomnumber(int low, int high);
+	ENGINE_SHARED int   randomInt(int low, int high);
 	ENGINE_SHARED float randomFloat(float low, float high);
 	ENGINE_SHARED void  init();
 }
