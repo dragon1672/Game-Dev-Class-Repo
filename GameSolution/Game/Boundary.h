@@ -10,12 +10,7 @@ class Boundary {
 	static Core::RGB defaultColor;
 	Wall walls[MAX_NUMBER_OF_WALLS];
 	int numOfWalls;
-	bool started;
 public:
-	Boundary() {
-		started = false;
-	}
-	//void init(int count,...);
 	void     init(int count, Vector2D *points,const Matrix3D& transform=Matrix3D());
 	bool     hasCollided  (const Vector2D& pos);
 	Vector2D collideVector(const Vector2D& pos, const Vector2D& vel);

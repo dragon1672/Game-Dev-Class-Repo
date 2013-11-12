@@ -13,6 +13,9 @@
     <Filter Include="GameManagment">
       <UniqueIdentifier>{95f9933d-e927-4d82-8e02-da0ce1355037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Entities\Turrets">
+      <UniqueIdentifier>{a53c8957-6dd7-4c35-a191-5dbeb70f59fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -42,8 +45,12 @@
     <ClCompile Include="Constroller.cpp">
       <Filter>GameManagment</Filter>
     </ClCompile>
-    <ClCompile Include="SolarSystem.cpp" />
-    <ClCompile Include="Turret.cpp" />
+    <ClCompile Include="SolarSystem.cpp">
+      <Filter>Objects\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -70,7 +77,17 @@
     <ClInclude Include="Controller.h">
       <Filter>GameManagment</Filter>
     </ClInclude>
-    <ClInclude Include="Turret.h" />
-    <ClInclude Include="SolarSystem.h" />
+    <ClInclude Include="SolarSystem.h">
+      <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

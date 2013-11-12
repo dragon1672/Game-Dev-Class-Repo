@@ -20,8 +20,7 @@ std::string num2str(int num) {
 
 void drawDottedLine(Core::Graphics& graphics, Vector2D start, Vector2D end, float length) {
 	Vector2D line = end - start;
-	float lineLength = line.length();
-	int steps = lineLength / length;
+	float lineLength = (float)line.length();
 	float lerpPercent = length / lineLength;
 	bool drawing = true;
 	float currentStep = 0;
@@ -37,12 +36,12 @@ void drawDottedLine(Core::Graphics& graphics, Vector2D start, Vector2D end, floa
 	}
 }
 void drawRainbowText(Core::Graphics& graphics, float x, float y, char* text) {
-	for(int i=0;i<strlen(text);i++) {
+	for(unsigned int i=0;i<strlen(text);i++) {
 		int r = Random::randomInt(0,255);
 		int g = Random::randomInt(0,255);
 		int b = Random::randomInt(0,255);
 		graphics.SetColor(RGB(r,g,b));
-		graphics.DrawString(x+i*CHAR_SPACING,y,&text[i]);
+		graphics.DrawString((int)x+i*CHAR_SPACING,y,&text[i]);
 	}
 }
 void dottedLineTest(Core::Graphics& graphics) {
@@ -73,6 +72,8 @@ void      HUD::draw(Core::Graphics& graphics) {
 	//drawRainbowText(graphics,0,0,"This Is A Test");
 
 	//*
+	drawDottedLine(graphics,Vector2D(10,50),Vector2D(10,200),5);
+	drawDottedLine(graphics,Vector2D(15,50),Vector2D(15,200),10);
 	graphics.DrawString(10,10,"Welcome to");
 	drawRainbowText(graphics,10,20,"SpaceWars!");
 	graphics.SetColor(yellow);

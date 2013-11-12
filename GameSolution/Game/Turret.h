@@ -6,15 +6,9 @@
 #include "Shape.h"
 #include "Vector 2.h"
 
-//make bullet array
-//make bullet class
-//make bullets draw themselves
-//hold's pos, velocity, teamID (to toggle friendly fire)
-
 class Turret {
 	Shape *style;
 	Vector2D direction;
-	Vector2D bullets
 public:
 	Turret();
 	void init();

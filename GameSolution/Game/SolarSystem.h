@@ -25,7 +25,7 @@ public:
 	}
 	void addChild(SolarSystem *toAdd);
 	void update(float dt);
-	void draw(Core::Graphics graphic, const Vector2D& inRefTo);
+	void draw(Core::Graphics graphic, const Matrix3D& transform);
 	void startup(int depth);
 };
 

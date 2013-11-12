@@ -32,7 +32,7 @@ Matrix3D Matrix3D::scaleY(float alpha) {
 Matrix3D Matrix3D::scale(float alpha) {
 	Vector3D rowOne(alpha,0,0);
 	Vector3D rowTwo(0,alpha,0);
-	Vector3D rowThree(0,0,alpha);
+	Vector3D rowThree(0,0,1);//because these matrix's are for modifying 2d vectors
 	return Matrix3D(rowOne,rowTwo,rowThree);
 }
 Matrix3D Matrix3D::translate(float x, float y) {

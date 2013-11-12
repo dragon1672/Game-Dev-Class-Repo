@@ -1,7 +1,7 @@
 #pragma once
 
 
-#pragma warning(disable:4005)
+#pragma warning(disable:4005)//warning has been suppressed at a Visual Studio Level
 #include <stdarg.h>
 #pragma warning(default:4005)
 #include "Vector 2.h"

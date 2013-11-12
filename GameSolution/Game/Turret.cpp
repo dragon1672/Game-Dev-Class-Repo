@@ -43,13 +43,14 @@ void Turret::init() {
 
 
 void checkFire(float dt) {
+	dt;
 	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT ));
 }
 
 
 
 void Turret::update(float dt, const Vector2D& pos) {
-	direction = pos - Vector2D(Core::Input::GetMouseX(),Core::Input::GetMouseY());
+	direction = pos - Vector2D((float)Core::Input::GetMouseX(),(float)Core::Input::GetMouseY());
 	checkFire(dt);
 }
 void Turret::draw(Core::Graphics& graphics, const Vector2D& pos) {

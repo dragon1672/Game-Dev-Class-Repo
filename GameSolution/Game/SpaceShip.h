@@ -17,6 +17,7 @@ class Spaceship {
 	static float TURRET_LENGTH;
 	static float ACC;
 	static float rotationAcc;
+	static float maxSpeed;
 
 	//temp
 	SolarSystem bodyGuards;
@@ -36,7 +37,7 @@ class Spaceship {
 	void bounce();
 	void warp();
 	void collide();
-	void brake(float scalar=1);
+	void brake(float scalar=1,float force=brakePower);
 
 	//update functions
 	void  manageAcc(float dt);
@@ -51,4 +52,5 @@ public:
 	void addAcc(const Vector2D& toAdd, float scalar=1);
 	void draw(Core::Graphics& graphics);
 	void update(float dt);
+	Matrix3D getShipMatrix();
 };

@@ -1,13 +1,14 @@
 #include "SpaceShip.h"
 #include "GameSpace.h"
-
-const float Spaceship::brakePower = 200;
+const float worldDrag = 100;
+const float Spaceship::brakePower = 1000;
 //const Vector2D accX(100, 0);
 //const Vector2D accY(0, 100);
 
 float Spaceship::TURRET_LENGTH = 30;
-float Spaceship::ACC = 100;
+float Spaceship::ACC = 500;
 float Spaceship::rotationAcc = 5;
+float Spaceship::maxSpeed = 2000;
 Core::RGB Spaceship::shipColor = RGB(255,255,0);
 //*
 Shape Spaceship::thisShape( shipColor,
@@ -65,10 +66,12 @@ void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
 //acc
 void  Spaceship::addAcc(const Vector2D& toAdd, float scalar) {
 	vel = vel+(scalar*toAdd);
+	if(vel.lengthSquared()>maxSpeed*maxSpeed)
+		vel = (maxSpeed-1) * vel.normalized();
 }
-void  Spaceship::brake(float scalar) {
+void  Spaceship::brake(float scalar, float force) {
 	float newX = 0;
-	float brakePower = scalar*(this->brakePower);
+	float brakePower = scalar*(force);
 	float current = vel.getX();
 	if(current!=0) {
 		float toSub = (current>0)? brakePower : -brakePower ;
@@ -90,6 +93,8 @@ void  Spaceship::manageAcc(float dt) {
 	if(Core::Input::IsPressed( Core::Input::BUTTON_SHIFT  )) brake (dt);
 	if(Core::Input::IsPressed( 'W' )) addAcc( Matrix3D::rotationMatrix(angle) * -Vector2D(0,ACC),dt);
 	if(Core::Input::IsPressed( 'S' )) addAcc( Matrix3D::rotationMatrix(angle) *  Vector2D(0,ACC),dt);
+	//world drag
+	brake(dt,worldDrag);
 }
 //movement
 void  Spaceship::move(float dt) {
@@ -170,10 +175,13 @@ float Spaceship::getMinY() { return pos.getY()+thisShape.getMinY(); }
 float Spaceship::getMaxX() { return pos.getX()+thisShape.getMaxX(); }
 float Spaceship::getMaxY() { return pos.getY()+thisShape.getMaxY(); }
 void  Spaceship::draw(Core::Graphics& graphics) {
-	this->thisShape.draw(graphics,pos,angle);
+	this->thisShape.draw(graphics,getShipMatrix());
 	myTurret.draw(graphics,pos);
-	bodyGuards.draw(graphics,pos);
+	bodyGuards.draw(graphics,getShipMatrix());
 #ifdef DEBUG_SPACESHIP
 
 #endif
+}
+Matrix3D Spaceship::getShipMatrix() {
+	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
 }
