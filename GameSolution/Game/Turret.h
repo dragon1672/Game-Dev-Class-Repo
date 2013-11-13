@@ -16,13 +16,15 @@ protected:
 	Vector2D direction;
 	GameSpace *space;
 	void shoot(Bullet *toShoot);
-	virtual Shape *getStyle()=0;
+	virtual Shape *getStyle();
 	void pointToMouse(const Vector2D& pos);
+	Vector2D tipOfTurret();
 public:
 	static Core::RGB defaultTurretColor;
+	static Shape defaultBulletStyle;
 	Turret() : MOUSE(Core::Input::BUTTON_LEFT) { ; }
 	void init(GameSpace *myWorld);
-	virtual void update(float dt, const Vector2D& pos)=0;
+	virtual void update(float dt, const Vector2D& pos);
 	void draw(Core::Graphics& graphics, const Vector2D& pos);
 };
 

@@ -24,6 +24,7 @@ void Lerper::init() {
 	currentLine = 0;
 	pathLength  = 0;
 	alpha=10;
+	bodyGuards.startup(5);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {
 	assert(pathLength!=MAX_PATH_LENGTH);
@@ -47,8 +48,10 @@ void Lerper::update(float dt) {
 	alpha+=(interval*dt);
 	if(alpha>1) nextLine();
 	pos = path[currentLine].LERP(alpha,catchedNextLine);
+	bodyGuards.update(dt);
 }
 void Lerper::draw(Core::Graphics& graphics) {
 	//float scale = 1+2*(angle - (int)angle);
 	myStyle.draw(graphics, pos, angle);
+	bodyGuards.draw(graphics,Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle));
 }

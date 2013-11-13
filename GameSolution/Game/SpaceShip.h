@@ -10,9 +10,14 @@
 #include "Turret.h"
 #include "BasicTurret.h"
 #include "TurretMark2.h"
+#include "TurretMark3.h"
+#include "TurretMark4.h"
+#include "TurretMark5.h"
 class GameSpace;
 
-#define DEBUG_SPACESHIP
+//#define DEBUG_SPACESHIP
+#define NUM_OF_TURRETS 5
+
 
 class Spaceship {
 	static Core::RGB shipColor;
@@ -22,14 +27,15 @@ class Spaceship {
 	static float ACC;
 	static float rotationAcc;
 	static float maxSpeed;
-
-	//temp
-	SolarSystem bodyGuards;
 	
 	//
-	Turret *turrets[5];
-	BasicTurret *myBasicTurret;
-	TurretMark2 *myMark2Turret;
+	Turret *turrets[NUM_OF_TURRETS];
+	//these are manually placed in the array
+	BasicTurret myBasicTurret;//1
+	TurretMark2 myMark2Turret;//2
+	TurretMark3 myMark3Turret;//3
+	TurretMark4 myMark4Turret;//4
+	TurretMark5 myMark5Turret;//5
 	Turret *currentTurret;
 	GameSpace *space;
 
@@ -44,6 +50,7 @@ class Spaceship {
 	void brake(float scalar=1,float force=brakePower);
 
 	//update functions
+	void  updateSelectedTurret();
 	void  manageAcc(float dt);
 	void  manageRot(float dt);
 	void  move(float dt);

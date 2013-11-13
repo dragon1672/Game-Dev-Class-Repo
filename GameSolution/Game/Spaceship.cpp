@@ -64,22 +64,17 @@ std::string vec2str(Vector2D input) {
 void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
 	pos = Vector2D(x,y);
 	this->space = space;
-	//*
-	myBasicTurret = new BasicTurret();
-	myMark2Turret = new TurretMark2();
-	//*/
-	/*
-	myBasicTurret = &BasicTurret();
-	myMark2Turret = &TurretMark2();
-	//*/
-	turrets[0] = myBasicTurret;
-	turrets[1] = myMark2Turret;
-	//sizeof(turrets)/sizeof(*turrets)
-	for(int i=0;i<2;i++) {
+	//have to manually set the array
+	turrets[0] = &myBasicTurret;
+	turrets[1] = &myMark2Turret;
+	turrets[2] = &myMark3Turret;
+	turrets[3] = &myMark4Turret;
+	turrets[4] = &myMark5Turret;
+
+	for(int i=0;i<sizeof(turrets)/sizeof(*turrets);i++) {
 		turrets[i]->init(space);
 	}
 	currentTurret = turrets[0];
-	bodyGuards.startup(3);
 }
 	
 //acc
@@ -173,19 +168,26 @@ void  Spaceship::manageRot(float dt) {
 		angle += rotationAcc*dt;
 	}
 }
+void  Spaceship::updateSelectedTurret() {
+	int numToCheck = sizeof(turrets)/sizeof(*turrets);
+	for(int i=0;i<numToCheck;i++) {
+		if(Core::Input::IsPressed( '1'+i ))
+			currentTurret = turrets[i];
+	}
+}
 void  Spaceship::update(float dt) {
 	manageAcc(dt);
 	manageRot(dt);
 	move(dt);
 	//updateTurret(dt);
-	bodyGuards.update(dt);
+	updateSelectedTurret();
 	currentTurret->update(dt, pos);
 }
 //graphics
 void  Spaceship::draw(Core::Graphics& graphics) {
 	this->thisShape.draw(graphics,getShipMatrix());
 	currentTurret->draw(graphics,pos);
-	bodyGuards.draw(graphics,getShipMatrix());
+
 #ifdef DEBUG_SPACESHIP
 
 #endif

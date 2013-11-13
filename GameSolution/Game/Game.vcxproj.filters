@@ -67,6 +67,15 @@
       <Filter>Objects\World\Boundary</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TurretMark3.cpp">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretMark4.cpp">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretMark5.cpp">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -118,6 +127,15 @@
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="TurretMark2.h">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMark5.h">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMark3.h">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMark4.h">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
   </ItemGroup>

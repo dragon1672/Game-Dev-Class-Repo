@@ -1,25 +1,25 @@
-#include "TurretMark2.h"
+#include "TurretMark4.h"
 #include "Bullet.h"
 #include <cmath>
-float TurretMark2::timeBetweenShots = .125;
+float TurretMark4::timeBetweenShots = 1/50;
 
 const Matrix3D Cartesian2Screen = Matrix3D::scaleY(-1);
 const float turretScale = 2.5;
-Shape TurretMark2Style( Turret::defaultTurretColor, 
+Shape TurretMark4Style( Turret::defaultTurretColor, 
 		Cartesian2Screen * Matrix3D::scale(turretScale), 
-		16,
-		Vector2D(-3,-2),	Vector2D( 3,-2),	Vector2D( 3, 2),	Vector2D( 1, 2),
-		Vector2D( 1, 9),	Vector2D( 3,10),	Vector2D( 3,13),	Vector2D( 1,13),
-		Vector2D( 1,11),	Vector2D(-1,11),	Vector2D(-1,13),	Vector2D(-3,13),
-		Vector2D(-3,10),	Vector2D(-1, 9),	Vector2D(-1, 2),	Vector2D(-3, 2)
+		13,
+		Vector2D(-1,-2),	Vector2D( 1,-2),	Vector2D( 6, 5),	Vector2D( 6,11),
+		Vector2D( 3,13),	Vector2D( 1,12),	Vector2D( 3, 9),	Vector2D( 0, 3),
+		Vector2D(-3, 9),	Vector2D(-1,12),	Vector2D(-3,13),	Vector2D(-6,11),
+		Vector2D(-6, 5)
 );
 
 
-Shape *TurretMark2::getStyle() {
-	return &TurretMark2Style;
+Shape *TurretMark4::getStyle() {
+	return &TurretMark4Style;
 }
 
-void TurretMark2::update(float dt, const Vector2D& pos) {
+void TurretMark4::update(float dt, const Vector2D& pos) {
 	sinceLastShot+=dt;
 	pointToMouse(pos);
 	MOUSE.update(dt);
@@ -30,7 +30,6 @@ void TurretMark2::update(float dt, const Vector2D& pos) {
 			toShoot.pos   = pos + tipOfTurret();
 			toShoot.vel   = -100*direction.normalized();
 			toShoot.style = &defaultBulletStyle;
-			toShoot.rotation = 20;
 			shoot(&toShoot);
 		}
 	}

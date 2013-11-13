@@ -102,6 +102,9 @@
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="Turret.cpp" />
     <ClCompile Include="TurretMark2.cpp" />
+    <ClCompile Include="TurretMark3.cpp" />
+    <ClCompile Include="TurretMark4.cpp" />
+    <ClCompile Include="TurretMark5.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +124,9 @@
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="TurretMark2.h" />
+    <ClInclude Include="TurretMark3.h" />
+    <ClInclude Include="TurretMark4.h" />
+    <ClInclude Include="TurretMark5.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

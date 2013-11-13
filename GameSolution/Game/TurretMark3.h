@@ -1,17 +1,17 @@
 #pragma once
-#ifndef TURRET_MARK2_H
-#define TURRET_MARK2_H
+#ifndef TURRET_MARK3_H
+#define TURRET_MARK3_H
 
 #include "SingleKeyManager.h"
 #include "Turret.h"
 
-class TurretMark2 : public Turret {
+class TurretMark3 : public Turret {
 private:
 	static float timeBetweenShots;
 	float sinceLastShot;
 	Shape *getStyle();
 public:
-	TurretMark2() { sinceLastShot = 0; }
+	TurretMark3() { sinceLastShot = 0; }
 	void update(float dt, const Vector2D& pos);
 };
 

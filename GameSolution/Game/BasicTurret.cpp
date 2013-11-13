@@ -11,16 +11,6 @@ Shape BasicTurretStyle( Turret::defaultTurretColor,
 		Vector2D(-1, 4),	Vector2D(-1, 2),	Vector2D(-3, 2)
 );
 
-const float bulletScale = 4;
-Shape defaultBasicBulletStyle(RGB(255,0,255),
-	Cartesian2Screen * Matrix3D::scale(bulletScale), 
-	5,
-	Vector2D(   .7f, -1.0f ),
-	Vector2D(  0.0f,  1.0f ),
-	Vector2D(  -.6f, -1.0f ),
-	Vector2D(  1.0f,   .25f),
-	Vector2D( -1.0f,   .25f) 
-);
 
 Shape *BasicTurret::getStyle() {
 	return &BasicTurretStyle;
@@ -32,9 +22,10 @@ void BasicTurret::update(float dt, const Vector2D& pos) {
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(MOUSE.hasBeenClicked()) { 
 			Bullet toShoot;
-			toShoot.pos   = pos;
+			toShoot.pos   = pos + tipOfTurret();
 			toShoot.vel   = -100*direction.normalized();
-			toShoot.style = &defaultBasicBulletStyle;
+			toShoot.style = &defaultBulletStyle;
+			toShoot.rotation = 20;
 			shoot(&toShoot);
 		}
 	}

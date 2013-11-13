@@ -3,6 +3,7 @@
 #include <cassert>
 #include "Shape.h"
 #include "Core.h"
+#include "SolarSystem.h"
 
 #define MAX_PATH_LENGTH 100
 
@@ -19,6 +20,9 @@ class Lerper {
 	int pathLength;
 	static float turnSpeed;
 	float angle;
+
+	SolarSystem bodyGuards;
+
 public:
 	void init();
 	void addPoint(const Vector2D& toAdd);

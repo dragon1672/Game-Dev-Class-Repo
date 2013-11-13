@@ -36,6 +36,15 @@ Shape Ship2(17,
 );
 
 
+Shape Arrow( 7,
+	Vector2D(-1, 0),
+	Vector2D( 1, 0),
+	Vector2D( 1, 4),
+	Vector2D( 3, 4),
+	Vector2D( 0, 8),//point
+	Vector2D(-3,-4),
+	Vector2D(-1,-4)
+);
 
 
 

@@ -42,6 +42,7 @@ bool      GameSpace::update(float dt) {
 	myShip.update(dt);
 	myLerp.update(dt);
 	myBullets.update(dt);
+	myBullets.setBounds(boundary);
 	return false;
 }
 Boundary *GameSpace::getBoundary() { return boundary; }

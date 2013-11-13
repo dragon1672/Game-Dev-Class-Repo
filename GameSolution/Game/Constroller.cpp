@@ -33,10 +33,10 @@ Controller::Controller (int width, int height) : width(width),
 	myWorld.registerBoundary(currentBounds);
 }
 void Controller::initSimpleBounds() {
-	float startX = hud.getWorldoffset().getX();
-	float startY = hud.getWorldoffset().getY();
-	float endX   = startX + hud.getWorldWidth();
-	float endY   = startY + hud.getWorldHeight();
+	float startX = myWorld.getMin().getX();
+	float startY = myWorld.getMin().getY();
+	float endX   = myWorld.getMax().getX();
+	float endY   = myWorld.getMax().getY();
 	simpleBounds.init(startX,startY,endX,endY);
 
 }

@@ -13,8 +13,11 @@ class BulletManager {
 public:
 	void init(Boundary *bounds);
 	Bullet getBullet(int id);
-	int numOfBullets();
-	void addBullet(Bullet *toAdd);
+	int    numOfBullets();
+	void   addBullet(Bullet *toAdd);
+
+	void setBounds(Boundary *toSet);
+
 	//will delete sequential bullets out of bounds
 	void cleanOutOfBoundBullets(int startingIndex);
 	

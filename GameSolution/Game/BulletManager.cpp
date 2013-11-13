@@ -20,17 +20,20 @@ int    BulletManager::numOfBullets() {
 void   BulletManager::addBullet(Bullet *toAdd) {
 	bullets.push_back(*toAdd);//copys information
 }
+void   BulletManager::setBounds(Boundary *toSet) {
+	bounds = toSet;
+}
 //will delete sequential bullets out of bounds
 void   BulletManager::cleanOutOfBoundBullets(int startingIndex) {
 	if(bounds->hasCollided(bullets[startingIndex].pos)) {
 		bullets.erase(bullets.begin() + startingIndex);
-		cleanOutOfBoundBullets(startingIndex);//incase multiple in a row
+		if((unsigned)startingIndex<bullets.size()) cleanOutOfBoundBullets(startingIndex);//incase multiple in a row
 	}
 }
 void   BulletManager::update(float dt) {
 	for(unsigned int i=0;i<bullets.size();i++) {
 		bullets[i].update(dt);
-		if(bounds) cleanOutOfBoundBullets(i);
+		cleanOutOfBoundBullets(i);
 	}
 }
 void   BulletManager::draw(Core::Graphics graphics) {
