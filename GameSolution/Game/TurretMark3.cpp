@@ -1,7 +1,7 @@
 #include "TurretMark3.h"
 #include "Bullet.h"
 #include <cmath>
-float TurretMark3::timeBetweenShots = 0.1;
+float TurretMark3::timeBetweenShots = 0.1f;
 
 const Matrix3D Cartesian2Screen = Matrix3D::scaleY(-1);
 const float turretScale = 2.5;
@@ -40,10 +40,10 @@ void TurretMark3::update(float dt, const Vector2D& pos) {
 			const float distBetweenBullets = 9;
 			sinceLastShot = 0;
 			Bullet toShoot;
-			Matrix3D turretRotation = Matrix3D::rotateToVector(direction.normalized());
+			Matrix3D turretRotation = Matrix3D::rotateToVector(direction);
 			Vector2D offset = turretRotation * Vector2D(distBetweenBullets,0);
 			toShoot.pos   = pos+offset+tipOfTurret();
-			toShoot.vel   = -100*direction.normalized();
+			toShoot.vel   = -100*direction;
 			toShoot.style = &arrow;
 			toShoot.rotation=0;
 			toShoot.rotationMat = turretRotation;

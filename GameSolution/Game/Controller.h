@@ -11,7 +11,7 @@
 #include "Vector 2.h"
 #include "GameSpace.h"
 
-//#define DEBUG_CONTROLLER
+#define DEBUG_CONTROLLER
 
 #ifdef DEBUG_CONTROLLER
 #include <sstream>

@@ -28,7 +28,7 @@ void TurretMark2::update(float dt, const Vector2D& pos) {
 			sinceLastShot = 0;
 			Bullet toShoot;
 			toShoot.pos   = pos + tipOfTurret();
-			toShoot.vel   = -100*direction.normalized();
+			toShoot.vel   = -100*direction;
 			toShoot.style = &defaultBulletStyle;
 			toShoot.rotation = 20;
 			shoot(&toShoot);

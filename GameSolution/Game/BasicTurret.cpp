@@ -23,7 +23,7 @@ void BasicTurret::update(float dt, const Vector2D& pos) {
 		if(MOUSE.hasBeenClicked()) { 
 			Bullet toShoot;
 			toShoot.pos   = pos + tipOfTurret();
-			toShoot.vel   = -100*direction.normalized();
+			toShoot.vel   = -100*direction;
 			toShoot.style = &defaultBulletStyle;
 			toShoot.rotation = 20;
 			shoot(&toShoot);
