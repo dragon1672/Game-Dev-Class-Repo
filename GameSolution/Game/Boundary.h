@@ -1,6 +1,7 @@
 #pragma once
+#ifndef BOUNDARY_H
+#define BOUNDARY_H
 
-#include <varargs.h>
 #include "Vector 2.h"
 #include "Core.h"
 #include "Matrix3D.h"
@@ -16,3 +17,4 @@ public:
 	Vector2D collideVector(const Vector2D& pos, const Vector2D& vel);
 	void     draw(Core::Graphics& graphics);
 };
+#endif

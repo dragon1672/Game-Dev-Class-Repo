@@ -20,39 +20,26 @@ void SolarSystem::update(float dt) {
 		children[i]->update(dt);
 }
 void SolarSystem::draw(Core::Graphics graphics,const Matrix3D& transform) {
-	//*
-	//graphics.DrawLine(0,0,inRefTo.getX(),inRefTo.getY());
-
 	Matrix3D result = transform * Matrix3D::rotationMatrix(orbitAngle) * Matrix3D::translate(Vector2D(0,orbitLength));
-	thisStyle.draw(graphics,result * Matrix3D::scale(.5));
+	thisStyle.draw(graphics,result * Matrix3D::scale(size));
 	for (unsigned int i=0; i<children.size(); i++)
 		children[i]->draw(graphics,result);
-	//*/
 }
 
-const float scaleDecrease = 2;
-const float startScale = 1;
 void SolarSystem::startup(int depth) {
-	depth;
-	/*
-	SolarSystem *one = new SolarSystem();
-	SolarSystem *two = new SolarSystem();
-	SolarSystem *thr = new SolarSystem();
-	addChild(one);
-	one->addChild(two);
-	two->addChild(thr);//*/
-	//*
-	SolarSystem *toAdd = new SolarSystem[depth];
-	for(int i=0;i<depth;i++) {
-		if(i>0) {
-			toAdd[i].orbitLength = toAdd[i-1].orbitLength-2;
-			toAdd[i].orbitAcc    = toAdd[i-1].orbitAcc;//-.5f;
-		}
-
-		toAdd[i].size = 1;//startScale - i*scaleDecrease;
-		if(i>0) toAdd[i].addChild(&toAdd[i-1]);
-		////addChild(&toAdd[i]);
+	const float targetSize = .2;
+	const float targetAcc  = 5;
+	const float targetLen  = 10;
+	SolarSystem *toAdd = new SolarSystem[depth];//memory leak
+	float lengthDecrease = (toAdd[0].orbitLength -  targetLen ) / depth;
+	float accDecrease    = (toAdd[0].orbitAcc    -  targetAcc ) / depth;
+	float sizeDecrease   = (toAdd[0].size        -  targetSize) / depth;
+	for(int i=1;i<depth;i++) {
+		toAdd[i].orbitLength = toAdd[0].orbitLength - i*lengthDecrease;
+		toAdd[i].orbitAcc    = toAdd[0].orbitAcc    - i*accDecrease;
+		toAdd[i].size        = toAdd[0].size        - i*sizeDecrease;
+		toAdd[i-1].addChild(&toAdd[i]);
 	}
-	addChild(&toAdd[depth-1]);
+	addChild(&toAdd[0]);
 	//*/
 }

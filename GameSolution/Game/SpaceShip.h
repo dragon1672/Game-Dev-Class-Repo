@@ -1,4 +1,6 @@
 #pragma once
+#ifndef SPACE_SHIP_H
+#define SPACE_SHIP_H
 
 #include "Vector 2.h"
 #include "Core.h"
@@ -54,3 +56,5 @@ public:
 	void update(float dt);
 	Matrix3D getShipMatrix();
 };
+
+#endif

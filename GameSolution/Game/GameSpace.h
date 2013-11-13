@@ -1,10 +1,11 @@
 #pragma once
+#ifndef GAMESPACE_H
+#define GAMESPACE_H
 
 #include "Shape.h"
 #include "Boundary.h"
 #include "SpaceShip.h"
 #include "Lerper.h"
-#include <random>
 
 const Core::RGB defaultColor = RGB(255,0,50);
 //creates a sqare world where all game obects will interact in
@@ -32,3 +33,5 @@ public:
 	Vector2D  randomWorldPoint();
 	Vector2D  getCenter();
 };
+
+#endif

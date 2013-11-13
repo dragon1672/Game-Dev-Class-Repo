@@ -1,6 +1,7 @@
 #include "Shape.h"
 #include "Turret.h"
 #include "MyRandom.h"
+#include "GameSpace.h"
 
 Core::RGB defaultTurretColor = RGB(255,255,255);
 const float GENERAL_STYLE_SCALE = 2;
@@ -44,7 +45,8 @@ void Turret::init() {
 
 void checkFire(float dt) {
 	dt;
-	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT ));
+	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT ))
+		1==1;
 }
 
 

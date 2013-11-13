@@ -8,23 +8,25 @@ const float Spaceship::brakePower = 1000;
 float Spaceship::TURRET_LENGTH = 30;
 float Spaceship::ACC = 500;
 float Spaceship::rotationAcc = 5;
-float Spaceship::maxSpeed = 2000;
+float Spaceship::maxSpeed = 1000;
 Core::RGB Spaceship::shipColor = RGB(255,255,0);
 //*
-Shape Spaceship::thisShape( shipColor,
+const float scaler = 3;
+Matrix3D cartesian2Screen = Matrix3D::scaleY(-scaler) * Matrix3D::scaleX(scaler);
+Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 							7,
-							Vector2D(10,12),
-							Vector2D(12, 0 ),
-							Vector2D( 8,  8 ),
-							Vector2D( 0, -20),//tip
-							Vector2D(-8,  8 ),
-							Vector2D(-12, 0 ),
-							Vector2D(-10, 12)
+							Vector2D( 5,-6 ),
+							Vector2D( 6,-0 ),
+							Vector2D( 4,-4 ),
+							Vector2D( 0, 10),//tip
+							Vector2D(-4,-4 ),
+							Vector2D(-6,-0 ),
+							Vector2D(-5,-6 )
 							);//*/
 /*
-const Matrix3D SpaceShipTransform = Matrix3D::scaleX(10) * Matrix3D::scaleY(-10);
-Shape Spaceship::thisShape( shipColor,
-							SpaceShipTransform,
+const float scaler = 7;
+Matrix3D cartesian2Screen = Matrix3D::scaleY(-scaler) * Matrix3D::scaleX(scaler);
+Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 							17,
 							Vector2D(-1  ,-3.5),
 							Vector2D( 1  ,-3.5),
@@ -43,7 +45,7 @@ Shape Spaceship::thisShape( shipColor,
 							Vector2D( .25,-4  ),
 							Vector2D( .75,-4  ),
 							Vector2D( 1  ,-3.5)
-);//*/
+							);//*/
 #ifdef DEBUG_SPACESHIP
 
 #include <sstream>

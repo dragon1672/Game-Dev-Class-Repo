@@ -12,27 +12,17 @@ class BulletManager {
 	float startY;
 	float endX;
 	float endY;
-	bool bounds;
 	std::vector<Bullet> bullets;
 public:
 	BulletManager() {
 		startX = 0;		startY = 0;
 		endX   = 0;		endY   = 0;
-		bounds = false;
 	}
 	Bullet getBullet(int id) {
 		return bullets[id];
 	}
 	int numOfBullets() {
 		return bullets.size();
-	}
-	void registerBounds(float x1, float y1, float x2, float y2) {
-		startX = x1;		startY = y1;
-		endX   = x2;		endY   = y2;
-		bounds = true;
-	}
-	void registerBoundary(Boundary *toAdd) {
-
 	}
 	void addBullet(Bullet *toAdd) {
 		bullets.push_back(*toAdd);//copys information

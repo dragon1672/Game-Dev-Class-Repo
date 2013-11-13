@@ -8,18 +8,13 @@ void      GameSpace::initObjects() {
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
 	myShip.init(min.getX()+(width/2),min.getY()+(height/2),this);
+
+
 	myLerp.init();
+	//lerper get 7 random points
 	for(int i=0;i<7;i++) {
 		myLerp.addPoint(randomWorldPoint());
 	}
-	/*
-	myLerp.addPoint(min);
-	myLerp.addPoint(min+Vector2D(0,         (min.getY()+height)/2));
-	myLerp.addPoint(min+Vector2D(25,        (min.getY()+height)-100));
-	myLerp.addPoint(    Vector2D(.5f*width, (min.getY()+height)));
-	myLerp.addPoint(min+Vector2D(width,     height/2));
-	myLerp.addPoint(min+Vector2D(width/2,  0));
-	//*/
 }
 void      GameSpace::makeGameSpace(Core::RGB color, float width, float height, Vector2D pos) {
 	min = pos+Vector2D(0,0);

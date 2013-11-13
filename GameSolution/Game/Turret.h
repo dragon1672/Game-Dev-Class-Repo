@@ -6,9 +6,12 @@
 #include "Shape.h"
 #include "Vector 2.h"
 
+class GameSpace;
+
 class Turret {
 	Shape *style;
 	Vector2D direction;
+	GameSpace *space;
 public:
 	Turret();
 	void init();
