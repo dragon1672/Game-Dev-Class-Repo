@@ -4,8 +4,8 @@
 #include "Controller.h"
 #include "MyRandom.h"
 
-const int SCREEN_WIDTH  = 800;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH  = 1500;
+const int SCREEN_HEIGHT = 800;
 Controller myGame(SCREEN_WIDTH,SCREEN_HEIGHT);
 
 bool update( float dt ) {

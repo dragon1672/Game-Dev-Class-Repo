@@ -87,30 +87,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="ComplexBoundary.cpp" />
     <ClCompile Include="Constroller.cpp" />
     <ClCompile Include="GameSpace.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="SimpleBounary.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="Turret.cpp" />
+    <ClCompile Include="TurretMark2.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />
+    <ClInclude Include="SingleKeyManager.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="SimpleBounary.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Turret.h" />
+    <ClInclude Include="TurretMark2.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

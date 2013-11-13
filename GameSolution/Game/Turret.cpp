@@ -2,7 +2,8 @@
 #include "Turret.h"
 #include "MyRandom.h"
 #include "GameSpace.h"
-
+Core::RGB Turret::defaultTurretColor= RGB(255,255,255);
+/*
 Core::RGB defaultTurretColor = RGB(255,255,255);
 const float GENERAL_STYLE_SCALE = 2;
 const Matrix3D Cartesian2Screen = Matrix3D::scaleY(-GENERAL_STYLE_SCALE) * Matrix3D::scaleX(GENERAL_STYLE_SCALE);
@@ -32,31 +33,18 @@ Shape turretStyles[] = {
 		Vector2D( 1,13),	Vector2D( 3, 5),	Vector2D( 0, 2),	Vector2D(-3, 5),
 		Vector2D(-1,13),	Vector2D(-6, 6),	Vector2D(-6, 2)
 	)
-};
-
-Turret::Turret() {
-	init();
+};//*/
+void Turret::shoot(Bullet *toShoot) {
+	space->addBullet(toShoot);
 }
-
-void Turret::init() {
-	style = &turretStyles[Random::randomInt(0,sizeof(turretStyles)/sizeof(*turretStyles)-1)];
+void Turret::init(GameSpace *mySpace) {
+	space = mySpace;
 }
-
-
-void checkFire(float dt) {
-	dt;
-	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT ))
-		1==1;
-}
-
-
-
-void Turret::update(float dt, const Vector2D& pos) {
+void Turret::pointToMouse(const Vector2D& pos) {
 	direction = pos - Vector2D((float)Core::Input::GetMouseX(),(float)Core::Input::GetMouseY());
-	checkFire(dt);
 }
+
 void Turret::draw(Core::Graphics& graphics, const Vector2D& pos) {
 	Matrix3D transform = Matrix3D::translate(pos) * Matrix3D::rotateToVector(direction.normalized());
-
-	style->draw(graphics, transform);
+	getStyle()->draw(graphics, transform);
 }

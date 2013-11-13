@@ -5,9 +5,11 @@
 #include "Vector 2.h"
 #include "Core.h"
 #include "Shape.h"
-//temp
 #include "SolarSystem.h"
+
 #include "Turret.h"
+#include "BasicTurret.h"
+#include "TurretMark2.h"
 class GameSpace;
 
 #define DEBUG_SPACESHIP
@@ -24,17 +26,17 @@ class Spaceship {
 	//temp
 	SolarSystem bodyGuards;
 	
-	Turret myTurret;
+	//
+	Turret *turrets[5];
+	BasicTurret *myBasicTurret;
+	TurretMark2 *myMark2Turret;
+	Turret *currentTurret;
+	GameSpace *space;
 
+	//movement
 	Vector2D vel;
 	Vector2D pos;
-	GameSpace *space;
 	float angle;
-
-	float getMinX();
-	float getMinY();
-	float getMaxX();
-	float getMaxY();
 
 	void bounce();
 	void warp();
@@ -45,10 +47,6 @@ class Spaceship {
 	void  manageAcc(float dt);
 	void  manageRot(float dt);
 	void  move(float dt);
-	float mouseDistanceFromTurretLine();
-	bool  mouseWithinTurretRange();
-	void  updateTurret();
-	void  resetTurret();
 public:
 	void init(float x, float y, GameSpace *space);
 	void addAcc(const Vector2D& toAdd, float scalar=1);

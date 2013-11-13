@@ -1,5 +1,6 @@
 #include "SpaceShip.h"
 #include "GameSpace.h"
+
 const float worldDrag = 100;
 const float Spaceship::brakePower = 1000;
 //const Vector2D accX(100, 0);
@@ -57,14 +58,30 @@ std::string vec2str(Vector2D input) {
 
 #endif
 
+#include "BasicTurret.h"
+#include "TurretMark2.h"
 
 void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
 	pos = Vector2D(x,y);
 	this->space = space;
-	myTurret.init();
-	bodyGuards.startup(5);
+	//*
+	myBasicTurret = new BasicTurret();
+	myMark2Turret = new TurretMark2();
+	//*/
+	/*
+	myBasicTurret = &BasicTurret();
+	myMark2Turret = &TurretMark2();
+	//*/
+	turrets[0] = myBasicTurret;
+	turrets[1] = myMark2Turret;
+	//sizeof(turrets)/sizeof(*turrets)
+	for(int i=0;i<2;i++) {
+		turrets[i]->init(space);
+	}
+	currentTurret = turrets[0];
+	bodyGuards.startup(3);
 }
-
+	
 //acc
 void  Spaceship::addAcc(const Vector2D& toAdd, float scalar) {
 	vel = vel+(scalar*toAdd);
@@ -101,11 +118,8 @@ void  Spaceship::manageAcc(float dt) {
 //movement
 void  Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
-	if(Core::Input::IsPressed(      'Z' )) warp();
-	else if(Core::Input::IsPressed( 'X' )) bounce();
-	else {
-		collide();
-	}
+	if(Core::Input::IsPressed( 'Z' )) warp();
+	else collide();
 }
 //collision
 void  Spaceship::warp() {
@@ -113,10 +127,6 @@ void  Spaceship::warp() {
 	if(pos.getY() < (*space).getMin().getY()) pos = Vector2D( pos.getX(),               (*space).getMax().getY() );
 	if(pos.getX() > (*space).getMax().getX()) pos = Vector2D( (*space).getMin().getX(), pos.getY());
 	if(pos.getY() > (*space).getMax().getY()) pos = Vector2D( pos.getX(),               (*space).getMin().getY() );
-}
-void  Spaceship::bounce() {
-	if(pos.getX() < (*space).getMin().getX() || pos.getX() > (*space).getMax().getX()) vel = Vector2D(-vel.getX(), vel.getY());
-	if(pos.getY() < (*space).getMin().getY() || pos.getY() > (*space).getMax().getY()) vel = Vector2D( vel.getX(),-vel.getY());
 }
 void  Spaceship::collide() {
 	vel = space->collideVector(pos,vel);//need to pass dt to accuratly calc if collision will be in bounds again
@@ -139,7 +149,7 @@ bool  Spaceship::mouseWithinTurretRange() {
 	Vector2D testOne = pos-mouse;
 	Vector2D testTwo = (pos+ turret) - mouse;
 	return (testOne.dot(testTwo) < 0);
-	//return ((mouse-pos).lengthSquared()<turret.lengthSquared());//is within turrent length from shipPos
+	//return ((mouse-pos).lengthSquared()<turret.lengthSquared());//is within Turret length from shipPos
 }
 void  Spaceship::updateTurret(float dt) {
 	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT) && mouseWithinTurretRange()) {
@@ -169,16 +179,12 @@ void  Spaceship::update(float dt) {
 	move(dt);
 	//updateTurret(dt);
 	bodyGuards.update(dt);
-	myTurret.update(dt, pos);
+	currentTurret->update(dt, pos);
 }
 //graphics
-float Spaceship::getMinX() { return pos.getX()+thisShape.getMinX(); }
-float Spaceship::getMinY() { return pos.getY()+thisShape.getMinY(); }
-float Spaceship::getMaxX() { return pos.getX()+thisShape.getMaxX(); }
-float Spaceship::getMaxY() { return pos.getY()+thisShape.getMaxY(); }
 void  Spaceship::draw(Core::Graphics& graphics) {
 	this->thisShape.draw(graphics,getShipMatrix());
-	myTurret.draw(graphics,pos);
+	currentTurret->draw(graphics,pos);
 	bodyGuards.draw(graphics,getShipMatrix());
 #ifdef DEBUG_SPACESHIP
 

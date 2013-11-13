@@ -18,16 +18,27 @@ void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 #define MAX_POINTS 1000
 
 
-Controller::Controller (int width, int height) :
-width(width), 
-height(height), 
-hud(width,height),
-myWorld(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset()) {
+Controller::Controller (int width, int height) : width(width), 
+												 height(height), 
+												 hud(width,height),
+												 KEY_C('C'),
+												 KEY_X('X'),
+												 myWorld(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset()) {
 #ifdef DEBUG_CONTROLLER
 	FPS = 0;
 #endif//DEBUG_CONTROLLER
 	setDynamicBounds();
-	myWorld.registerBoundary(&bounds);
+	initSimpleBounds();
+	currentBounds = &complexBounds;
+	myWorld.registerBoundary(currentBounds);
+}
+void Controller::initSimpleBounds() {
+	float startX = hud.getWorldoffset().getX();
+	float startY = hud.getWorldoffset().getY();
+	float endX   = startX + hud.getWorldWidth();
+	float endY   = startY + hud.getWorldHeight();
+	simpleBounds.init(startX,startY,endX,endY);
+
 }
 void Controller::setStaticBounds() {
 	float padding = 5;
@@ -44,7 +55,7 @@ void Controller::setStaticBounds() {
 	boundPoints[numOfBoundPoints++] = worldPos+Vector2D(worldWidth-padding,   worldHeight/2);
 	boundPoints[numOfBoundPoints++] = worldPos+Vector2D(.7f*worldWidth, padding);
 	
-	bounds.init(numOfBoundPoints,boundPoints);
+	complexBounds.init(numOfBoundPoints,boundPoints);
 }
 void Controller::setDynamicBounds() {
 	Vector2D randomPoly[MAX_POINTS];
@@ -62,16 +73,31 @@ void Controller::setDynamicBounds() {
 	float scaleY = (worldHeight - 2 * padding) / polyHeight;
 	Matrix3D scaler = Matrix3D::translate(myWorld.getCenter()+Vector2D(padding,padding)) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleY(scaleY);
 		
-	bounds.init(sides,randomPoly,scaler);
+	complexBounds.init(sides,randomPoly,scaler);
 
 }
+void Controller::updateCurrentBounds() {
+	if(KEY_X.hasBeenClicked()) currentBounds = &simpleBounds;
+	if(KEY_C.hasBeenClicked()) currentBounds = &complexBounds;
+}
+
 bool Controller::update(float dt) {
 #ifdef DEBUG_CONTROLLER
 	FPS = (int)(1/dt);
 #endif//DEBUG_CONTROLLER
+	KEY_X.update(dt);
+	KEY_C.update(dt);
+	updateCurrentBounds();
+	myWorld.registerBoundary(currentBounds);
 	return myWorld.update(dt);
 }
 void Controller::draw(Core::Graphics& graphics) {
+	if(currentBounds == &complexBounds) {
+		graphics.SetBackgroundColor(RGB(0,0,0));
+	}
+	if(currentBounds == &simpleBounds) {
+		graphics.SetBackgroundColor(RGB(30,30,30));
+	}
 	hud.draw(graphics);
 	myWorld.draw(graphics);
 #ifdef DEBUG_CONTROLLER

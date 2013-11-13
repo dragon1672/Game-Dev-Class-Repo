@@ -32,15 +32,16 @@ void      GameSpace::registerBoundary(Boundary *bounds) {
 }
 void      GameSpace::draw(Core::Graphics& graphics) {
 	toDraw.draw(graphics);
-	//if(hasBounds)
-		boundary->draw(graphics);
+	boundary->draw(graphics);
 	myShip.draw(graphics);
 	myLerp.draw(graphics);
+	myBullets.draw(graphics);
 }
 bool      GameSpace::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	myShip.update(dt);
 	myLerp.update(dt);
+	myBullets.update(dt);
 	return false;
 }
 Boundary *GameSpace::getBoundary() { return boundary; }
@@ -55,6 +56,9 @@ Vector2D  GameSpace::collideVector(const Vector2D& pos, const Vector2D& vel) {
 		if(pos.getY() < min.getY() || pos.getY() > max.getY()) return Vector2D( vel.getX(),-vel.getY());
 		return vel;
 	}//*/
+}
+void      GameSpace::addBullet(Bullet *toAdd) {
+	myBullets.addBullet(toAdd);
 }
 Vector2D  GameSpace::randomWorldPoint() {
 	return Vector2D(Random::randomFloat(min.getX(),max.getX()), Random::randomFloat(min.getY(),max.getY()));

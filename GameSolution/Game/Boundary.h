@@ -8,13 +8,12 @@
 #include "Wall.h"
 #define MAX_NUMBER_OF_WALLS 1000
 class Boundary {
+protected:
 	static Core::RGB defaultColor;
-	Wall walls[MAX_NUMBER_OF_WALLS];
-	int numOfWalls;
 public:
-	void     init(int count, Vector2D *points,const Matrix3D& transform=Matrix3D());
-	bool     hasCollided  (const Vector2D& pos);
-	Vector2D collideVector(const Vector2D& pos, const Vector2D& vel);
-	void     draw(Core::Graphics& graphics);
+	virtual bool     hasCollided  (const Vector2D& pos)=0;
+	virtual Vector2D collideVector(const Vector2D& pos, const Vector2D& vel)=0;
+	virtual void     draw(Core::Graphics& graphics)=0;
 };
+
 #endif

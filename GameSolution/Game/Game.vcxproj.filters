@@ -16,13 +16,13 @@
     <Filter Include="Objects\Entities\Turrets">
       <UniqueIdentifier>{a53c8957-6dd7-4c35-a191-5dbeb70f59fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\World\Boundary">
+      <UniqueIdentifier>{697cc196-fe41-49ae-b146-50f8a08dbdae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
       <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Boundary.cpp">
-      <Filter>Objects\World</Filter>
     </ClCompile>
     <ClCompile Include="GameSpace.cpp">
       <Filter>Objects\World</Filter>
@@ -36,21 +36,37 @@
     <ClCompile Include="Lerper.cpp">
       <Filter>Objects\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>GameManagment</Filter>
-    </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>GameManagment</Filter>
     </ClCompile>
     <ClCompile Include="Constroller.cpp">
       <Filter>GameManagment</Filter>
     </ClCompile>
-    <ClCompile Include="SolarSystem.cpp">
-      <Filter>Objects\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Turret.cpp">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClCompile>
+    <ClCompile Include="Boundary.cpp">
+      <Filter>Objects\World\Boundary</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleBounary.cpp">
+      <Filter>Objects\World\Boundary</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SolarSystem.cpp">
+      <Filter>Objects\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretMark2.cpp">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTurret.cpp">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexBoundary.cpp">
+      <Filter>Objects\World\Boundary</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -60,9 +76,6 @@
       <Filter>Objects\World</Filter>
     </ClInclude>
     <ClInclude Include="GameSpace.h">
-      <Filter>Objects\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Boundary.h">
       <Filter>Objects\World</Filter>
     </ClInclude>
     <ClInclude Include="SpaceShip.h">
@@ -87,6 +100,24 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Turret.h">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="Boundary.h">
+      <Filter>Objects\World\Boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleBounary.h">
+      <Filter>Objects\World\Boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="ComplexBoundary.h">
+      <Filter>Objects\World\Boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleKeyManager.h">
+      <Filter>GameManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTurret.h">
+      <Filter>Objects\Entities\Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretMark2.h">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
   </ItemGroup>

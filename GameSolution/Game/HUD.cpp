@@ -81,7 +81,7 @@ void      HUD::draw(Core::Graphics& graphics) {
 	graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
 	graphics.DrawString(270,13,"'Shift' = Brake");
 	graphics.DrawString(570,3, "'Z' = Ignore Bounds and Warp");
-	graphics.DrawString(570,13,"'X' = Ignore Bounds and Bounce");
+	graphics.DrawString(570,13,"'X/C' = Toggle Bounce/Complex");
 	graphics.DrawString(570,23,"Use your mouse to move the Turret");
 	//*/
 }
