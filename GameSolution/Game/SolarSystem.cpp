@@ -27,7 +27,7 @@ void SolarSystem::draw(Core::Graphics graphics,const Matrix3D& transform) {
 }
 
 void SolarSystem::startup(int depth) {
-	const float targetSize = .2;
+	const float targetSize = .2f;
 	const float targetAcc  = 5;
 	const float targetLen  = 10;
 	SolarSystem *toAdd = new SolarSystem[depth];//memory leak
@@ -40,6 +40,6 @@ void SolarSystem::startup(int depth) {
 		toAdd[i].size        = toAdd[0].size        - i*sizeDecrease;
 		toAdd[i-1].addChild(&toAdd[i]);
 	}
-	addChild(&toAdd[0]);
+	addChild(toAdd);
 	//*/
 }

@@ -128,15 +128,6 @@ void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rota
 	Matrix3D transform = Matrix3D::translate(transpose) * Matrix3D::rotationMatrix(rotation) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleX(scaleY);
 	draw(graphics,transform);
 }
-bool Shape::simpleOutOfBounds(const Vector2D& pos, const Vector2D& transpose, float scale) {
-	Vector2D maxBound = Vector2D(maxX,maxY)*scale + transpose;
-	Vector2D minBound = Vector2D(minX,minY)*scale + transpose;
-	return (pos.getX()>maxBound.getX() || pos.getY()>maxBound.getY() || pos.getX()<minBound.getX() || pos.getY()<minBound.getY());
-}
 bool Shape::isConstructed() {
 	return constructed;
 }
-float Shape::getMinX() { return minX; }
-float Shape::getMinY() { return minY; }
-float Shape::getMaxX() { return maxX; }
-float Shape::getMaxY() { return maxY; }

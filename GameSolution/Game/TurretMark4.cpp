@@ -26,11 +26,11 @@ void TurretMark4::update(float dt, const Vector2D& pos) {
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(sinceLastShot > timeBetweenShots) { 
 			sinceLastShot = 0;
-			Bullet toShoot;
-			toShoot.pos   = pos + tipOfTurret();
-			toShoot.vel   = -100*direction;
-			toShoot.style = &defaultBulletStyle;
-			shoot(&toShoot);
+			Bullet createdBullet;
+			createdBullet.pos   = pos + tipOfTurret();
+			createdBullet.setVel(defaultBulletSpeed*direction);
+			createdBullet.style = &defaultBulletStyle;
+			shoot(&createdBullet);
 		}
 	}
 }

@@ -39,18 +39,17 @@ void TurretMark3::update(float dt, const Vector2D& pos) {
 		if(sinceLastShot > timeBetweenShots) { 
 			const float distBetweenBullets = 9;
 			sinceLastShot = 0;
-			Bullet toShoot;
+			Bullet createdBullet;//creating bullet to be fired
 			Matrix3D turretRotation = Matrix3D::rotateToVector(direction);
 			Vector2D offset = turretRotation * Vector2D(distBetweenBullets,0);
-			toShoot.pos   = pos+offset+tipOfTurret();
-			toShoot.vel   = -100*direction;
-			toShoot.style = &arrow;
-			toShoot.rotation=0;
-			toShoot.rotationMat = turretRotation;
-			shoot(&toShoot);
+			createdBullet.pos   = pos+offset+tipOfTurret();
+			createdBullet.setVel(defaultBulletSpeed*direction);
+			createdBullet.style = &arrow;
+			//createdBullet.rotationMat = turretRotation;
+			shoot(&createdBullet);
 			offset = turretRotation * Vector2D(-distBetweenBullets,0);
-			toShoot.pos   = pos+offset+tipOfTurret();
-			shoot(&toShoot);
+			createdBullet.pos   = pos+offset+tipOfTurret();
+			shoot(&createdBullet);
 		}
 	}
 }

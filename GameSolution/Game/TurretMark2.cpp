@@ -19,6 +19,10 @@ Shape *TurretMark2::getStyle() {
 	return &TurretMark2Style;
 }
 
+#include "MyRandom.h"
+Vector2D t_randomVector(float low, float high) {
+	return Vector2D(Random::randomFloat(low,high), Random::randomFloat(low,high));
+}
 void TurretMark2::update(float dt, const Vector2D& pos) {
 	sinceLastShot+=dt;
 	pointToMouse(pos);
@@ -26,12 +30,12 @@ void TurretMark2::update(float dt, const Vector2D& pos) {
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(sinceLastShot > timeBetweenShots) { 
 			sinceLastShot = 0;
-			Bullet toShoot;
-			toShoot.pos   = pos + tipOfTurret();
-			toShoot.vel   = -100*direction;
-			toShoot.style = &defaultBulletStyle;
-			toShoot.rotation = 20;
-			shoot(&toShoot);
+			Bullet createdBullet;
+			createdBullet.pos   = pos + tipOfTurret();
+			createdBullet.setVel((defaultBulletSpeed*direction) + t_randomVector(0,3));
+			createdBullet.style = &defaultBulletStyle;
+			//createdBullet.rotation = 20;
+			shoot(&createdBullet);
 		}
 	}
 }

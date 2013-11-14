@@ -78,11 +78,13 @@ void      HUD::draw(Core::Graphics& graphics) {
 	drawRainbowText(graphics,10,20,"SpaceWars!");
 	graphics.SetColor(yellow);
 	graphics.DrawString(200,15,"Controls:");
-	graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
+	//graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
+	graphics.DrawString(270,3, "'wasd'  = Accelerate and Rotate Ship");
 	graphics.DrawString(270,13,"'Shift' = Brake");
+	graphics.DrawString(270,23,"'1-5'   = change Turret (4,5 under dev)");
 	graphics.DrawString(570,3, "'Z' = Ignore Bounds and Warp");
 	graphics.DrawString(570,13,"'X/C' = Toggle Bounce/Complex");
-	graphics.DrawString(570,23,"Use your mouse to move the Turret");
+	graphics.DrawString(570,23,"Click your mouse to fire");
 	//*/
 }
 Vector2D  HUD::getWorldoffset() {

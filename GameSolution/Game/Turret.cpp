@@ -3,6 +3,7 @@
 #include "MyRandom.h"
 #include "GameSpace.h"
 Core::RGB Turret::defaultTurretColor= RGB(255,255,255);
+float Turret::defaultBulletSpeed = -100;
 
 const float bulletScale = 4;
 Shape Turret::defaultBulletStyle(RGB(255,0,255),

@@ -8,7 +8,7 @@
 #include "SingleKeyManager.h"
 
 class GameSpace;
-struct Bullet;
+class Bullet;
 
 class Turret {
 protected:
@@ -22,6 +22,7 @@ protected:
 public:
 	static Core::RGB defaultTurretColor;
 	static Shape defaultBulletStyle;
+	static float defaultBulletSpeed;
 	Turret() : MOUSE(Core::Input::BUTTON_LEFT) { ; }
 	void init(GameSpace *myWorld);
 	virtual void update(float dt, const Vector2D& pos);
