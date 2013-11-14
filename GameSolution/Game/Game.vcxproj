@@ -114,6 +114,7 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />

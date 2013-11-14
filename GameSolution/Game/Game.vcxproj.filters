@@ -141,5 +141,6 @@
     <ClInclude Include="SolarSystemManager.h">
       <Filter>Objects\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="GameGlobal.h" />
   </ItemGroup>
 </Project>
