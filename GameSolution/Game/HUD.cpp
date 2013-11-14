@@ -17,7 +17,6 @@ std::string num2str(int num) {
 	return ss.str();
 }
 #endif
-
 void drawDottedLine(Core::Graphics& graphics, Vector2D start, Vector2D end, float length) {
 	Vector2D line = end - start;
 	float lineLength = (float)line.length();
@@ -34,6 +33,9 @@ void drawDottedLine(Core::Graphics& graphics, Vector2D start, Vector2D end, floa
 		drawing != drawing;
 		currentStep += 2*lerpPercent;
 	}
+}
+void drawDottedLine(Core::Graphics& graphics, float x1, float y1, float x2, float y2, float length) {
+	drawDottedLine(graphics,Vector2D(x1,y1),Vector2D(x2,y2),length);
 }
 void drawRainbowText(Core::Graphics& graphics, float x, float y, char* text) {
 	for(unsigned int i=0;i<strlen(text);i++) {
@@ -58,7 +60,7 @@ void dottedLineTest(Core::Graphics& graphics) {
 
 HUD::HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeight(screenHeight) {
 	pad = 20;
-	addLeftPad  = 0;//80;
+	addLeftPad  = 200-pad;
 	addRightPad = 0;
 	addTopPad   = 30;
 	addBotPad   = 0;
@@ -69,23 +71,38 @@ void      HUD::draw(Core::Graphics& graphics) {
 	//dottedLineTest();
 	Core::RGB yellow = RGB(255,255,0);
 	graphics.SetColor(yellow);
-	//drawRainbowText(graphics,0,0,"This Is A Test");
 
-	//*
-	drawDottedLine(graphics,Vector2D(10,50),Vector2D(10,200),5);
-	drawDottedLine(graphics,Vector2D(15,50),Vector2D(15,200),10);
 	graphics.DrawString(10,10,"Welcome to");
 	drawRainbowText(graphics,10,20,"SpaceWars!");
+
 	graphics.SetColor(yellow);
-	graphics.DrawString(200,15,"Controls:");
-	//graphics.DrawString(270,3, "'arrow keys' = Accelerate Ship");
-	graphics.DrawString(270,3, "'wasd'  = Accelerate and Rotate Ship");
-	graphics.DrawString(270,13,"'Shift' = Brake");
-	graphics.DrawString(270,23,"'1-5'   = change Turret (4,5 under dev)");
-	graphics.DrawString(570,3, "'Z' = Ignore Bounds and Warp");
-	graphics.DrawString(570,13,"'X/C' = Toggle Bounce/Complex");
-	graphics.DrawString(570,23,"Click your mouse to fire");
-	//*/
+
+	int textPad = 5;
+	int lineSpacing = 15;
+	int currentRow = 100;
+	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"Controls");					currentRow += lineSpacing;
+	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
+	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"Ship");						currentRow += lineSpacing;
+	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,3);	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"WASD:  Move and Rotate");	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"Shift: Brake/Slow Down");	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"Mouse: Aim/Fire Turret");	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"1-5:   Change Turret");		currentRow += lineSpacing;
+	//drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
+	currentRow += lineSpacing;
+	currentRow += lineSpacing;
+	currentRow += lineSpacing;
+	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"World");					currentRow += lineSpacing;
+	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,3);	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"Z: (hold) Warp Ship");		currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"X: Set Simple Bounds");		currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"C: Set Complex Bounds");	currentRow += lineSpacing;
+	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
+
+	graphics.DrawString(200,15,"[MESSAGE BOX IS UNDER DEVELOPMENT]");
 }
 Vector2D  HUD::getWorldoffset() {
 	return Vector2D(pad+addLeftPad,pad+addTopPad);
