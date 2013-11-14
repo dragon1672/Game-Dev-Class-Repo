@@ -21,6 +21,9 @@
 class Controller {
 	SingleKeyManager KEY_C;
 	SingleKeyManager KEY_X;
+	SingleKeyManager PAUSE_BUTTON;
+	bool isPaused;
+
 	int width;
 	int height;
 	HUD hud;

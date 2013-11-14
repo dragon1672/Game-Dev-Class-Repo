@@ -100,6 +100,7 @@ void      HUD::draw(Core::Graphics& graphics) {
 	graphics.DrawString(textPad,currentRow,"Z: (hold) Warp Ship");		currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"X: Set Simple Bounds");		currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"C: Set Complex Bounds");	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"P: Pause The Game");	currentRow += lineSpacing;
 	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
 
 	graphics.DrawString(200,15,"[MESSAGE BOX IS UNDER DEVELOPMENT]");

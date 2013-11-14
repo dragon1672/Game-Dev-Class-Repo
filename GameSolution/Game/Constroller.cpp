@@ -23,6 +23,7 @@ Controller::Controller (int width, int height) : width(width),
 												 hud(width,height),
 												 KEY_C('C'),
 												 KEY_X('X'),
+												 PAUSE_BUTTON('P'),
 												 myWorld(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset()) {
 #ifdef DEBUG_CONTROLLER
 	FPS = 0;
@@ -82,22 +83,25 @@ void Controller::updateCurrentBounds() {
 }
 
 bool Controller::update(float dt) {
+	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
+	PAUSE_BUTTON.update(dt);
+	if(PAUSE_BUTTON.hasBeenClicked()) isPaused = !isPaused;
+	if(!isPaused) {
+		KEY_X.update(dt);
+		KEY_C.update(dt);
+		updateCurrentBounds();
+		myWorld.registerBoundary(currentBounds);
+		myWorld.update(dt);
+	}
 #ifdef DEBUG_CONTROLLER
 	FPS = (int)(1/dt);
 #endif//DEBUG_CONTROLLER
-	KEY_X.update(dt);
-	KEY_C.update(dt);
-	updateCurrentBounds();
-	myWorld.registerBoundary(currentBounds);
-	return myWorld.update(dt);
+	return false;
 }
 void Controller::draw(Core::Graphics& graphics) {
-	if(currentBounds == &complexBounds) {
-		graphics.SetBackgroundColor(RGB(0,0,0));
-	}
-	if(currentBounds == &simpleBounds) {
-		graphics.SetBackgroundColor(RGB(30,30,30));
-	}
+	if(currentBounds == &complexBounds) graphics.SetBackgroundColor(RGB(0,0,0));
+	if(currentBounds == &simpleBounds)  graphics.SetBackgroundColor(RGB(0,0,30));
+	if(isPaused) graphics.SetBackgroundColor(RGB(50,50,50));
 	hud.draw(graphics);
 	myWorld.draw(graphics);
 #ifdef DEBUG_CONTROLLER
@@ -106,4 +110,5 @@ void Controller::draw(Core::Graphics& graphics) {
 	std::string fps = ss.str();
 	graphics.DrawString(0,0,fps.c_str());
 #endif//DEBUG_CONTROLLER
+	if(isPaused) graphics.DrawString(myWorld.getCenter().getX(),myWorld.getCenter().getY(),"GAME HAS BEEN PAUSED");
 }

@@ -37,13 +37,11 @@ void      GameSpace::draw(Core::Graphics& graphics) {
 	myLerp.draw(graphics);
 	myBullets.draw(graphics);
 }
-bool      GameSpace::update(float dt) {
-	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
+void      GameSpace::update(float dt) {
 	myShip.update(dt);
 	myLerp.update(dt);
 	myBullets.update(dt);
 	myBullets.setBounds(boundary);
-	return false;
 }
 Boundary *GameSpace::getBoundary() { return boundary; }
 Vector2D  GameSpace::getMin() { return min; }

@@ -27,7 +27,7 @@ public:
 	GameSpace(float width, float height, const Vector2D& pos=Vector2D(0,0), Core::RGB color=defaultColor);
 	void      registerBoundary(Boundary *bounds);
 	void      draw(Core::Graphics& graphics);
-	bool      update(float dt);
+	void      update(float dt);
 	Boundary *getBoundary();
 	Vector2D  getMin();
 	Vector2D  getMax();
