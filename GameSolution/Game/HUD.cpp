@@ -62,7 +62,7 @@ HUD::HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeig
 	pad = 20;
 	addLeftPad  = 200-pad;
 	addRightPad = 0;
-	addTopPad   = 30;
+	addTopPad   = 100-pad;
 	addBotPad   = 0;
 	worldWidth  = screenWidth  - addRightPad - addLeftPad - 2 * pad;
 	worldHeight = screenHeight - addTopPad   - addBotPad  - 2 * pad;
@@ -103,7 +103,7 @@ void      HUD::draw(Core::Graphics& graphics) {
 	graphics.DrawString(textPad,currentRow,"P: Pause The Game");	currentRow += lineSpacing;
 	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
 
-	graphics.DrawString(200,15,"[MESSAGE BOX IS UNDER DEVELOPMENT]");
+	graphics.DrawString(500,15,"[MESSAGE BOX IS UNDER DEVELOPMENT]");
 }
 Vector2D  HUD::getWorldoffset() {
 	return Vector2D(pad+addLeftPad,pad+addTopPad);

@@ -15,7 +15,7 @@ void draw( Core::Graphics& graphics ) {
 	myGame.draw(graphics);
 }
 void startCoreEngine() {
-	Core::Init("Space Quest",SCREEN_WIDTH,SCREEN_HEIGHT);
+	Core::Init("Space Wars!",SCREEN_WIDTH,SCREEN_HEIGHT);
 	Core::RegisterDrawFn(draw);
 	Core::RegisterUpdateFn(update);
 	Core::GameLoop();
