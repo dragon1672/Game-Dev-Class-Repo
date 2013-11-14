@@ -110,5 +110,5 @@ void Controller::draw(Core::Graphics& graphics) {
 	std::string fps = ss.str();
 	graphics.DrawString(0,0,fps.c_str());
 #endif//DEBUG_CONTROLLER
-	if(isPaused) graphics.DrawString(myWorld.getCenter().getX(),myWorld.getCenter().getY(),"GAME HAS BEEN PAUSED");
+	if(isPaused) graphics.DrawString((int)myWorld.getCenter().getX(),(int)myWorld.getCenter().getY(),"GAME HAS BEEN PAUSED");
 }

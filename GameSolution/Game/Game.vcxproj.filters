@@ -138,5 +138,8 @@
     <ClInclude Include="TurretMark4.h">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
+    <ClInclude Include="SolarSystemManager.h">
+      <Filter>Objects\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

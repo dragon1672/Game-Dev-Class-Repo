@@ -9,14 +9,13 @@
 
 class SolarSystem {
 	static Shape thisStyle;
-	
+	std::vector<SolarSystem *> children;
+public:
 	float orbitAcc;
 	float orbitAngle;
 	float orbitLength;
 	float size;
 
-	std::vector<SolarSystem *> children;
-public:
 	SolarSystem() {
 		orbitAcc    = 5;
 		orbitAngle  = 25;
