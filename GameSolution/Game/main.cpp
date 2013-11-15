@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include "MyRandom.h"
 
+//-----------/* Rename "Constroller" to "Controller" */-----------/
 const int SCREEN_WIDTH  = 1500;
 const int SCREEN_HEIGHT = 800;
 Controller myGame(SCREEN_WIDTH,SCREEN_HEIGHT);

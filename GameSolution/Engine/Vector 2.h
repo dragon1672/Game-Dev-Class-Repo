@@ -2,7 +2,7 @@
 #define Vector2D_TWO
 #include <iostream>
 #include <cmath>
-struct Vector2D {
+class Vector2D {
 private:
 	float x;
 	float y;

@@ -3,10 +3,10 @@
 
 void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 	float anglesInCircle = 2*3.14f;
-	float variancePercent = 2;
+	float variancePercent = 4;
 	float averageAngle = anglesInCircle/sides;
 	float variance = averageAngle / variancePercent;
-	Vector2D lastWall = wallLength * Vector2D(Random::randomFloat(0,100),Random::randomFloat(0,100)).normalized();//some random seedVector
+	Vector2D lastWall = wallLength * Random::randomUnitVector();//Vector2D(Random::randomFloat(0,100),Random::randomFloat(0,100)).normalized();//some random seedVector
 	for(int i=0;i<sides;i++) {
 		float angle = -averageAngle+Random::randomFloat(-variance,variance);
 		Vector2D newWall = Matrix3D::rotationMatrix(angle) * lastWall;

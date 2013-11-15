@@ -1,5 +1,7 @@
 #include "MyRandom.h"
 #include <random>
+#include <ctime>
+#include "Vector 2.h"
 int Random::randomInt(int low, int high) {
 	std::random_device rd;//dont like making multiple engines
 	std::mt19937 mt(rd()); //seed
@@ -7,11 +9,14 @@ int Random::randomInt(int low, int high) {
 	return dist(mt);
 }
 float Random::randomFloat(float low, float high) {
-	std::random_device rd;//dont like making multiple engines
-	std::mt19937 mt(rd()); //seed
-	std::uniform_int_distribution<int>dist((int)low,(int)high);
-	return (float)dist(mt);
+	return randomFloat() * (high-low) + low;
 }
 void Random::init() {
-	//startupSeeds and stuch
+	srand((unsigned)time(0));
+}
+float Random::randomFloat() {
+	return rand()/(static_cast<double>(RAND_MAX));
+}
+Vector2D Random::randomUnitVector() {
+	return Vector2D(randomFloat(-1,1),randomFloat(-1,1)).normalized();
 }

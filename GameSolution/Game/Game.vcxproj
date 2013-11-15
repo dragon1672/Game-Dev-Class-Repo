@@ -122,7 +122,6 @@
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SimpleBounary.h" />
     <ClInclude Include="SolarSystem.h" />
-    <ClInclude Include="SolarSystemManager.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="TurretMark2.h" />

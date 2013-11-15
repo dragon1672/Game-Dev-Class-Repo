@@ -5,27 +5,36 @@
 #include "Core.h"
 #include "Shape.h"
 #include <vector>
-
+#include "GameGlobal.h"
 
 class SolarSystem {
 	static Shape thisStyle;
-	std::vector<SolarSystem *> children;
+	int maxDepth;
+	void draw(Core::Graphics& graphics, const Matrix3D& transform, int depth);
 public:
-	float orbitAcc;
+	static float orbitLenDecrease;
+	static float SizeDecrease;
+	static float orbitAcc;
 	float orbitAngle;
 	float orbitLength;
 	float size;
+	int children;
 
-	SolarSystem() {
-		orbitAcc    = 5;
-		orbitAngle  = 25;
-		orbitLength = 40;
-		size        = 1;
+	SolarSystem(int depth = 3,int children = 4, float orbitLength = 40, float size = 5) {
+		startup(depth,children,orbitLength,size);
 	}
-	void addChild(SolarSystem *toAdd);
-	void update(float dt);
-	void draw(Core::Graphics graphic, const Matrix3D& transform);
-	void startup(int depth);
+	inline void update(float dt) {
+		orbitAngle+=orbitAcc*dt;
+	}
+	inline void draw(Core::Graphics& graphics, const Matrix3D& transform) {
+		draw(graphics, transform,maxDepth);
+	}
+	inline void startup(int depth = 5,int children = 4, float orbitLength = 40, float size = 5) {
+		this->maxDepth    = depth;
+		this->children    = children;
+		this->orbitLength = orbitLength;
+		this->size        = size;
+	}
 };
 
 #endif

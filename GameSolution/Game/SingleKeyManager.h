@@ -22,7 +22,7 @@ public:
 		}
 	}
 	inline bool  hasBeenClicked() {
-		return framesClicked==1;
+		return (framesClicked==1);
 	}
 	inline int   getFramesClicked() {
 		return framesClicked;

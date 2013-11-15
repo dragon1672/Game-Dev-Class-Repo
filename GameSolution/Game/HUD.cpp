@@ -30,7 +30,7 @@ void drawDottedLine(Core::Graphics& graphics, Vector2D start, Vector2D end, floa
 			Vector2D stop  = start.LERP(currentStep+lerpPercent,end);
 			graphics.DrawLine(begin.getX(),begin.getY(),stop.getX(),stop.getY());
 		}
-		drawing != drawing;
+		drawing = !drawing;
 		currentStep += 2*lerpPercent;
 	}
 }
@@ -77,9 +77,9 @@ void      HUD::draw(Core::Graphics& graphics) {
 
 	graphics.SetColor(yellow);
 
-	int textPad = 5;
-	int lineSpacing = 15;
-	int currentRow = 100;
+	float textPad = 5;
+	float lineSpacing = 15;
+	float currentRow = 100;
 	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"Controls");					currentRow += lineSpacing;
 	drawDottedLine(graphics,0,currentRow,addLeftPad+pad,currentRow,7);	currentRow += lineSpacing;
