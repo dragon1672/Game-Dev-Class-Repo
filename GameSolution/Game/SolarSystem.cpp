@@ -14,6 +14,7 @@ Shape SolarSystem::thisStyle(color,
 void SolarSystem::addChild(SolarSystem *toAdd) {
 	children.push_back(toAdd);
 }
+/*I was a bit confused about how this section was working, changing this or adding comments would help*/
 void SolarSystem::update(float dt) {
 	orbitAngle+=orbitAcc*dt;
 	for (unsigned int i=0; i<children.size(); i++)

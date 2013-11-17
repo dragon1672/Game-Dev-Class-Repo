@@ -4,10 +4,11 @@
 #include "Shape.h"
 #include "Core.h"
 #include "SolarSystem.h"
+#include "GameEntity.h"
 
 #define MAX_PATH_LENGTH 100
 
-class Lerper {
+class Lerper : GameEntity {
 	static Shape myStyle;
 	static Core::RGB myColor;
 	static const int distacePerSecond = 100;
@@ -17,7 +18,7 @@ class Lerper {
 	Vector2D pos;//position in space
 	Vector2D path[MAX_PATH_LENGTH];
 	Vector2D catchedNextLine;
-	int pathLength;
+	int pathIndex;
 	static float turnSpeed;
 	float angle;
 
@@ -28,6 +29,8 @@ public:
 	void addPoint(const Vector2D& toAdd);
 	int  nextIndex();
 	void nextLine();
+	Matrix3D getTransMatrix();
+	Shape *getStyle();
 	void update(float dt);
 	void draw(Core::Graphics& graphics);
 };

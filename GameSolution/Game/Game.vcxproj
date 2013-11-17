@@ -87,11 +87,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Engine\ExtendedGraphics.cpp" />
+    <ClCompile Include="..\Engine\ParticalEffect.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="ComplexBoundary.cpp" />
-    <ClCompile Include="Constroller.cpp" />
+    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="ExplosionEffect.cpp" />
+    <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameSpace.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Lerper.cpp" />
@@ -108,12 +112,18 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Engine\ExtendedGraphics.h" />
+    <ClInclude Include="..\Engine\Partical.h" />
+    <ClInclude Include="..\Engine\ParticalEffect.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="ExhaustEffect.h" />
+    <ClInclude Include="ExplosionEffect.h" />
+    <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HUD.h" />

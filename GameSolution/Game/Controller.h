@@ -1,6 +1,6 @@
 #pragma once
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef Controller_H
+#define Controller_H
 #include "Boundary.h"
 #include "SimpleBounary.h"
 #include "ComplexBoundary.h"
@@ -11,19 +11,18 @@
 #include "Vector 2.h"
 #include "GameSpace.h"
 
-#define DEBUG_CONTROLLER
+#define DEBUG_Controller
 
-#ifdef DEBUG_CONTROLLER
+#ifdef DEBUG_Controller
 #include <sstream>
-#endif//DEBUG_CONTROLLER
-
+#endif//DEBUG_Controller
 
 class Controller {
 	SingleKeyManager KEY_C;
 	SingleKeyManager KEY_X;
 	SingleKeyManager PAUSE_BUTTON;
 	bool isPaused;
-
+	
 	int width;
 	int height;
 	HUD hud;
@@ -31,9 +30,9 @@ class Controller {
 	SimpleBoundary  simpleBounds;
 	ComplexBoundary complexBounds;
 	Boundary *currentBounds;
-#ifdef DEBUG_CONTROLLER
+#ifdef DEBUG_Controller
 	int FPS;
-#endif//DEBUG_CONTROLLER
+#endif//DEBUG_Controller
 	void setStaticBounds();
 	void setDynamicBounds();
 	void initSimpleBounds();

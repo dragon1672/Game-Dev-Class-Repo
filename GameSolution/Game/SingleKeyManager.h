@@ -13,7 +13,7 @@ public:
 		this->toCheck = toCheck;
 	}
 	inline void  update(float dt) {
-		if(Core::Input::IsPressed( toCheck )) {
+		if(Core::Input::IsPressed( toCheck )) {/*(Luis) What does toCheck represent exactly?*/
 			framesClicked++;
 			secondsClicked += dt;
 		} else {

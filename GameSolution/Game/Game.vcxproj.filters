@@ -19,6 +19,12 @@
     <Filter Include="Objects\World\Boundary">
       <UniqueIdentifier>{697cc196-fe41-49ae-b146-50f8a08dbdae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ToPlaceInEngine">
+      <UniqueIdentifier>{87285be6-c3a8-4bed-8410-83464629cba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToPlaceInEngine\Particle Effects">
+      <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -37,9 +43,6 @@
       <Filter>Objects\Entities</Filter>
     </ClCompile>
     <ClCompile Include="HUD.cpp">
-      <Filter>GameManagment</Filter>
-    </ClCompile>
-    <ClCompile Include="Constroller.cpp">
       <Filter>GameManagment</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
@@ -76,6 +79,19 @@
     <ClCompile Include="TurretMark5.cpp">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClCompile>
+    <ClCompile Include="..\Engine\ParticalEffect.cpp">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>GameManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\ExtendedGraphics.cpp">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -138,6 +154,24 @@
     <ClInclude Include="TurretMark4.h">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
-    <ClInclude Include="GameGlobal.h" />
+    <ClInclude Include="..\Engine\Partical.h">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\ParticalEffect.h">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGlobal.h">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\ExtendedGraphics.h">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ExhaustEffect.h">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h" />
   </ItemGroup>
 </Project>

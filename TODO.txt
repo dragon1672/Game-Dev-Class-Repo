@@ -1,0 +1,5 @@
+generic bullet
+	turrets will manage bullet memory
+	make a tracking bullet
+	bullet manager will hold bullet pointers in a vector
+partical effect for exaust of ship

@@ -2,6 +2,8 @@
 #ifndef SPACE_SHIP_H
 #define SPACE_SHIP_H
 
+#include "GameEntity.h"
+
 #include "Vector 2.h"
 #include "Core.h"
 #include "Shape.h"
@@ -19,7 +21,7 @@ class GameSpace;
 #define NUM_OF_TURRETS 5
 
 
-class Spaceship {
+class Spaceship : public GameEntity {
 	static Core::RGB shipColor;
 	static const float brakePower;
 	static Shape thisShape;
@@ -55,11 +57,12 @@ class Spaceship {
 	void  manageRot(float dt);
 	void  move(float dt);
 public:
-	void init(float x, float y, GameSpace *space);
-	void addAcc(const Vector2D& toAdd, float scalar=1);
-	void draw(Core::Graphics& graphics);
-	void update(float dt);
-	Matrix3D getShipMatrix();
+	void     init(float x, float y, GameSpace *space);
+	void     addAcc(const Vector2D& toAdd, float scalar=1);
+	Shape*   getStyle();
+	void     draw(Core::Graphics& graphics);
+	void     update(float dt);
+	Matrix3D getTransMatrix();
 };
 
 #endif

@@ -9,7 +9,7 @@ class BasicTurret : public Turret {
 private:
 	Shape *getStyle();
 public:
-	void update(float dt, const Vector2D& pos);
+	void update(float dt);
 };
 
 #endif

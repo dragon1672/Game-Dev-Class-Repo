@@ -31,9 +31,10 @@ Shape *TurretMark3::getStyle() {
 	return &TurretMark3Style;
 }
 
-void TurretMark3::update(float dt, const Vector2D& pos) {
+void TurretMark3::update(float dt) {
+/*There is a lot going on here. Recommend adding comments here.*/
 	sinceLastShot+=dt;
-	pointToMouse(pos);
+	pointToMouse();
 	MOUSE.update(dt);
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(sinceLastShot > timeBetweenShots) { 
@@ -42,13 +43,13 @@ void TurretMark3::update(float dt, const Vector2D& pos) {
 			Bullet createdBullet;//creating bullet to be fired
 			Matrix3D turretRotation = Matrix3D::rotateToVector(direction);
 			Vector2D offset = turretRotation * Vector2D(distBetweenBullets,0);
-			createdBullet.pos   = pos+offset+tipOfTurret();
+			createdBullet.pos   = getParentPos()+offset+tipOfTurret();
 			createdBullet.setVel(defaultBulletSpeed*direction);
 			createdBullet.style = &arrow;
 			//createdBullet.rotationMat = turretRotation;
 			shoot(&createdBullet);
 			offset = turretRotation * Vector2D(-distBetweenBullets,0);
-			createdBullet.pos   = pos+offset+tipOfTurret();
+			createdBullet.pos   = getParentPos()+offset+tipOfTurret();
 			shoot(&createdBullet);
 		}
 	}

@@ -12,7 +12,7 @@ private:
 	Shape *getStyle();
 public:
 	TurretMark5() { sinceLastShot = 0; }
-	void update(float dt, const Vector2D& pos);
+	void update(float dt);
 };
 
 #endif

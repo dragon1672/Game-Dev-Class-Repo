@@ -1,0 +1,7 @@
+/*General Overview:
+	Overall, this is some good code in my opinion.  For the most part,
+the only real issue is readability.  Certain sections feel hard to read and 
+could use with a bit of clean up and commenting.  Also, be careful with your 
+naming conventions.  Certain variable names seem hard to understand or remember what 
+they represent.  Besides that, good job. You've put in a lot of work.
+*/

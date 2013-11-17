@@ -19,15 +19,15 @@ Shape *TurretMark4::getStyle() {
 	return &TurretMark4Style;
 }
 
-void TurretMark4::update(float dt, const Vector2D& pos) {
+void TurretMark4::update(float dt) {
 	sinceLastShot+=dt;
-	pointToMouse(pos);
+	pointToMouse();
 	MOUSE.update(dt);
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(sinceLastShot > timeBetweenShots) { 
 			sinceLastShot = 0;
 			Bullet createdBullet;
-			createdBullet.pos   = pos + tipOfTurret();
+			createdBullet.pos   = getParentPos() + tipOfTurret();
 			createdBullet.setVel(defaultBulletSpeed*direction);
 			createdBullet.style = &defaultBulletStyle;
 			shoot(&createdBullet);

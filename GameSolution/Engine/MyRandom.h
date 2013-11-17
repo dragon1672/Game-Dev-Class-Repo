@@ -3,14 +3,16 @@
 #define MY_RANDOM_H
 
 #include "ExportHeader.h"
+
 class Vector2D;
 
-namespace Random {
-	ENGINE_SHARED int      randomInt(int low, int high);
-	ENGINE_SHARED float    randomFloat();
-	ENGINE_SHARED float    randomFloat(float low, float high);
-	ENGINE_SHARED Vector2D randomUnitVector();
-	ENGINE_SHARED void     init();
-}
+class ENGINE_SHARED Random {
+public:
+	static int      randomInt(int low, int high);
+	static float    randomFloat();
+	static float    randomFloat(float low, float high);
+	static Vector2D randomUnitVector();
+	static void     init();
+};
 
 #endif//MY_RANDOM_H

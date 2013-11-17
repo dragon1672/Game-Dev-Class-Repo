@@ -72,7 +72,7 @@ void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
 	turrets[4] = &myMark5Turret;
 
 	for(int i=0;i<sizeof(turrets)/sizeof(*turrets);i++) {
-		turrets[i]->init(space);
+		turrets[i]->init(space,this);
 	}
 	currentTurret = turrets[0];
 }
@@ -181,17 +181,20 @@ void  Spaceship::update(float dt) {
 	move(dt);
 	//updateTurret(dt);
 	updateSelectedTurret();
-	currentTurret->update(dt, pos);
+	currentTurret->update(dt);
 }
 //graphics
+Shape* Spaceship::getStyle() {
+	return &thisShape;
+}
 void  Spaceship::draw(Core::Graphics& graphics) {
-	this->thisShape.draw(graphics,getShipMatrix());
-	currentTurret->draw(graphics,pos);
+	getStyle()->draw(graphics,getTransMatrix());
+	currentTurret->draw(graphics);
 
 #ifdef DEBUG_SPACESHIP
 
 #endif
 }
-Matrix3D Spaceship::getShipMatrix() {
+Matrix3D Spaceship::getTransMatrix() {
 	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
 }

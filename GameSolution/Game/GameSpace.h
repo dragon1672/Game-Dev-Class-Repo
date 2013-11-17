@@ -9,7 +9,7 @@
 #include "BulletManager.h"
 
 const Core::RGB defaultColor = RGB(255,0,50);
-//creates a sqare world where all game obects will interact in
+//creates a square world where all game obects will interact in
 class GameSpace {
 	Spaceship myShip;
 	Boundary *boundary;

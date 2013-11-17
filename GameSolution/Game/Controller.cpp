@@ -25,9 +25,9 @@ Controller::Controller (int width, int height) : width(width),
 												 KEY_X('X'),
 												 PAUSE_BUTTON('P'),
 												 myWorld(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset()) {
-#ifdef DEBUG_CONTROLLER
+#ifdef DEBUG_Controller
 	FPS = 0;
-#endif//DEBUG_CONTROLLER
+#endif//DEBUG_Controller
 	setDynamicBounds();
 	initSimpleBounds();
 	currentBounds = &complexBounds;
@@ -85,7 +85,7 @@ void Controller::updateCurrentBounds() {
 bool Controller::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	PAUSE_BUTTON.update(dt);
-	if(PAUSE_BUTTON.hasBeenClicked()) isPaused = !isPaused;
+	if(PAUSE_BUTTON.hasBeenClicked()) isPaused = !isPaused; /*(Luis) saying isPaused == false feels a bit more readable than !isPaused in this case*/
 	if(!isPaused) {
 		KEY_X.update(dt);
 		KEY_C.update(dt);
@@ -93,9 +93,9 @@ bool Controller::update(float dt) {
 		myWorld.registerBoundary(currentBounds);
 		myWorld.update(dt);
 	}
-#ifdef DEBUG_CONTROLLER
+#ifdef DEBUG_Controller
 	FPS = (int)(1/dt);
-#endif//DEBUG_CONTROLLER
+#endif//DEBUG_Controller
 	return false;
 }
 void Controller::draw(Core::Graphics& graphics) {
@@ -104,11 +104,11 @@ void Controller::draw(Core::Graphics& graphics) {
 	if(isPaused) graphics.SetBackgroundColor(RGB(50,50,50));
 	hud.draw(graphics);
 	myWorld.draw(graphics);
-#ifdef DEBUG_CONTROLLER
+#ifdef DEBUG_Controller
 	std::stringstream ss;
 	ss << FPS;
 	std::string fps = ss.str();
 	graphics.DrawString(0,0,fps.c_str());
-#endif//DEBUG_CONTROLLER
+#endif//DEBUG_Controller
 	if(isPaused) graphics.DrawString((int)myWorld.getCenter().getX(),(int)myWorld.getCenter().getY(),"GAME HAS BEEN PAUSED");
 }

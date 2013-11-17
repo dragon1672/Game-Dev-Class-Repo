@@ -121,6 +121,8 @@ void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 		}
 	}
 }
+//
+/*(Luis) If possible, specify the differences between these two draw functions.  They see, fairly similar aside from the "scale" parameters*/
 void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scale) {
 	draw(graphics,transpose,rotation,scale,scale);
 }
@@ -128,6 +130,7 @@ void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rota
 	Matrix3D transform = Matrix3D::translate(transpose) * Matrix3D::rotationMatrix(rotation) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleX(scaleY);
 	draw(graphics,transform);
 }
+//
 bool Shape::isConstructed() {
 	return constructed;
 }

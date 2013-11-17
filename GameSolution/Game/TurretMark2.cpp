@@ -23,15 +23,16 @@ Shape *TurretMark2::getStyle() {
 Vector2D t_randomVector(float low, float high) {
 	return Vector2D(Random::randomFloat(low,high), Random::randomFloat(low,high));
 }
-void TurretMark2::update(float dt, const Vector2D& pos) {
+void TurretMark2::update(float dt) {
+/*Adding comments here will make this easier to understand*/
 	sinceLastShot+=dt;
-	pointToMouse(pos);
+	pointToMouse();
 	MOUSE.update(dt);
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(sinceLastShot > timeBetweenShots) { 
 			sinceLastShot = 0;
 			Bullet createdBullet;
-			createdBullet.pos   = pos + tipOfTurret();
+			createdBullet.pos   = getParentPos() + tipOfTurret();
 			createdBullet.setVel((defaultBulletSpeed*direction) + t_randomVector(0,3));
 			createdBullet.style = &defaultBulletStyle;
 			//createdBullet.rotation = 20;
