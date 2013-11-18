@@ -1,23 +1,20 @@
 #include "Core.h"
-#include "SpaceShip.h"
-#include "GameSpace.h"
 #include "Controller.h"
 #include "MyRandom.h"
+//temp
 #include "ParticalEffect.h"
+#include "ExhaustEffect.h"
+#include "ParticalManager.h"
 
-//-----------/* Rename "Constroller" to "Controller" */-----------/
+
 const int SCREEN_WIDTH  = 1500;
 const int SCREEN_HEIGHT = 800;
 Controller myGame(SCREEN_WIDTH,SCREEN_HEIGHT);
-ParticalEffect potato;
-
 
 bool update( float dt ) {
-	potato.update(dt);
 	return myGame.update(dt);
 }
 void draw( Core::Graphics& graphics ) {
-	potato.draw(graphics);
 	myGame.draw(graphics);
 }
 void startCoreEngine() {
@@ -28,7 +25,6 @@ void startCoreEngine() {
 }
 int main() {
 	Random::init();
-	potato.init(1000,Vector2D(500,500),1.5);
 	startCoreEngine();
 }
 

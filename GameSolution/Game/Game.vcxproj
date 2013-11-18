@@ -88,18 +88,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp" />
-    <ClCompile Include="..\Engine\ParticalEffect.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="ComplexBoundary.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="ExhaustEffect.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameSpace.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ParticalManager.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SimpleBounary.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
@@ -128,11 +129,13 @@
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />
+    <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="SingleKeyManager.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SimpleBounary.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceShip.h" />
+    <ClInclude Include="StaticEntity.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="TurretMark2.h" />
     <ClInclude Include="TurretMark3.h" />

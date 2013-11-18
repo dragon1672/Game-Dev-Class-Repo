@@ -49,7 +49,7 @@ void Turret::init(GameSpace *mySpace, GameEntity *parent) {
 }
 void Turret::pointToMouse() {
 	direction = getParentPos() - Vector2D((float)Core::Input::GetMouseX(),(float)Core::Input::GetMouseY());
-	direction = direction.normalized();
+	direction = (direction).normalized();
 }
 
 void Turret::draw(Core::Graphics& graphics) {

@@ -1,14 +1,22 @@
+/*
 #pragma once
 #ifndef EXHAUST_EFFECT_H
 #define EXHAUST_Effect_H
 
 #include "ParticalEffect.h"
+#include "GameEntity.h"
 
 class ExhaustEffect : public ParticalEffect {
+	GameEntity *parent;
+	int lifetime;
+	float varianceAngle;
 public:
-	virtual void init(int size, const Vector2D& pos, float lifetime);
-	void update(float dt);
-	void draw(Core::Graphics graphics);
+	void init(GameEntity *parent, int lifetime=2, float varianceAngle=30);
+	//overloads
+	void initPartical(Partical *toInit);
+	void update(float dt, Partical *toUpdate);
+	void draw(Core::Graphics graphics, Partical *toUpdate);
 };
 
 #endif
+//*/

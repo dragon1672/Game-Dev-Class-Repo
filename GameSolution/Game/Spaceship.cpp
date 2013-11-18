@@ -61,7 +61,7 @@ std::string vec2str(Vector2D input) {
 #include "BasicTurret.h"
 #include "TurretMark2.h"
 
-void  Spaceship::init(float x, float y, GameSpace *space/*, GameWorld world*/) {
+void  Spaceship::init(float x, float y, GameSpace *space) {
 	pos = Vector2D(x,y);
 	this->space = space;
 	//have to manually set the array
@@ -197,4 +197,7 @@ void  Spaceship::draw(Core::Graphics& graphics) {
 }
 Matrix3D Spaceship::getTransMatrix() {
 	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
+}
+Matrix3D Spaceship::getRotationMat() {
+	return Matrix3D::rotationMatrix(angle);
 }

@@ -17,7 +17,9 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyRandom.cpp" />
+    <ClCompile Include="MyRandom.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportHeader.h">
@@ -38,7 +40,9 @@
     <ClInclude Include="Vector3D.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="MyRandom.h" />
+    <ClInclude Include="MyRandom.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Vector 2.inl">

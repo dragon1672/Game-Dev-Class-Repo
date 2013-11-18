@@ -9,10 +9,13 @@
 
 class GameEntity {
 public:
-	virtual Shape* getStyle();
-	virtual Matrix3D getTransMatrix();
-	virtual void update(float dt);
-	virtual void draw(Core::Graphics& graphics);
+	       virtual Shape* getStyle();
+	       virtual Matrix3D getTransMatrix();
+	inline virtual Matrix3D getRotationMat() {
+		return Matrix3D();
+	}
+	       virtual void update(float dt);
+	       virtual void draw(Core::Graphics& graphics);
 };
 
 #endif

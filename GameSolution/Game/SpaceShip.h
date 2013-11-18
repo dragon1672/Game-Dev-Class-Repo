@@ -63,6 +63,7 @@ public:
 	void     draw(Core::Graphics& graphics);
 	void     update(float dt);
 	Matrix3D getTransMatrix();
+	Matrix3D getRotationMat();
 };
 
 #endif

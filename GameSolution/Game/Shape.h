@@ -36,26 +36,12 @@ public:
 	void draw(Core::Graphics& graphics, const Matrix3D& transform);
 
 	//collision to point
-	bool circleCollisionCheck(const Vector2D& toCheck, const Matrix3D& transformations) {
-		Vector2D center = transformations * Vector2D(0,0);
-		if( (center - toCheck).lengthSquared() < getRadius() ) return true;
-		return false;
-	}
-	bool collision(const Vector2D& toCheck, const Matrix3D& transformations) {
-		return circleCollisionCheck(toCheck,transformations);
-	}
+	bool circleCollisionCheck(const Vector2D& toCheck, const Matrix3D& transformations);
+	bool collision(const Vector2D& toCheck, const Matrix3D& transformations);
 	//collision to shape
 
-	bool circleCollisionCheck(const Shape& toCheck, const Matrix3D& trans, const Matrix3D& transForCheck) {
-		Vector2D center1 = trans * Vector2D(0,0);
-		Vector2D center2 = transForCheck * Vector2D(0,0);
-		if( (center1 - center2).lengthSquared()<(this->getRadius() + toCheck.getRadius()) ) return true;
-		return false;
-	}
-	bool collision(const Shape& toCheck, const Matrix3D& trans, const Matrix3D& transForCheck) {
-		return circleCollisionCheck(toCheck,trans,transForCheck);
-	}
-
+	bool circleCollisionCheck(const Shape& toCheck, const Matrix3D& trans, const Matrix3D& transForCheck);
+	bool collision(const Shape& toCheck, const Matrix3D& trans, const Matrix3D& transForCheck);
 
 	void setRandomColor();
 	void setColor(Core::RGB toSet);

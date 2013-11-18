@@ -79,9 +79,6 @@
     <ClCompile Include="TurretMark5.cpp">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\ParticalEffect.cpp">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>GameManagment</Filter>
     </ClCompile>
@@ -92,6 +89,10 @@
       <Filter>ToPlaceInEngine</Filter>
     </ClCompile>
     <ClCompile Include="GameEntity.cpp" />
+    <ClCompile Include="ParticalManager.cpp">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ExhaustEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -160,9 +161,6 @@
     <ClInclude Include="..\Engine\ParticalEffect.h">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClInclude>
-    <ClInclude Include="GameGlobal.h">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
-    </ClInclude>
     <ClInclude Include="ExplosionEffect.h">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClInclude>
@@ -173,5 +171,12 @@
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClInclude>
     <ClInclude Include="GameEntity.h" />
+    <ClInclude Include="StaticEntity.h">
+      <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGlobal.h" />
+    <ClInclude Include="ParticalManager.h">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

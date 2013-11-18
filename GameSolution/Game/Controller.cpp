@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "MyRandom.h"
+#include "ExtendedGraphics.h"
 
 void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 	float anglesInCircle = 2*3.14f;
@@ -99,10 +100,15 @@ bool Controller::update(float dt) {
 	return false;
 }
 void Controller::draw(Core::Graphics& graphics) {
-	if(currentBounds == &complexBounds) graphics.SetBackgroundColor(RGB(0,0,0));
-	if(currentBounds == &simpleBounds)  graphics.SetBackgroundColor(RGB(0,0,30));
-	if(isPaused) graphics.SetBackgroundColor(RGB(50,50,50));
+	Core::RGB worldColor = RGB(0,100,0);//green
+	Core::RGB pauseColor = RGB(50,50,50);
+
+	if(currentBounds == &complexBounds) worldColor = RGB(10,10,10);
+	if(currentBounds == &simpleBounds)  worldColor = RGB(0,0,10); 
+	if(isPaused) worldColor = pauseColor;
+
 	hud.draw(graphics);
+	hud.paintWorld(graphics,worldColor);
 	myWorld.draw(graphics);
 #ifdef DEBUG_Controller
 	std::stringstream ss;
@@ -110,5 +116,8 @@ void Controller::draw(Core::Graphics& graphics) {
 	std::string fps = ss.str();
 	graphics.DrawString(0,0,fps.c_str());
 #endif//DEBUG_Controller
-	if(isPaused) graphics.DrawString((int)myWorld.getCenter().getX(),(int)myWorld.getCenter().getY(),"GAME HAS BEEN PAUSED");
+	if(isPaused) {
+		hud.worldPopup(graphics,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(pauseColor,.5));
+		//ExtendedGraphics::textInABox(graphics,ExtendedGraphics::brightness(pauseColor,.5),HUD::defaultTextColor, "GAME HAS BEEN PAUSED",hud.getWorldoffset().getX(),hud.getWorldoffset().getY(),hud.getWorldWidth(), hud.getWorldHeight());
+	}
 }
