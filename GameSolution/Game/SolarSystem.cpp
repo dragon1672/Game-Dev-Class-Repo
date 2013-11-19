@@ -1,7 +1,7 @@
 #include "SolarSystem.h"
 #include "Matrix3D.h"
 #include <cassert>
-const float anglesInCircle = 2*3.14f;
+
 Core::RGB color = RGB(100,255,0);
 Shape SolarSystem::thisStyle(color,
 							3,

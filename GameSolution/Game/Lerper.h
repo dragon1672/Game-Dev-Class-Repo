@@ -1,4 +1,9 @@
 #pragma once
+#ifndef LERPER_H
+#define LERPER_H
+
+#include "GameGlobal.h"
+
 #include "Vector 2.h"
 #include <cassert>
 #include "Shape.h"
@@ -34,3 +39,5 @@ public:
 	void update(float dt);
 	void draw(Core::Graphics& graphics);
 };
+
+#endif

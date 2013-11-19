@@ -1,8 +1,8 @@
-//*
 #pragma once
 #ifndef EXPLOSION_EFFECT_H
 #define EXPLOSION_EFFECT_H
 
+#include "GameGlobal.h"
 #include "ParticalEffect.h"
 
 class ExplosionEffect : ParticalEffect {
@@ -19,4 +19,3 @@ public:
 };
 
 #endif
-//*/

@@ -2,7 +2,9 @@
 #ifndef SPACE_SHIP_H
 #define SPACE_SHIP_H
 
-#include "GameEntity.h"
+#include "LivingGameEntity.h"
+
+#include "GameGlobal.h"
 
 #include "Vector 2.h"
 #include "Core.h"
@@ -23,7 +25,7 @@ class GameSpace;
 #define NUM_OF_TURRETS 5
 
 
-class Spaceship : public GameEntity {
+class Spaceship : public LivingGameEntity {
 	static Core::RGB shipColor;
 	static const float brakePower;
 	static Shape thisShape;

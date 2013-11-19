@@ -1,4 +1,3 @@
-//*
 #include "ParticalManager.h"
 
 void ParticalManager::newEffect(int size, ParticalEffect *effect) {
@@ -25,4 +24,3 @@ void ParticalManager::draw(Core::Graphics graphics) {
 		}
 	}
 }
-//*/

@@ -40,10 +40,10 @@ void      ExtendedGraphics::drawRainbowText(Core::Graphics& graphics, float x, f
 	}
 }
 void      ExtendedGraphics::drawPlane( Core::Graphics graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4) {
-	float maxLength = ( (p1-p4).lengthSquared() > (p2-p3).lengthSquared() )? (p1-p4).length() : (p2-p3).length();
+	float maxLength = ( (p1-p4).lengthSquared() > (p2-p3).lengthSquared() )? (float)(p1-p4).length() : (float)(p2-p3).length();
 	//out of 1 would be 1 line for each pixal, 1.8 is for optimization
 	//2 creates visable gaps
-	float interval = 1.8/maxLength;
+	float interval = 1.8f/maxLength;
 	float index = 0;
 	while(index<1) {
 		Vector2D start = p1.LERP(index,p2);
@@ -58,7 +58,7 @@ void      ExtendedGraphics::drawSquare(Core::Graphics graphics, const Vector2D& 
 void      ExtendedGraphics::textInABox(Core::Graphics graphics, Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height) {
 	graphics.SetBackgroundColor(backCol);
 	graphics.SetColor(backCol);
-	drawSquare(graphics,Vector2D(x,y),Vector2D(x,y) + Vector2D(width,height));
+	drawSquare(graphics,Vector2D((float)x,(float)y),Vector2D((float)x,(float)y) + Vector2D((float)width,(float)height));
 	int strLength = strlen(text) * CHAR_SPACING;
 	int strHeight = CHAR_HEIGHT;
 	graphics.SetColor(textCol);
@@ -69,9 +69,9 @@ Core::RGB ExtendedGraphics::randomColor() {
 	return RGB(Random::randomInt(0,255),Random::randomInt(0,255),Random::randomInt(0,255));
 }
 Core::RGB ExtendedGraphics::brightness(Core::RGB col, float percent) {
-	int r = capAtRange(GetRValue(col) * percent,0,255);
-	int g = capAtRange(GetGValue(col) * percent,0,255);
-	int b = capAtRange(GetBValue(col) * percent,0,255);
+	int r = capAtRange((int)(GetRValue(col) * percent),0,255);
+	int g = capAtRange((int)(GetGValue(col) * percent),0,255);
+	int b = capAtRange((int)(GetBValue(col) * percent),0,255);
 	return RGB(r,g,b);
 }
 Core::RGB ExtendedGraphics::varyColor( Core::RGB col, int variance) {

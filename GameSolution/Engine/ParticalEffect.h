@@ -1,7 +1,8 @@
-//*
 #pragma once
 #ifndef PARTICAL_EFFECT_H
 #define PARTICAL_EFFECT_H
+
+#include "GameGlobal.h"
 
 #include "Vector 2.h"
 #include "Core.h"
@@ -18,4 +19,3 @@ public:
 };
 
 #endif
-//*/

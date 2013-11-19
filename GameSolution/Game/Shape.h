@@ -8,7 +8,7 @@
 #include "Matrix3D.h"
 #include "Core.h"
 
-//#define DEBUG_SHAPE
+#include "GameGlobal.h"
 
 class Shape {
 protected:

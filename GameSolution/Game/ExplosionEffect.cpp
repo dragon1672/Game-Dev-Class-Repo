@@ -1,4 +1,3 @@
-//*
 #include "ExplosionEffect.h"
 #include "MyRandom.h"
 #include <cassert>
@@ -26,4 +25,3 @@ void ExplosionEffect::draw(Core::Graphics graphics, Partical *toDraw) {
 	graphics.SetColor(toDraw->color);
 	graphics.DrawLine(toDraw->pos.getX(), toDraw->pos.getY(),toDraw->pos.getX()+1,toDraw->pos.getY()+1);
 }
-//*/

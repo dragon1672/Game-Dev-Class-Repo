@@ -1,7 +1,8 @@
-//*
 #pragma once
 #ifndef PARTICAL_H
 #define PARTICAL_H
+
+#include "GameGlobal.h"
 
 #include "Vector 2.h"
 #include "Core.h"
@@ -13,6 +14,7 @@ public:
 	Vector2D vel;
 	Core::RGB color;
 	float lifetime;
+	bool paused;
 	ParticalEffect *myEffect;
 	inline void update(float dt) {
 		myEffect->update(dt,this);
@@ -23,4 +25,3 @@ public:
 };
 
 #endif
-//*/

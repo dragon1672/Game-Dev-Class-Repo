@@ -14,17 +14,17 @@ const float anglesInCircle = 2*3.14f;
 #include <sstream>
 #include "Vector 2.h"
 namespace DEBUG {
-	std::string num2str(float num) {
+	inline std::string num2str(float num) {
 		std::stringstream ss;
 		ss << num;
 		return ss.str();
 	}
-	std::string num2str(int num) {
+	inline std::string num2str(int num) {
 		std::stringstream ss;
 		ss << num;
 		return ss.str();
 	}
-	std::string vec2str(const Vector2D& vec) {
+	inline std::string vec2str(const Vector2D& vec) {
 		std::stringstream ss;
 		ss << vec;
 		return ss.str();

@@ -90,7 +90,7 @@ void HUD::paintWorld(Core::Graphics graphics, Core::RGB color) {
 }
 void HUD::worldPopup(Core::Graphics graphics, char* text, Core::RGB color, int width, int height) {
 	Vector2D popupOffset = getWorldoffset() + Vector2D((getWorldWidth() - width)/2,(getWorldHeight() - height)/2);
-	ExtendedGraphics::textInABox(graphics,color,defaultTextColor,text,popupOffset.getX(),popupOffset.getY(),width,height);
+	ExtendedGraphics::textInABox(graphics,color,defaultTextColor,text,(int)popupOffset.getX(),(int)popupOffset.getY(),(int)width,(int)height);
 }
 Vector2D  HUD::getWorldoffset() {
 	return Vector2D(pad+addLeftPad,pad+addTopPad);

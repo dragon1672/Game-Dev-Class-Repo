@@ -24,16 +24,6 @@ Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 							Vector2D(-6,-0 ),
 							Vector2D(-5,-6 )
 							);//*/
-#ifdef DEBUG_SPACESHIP
-
-#include <sstream>
-std::string vec2str(Vector2D input) {
-	std::stringstream ss;
-	ss << input;
-	return ss.str();
-}
-
-#endif
 
 #include "BasicTurret.h"
 #include "TurretMark2.h"
@@ -106,39 +96,6 @@ void  Spaceship::collide() {
 	vel = space->collideVector(pos,vel);//need to pass dt to accuratly calc if collision will be in bounds again
 	//warp();//just in case
 }
-/*
-float Spaceship::mouseDistanceFromTurretLine() {
-	float mouseX = (float)Core::Input::GetMouseX();
-	float mouseY = (float)Core::Input::GetMouseY();
-	Vector2D mouse(mouseX,mouseY);
-	Vector2D temp = mouse-pos;
-	Vector2D anotherTemp = turret.perpCW().normalized();
-	float tempFloat = temp.dot(anotherTemp);
-	return tempFloat;
-}
-bool  Spaceship::mouseWithinTurretRange() {
-	float mouseX = (float)Core::Input::GetMouseX();
-	float mouseY = (float)Core::Input::GetMouseY();
-	Vector2D mouse(mouseX,mouseY);
-	Vector2D testOne = pos-mouse;
-	Vector2D testTwo = (pos+ turret) - mouse;
-	return (testOne.dot(testTwo) < 0);
-	//return ((mouse-pos).lengthSquared()<turret.lengthSquared());//is within Turret length from shipPos
-}
-void  Spaceship::updateTurret(float dt) {
-	if(Core::Input::IsPressed( Core::Input::BUTTON_LEFT) && mouseWithinTurretRange()) {
-		int error=5;
-		float mouseDist = mouseDistanceFromTurretLine();
-		if(-error<mouseDist && mouseDist<error) {
-			float mouseX = (float)Core::Input::GetMouseX();
-			float mouseY = (float)Core::Input::GetMouseY();
-			Vector2D mouse(mouseX,mouseY);
-			turret = TURRET_LENGTH*((mouse-pos).normalized());
-			if(turret.isZero()) resetTurret();
-		}
-	}
-}
-//*/
 void  Spaceship::manageRot(float dt) {
 	if(Core::Input::IsPressed('A')) {
 		angle -= rotationAcc*dt;
@@ -155,6 +112,7 @@ void  Spaceship::updateSelectedTurret() {
 	}
 }
 void  Spaceship::update(float dt) {
+	myEffect.active = Core::Input::IsPressed('W');
 	manageAcc(dt);
 	manageRot(dt);
 	move(dt);

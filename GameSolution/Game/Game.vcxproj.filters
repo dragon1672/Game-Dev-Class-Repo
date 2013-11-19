@@ -88,7 +88,6 @@
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp">
       <Filter>ToPlaceInEngine</Filter>
     </ClCompile>
-    <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="ParticalManager.cpp">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClCompile>
@@ -97,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="ParticalEffect.cpp">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>Objects\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +174,6 @@
     <ClInclude Include="ExhaustEffect.h">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClInclude>
-    <ClInclude Include="GameEntity.h" />
     <ClInclude Include="StaticEntity.h">
       <Filter>Objects\Entities</Filter>
     </ClInclude>
@@ -182,6 +183,12 @@
     </ClInclude>
     <ClInclude Include="SingleKeyManager.h">
       <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="LivingGameEntity.h">
+      <Filter>Objects\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

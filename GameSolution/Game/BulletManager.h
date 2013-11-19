@@ -2,6 +2,8 @@
 #ifndef BULLET_MANAGER
 #define BULLET_MANAGER
 
+#include "GameGlobal.h"
+
 #include <vector>
 #include "Bullet.h"
 #include "Core.h"
