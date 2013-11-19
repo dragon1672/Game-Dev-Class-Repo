@@ -28,21 +28,19 @@ void   BulletManager::setBounds(Boundary *toSet) {
 }
 //will delete sequential bullets out of bounds
 void   BulletManager::cleanOutOfBoundBullets(int startingIndex) {
-	Vector2D pos = bullets[startingIndex]->getTransMatrix * Vector2D(0,0);
-	if( !bullets[startingIndex]->isActive() || bounds->hasCollided(pos) ) {
-		bullets[startingIndex]->shutdown();
+	if(bounds->hasCollided(bullets[startingIndex].pos)) {
 		bullets.erase(bullets.begin() + startingIndex);
 		if((unsigned)startingIndex<bullets.size()) cleanOutOfBoundBullets(startingIndex);//incase multiple in a row
 	}
 }
 void   BulletManager::update(float dt) {
 	for(unsigned int i=0;i<bullets.size();i++) {
-		bullets[i]->update(dt);
+		bullets[i].update(dt);
 		cleanOutOfBoundBullets(i);
 	}
 }
 void   BulletManager::draw(Core::Graphics graphics) {
 	for(unsigned int i=0;i<bullets.size();i++) {
-		bullets[i]->draw(graphics);
+		bullets[i].draw(graphics);
 	}
 }

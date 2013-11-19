@@ -24,10 +24,22 @@ Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 							Vector2D(-6,-0 ),
 							Vector2D(-5,-6 )
 							);//*/
+#ifdef DEBUG_SPACESHIP
+
+#include <sstream>
+std::string vec2str(Vector2D input) {
+	std::stringstream ss;
+	ss << input;
+	return ss.str();
+}
+
+#endif
+
+#include "BasicTurret.h"
+#include "TurretMark2.h"
 
 void  Spaceship::init(float x, float y, GameSpace *space) {
 	pos = Vector2D(x,y);
-	setMaxHealth(STARTING_HEALTH);
 	this->space = space;
 	//have to manually set the array
 	turrets[0] = &myBasicTurret;

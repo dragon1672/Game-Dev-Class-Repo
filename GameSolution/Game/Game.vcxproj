@@ -88,7 +88,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp" />
-    <ClCompile Include="BasicBullet.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="BulletManager.cpp" />
@@ -118,7 +117,6 @@
     <ClInclude Include="..\Engine\ExtendedGraphics.h" />
     <ClInclude Include="..\Engine\Partical.h" />
     <ClInclude Include="..\Engine\ParticalEffect.h" />
-    <ClInclude Include="BasicBullet.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="Bullet.h" />
@@ -132,7 +130,6 @@
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />
-    <ClInclude Include="LivingGameEntity.h" />
     <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="SingleKeyManager.h" />
     <ClInclude Include="Shape.h" />

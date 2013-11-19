@@ -1,8 +1,8 @@
 #pragma once
 #ifndef SPACE_SHIP_H
 #define SPACE_SHIP_H
-#include "GameGlobal.h"
-#include "LivingGameEntity.h"
+
+#include "GameEntity.h"
 
 #include "Vector 2.h"
 #include "Core.h"
@@ -21,9 +21,9 @@ class GameSpace;
 
 //#define DEBUG_SPACESHIP
 #define NUM_OF_TURRETS 5
-#define STARTING_HEALTH 10
 
-class Spaceship : public LivingGameEntity {
+
+class Spaceship : public GameEntity {
 	static Core::RGB shipColor;
 	static const float brakePower;
 	static Shape thisShape;
@@ -67,8 +67,6 @@ public:
 	void     update(float dt);
 	Matrix3D getTransMatrix();
 	Matrix3D getRotationMat();
-	inline int getTeam() { return FRIENDLY_TEAM; }
-	void     shutdown();//not implented yet
 };
 
 #endif

@@ -8,16 +8,11 @@
 
 class GameSpace;
 class Boundary;
-/*
-  * holds an array of bullet pointers (bullet memory should be handled in the turret
-  * should be the only one calling shutdown on bullets
-  * should check if bullets are out of bounds
-  * bullets that are no longer active will be removed from the bullet list and will be required to be re-added once they are initilized again (active=true)
-//*/
+
 class BulletManager {
 	Boundary *bounds;
 	GameSpace *space;
-	std::vector<Bullet *> bullets;
+	std::vector<Bullet> bullets;
 public:
 	void init(GameSpace *space, Boundary *bounds);
 	Bullet getBullet(int id);

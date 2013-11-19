@@ -14,13 +14,7 @@ Shape TurretMark5Style( Turret::defaultTurretColor,
 Shape *TurretMark5::getStyle() {
 	return &TurretMark5Style;
 }
-void initBullet(int id) {
-	Bullet createdBullet;
-	createdBullet.pos   = getParentPos()+tipOfTurret();
-	createdBullet.setVel(defaultBulletSpeed*direction);
-	createdBullet.style = &defaultBulletStyle;
-	shoot(&createdBullet);
-}
+
 void TurretMark5::update(float dt) {
 	sinceLastShot+=dt;
 	pointToMouse();
@@ -28,7 +22,11 @@ void TurretMark5::update(float dt) {
 	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
 		if(sinceLastShot > timeBetweenShots) { 
 			sinceLastShot = 0;
-			shoot();
+			Bullet createdBullet;
+			createdBullet.pos   = getParentPos()+tipOfTurret();
+			createdBullet.setVel(defaultBulletSpeed*direction);
+			createdBullet.style = &defaultBulletStyle;
+			shoot(&createdBullet);
 		}
 	}
 }
