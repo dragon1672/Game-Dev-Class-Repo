@@ -6,16 +6,7 @@ Core::RGB Turret::defaultTurretColor= RGB(255,255,255);
 float Turret::defaultBulletSpeed = -100;
 
 const float bulletScale = 4;
-Shape Turret::defaultBulletStyle(RGB(255,0,255),
-	Matrix3D::scaleY(-1) * Matrix3D::scale(bulletScale), 
-	5,
-	Vector2D(   .7f, -1.0f ),
-	Vector2D(  0.0f,  1.0f ),
-	Vector2D(  -.6f, -1.0f ),
-	Vector2D(  1.0f,   .25f),
-	Vector2D( -1.0f,   .25f) 
-);
-void Turret::shoot(Bullet *toShoot) {
+void Turret::shootBullet(Bullet *toShoot) {
 	space->addBullet(toShoot);
 }
 const Matrix3D Cartesian2Screen = Matrix3D::scaleY(-1); /*Cartesian2Screen seems like a good name, but consider whether or not everyone will understand what you mean*/
@@ -35,7 +26,14 @@ void Turret::update(float dt) {
 	pointToMouse();
 	dt;
 }
-
+bool Turret::shoot() {
+	bool shot = false;
+	for(int i=0;i<getMaxBullets() && !shot;i++) {
+		shot = !startOfArray()[i].isActive();
+		if(shot) initBullet(i);
+	}
+	return shot;
+}
 Vector2D Turret::tipOfTurret() {
 	float turrentLenght = getStyle()->getMinY();
 	return turrentLenght * direction;

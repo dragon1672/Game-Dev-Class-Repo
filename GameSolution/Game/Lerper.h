@@ -33,4 +33,5 @@ public:
 	Shape *getStyle();
 	void update(float dt);
 	void draw(Core::Graphics& graphics);
+	inline int getTeam() { return NEUTRAL_TEAM; }
 };

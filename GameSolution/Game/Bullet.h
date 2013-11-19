@@ -5,31 +5,24 @@
 #include "Vector 2.h"
 #include "Shape.h"
 #include "Core.h"
+#include "GameEntity.h"
 
-class Bullet {
+class Bullet : public GameEntity {
 public:
-	Vector2D pos;
-	Vector2D vel;
-	Vector2D velNorm;//this is used for direction
-	Shape *style;
-	int team;
-	Bullet(const Vector2D& pos=Vector2D(0,0), const Vector2D& vel=Vector2D(0,0), Shape *style=NULL, int team=0) {
-		this->pos       = pos;
-		this->style     = style;
-		this->team      = team;
-		setVel(vel);
+	//gameEntity
+	virtual Shape*   getStyle()=0;
+	virtual Matrix3D getTransMatrix()=0;
+	virtual void     update(float dt)=0;
+	//other Core
+	virtual void  shutdown()=0;
+	virtual bool  isActive()=0;
+	virtual int   getTeam()=0;
+	virtual float getDamageAmount()=0;
+	
+	inline void draw(Core::Graphics& graphics) {
+		getStyle()->draw(graphics,getTransMatrix());
 	}
-	inline void setVel(const Vector2D& newVel) {
-		vel = newVel;
-		velNorm = vel.normalized();
-	}
-	inline void update(float dt) {
-		pos = pos + vel*dt;
-	}
-	inline void draw(Core::Graphics graphics) {
-		Matrix3D transform = Matrix3D::translate(pos) * Matrix3D::rotateToVector(-velNorm);
-		style->draw(graphics,transform);
-	}
+
 };
 
 #endif

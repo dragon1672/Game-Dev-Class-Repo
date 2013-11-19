@@ -25,6 +25,9 @@
     <Filter Include="ToPlaceInEngine\Particle Effects">
       <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Entities\Bullets">
+      <UniqueIdentifier>{905820d9-550d-4789-8a0f-b8c452f89e7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -98,6 +101,7 @@
     <ClCompile Include="ParticalEffect.cpp">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClCompile>
+    <ClCompile Include="BasicBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -123,9 +127,6 @@
     </ClInclude>
     <ClInclude Include="SolarSystem.h">
       <Filter>Objects\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
       <Filter>Objects</Filter>
@@ -183,5 +184,10 @@
     <ClInclude Include="SingleKeyManager.h">
       <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Objects\Entities\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicBullet.h" />
+    <ClInclude Include="LivingGameEntity.h" />
   </ItemGroup>
 </Project>

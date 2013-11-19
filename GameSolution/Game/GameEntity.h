@@ -3,6 +3,7 @@
 #ifndef GAME_ENTITY_H
 #define GAME_ENTITY_H
 
+#include "GameGlobal.h"
 #include "Matrix3D.h"
 #include "Core.h"
 #include "Shape.h"
@@ -16,6 +17,8 @@ public:
 	}
 	       virtual void update(float dt);
 	       virtual void draw(Core::Graphics& graphics);
+		   int     getTeam();
+		   virtual void shutdown();
 };
 
 #endif

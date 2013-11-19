@@ -18,16 +18,23 @@ protected:
 	SingleKeyManager MOUSE;
 	Vector2D direction;
 	virtual Shape *getStyle();
+	virtual int getMaxBullets() const;
+	virtual Bullet* startOfArray();
+	virtual void initBullet(int id);
+
+	//provides a basic tool for singleShot
+	bool shoot();
 
 	Vector2D getParentPos();
 
-	void shoot(Bullet *toShoot);
+	//passes bullet to be added to world
+	void shootBullet(Bullet *toShoot);
 	void pointToMouse();
 	Vector2D tipOfTurret();
 public:
 	static Core::RGB defaultTurretColor;
-	static Shape defaultBulletStyle;
 	static float defaultBulletSpeed;
+
 	Turret() : MOUSE(Core::Input::BUTTON_LEFT) { ; }
 	void init(GameSpace *myWorld, GameEntity *parent);
 	virtual void update(float dt);

@@ -4,6 +4,10 @@
 //have # defines
 //define global constents like angles in a circle
 const float anglesInCircle = 2*3.14f;
+const int FRIENDLY_TEAM = 1;
+const int ENEMY_TEAM    = 2;
+const int NEUTRAL_TEAM  = 3;
+
 
 #define DEBUG_GLOBAL
 #ifdef DEBUG_GLOBAL
