@@ -20,7 +20,7 @@ class GameSpace {
 	Lerper myLerp;
 	BulletManager myBullets;
 
-	//ParticalManager allMyParticals;
+	ParticalManager allMyParticals;
 
 	GameEntity *myEntities[MAX_ENTITIES];
 	int numOfEntities;
@@ -45,6 +45,7 @@ public:
 	Vector2D  getCenter();
 	//adding
 	void      registerBoundary(Boundary *bounds);
+	void      addEffect(int size, ParticalEffect* toAdd);
 	void      addBullet(Bullet *toAdd);
 	void      addEntity(GameEntity *toAdd);
 };

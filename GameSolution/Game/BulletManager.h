@@ -5,13 +5,16 @@
 #include <vector>
 #include "Bullet.h"
 #include "Core.h"
-#include "Boundary.h"
+
+class GameSpace;
+class Boundary;
 
 class BulletManager {
 	Boundary *bounds;
+	GameSpace *space;
 	std::vector<Bullet> bullets;
 public:
-	void init(Boundary *bounds);
+	void init(GameSpace *space, Boundary *bounds);
 	Bullet getBullet(int id);
 	int    numOfBullets();
 	void   addBullet(Bullet *toAdd);

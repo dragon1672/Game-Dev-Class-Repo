@@ -1,22 +1,21 @@
-/*
+//*
 #pragma once
 #ifndef PARTICAL_EFFECT_H
 #define PARTICAL_EFFECT_H
 
 #include "Vector 2.h"
-#include "Partical.h"
+#include "Core.h"
+//#include "Partical.h"
+class Partical;
 
 class ParticalEffect {
 public:
 	static const float defaulMinVel;
 	static const float defaulMaxVel;
-	virtual void initPartical(Partical *toInit);
-	virtual void update(float dt, Partical *toUpdate);
-	virtual void draw(Core::Graphics graphics, Partical *toUpdate);
+	virtual void initPartical(Partical *toInit)=0;
+	virtual void update(float dt, Partical *toUpdate)=0;
+	virtual void draw(Core::Graphics graphics, Partical *toUpdate)=0;
 };
-
-const float ParticalEffect::defaulMinVel = 5;
-const float ParticalEffect::defaulMaxVel = 100;
 
 #endif
 //*/

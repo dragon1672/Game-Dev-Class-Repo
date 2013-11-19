@@ -41,7 +41,9 @@ void      ExtendedGraphics::drawRainbowText(Core::Graphics& graphics, float x, f
 }
 void      ExtendedGraphics::drawPlane( Core::Graphics graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4) {
 	float maxLength = ( (p1-p4).lengthSquared() > (p2-p3).lengthSquared() )? (p1-p4).length() : (p2-p3).length();
-	float interval = 1/maxLength;
+	//out of 1 would be 1 line for each pixal, 1.8 is for optimization
+	//2 creates visable gaps
+	float interval = 1.8/maxLength;
 	float index = 0;
 	while(index<1) {
 		Vector2D start = p1.LERP(index,p2);

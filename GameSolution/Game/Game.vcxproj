@@ -100,6 +100,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ParticalEffect.cpp" />
     <ClCompile Include="ParticalManager.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SimpleBounary.cpp" />

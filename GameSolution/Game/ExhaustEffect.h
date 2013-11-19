@@ -1,4 +1,4 @@
-/*
+//*
 #pragma once
 #ifndef EXHAUST_EFFECT_H
 #define EXHAUST_Effect_H
@@ -8,10 +8,10 @@
 
 class ExhaustEffect : public ParticalEffect {
 	GameEntity *parent;
-	int lifetime;
+	float lifetime;
 	float varianceAngle;
 public:
-	void init(GameEntity *parent, int lifetime=2, float varianceAngle=30);
+	void init(GameEntity *parent, float lifetime, float varianceAngle=.5);
 	//overloads
 	void initPartical(Partical *toInit);
 	void update(float dt, Partical *toUpdate);

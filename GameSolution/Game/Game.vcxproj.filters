@@ -92,7 +92,12 @@
     <ClCompile Include="ParticalManager.cpp">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClCompile>
-    <ClCompile Include="ExhaustEffect.cpp" />
+    <ClCompile Include="ExhaustEffect.cpp">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticalEffect.cpp">
+      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -137,9 +142,6 @@
     <ClInclude Include="ComplexBoundary.h">
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
-    <ClInclude Include="SingleKeyManager.h">
-      <Filter>GameManagment</Filter>
-    </ClInclude>
     <ClInclude Include="BasicTurret.h">
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
@@ -177,6 +179,9 @@
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="ParticalManager.h">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleKeyManager.h">
+      <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

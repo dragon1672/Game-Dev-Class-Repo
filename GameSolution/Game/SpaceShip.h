@@ -9,6 +9,8 @@
 #include "Shape.h"
 #include "SolarSystem.h"
 
+#include "ExhaustEffect.h"
+
 #include "Turret.h"
 #include "BasicTurret.h"
 #include "TurretMark2.h"
@@ -40,6 +42,7 @@ class Spaceship : public GameEntity {
 	TurretMark5 myMark5Turret;//5
 	Turret *currentTurret;
 	GameSpace *space;
+	ExhaustEffect myEffect;
 
 	//movement
 	Vector2D vel;

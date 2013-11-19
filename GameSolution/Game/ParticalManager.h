@@ -1,4 +1,4 @@
-/*
+//*
 #pragma once
 #ifndef PARTICAL_MANAGER_H
 #define PARTICAL_MANAGER_H
@@ -12,7 +12,6 @@ class ParticalManager {
 private:
 	Partical particals[MAX_PARTICALS];
 public:
-	ParticalManager();
 	void newEffect(int size, ParticalEffect *effect);
 	void update(float dt);
 	void draw(Core::Graphics graphics);

@@ -1,4 +1,4 @@
-/*
+//*
 #pragma once
 #ifndef PARTICAL_H
 #define PARTICAL_H

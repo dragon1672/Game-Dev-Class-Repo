@@ -1,8 +1,9 @@
-/*
+//*
 #include "ExplosionEffect.h"
 #include "MyRandom.h"
 #include <cassert>
 #include "ExtendedGraphics.h"
+#include "Partical.h"
 
 using ExtendedGraphics::randomColor;
 
@@ -19,14 +20,10 @@ void ExplosionEffect::initPartical(Partical *toInit) {
 }
 void ExplosionEffect::update(float dt,Partical *toUpdate) {
 	toUpdate->pos = toUpdate->pos + dt * toUpdate->vel;
+	if(toUpdate->lifetime<1) toUpdate->color = ExtendedGraphics::brightness(toUpdate->color,toUpdate->lifetime);
 }
 void ExplosionEffect::draw(Core::Graphics graphics, Partical *toDraw) {
-	if(toDraw->lifetime>0) {
-		int r = (int)(GetRValue(toDraw->color) * toDraw->lifetime) % 255;
-		int g = (int)(GetGValue(toDraw->color) * toDraw->lifetime) % 255;
-		int b = (int)(GetBValue(toDraw->color) * toDraw->lifetime) % 255;
-		graphics.SetColor(RGB(r,g,b));
-		graphics.DrawLine(toDraw->pos.getX(), toDraw->pos.getY(),toDraw->pos.getX()+1,toDraw->pos.getY()+1);
-	}
+	graphics.SetColor(toDraw->color);
+	graphics.DrawLine(toDraw->pos.getX(), toDraw->pos.getY(),toDraw->pos.getX()+1,toDraw->pos.getY()+1);
 }
 //*/

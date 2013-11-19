@@ -24,29 +24,6 @@ Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 							Vector2D(-6,-0 ),
 							Vector2D(-5,-6 )
 							);//*/
-/*
-const float scaler = 7;
-Matrix3D cartesian2Screen = Matrix3D::scaleY(-scaler) * Matrix3D::scaleX(scaler);
-Shape Spaceship::thisShape( shipColor, cartesian2Screen,
-							17,
-							Vector2D(-1  ,-3.5),
-							Vector2D( 1  ,-3.5),
-							Vector2D( 3.5,-1  ),
-							Vector2D( 3.5, 1  ),
-							Vector2D( 1  , 3.5),
-							Vector2D( 1  , 1  ),
-							Vector2D(-1  , 1  ),
-							Vector2D(-1  , 3.5),
-							Vector2D(-3.5, 1  ),
-							Vector2D(-3.5,-1  ),
-							Vector2D(-1  ,-3.5),//return to begining
-							Vector2D(-.75,-4  ),
-							Vector2D(-.25,-4  ),
-							Vector2D( 0  ,-3.5),
-							Vector2D( .25,-4  ),
-							Vector2D( .75,-4  ),
-							Vector2D( 1  ,-3.5)
-							);//*/
 #ifdef DEBUG_SPACESHIP
 
 #include <sstream>
@@ -75,6 +52,8 @@ void  Spaceship::init(float x, float y, GameSpace *space) {
 		turrets[i]->init(space,this);
 	}
 	currentTurret = turrets[0];
+	myEffect.init(this,.5);
+	space->addEffect(50,&myEffect);
 }
 	
 //acc
@@ -179,7 +158,6 @@ void  Spaceship::update(float dt) {
 	manageAcc(dt);
 	manageRot(dt);
 	move(dt);
-	//updateTurret(dt);
 	updateSelectedTurret();
 	currentTurret->update(dt);
 }

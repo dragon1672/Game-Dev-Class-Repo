@@ -1,4 +1,4 @@
-/*
+//*
 #pragma once
 #ifndef EXPLOSION_EFFECT_H
 #define EXPLOSION_EFFECT_H

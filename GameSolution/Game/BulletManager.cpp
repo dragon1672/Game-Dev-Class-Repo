@@ -1,4 +1,6 @@
 #include "BulletManager.h"
+#include "Boundary.h"
+#include "GameSpace.h"
 
 
 Shape temp(RGB(255,0,255), 5,
@@ -8,8 +10,9 @@ Shape temp(RGB(255,0,255), 5,
 	10*Vector2D(  1.0f,   .25f),
 	10*Vector2D( -1.0f,   .25f) );
 
-void   BulletManager::init(Boundary *bounds) {
+void   BulletManager::init(GameSpace *space, Boundary *bounds) {
 	this->bounds = bounds;
+	this->space  = space;
 }
 Bullet BulletManager::getBullet(int id) {
 	return bullets[id];

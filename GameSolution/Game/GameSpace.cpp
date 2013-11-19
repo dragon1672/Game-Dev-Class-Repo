@@ -1,5 +1,8 @@
 #include "GameSpace.h"
 #include "MyRandom.h"
+
+const int NUMBER_OF_RANDOM_LERP_POINTS = 7; 
+
 GameSpace::GameSpace() { ; }
 GameSpace::GameSpace(float width, float height, const Vector2D& pos, Core::RGB color) {
 	makeGameSpace(color, width, height, pos);
@@ -8,11 +11,8 @@ void      GameSpace::initObjects() {
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
 	myShip.init(min.getX()+(width/2),min.getY()+(height/2),this);
-
-
 	myLerp.init();
-	//lerper get 7 random points
-	for(int i=0;i<7;i++) {
+	for(int i=0;i<NUMBER_OF_RANDOM_LERP_POINTS;i++) {
 		myLerp.addPoint(randomWorldPoint());
 	}
 }
@@ -36,8 +36,10 @@ void      GameSpace::draw(Core::Graphics& graphics) {
 	myShip.draw(graphics);
 	myLerp.draw(graphics);
 	myBullets.draw(graphics);
+	allMyParticals.draw(graphics);
 }
 void      GameSpace::update(float dt) {
+	allMyParticals.update(dt);
 	myShip.update(dt);
 	myLerp.update(dt);
 	myBullets.update(dt);
@@ -47,14 +49,10 @@ Boundary *GameSpace::getBoundary() { return boundary; }
 Vector2D  GameSpace::getMin() { return min; }
 Vector2D  GameSpace::getMax() { return max; }
 Vector2D  GameSpace::collideVector(const Vector2D& pos, const Vector2D& vel) {
-	//if(hasBounds) {
-		return boundary->collideVector(pos,vel);
-	/*not my job if they don't include a boundary
-	} else {
-		if(pos.getX() < min.getX() || pos.getX() > max.getX()) return Vector2D(-vel.getX(), vel.getY());
-		if(pos.getY() < min.getY() || pos.getY() > max.getY()) return Vector2D( vel.getX(),-vel.getY());
-		return vel;
-	}//*/
+	return boundary->collideVector(pos,vel);
+}
+void      GameSpace::addEffect(int size, ParticalEffect* toAdd) {
+	allMyParticals.newEffect(size,toAdd);
 }
 void      GameSpace::addBullet(Bullet *toAdd) {
 	myBullets.addBullet(toAdd);

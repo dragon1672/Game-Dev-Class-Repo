@@ -3,7 +3,7 @@
 #define SINGLE_KEY_MANAGER_H
 
 #include "Core.h"
-
+//adds additional ultities to make checking key presses simpler
 class SingleKeyManager {
 	int   toCheck;
 	int   framesClicked;
@@ -13,10 +13,10 @@ public:
 		this->toCheck = toCheck;
 	}
 	inline void  update(float dt) {
-		if(Core::Input::IsPressed( toCheck )) {/*(Luis) What does toCheck represent exactly?*/
+		if(Core::Input::IsPressed( toCheck )) {//if the key is being pressed
 			framesClicked++;
 			secondsClicked += dt;
-		} else {
+		} else {//if the key isn't being pressed
 			framesClicked  = 0;
 			secondsClicked = 0;
 		}
