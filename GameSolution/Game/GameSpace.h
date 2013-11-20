@@ -49,7 +49,7 @@ public:
 	void      addEffect(int size, ParticalEffect* toAdd);
 	void      addBullet(Bullet *toAdd);
 	//void      addEntity(GameEntity *toAdd);
-	void      addExplosion(const Vector2D& pos);
+	void      addExplosion(const Vector2D& pos, int size=5, float lifetime=1.5);
 };
 
 #endif

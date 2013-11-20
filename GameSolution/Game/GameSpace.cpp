@@ -59,9 +59,9 @@ void      GameSpace::addEffect(int size, ParticalEffect* toAdd) {
 void      GameSpace::addBullet(Bullet *toAdd) {
 	myBullets.addBullet(toAdd);
 }
-void      GameSpace::addExplosion(const Vector2D& pos) {
-	basicBoom.init(2,pos);
-	allMyParticals.newEffect(100, &basicBoom);
+void      GameSpace::addExplosion(const Vector2D& pos, int size, float lifetime) {
+	basicBoom.init(lifetime,pos);
+	allMyParticals.newEffect(size, &basicBoom);
 }
 Vector2D  GameSpace::randomWorldPoint() {
 	return Vector2D(Random::randomFloat(min.getX(),max.getX()), Random::randomFloat(min.getY(),max.getY()));

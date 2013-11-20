@@ -122,8 +122,10 @@ void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 	}
 }
 //
-/*(Luis) If possible, specify the differences between these two draw functions.  They see, fairly similar aside from the "scale" parameters*/
-void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scale) {
+void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose) {
+	draw(graphics,Matrix3D::translate(transpose));
+}
+void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scale) {//just and overload to scale x and y by the same amount
 	draw(graphics,transpose,rotation,scale,scale);
 }
 void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scaleX, float scaleY) {

@@ -4,14 +4,16 @@
 
 #include "GameGlobal.h"
 #include "ParticalEffect.h"
+#include "ExtendedGraphics.h"
 
 class ExplosionEffect : public ParticalEffect {
 private:
 	float lifetime;
 	float size;
 	Vector2D orgin;
+	Core::RGB seedColor;
 public:
-	void init(float lifetime, const Vector2D& pos);
+	void init(float lifetime, const Vector2D& pos, Core::RGB seedColor = ExtendedGraphics::randomColor());
 	//overloads
 	void initPartical(Partical *toInit);
 	void update(float dt, Partical *toUpdate);
