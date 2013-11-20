@@ -74,6 +74,24 @@ Core::RGB ExtendedGraphics::brightness(Core::RGB col, float percent) {
 	int b = capAtRange((int)(GetBValue(col) * percent),0,255);
 	return RGB(r,g,b);
 }
+Core::RGB ExtendedGraphics::addR(Core::RGB col, int amount) {
+	int r = capAtRange((GetRValue(col) + amount),0,255);
+	int g = GetGValue(col);
+	int b = GetBValue(col);
+	return RGB(r,g,b);
+}
+Core::RGB ExtendedGraphics::addG(Core::RGB col, int amount) {
+	int r = GetRValue(col);
+	int g = capAtRange((GetGValue(col) + amount),0,255);
+	int b = GetBValue(col);
+	return RGB(r,g,b);
+}
+Core::RGB ExtendedGraphics::addB(Core::RGB col, int amount) {
+	int r = GetRValue(col);
+	int g = GetGValue(col);
+	int b = capAtRange((GetBValue(col) + amount),0,255);
+	return RGB(r,g,b);
+}
 Core::RGB ExtendedGraphics::varyColor( Core::RGB col, int variance) {
 	int r = capAtRange(GetRValue(col) + Random::randomInt(-variance,variance) ,0,255);
 	int g = capAtRange(GetGValue(col) + Random::randomInt(-variance,variance) ,0,255);

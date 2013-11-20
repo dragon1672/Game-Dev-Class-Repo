@@ -5,7 +5,7 @@
 #include "GameGlobal.h"
 #include "ParticalEffect.h"
 
-class ExplosionEffect : ParticalEffect {
+class ExplosionEffect : public ParticalEffect {
 private:
 	float lifetime;
 	float size;

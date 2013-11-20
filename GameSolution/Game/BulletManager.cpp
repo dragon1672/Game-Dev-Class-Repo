@@ -10,8 +10,7 @@ Shape temp(RGB(255,0,255), 5,
 	10*Vector2D(  1.0f,   .25f),
 	10*Vector2D( -1.0f,   .25f) );
 
-void   BulletManager::init(GameSpace *space, Boundary *bounds) {
-	this->bounds = bounds;
+void   BulletManager::init(GameSpace *space) {
 	this->space  = space;
 }
 Bullet BulletManager::getBullet(int id) {
@@ -23,12 +22,11 @@ int    BulletManager::numOfBullets() {
 void   BulletManager::addBullet(Bullet *toAdd) {
 	bullets.push_back(*toAdd);//copys information
 }
-void   BulletManager::setBounds(Boundary *toSet) {
-	bounds = toSet;
-}
 //will delete sequential bullets out of bounds
 void   BulletManager::cleanOutOfBoundBullets(int startingIndex) {
-	if(bounds->hasCollided(bullets[startingIndex].pos)) {
+	if(space->getBoundary()->hasCollided(bullets[startingIndex].pos)) {
+	//if(true) {
+		space->addExplosion(bullets[startingIndex].pos);
 		bullets.erase(bullets.begin() + startingIndex);
 		if((unsigned)startingIndex<bullets.size()) cleanOutOfBoundBullets(startingIndex);//incase multiple in a row
 	}

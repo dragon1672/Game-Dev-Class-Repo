@@ -19,7 +19,7 @@ void ExhaustEffect::initPartical(Partical *toInit) {
 		toInit->vel = Matrix3D::rotationMatrix(Random::randomFloat(-varianceAngle,varianceAngle)) * Vector2D(0,velSpeed);
 		toInit->vel = parent->getRotationMat() * toInit->vel;
 		toInit->pos = parent->getTransMatrix() * Vector2D(0,parent->getStyle()->getMaxY());//will place at the butt of the ship
-		toInit->color = randomColor();
+		toInit->color = ExtendedGraphics::varyColor(RGB(255,0,0),20);
 	}
 	toInit->paused = !active;
 }
@@ -27,11 +27,13 @@ void ExhaustEffect::update(float dt, Partical *toUpdate) {
 	if(!toUpdate->paused) {
 		toUpdate->lifetime -= dt;
 		toUpdate->pos = toUpdate->pos + toUpdate->vel;
+		if(toUpdate->lifetime<1) toUpdate->color = ExtendedGraphics::addG(toUpdate->color,(int)(255*(dt+.1)));
 	}
 	if(toUpdate->lifetime<.1 || toUpdate->paused) initPartical(toUpdate);//refresh partical
 }
 void ExhaustEffect::draw(Core::Graphics graphics, Partical *toUpdate) {
 	if(!toUpdate->paused) {
+		graphics.SetColor(toUpdate->color);
 		Vector2D start = toUpdate->pos;
 		Vector2D end   = toUpdate->pos + toUpdate->vel.normalized();
 		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());

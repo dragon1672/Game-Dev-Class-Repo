@@ -19,6 +19,7 @@ void ExplosionEffect::initPartical(Partical *toInit) {
 }
 void ExplosionEffect::update(float dt,Partical *toUpdate) {
 	toUpdate->pos = toUpdate->pos + dt * toUpdate->vel;
+	toUpdate->lifetime -= dt;
 	if(toUpdate->lifetime<1) toUpdate->color = ExtendedGraphics::brightness(toUpdate->color,toUpdate->lifetime);
 }
 void ExplosionEffect::draw(Core::Graphics graphics, Partical *toDraw) {

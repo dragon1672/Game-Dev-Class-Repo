@@ -9,6 +9,7 @@
 #include "BulletManager.h"
 #include "GameEntity.h"
 #include "ParticalManager.h"
+#include "ExplosionEffect.h"
 
 const int MAX_ENTITIES = 4;
 
@@ -47,7 +48,8 @@ public:
 	void      registerBoundary(Boundary *bounds);
 	void      addEffect(int size, ParticalEffect* toAdd);
 	void      addBullet(Bullet *toAdd);
-	void      addEntity(GameEntity *toAdd);
+	//void      addEntity(GameEntity *toAdd);
+	void      addExplosion(const Vector2D& pos);
 };
 
 #endif

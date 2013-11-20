@@ -12,16 +12,13 @@ class GameSpace;
 class Boundary;
 
 class BulletManager {
-	Boundary *bounds;
 	GameSpace *space;
 	std::vector<Bullet> bullets;
 public:
-	void init(GameSpace *space, Boundary *bounds);
+	void init(GameSpace *space);
 	Bullet getBullet(int id);
 	int    numOfBullets();
 	void   addBullet(Bullet *toAdd);
-
-	void setBounds(Boundary *toSet);
 
 	//will delete sequential bullets out of bounds
 	void cleanOutOfBoundBullets(int startingIndex);

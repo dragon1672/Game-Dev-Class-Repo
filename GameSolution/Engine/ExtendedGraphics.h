@@ -20,6 +20,9 @@ namespace ExtendedGraphics {
 	//color manpulations
 	Core::RGB randomColor();
 	Core::RGB brightness(Core::RGB col, float percent);
+	Core::RGB addR(Core::RGB col, int amount);
+	Core::RGB addG(Core::RGB col, int amount);
+	Core::RGB addB(Core::RGB col, int amount);
 	Core::RGB varyColor( Core::RGB col, int variance);
 };
 

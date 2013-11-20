@@ -3,6 +3,8 @@
 
 const int NUMBER_OF_RANDOM_LERP_POINTS = 7; 
 
+ExplosionEffect basicBoom;
+
 GameSpace::GameSpace() { ; }
 GameSpace::GameSpace(float width, float height, const Vector2D& pos, Core::RGB color) {
 	makeGameSpace(color, width, height, pos);
@@ -11,12 +13,14 @@ void      GameSpace::initObjects() {
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
 	myShip.init(min.getX()+(width/2),min.getY()+(height/2),this);
+	myBullets.init(this);
 	myLerp.init();
 	for(int i=0;i<NUMBER_OF_RANDOM_LERP_POINTS;i++) {
 		myLerp.addPoint(randomWorldPoint());
 	}
 }
 void      GameSpace::makeGameSpace(Core::RGB color, float width, float height, Vector2D pos) {
+	//init Shape
 	min = pos+Vector2D(0,0);
 	max = pos+Vector2D(width,height);
 	initObjects();
@@ -27,7 +31,6 @@ void      GameSpace::makeGameSpace(Core::RGB color, float width, float height, V
 	toDraw.initialize(color, Matrix3D(), 4, one,two,three,four);
 }
 void      GameSpace::registerBoundary(Boundary *bounds) {
-	//hasBounds = true;
 	boundary = bounds;
 }
 void      GameSpace::draw(Core::Graphics& graphics) {
@@ -43,7 +46,6 @@ void      GameSpace::update(float dt) {
 	myShip.update(dt);
 	myLerp.update(dt);
 	myBullets.update(dt);
-	myBullets.setBounds(boundary);
 }
 Boundary *GameSpace::getBoundary() { return boundary; }
 Vector2D  GameSpace::getMin() { return min; }
@@ -56,6 +58,10 @@ void      GameSpace::addEffect(int size, ParticalEffect* toAdd) {
 }
 void      GameSpace::addBullet(Bullet *toAdd) {
 	myBullets.addBullet(toAdd);
+}
+void      GameSpace::addExplosion(const Vector2D& pos) {
+	basicBoom.init(2,pos);
+	allMyParticals.newEffect(100, &basicBoom);
 }
 Vector2D  GameSpace::randomWorldPoint() {
 	return Vector2D(Random::randomFloat(min.getX(),max.getX()), Random::randomFloat(min.getY(),max.getY()));
