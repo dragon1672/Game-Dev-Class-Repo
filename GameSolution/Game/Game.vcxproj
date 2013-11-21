@@ -88,6 +88,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp" />
+    <ClCompile Include="AutoProfiler.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="BulletManager.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="..\Engine\Partical.h" />
     <ClInclude Include="..\Engine\ParticalEffect.h" />
     <ClInclude Include="AlwaysFire.h" />
+    <ClInclude Include="AutoProfiler.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="Bullet.h" />

@@ -20,7 +20,7 @@ Shape *TurretMark5::getStyle() {
 void TurretMark5::fireBullet() {
 	Bullet createdBullet;
 	createdBullet.pos   = myPos->getPos() + tipOfTurret();
-	createdBullet.setVel(defaultBulletSpeed*(direction + Random::randomFloat(0,.1)*Random::randomUnitVector()));
+	createdBullet.setVel(defaultBulletSpeed*(direction + Random::randomFloat(0,.1f)*Random::randomUnitVector()));
 	createdBullet.style = &defaultBulletStyle;
 	shoot(&createdBullet);
 }

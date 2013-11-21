@@ -51,5 +51,5 @@ void BasicTurret::fireBullet() {
 	shoot(&createdBullet);
 }
 float BasicTurret::getFireSpeed() {
-	return .6;
+	return .6f;
 }

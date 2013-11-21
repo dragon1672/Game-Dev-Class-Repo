@@ -16,9 +16,11 @@ namespace ExtendedGraphics {
 	void      drawDottedLine (Core::Graphics& graphics, const Vector2D& start, const Vector2D& end, float length);
 	void      drawDottedLine (Core::Graphics& graphics, int x1, int y1, int x2, int y2, float length);
 	void      drawRainbowText(Core::Graphics& graphics, float x, float y, char* text);
-	void      drawPlane( Core::Graphics graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4);
-	void      drawSquare(Core::Graphics graphics, const Vector2D& p1,const Vector2D& p2);
-	void      textInABox(Core::Graphics graphics, Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height);
+	void      drawPlane( Core::Graphics& graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4);
+	void      drawSquare(Core::Graphics& graphics, const Vector2D& p1,const Vector2D& p2);
+	void      textInABox(Core::Graphics& graphics, Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height);
+	void      drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float percent, int width=100, int height=10);
+	void      drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float current, float max, int width=100, int height=10);
 	//color manpulations
 	Core::RGB randomColor();
 	Core::RGB brightness(Core::RGB col, float percent);

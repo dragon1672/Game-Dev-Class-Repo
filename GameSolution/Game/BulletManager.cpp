@@ -25,10 +25,8 @@ void   BulletManager::addBullet(Bullet *toAdd) {
 //will delete sequential bullets out of bounds
 void   BulletManager::cleanOutOfBoundBullets(int startingIndex) {
 	if(space->getBoundary()->hasCollided(bullets[startingIndex].pos)) {
-	//if(true) {
 		space->addExplosion(bullets[startingIndex].pos);
 		bullets.erase(bullets.begin() + startingIndex);
-		if((unsigned)startingIndex<bullets.size()) cleanOutOfBoundBullets(startingIndex);//incase multiple in a row
 	}
 }
 void   BulletManager::update(float dt) {

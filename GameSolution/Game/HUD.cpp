@@ -3,30 +3,17 @@
 #include "ExtendedGraphics.h"
 #include "PlayerControls.h"
 
+#include "Timer.h"//Only used for loading bar with the under development section
+Timer loadingBarTimer;//started in constructor
+float loadingBarPercent = 0;//updated in draw
+
+
 using ExtendedGraphics::drawDottedLine;
 using ExtendedGraphics::drawRainbowText;
 using ExtendedGraphics::drawPlane;
 using ExtendedGraphics::drawSquare;
-//using ExtendedGraphics::randomColor;
-
-#ifdef HUD_DEBUG
-#include <sstream>
-
-std::string num2str(float num) {
-	std::stringstream ss;
-	ss << num;
-	return ss.str();
-}
-std::string num2str(int num) {
-	std::stringstream ss;
-	ss << num;
-	return ss.str();
-}
-#endif
 
 Core::RGB HUD::defaultTextColor = RGB(255,255,0);
-
-#include "TwoColTable.h"
 
 HUD::HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeight(screenHeight) {
 	pad = 20;
@@ -36,13 +23,14 @@ HUD::HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeig
 	addBotPad   = 0;
 	worldWidth  = screenWidth  - addRightPad - addLeftPad - 2 * pad;
 	worldHeight = screenHeight - addTopPad   - addBotPad  - 2 * pad;
+	loadingBarTimer.start();
 }
+
+
 void      HUD::draw(Core::Graphics& graphics) {
 	graphics.SetColor(defaultTextColor);
-
 	graphics.DrawString(10,10,"Welcome to");
 	drawRainbowText(graphics,10,20,"SpaceWars!");
-
 	graphics.SetColor(defaultTextColor);
 
 	int textPad = 5;
@@ -53,13 +41,6 @@ void      HUD::draw(Core::Graphics& graphics) {
 	float mainDash  = 6;
 	float subDash   = 4;
 	float smallDash = 1;
-	TwoColTable temp("one","two");
-	temp.setCol1Width(50);
-	temp.setCol2Width(50);
-	temp.addRow("test1.1","testing1.2");
-	temp.addRow("test2.1","testing2.2");
-	temp.addRow("test3.1","testing3.2");
-	//temp.draw(graphics,Vector2D(100,100));
 
 	drawDottedLine(graphics,0,currentRow,length,currentRow,mainDash);	currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"Controls");					currentRow += lineSpacing;
@@ -90,6 +71,9 @@ void      HUD::draw(Core::Graphics& graphics) {
 	graphics.DrawString(textPad,currentRow,"P: Pause The Game");		currentRow += lineSpacing;
 	drawDottedLine(graphics,0,currentRow,length,currentRow,mainDash);	currentRow += lineSpacing;
 
+	//under development
+	loadingBarPercent+=(loadingBarPercent>1)? -1 : loadingBarTimer.interval()/2;
+	ExtendedGraphics::drawLoadingBar(graphics,Vector2D(500,30),loadingBarPercent,250,20);
 	graphics.DrawString(500,15,"[MESSAGE BOX IS UNDER DEVELOPMENT]");
 	graphics.SetColor(RGB(100,100,100));
 }

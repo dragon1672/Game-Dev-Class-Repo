@@ -51,7 +51,7 @@ public:
 		ExtendedGraphics::drawDottedLine(graphics, xPos, currentHeight + lineSpacing - 2, 
 													xPos + col1_length + col2_length,currentHeight + lineSpacing - 2,
 													3);
-		graphics.DrawLine(xPos+col1_length+1,currentHeight,xPos+col1_length+1,currentHeight+lineSpacing*currentRows);
+		graphics.DrawLine(xPos+col1_length+1,(float)currentHeight,xPos+col1_length+1,currentHeight+lineSpacing*currentRows);
 		for(int i=0;i<currentRows;i++) {
 			graphics.DrawString(xPos,              currentHeight,textInArea(col1Data[i],col1_length).c_str());
 			graphics.DrawString(xPos+col1_length+3,currentHeight,textInArea(col1Data[i],col2_length).c_str());//+3 pad

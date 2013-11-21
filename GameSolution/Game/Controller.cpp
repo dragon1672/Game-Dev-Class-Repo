@@ -84,11 +84,10 @@ void Controller::updateCurrentBounds() {
 	if(SimpleBoundsKey.hasBeenClicked()) currentBounds = &simpleBounds;
 	if(ComplexBoundsKey.hasBeenClicked()) currentBounds = &complexBounds;
 }
-
 bool Controller::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	PauseButton.update(dt);
-	if(PauseButton.hasBeenClicked()) isPaused = !isPaused; /*(Luis) saying isPaused == false feels a bit more readable than !isPaused in this case*/
+	if(PauseButton.hasBeenClicked()) isPaused = !isPaused; //toggle pause
 	if(!isPaused) {
 		SimpleBoundsKey.update(dt);
 		ComplexBoundsKey.update(dt);

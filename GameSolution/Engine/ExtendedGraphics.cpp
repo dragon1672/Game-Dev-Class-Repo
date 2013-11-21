@@ -39,7 +39,7 @@ void      ExtendedGraphics::drawRainbowText(Core::Graphics& graphics, float x, f
 		graphics.DrawString((int)x+i*CHAR_SPACING,(int)y,&text[i]);
 	}
 }
-void      ExtendedGraphics::drawPlane( Core::Graphics graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4) {
+void      ExtendedGraphics::drawPlane( Core::Graphics& graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4) {
 	float maxLength = ( (p1-p4).lengthSquared() > (p2-p3).lengthSquared() )? (float)(p1-p4).length() : (float)(p2-p3).length();
 	//out of 1 would be 1 line for each pixal, 1.8 is for optimization
 	//2 creates visable gaps
@@ -52,10 +52,10 @@ void      ExtendedGraphics::drawPlane( Core::Graphics graphics, const Vector2D& 
 		index+=interval;
 	}
 }
-void      ExtendedGraphics::drawSquare(Core::Graphics graphics, const Vector2D& p1,const Vector2D& p2) {
+void      ExtendedGraphics::drawSquare(Core::Graphics& graphics, const Vector2D& p1,const Vector2D& p2) {
 	drawPlane(graphics, p1,Vector2D(p1.getX(),p2.getY()),p2,Vector2D(p2.getX(),p1.getY()));
 }
-void      ExtendedGraphics::textInABox(Core::Graphics graphics, Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height) {
+void      ExtendedGraphics::textInABox(Core::Graphics& graphics, Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height) {
 	graphics.SetBackgroundColor(backCol);
 	graphics.SetColor(backCol);
 	drawSquare(graphics,Vector2D((float)x,(float)y),Vector2D((float)x,(float)y) + Vector2D((float)width,(float)height));
@@ -65,6 +65,33 @@ void      ExtendedGraphics::textInABox(Core::Graphics graphics, Core::RGB backCo
 	graphics.DrawString(x + (width-strLength)/2 , y + (height-strHeight)/2, text);
 	graphics.SetBackgroundColor(RGB(0,0,0));
 }
+void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float percent, int width, int height) {
+	float currenHeight = pos.getY();
+	float spacing = 1.5;
+	while(currenHeight<pos.getY()+height) {
+		//draws a percentage of the width
+		graphics.DrawLine(pos.getX(),currenHeight,pos.getX()+percent*width,currenHeight);
+		currenHeight+= spacing;
+	}
+	//drawing full outline of box
+	Vector2D p1 = pos;
+	Vector2D p2 = pos + Vector2D((float)width,0);
+	graphics.DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+	p1 = p2;
+	p2 = pos + Vector2D((float)width,(float)height);
+	graphics.DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+	p1 = p2;
+	p2 = pos + Vector2D(0,(float)height);
+	graphics.DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+	p1 = p2;
+	p2 = pos;
+	graphics.DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+}
+void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float current, float max, int width, int height) {
+	drawLoadingBar(graphics,pos,max/current,width,height);
+}
+
+//Colors
 Core::RGB ExtendedGraphics::randomColor() {
 	return RGB(Random::randomInt(0,255),Random::randomInt(0,255),Random::randomInt(0,255));
 }

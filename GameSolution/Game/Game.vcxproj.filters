@@ -22,9 +22,6 @@
     <Filter Include="ToPlaceInEngine">
       <UniqueIdentifier>{87285be6-c3a8-4bed-8410-83464629cba5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ToPlaceInEngine\Particle Effects">
-      <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Objects\Entities\Turrets\TargetLogic">
       <UniqueIdentifier>{aba16334-aec5-4144-8cda-0489b38876ed}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,12 @@
     </Filter>
     <Filter Include="Objects\General Interfaces\Dynamic Pos">
       <UniqueIdentifier>{e32b401b-7d1c-43e6-88e7-fbd2d890f4ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToPlaceInEngine\Graphics">
+      <UniqueIdentifier>{a175fb16-9809-4ace-9354-58c77f1dcdcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToPlaceInEngine\Graphics\Particle Effects">
+      <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -92,19 +95,16 @@
       <Filter>GameManagment</Filter>
     </ClCompile>
     <ClCompile Include="ExplosionEffect.cpp">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\ExtendedGraphics.cpp">
-      <Filter>ToPlaceInEngine</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClCompile>
     <ClCompile Include="ParticalManager.cpp">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClCompile>
     <ClCompile Include="ExhaustEffect.cpp">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClCompile>
     <ClCompile Include="ParticalEffect.cpp">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClCompile>
     <ClCompile Include="FireOnClick.cpp">
       <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
@@ -121,7 +121,15 @@
     <ClCompile Include="TargetMouse.cpp">
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Timer.cpp">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoProfiler.cpp">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\ExtendedGraphics.cpp">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -182,26 +190,23 @@
       <Filter>Objects\Entities\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="..\Engine\Partical.h">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\Engine\ParticalEffect.h">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
     <ClInclude Include="ExplosionEffect.h">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\ExtendedGraphics.h">
-      <Filter>ToPlaceInEngine</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
     <ClInclude Include="ExhaustEffect.h">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
     <ClInclude Include="StaticEntity.h">
       <Filter>Objects\Entities</Filter>
     </ClInclude>
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="ParticalManager.h">
-      <Filter>ToPlaceInEngine\Particle Effects</Filter>
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
     <ClInclude Include="SingleKeyManager.h">
       <Filter>ToPlaceInEngine</Filter>
@@ -228,7 +233,6 @@
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
     <ClInclude Include="PlayerControls.h" />
-    <ClInclude Include="TwoColTable.h" />
     <ClInclude Include="TargetMouse.h">
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
@@ -243,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoProfiler.h">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\ExtendedGraphics.h">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="TwoColTable.h">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

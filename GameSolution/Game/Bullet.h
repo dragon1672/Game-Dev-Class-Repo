@@ -14,6 +14,7 @@ public:
 	Vector2D vel;
 	Vector2D velNorm;//this is used for rotation
 	Shape *style;
+	bool isActive;
 	int team;
 	Bullet(const Vector2D& pos=Vector2D(0,0), const Vector2D& vel=Vector2D(0,0), Shape *style=NULL, int team=0) {
 		this->pos       = pos;

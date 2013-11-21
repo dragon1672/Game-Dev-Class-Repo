@@ -1,11 +1,6 @@
 #include "Core.h"
 #include "Controller.h"
 #include "MyRandom.h"
-//temp
-#include "ParticalEffect.h"
-#include "ExhaustEffect.h"
-#include "ParticalManager.h"
-
 
 const int SCREEN_WIDTH  = 1500;
 const int SCREEN_HEIGHT = 800;

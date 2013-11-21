@@ -14,7 +14,7 @@
 #define DEBUG_Controller
 
 #ifdef DEBUG_Controller
-#include "Timer.h";
+	#include "Timer.h"
 #endif//DEBUG_Controller
 
 class Controller {
