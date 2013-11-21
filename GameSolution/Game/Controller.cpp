@@ -114,6 +114,7 @@ void Controller::draw(Core::Graphics& graphics) {
 	std::stringstream ss;
 	ss << FPS;
 	std::string fps = ss.str();
+	graphics.SetColor(hud.defaultTextColor);
 	graphics.DrawString(0,0,fps.c_str());
 #endif//DEBUG_Controller
 	if(isPaused) {

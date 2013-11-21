@@ -32,7 +32,7 @@ void ExplosionEffect::initPartical(Partical *toInit) {
 void ExplosionEffect::update(float dt,Partical *toUpdate) {
 	toUpdate->pos = toUpdate->pos + dt * toUpdate->vel;
 	toUpdate->lifetime -= dt;
-	if(toUpdate->lifetime<1) toUpdate->color = ExtendedGraphics::brightness(toUpdate->color,toUpdate->lifetime+.2);
+	if(toUpdate->lifetime<1) toUpdate->color = ExtendedGraphics::brightness(toUpdate->color,toUpdate->lifetime+.2f);
 }
 void ExplosionEffect::draw(Core::Graphics graphics, Partical *toDraw) {
 	graphics.SetColor(toDraw->color);
