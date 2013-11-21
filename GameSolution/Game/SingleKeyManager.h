@@ -9,8 +9,12 @@ class SingleKeyManager {
 	int   framesClicked;
 	float secondsClicked;
 public:
+	SingleKeyManager() { ; }
 	SingleKeyManager(int toCheck) {
-		this->toCheck = toCheck;
+		setToCheck(toCheck);
+	}
+	inline void  setToCheck(int toSet) {
+		toCheck = toSet;
 	}
 	inline void  update(float dt) {
 		if(Core::Input::IsPressed( toCheck )) {//if the key is being pressed

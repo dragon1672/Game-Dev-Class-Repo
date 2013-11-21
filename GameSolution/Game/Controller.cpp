@@ -1,6 +1,7 @@
 #include "Controller.h"
 #include "MyRandom.h"
 #include "ExtendedGraphics.h"
+#include "PlayerControls.h"
 
 void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 	float anglesInCircle = 2*3.14f;
@@ -22,17 +23,18 @@ void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 Controller::Controller (int width, int height) : width(width), 
 												 height(height), 
 												 hud(width,height),
-												 KEY_C('C'),
-												 KEY_X('X'),
-												 PAUSE_BUTTON('P'),
 												 myWorld(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset()) {
-#ifdef DEBUG_Controller
-	FPS = 0;
-#endif//DEBUG_Controller
+	ComplexBoundsKey.setToCheck(PlayerControls::boundColision);
+	SimpleBoundsKey.setToCheck(PlayerControls::boxColision);
+	PauseButton.setToCheck(PlayerControls::pauseGame);
 	setDynamicBounds();
 	initSimpleBounds();
 	currentBounds = &complexBounds;
 	myWorld.registerBoundary(currentBounds);
+#ifdef DEBUG_Controller
+	FPS_clock.start();
+	FPS = 0;
+#endif//DEBUG_Controller
 }
 void Controller::initSimpleBounds() {
 	float startX = myWorld.getMin().getX();
@@ -79,23 +81,24 @@ void Controller::setDynamicBounds() {
 
 }
 void Controller::updateCurrentBounds() {
-	if(KEY_X.hasBeenClicked()) currentBounds = &simpleBounds;
-	if(KEY_C.hasBeenClicked()) currentBounds = &complexBounds;
+	if(SimpleBoundsKey.hasBeenClicked()) currentBounds = &simpleBounds;
+	if(ComplexBoundsKey.hasBeenClicked()) currentBounds = &complexBounds;
 }
 
 bool Controller::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
-	PAUSE_BUTTON.update(dt);
-	if(PAUSE_BUTTON.hasBeenClicked()) isPaused = !isPaused; /*(Luis) saying isPaused == false feels a bit more readable than !isPaused in this case*/
+	PauseButton.update(dt);
+	if(PauseButton.hasBeenClicked()) isPaused = !isPaused; /*(Luis) saying isPaused == false feels a bit more readable than !isPaused in this case*/
 	if(!isPaused) {
-		KEY_X.update(dt);
-		KEY_C.update(dt);
+		SimpleBoundsKey.update(dt);
+		ComplexBoundsKey.update(dt);
 		updateCurrentBounds();
 		myWorld.registerBoundary(currentBounds);
 		myWorld.update(dt);
 	}
 #ifdef DEBUG_Controller
 	FPS = (int)(1/dt);
+	FPS_clock_storage = 1/FPS_clock.interval();
 #endif//DEBUG_Controller
 	return false;
 }
@@ -111,8 +114,9 @@ void Controller::draw(Core::Graphics& graphics) {
 	hud.paintWorld(graphics,worldColor);
 	myWorld.draw(graphics);
 #ifdef DEBUG_Controller
+	graphics.SetColor(hud.defaultTextColor);
 	std::stringstream ss;
-	ss << FPS;
+	ss << FPS << " : " << (int)FPS_clock_storage;
 	std::string fps = ss.str();
 	graphics.SetColor(hud.defaultTextColor);
 	graphics.DrawString(0,0,fps.c_str());

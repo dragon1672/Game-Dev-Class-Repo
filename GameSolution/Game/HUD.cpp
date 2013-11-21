@@ -1,6 +1,7 @@
 #include "HUD.h"
 #include "MyRandom.h"
 #include "ExtendedGraphics.h"
+#include "PlayerControls.h"
 
 using ExtendedGraphics::drawDottedLine;
 using ExtendedGraphics::drawRainbowText;
@@ -24,6 +25,8 @@ std::string num2str(int num) {
 #endif
 
 Core::RGB HUD::defaultTextColor = RGB(255,255,0);
+
+#include "TwoColTable.h"
 
 HUD::HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeight(screenHeight) {
 	pad = 20;
@@ -50,7 +53,13 @@ void      HUD::draw(Core::Graphics& graphics) {
 	float mainDash  = 6;
 	float subDash   = 4;
 	float smallDash = 1;
-
+	TwoColTable temp("one","two");
+	temp.setCol1Width(50);
+	temp.setCol2Width(50);
+	temp.addRow("test1.1","testing1.2");
+	temp.addRow("test2.1","testing2.2");
+	temp.addRow("test3.1","testing3.2");
+	//temp.draw(graphics,Vector2D(100,100));
 
 	drawDottedLine(graphics,0,currentRow,length,currentRow,mainDash);	currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"Controls");					currentRow += lineSpacing;
@@ -64,7 +73,7 @@ void      HUD::draw(Core::Graphics& graphics) {
 
 	graphics.DrawString(textPad,currentRow,"WASD:  Move and Rotate");	currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"Shift: Brake/Slow Down");	currentRow += lineSpacing;
-	graphics.DrawString(textPad,currentRow,"Mouse: Aim/Fire Turret");	currentRow += lineSpacing;
+	graphics.DrawString(textPad,currentRow,"Mouse: Aim Turret");		currentRow += lineSpacing;
 	graphics.DrawString(textPad,currentRow,"1-5:   Change Turret");		currentRow += lineSpacing;
 	drawDottedLine(graphics,0,currentRow,length,currentRow,subDash);	currentRow += lineSpacing;
 	

@@ -9,7 +9,8 @@ class BasicTurret : public Turret {
 private:
 	Shape *getStyle();
 public:
-	void update(float dt);
+	void fireBullet();
+	float getFireSpeed();
 };
 
 #endif

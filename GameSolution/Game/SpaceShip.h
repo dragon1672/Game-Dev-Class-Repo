@@ -2,14 +2,16 @@
 #ifndef SPACE_SHIP_H
 #define SPACE_SHIP_H
 
-#include "LivingGameEntity.h"
-
 #include "GameGlobal.h"
+
+//interfaces and inheritance
+#include "LivingGameEntity.h"
+#include "DynamicPosition.h"
+
 
 #include "Vector 2.h"
 #include "Core.h"
 #include "Shape.h"
-#include "SolarSystem.h"
 
 #include "ExhaustEffect.h"
 
@@ -19,13 +21,19 @@
 #include "TurretMark3.h"
 #include "TurretMark4.h"
 #include "TurretMark5.h"
+
+#include "FireLogic.h"
+#include "FireOnClick.h"
+//#include "FireOnClick.h"
+#include "TargetMouse.h"
+
 class GameSpace;
 
 //#define DEBUG_SPACESHIP
 #define NUM_OF_TURRETS 5
 
 
-class Spaceship : public LivingGameEntity {
+class Spaceship : public LivingGameEntity, DynamicPosition {
 	static Core::RGB shipColor;
 	static const float brakePower;
 	static Shape thisShape;
@@ -34,7 +42,11 @@ class Spaceship : public LivingGameEntity {
 	static float rotationAcc;
 	static float maxSpeed;
 	
-	//
+	//firing logic for player
+	FireOnClick myFiringLogic;
+	//target (mouse)
+	TargetMouse myTarget;
+
 	Turret *turrets[NUM_OF_TURRETS];
 	//these are manually placed in the array
 	BasicTurret myBasicTurret;//1
@@ -69,6 +81,7 @@ public:
 	void     update(float dt);
 	Matrix3D getTransMatrix();
 	Matrix3D getRotationMat();
+	Vector2D getPos();
 };
 
 #endif

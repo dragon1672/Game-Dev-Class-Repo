@@ -12,7 +12,7 @@ class Bullet {
 public:
 	Vector2D pos;
 	Vector2D vel;
-	Vector2D velNorm;//this is used for direction
+	Vector2D velNorm;//this is used for rotation
 	Shape *style;
 	int team;
 	Bullet(const Vector2D& pos=Vector2D(0,0), const Vector2D& vel=Vector2D(0,0), Shape *style=NULL, int team=0) {

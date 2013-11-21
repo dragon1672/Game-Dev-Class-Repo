@@ -1,14 +1,19 @@
 #pragma once
 #ifndef GAME_GLOBAL_H
 #define GAME_GLOBAL_H
-//have # defines
-//define global constents like angles in a circle
+
+#define SIZE_OF_ARRAY(a) sizeof(a)/sizeof(*a)
+
 const float anglesInCircle = 2*3.14f;
 
+
+
+//-------------------START OF DEBUG SECTION-------------------//
 #define DEBUG_GLOBAL
 #ifdef DEBUG_GLOBAL
 	//pther debug defines
 	#define DEBUG_Controller
+	#define DEBUG_SPACESHIP
 	
 //functions
 #include <sstream>

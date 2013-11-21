@@ -12,6 +12,8 @@ public:
 	static float    randomFloat();
 	static float    randomFloat(float low, float high);
 	static Vector2D randomUnitVector();
+	static Vector2D randomFloatVector(float low, float high);
+	static Vector2D randomIntVector  (int   low, int   high);
 	static void     init();
 };
 

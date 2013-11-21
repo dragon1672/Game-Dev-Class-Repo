@@ -35,7 +35,7 @@ void ExhaustEffect::draw(Core::Graphics graphics, Partical *toUpdate) {
 	if(!toUpdate->paused) {
 		graphics.SetColor(toUpdate->color);
 		Vector2D start = toUpdate->pos;
-		Vector2D end   = toUpdate->pos + toUpdate->vel.normalized();
+		Vector2D end   = toUpdate->pos + toUpdate->vel/2;
 		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
 	}
 }

@@ -5,14 +5,13 @@
 #include "SingleKeyManager.h"
 #include "Turret.h"
 
-class TurretMark4 : public Turret {
+class TurretMark4 : public Turret {//the shotgun
 private:
-	static float timeBetweenShots;
-	float sinceLastShot;
+	static const int NUM_OF_SHOTS = 7;
 	Shape *getStyle();
 public:
-	TurretMark4() { sinceLastShot = 0; }
-	void update(float dt);
+	void fireBullet();
+	float getFireSpeed();
 };
 
 #endif

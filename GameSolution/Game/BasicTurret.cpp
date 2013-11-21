@@ -12,6 +12,7 @@ Shape BasicTurretStyle( Turret::defaultTurretColor,
 		Vector2D(-1, 4),	Vector2D(-1, 2),	Vector2D(-3, 2)
 );
 
+//for bullet
 Shape Heart(RGB(255,0,255), Matrix3D::scale(4) * Cartesian2Screen,
 	22,
 	Vector2D(1     , 0.800000000f),
@@ -41,19 +42,14 @@ Shape Heart(RGB(255,0,255), Matrix3D::scale(4) * Cartesian2Screen,
 Shape *BasicTurret::getStyle() {
 	return &BasicTurretStyle;
 }
-Vector2D randomVector(float low, float high) {
-	return Vector2D(Random::randomFloat(low,high), Random::randomFloat(low,high));
+
+void BasicTurret::fireBullet() {
+	Bullet createdBullet;
+	createdBullet.pos   = myPos->getPos() + tipOfTurret();
+	createdBullet.setVel((defaultBulletSpeed*direction) + Random::randomIntVector(-1,1));
+	createdBullet.style = &Heart;
+	shoot(&createdBullet);
 }
-void BasicTurret::update(float dt) {
-	pointToMouse();
-	MOUSE.update(dt);
-	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
-		if(MOUSE.hasBeenClicked()) { 
-			Bullet createdBullet;
-			createdBullet.pos   = getParentPos() + tipOfTurret();
-			createdBullet.setVel((defaultBulletSpeed*direction) + randomVector(-1,1));
-			createdBullet.style = &Heart;
-			shoot(&createdBullet);
-		}
-	}
+float BasicTurret::getFireSpeed() {
+	return .6;
 }

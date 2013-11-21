@@ -10,6 +10,8 @@ class Vector2D;
 #define CHAR_HEIGHT 10//for graphics.drawString()
 
 namespace ExtendedGraphics {
+	static const int char_spacing = CHAR_SPACING;
+	static const int char_height  = CHAR_HEIGHT;
 	//drawing manpulations
 	void      drawDottedLine (Core::Graphics& graphics, const Vector2D& start, const Vector2D& end, float length);
 	void      drawDottedLine (Core::Graphics& graphics, int x1, int y1, int x2, int y2, float length);

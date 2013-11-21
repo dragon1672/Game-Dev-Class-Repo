@@ -25,6 +25,15 @@
     <Filter Include="ToPlaceInEngine\Particle Effects">
       <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Entities\Turrets\TargetLogic">
+      <UniqueIdentifier>{aba16334-aec5-4144-8cda-0489b38876ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\General Interfaces">
+      <UniqueIdentifier>{3c4957c7-6591-488f-a221-5fb3a63d0b3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\General Interfaces\Dynamic Pos">
+      <UniqueIdentifier>{e32b401b-7d1c-43e6-88e7-fbd2d890f4ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -97,9 +106,22 @@
     <ClCompile Include="ParticalEffect.cpp">
       <Filter>ToPlaceInEngine\Particle Effects</Filter>
     </ClCompile>
-    <ClCompile Include="GameEntity.cpp">
-      <Filter>Objects\Entities</Filter>
+    <ClCompile Include="FireOnClick.cpp">
+      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
     </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>Objects\General Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicPositionOfEntity.cpp">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticPos.cpp">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetMouse.cpp">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -184,11 +206,43 @@
     <ClInclude Include="SingleKeyManager.h">
       <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
-    <ClInclude Include="GameEntity.h">
-      <Filter>Objects\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="LivingGameEntity.h">
       <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FireLogic.h">
+      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="FireOnClick.h">
+      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>Objects\General Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicPosition.h">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicPositionOfEntity.h">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticPos.h">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControls.h" />
+    <ClInclude Include="TwoColTable.h" />
+    <ClInclude Include="TargetMouse.h">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClInclude>
+    <ClInclude Include="AlwaysFire.h">
+      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="FireAtInterval.h">
+      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomFire.h">
+      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

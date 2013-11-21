@@ -1,7 +1,9 @@
 #include "TurretMark5.h"
 #include "Bullet.h"
 #include <cmath>
-float TurretMark5::timeBetweenShots = 1/50;
+#include "MyRandom.h"
+
+
 const Matrix3D Cartesian2Screen = Matrix3D::scaleY(-1);
 const float turretScale = 2.5;
 Shape TurretMark5Style( Turret::defaultTurretColor, 
@@ -15,18 +17,13 @@ Shape *TurretMark5::getStyle() {
 	return &TurretMark5Style;
 }
 
-void TurretMark5::update(float dt) {
-	sinceLastShot+=dt;
-	pointToMouse();
-	MOUSE.update(dt);
-	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
-		if(sinceLastShot > timeBetweenShots) { 
-			sinceLastShot = 0;
-			Bullet createdBullet;
-			createdBullet.pos   = getParentPos()+tipOfTurret();
-			createdBullet.setVel(defaultBulletSpeed*direction);
-			createdBullet.style = &defaultBulletStyle;
-			shoot(&createdBullet);
-		}
-	}
+void TurretMark5::fireBullet() {
+	Bullet createdBullet;
+	createdBullet.pos   = myPos->getPos() + tipOfTurret();
+	createdBullet.setVel(defaultBulletSpeed*(direction + Random::randomFloat(0,.1)*Random::randomUnitVector()));
+	createdBullet.style = &defaultBulletStyle;
+	shoot(&createdBullet);
+}
+float TurretMark5::getFireSpeed() {
+	return .08f;
 }

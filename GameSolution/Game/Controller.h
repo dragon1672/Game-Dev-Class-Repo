@@ -14,13 +14,13 @@
 #define DEBUG_Controller
 
 #ifdef DEBUG_Controller
-#include <sstream>
+#include "Timer.h";
 #endif//DEBUG_Controller
 
 class Controller {
-	SingleKeyManager KEY_C;
-	SingleKeyManager KEY_X;
-	SingleKeyManager PAUSE_BUTTON;
+	SingleKeyManager ComplexBoundsKey;
+	SingleKeyManager SimpleBoundsKey;
+	SingleKeyManager PauseButton;
 	bool isPaused;
 	
 	int width;
@@ -31,6 +31,8 @@ class Controller {
 	ComplexBoundary complexBounds;
 	Boundary *currentBounds;
 #ifdef DEBUG_Controller
+	Timer FPS_clock;
+	float FPS_clock_storage;
 	int FPS;
 #endif//DEBUG_Controller
 	void setStaticBounds();

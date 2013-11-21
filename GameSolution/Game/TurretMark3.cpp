@@ -1,7 +1,7 @@
 #include "TurretMark3.h"
 #include "Bullet.h"
 #include <cmath>
-float TurretMark3::timeBetweenShots = 0.1f;
+
 
 const Matrix3D Cartesian2Screen = Matrix3D::scaleY(-1);
 const float turretScale = 2.5;
@@ -31,26 +31,23 @@ Shape *TurretMark3::getStyle() {
 	return &TurretMark3Style;
 }
 
-void TurretMark3::update(float dt) {
-/*There is a lot going on here. Recommend adding comments here.*/
-	sinceLastShot+=dt;
-	pointToMouse();
-	MOUSE.update(dt);
-	if(Core::Input::IsPressed( MOUSE.getCheckedElement() )) {
-		if(sinceLastShot > timeBetweenShots) { 
-			const float distBetweenBullets = 9;
-			sinceLastShot = 0;
-			Bullet createdBullet;//creating bullet to be fired
-			Matrix3D turretRotation = Matrix3D::rotateToVector(direction);
-			Vector2D offset = turretRotation * Vector2D(distBetweenBullets,0);
-			createdBullet.pos   = getParentPos()+offset+tipOfTurret();
-			createdBullet.setVel(defaultBulletSpeed*direction);
-			createdBullet.style = &arrow;
-			//createdBullet.rotationMat = turretRotation;
-			shoot(&createdBullet);
-			offset = turretRotation * Vector2D(-distBetweenBullets,0);
-			createdBullet.pos   = getParentPos()+offset+tipOfTurret();
-			shoot(&createdBullet);
-		}
-	}
+void TurretMark3::fireBullet() {
+	const float distBetweenBullets = 18;
+	Bullet createdBullet;
+	Matrix3D turretRotation = Matrix3D::rotateToVector(direction);
+	//offset from center with turret rotation
+	Vector2D offset = turretRotation * Vector2D(distBetweenBullets/2,0);
+
+	createdBullet.pos   = myPos->getPos() + offset + tipOfTurret();
+	createdBullet.setVel(defaultBulletSpeed*direction);
+	createdBullet.style = &arrow;
+	shoot(&createdBullet);
+
+	//offset from center with turret rotation (other side)
+	offset = turretRotation * Vector2D(-distBetweenBullets/2,0);
+	createdBullet.pos   = myPos->getPos() + offset + tipOfTurret();
+	shoot(&createdBullet);
+}
+float TurretMark3::getFireSpeed() {
+	return .2;
 }

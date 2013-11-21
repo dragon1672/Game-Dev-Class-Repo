@@ -7,12 +7,10 @@
 
 class TurretMark3 : public Turret {
 private:
-	static float timeBetweenShots;
-	float sinceLastShot;
 	Shape *getStyle();
 public:
-	TurretMark3() { sinceLastShot = 0; }
-	void update(float dt);
+	void fireBullet();
+	float getFireSpeed();
 };
 
 #endif

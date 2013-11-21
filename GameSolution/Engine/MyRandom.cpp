@@ -21,3 +21,9 @@ float    Random::randomFloat() {
 Vector2D Random::randomUnitVector() {
 	return Vector2D(randomFloat(-1,1),randomFloat(-1,1)).normalized();
 }
+Vector2D Random::randomFloatVector(float low, float high) {
+	return Vector2D(randomFloat(low,high),randomFloat(low,high));
+}
+Vector2D Random::randomIntVector(int   low, int   high) {
+	return Vector2D(randomInt(low,high),randomInt(low,high));
+}
