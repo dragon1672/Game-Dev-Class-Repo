@@ -21,6 +21,7 @@ void       GameSpace::initObjects() {
 	}
 	addLivingEntity(&myShip);
 	addLivingEntity(&myLerp);
+	enemySpawner.init(this,&myShip);
 }
 void       GameSpace::init(float width, float height, const Vector2D& pos, Core::RGB color) {
 	//init Shape
@@ -44,6 +45,7 @@ void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *
 }
 //core
 void       GameSpace::update(float dt) {
+	enemySpawner.update(dt);
 	for(uint i=0;i<myEntities.size();i++) {
 		myEntities[i]->update(dt);
 	}
@@ -84,6 +86,12 @@ void       GameSpace::addLivingEntity(LivingGameEntity *toAdd) {
 Vector2D   GameSpace::randomWorldPoint() {
 	return Vector2D(Random::randomFloat(min.getX(),max.getX()), Random::randomFloat(min.getY(),max.getY()));
 }
+Vector2D   GameSpace::randomOutOfBoundWorldPoint() {
+	float width  = (getMax() - getMin()).getX();
+	float height = (getMax() - getMin()).getY();
+	float radius = (width>height)? width : height;
+	return getCenter() + Vector2D(Random::randomSign() * Random::randomFloat(width, width*2) , Random::randomSign() * Random::randomFloat(height, height*2));
+}
 Vector2D   GameSpace::getCenter() {
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
@@ -115,7 +123,7 @@ void GameSpace::checkEntityEntityCollision() {
 		if(myEntities[i]->getTeam()==FRIENLY_TEAM) oppositeTeam = ENEMY_TEAM;
 		if(myEntities[i]->getTeam()==ENEMY_TEAM) oppositeTeam = FRIENLY_TEAM;
 		int temp = getLivingEntityCollidedWithOfTeam(*myEntities[i]->getStyle(),myEntities[i]->getPos(),oppositeTeam);
-		if(temp!=NO_INDEX && temp!=i) {
+		if(temp!=NO_INDEX && (unsigned)temp!=i) {
 			myEntities[i]->removeHP(SHIP_DAMAGE);
 			if(cleanUpEntity(i)) i--;
 		}

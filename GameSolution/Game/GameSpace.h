@@ -15,6 +15,7 @@
 //managers
 #include "BulletManager.h"
 #include "ParticalManager.h"
+#include "GameEnemyHandler.h"
 
 
 
@@ -25,12 +26,14 @@ public:
 	static const int NO_INDEX = -1;//has to be under 0
 	static const float WORLD_DRAG;
 private:
-	Spaceship myShip;
 	Boundary *boundary;
+	
+	Spaceship myShip;
 	Lerper myLerp;
+	//managers
 	BulletManager myBullets;
-
 	ParticalManager allMyParticals;
+	GameEnemyHandler enemySpawner;
 
 	std::vector<LivingGameEntity *> myEntities;
 
@@ -53,6 +56,7 @@ public:
 	Vector2D  getMax();
 	HitInfo   collideVector(const Vector2D& pos, const Vector2D& vel);
 	Vector2D  randomWorldPoint();
+	Vector2D  randomOutOfBoundWorldPoint();
 	Vector2D  getCenter();
 	//Entities
 	LivingGameEntity* getLivingEntity(int id);

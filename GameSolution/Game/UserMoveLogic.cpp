@@ -23,13 +23,12 @@ Vector2D UserMoveLogic::getAcc(float dt) {
 bool     UserMoveLogic::hasThrust() {
 	return Core::Input::IsPressed( PlayerControls::accelerate );
 }
-float    UserMoveLogic::angleAcc(float dt) {
-	float ret=0;
+Matrix3D UserMoveLogic::rotation(float dt) {
 	if(Core::Input::IsPressed(PlayerControls::rotateLeft)) {
-		 ret -= rotationAcc*dt;
+		 angle -= rotationAcc*dt;
 	}
 	if(Core::Input::IsPressed(PlayerControls::rotateRight)) {
-		ret += rotationAcc*dt;
+		angle += rotationAcc*dt;
 	}
-	return ret;
+	return Matrix3D::rotationMatrix(angle);
 }

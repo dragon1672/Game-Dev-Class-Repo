@@ -10,6 +10,7 @@ private:
 	float rotationAcc;
 	float thrustAcc;
 	GameEntity *parent;
+	float angle;
 public:
 	UserMoveLogic() { ; }
 	UserMoveLogic(GameEntity *parent, float rotationAcc, float thrustAcc) {
@@ -19,7 +20,7 @@ public:
 	//overloads
 	Vector2D getAcc(float dt);
 	bool     hasThrust();
-	float    angleAcc(float dt);
+	Matrix3D rotation(float dt);
 };
 
 #endif

@@ -66,7 +66,7 @@ class Spaceship : public LivingGameEntity {
 	//movement
 	Vector2D vel;
 	Vector2D pos;
-	float angle;
+	Matrix3D rotationMatrix;
 
 	void warp();
 	void collide(float dt);

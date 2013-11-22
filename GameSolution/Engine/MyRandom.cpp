@@ -15,6 +15,9 @@ float    Random::randomFloat(float low, float high) {
 void     Random::init() {
 	srand((unsigned)time(0));
 }
+int      Random::randomSign() {
+	return (randomInt(0,1)==0)? -1 : 1;
+}
 float    Random::randomFloat() {
 	return rand()/(static_cast<float>(RAND_MAX));
 }
@@ -25,5 +28,5 @@ Vector2D Random::randomFloatVector(float low, float high) {
 	return Vector2D(randomFloat(low,high),randomFloat(low,high));
 }
 Vector2D Random::randomIntVector(int   low, int   high) {
-	return Vector2D(randomInt(low,high),randomInt(low,high));
+	return Vector2D((float)randomInt(low,high),(float)randomInt(low,high));
 }

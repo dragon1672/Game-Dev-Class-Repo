@@ -9,6 +9,7 @@ class Vector2D;
 class ENGINE_SHARED Random {
 public:
 	static int      randomInt(int low, int high);
+	static int      randomSign();
 	static float    randomFloat();
 	static float    randomFloat(float low, float high);
 	static Vector2D randomUnitVector();

@@ -11,7 +11,7 @@ float Spaceship::ACC = 500;
 float Spaceship::rotationAcc = 5;
 float Spaceship::maxSpeed = 1000;
 Core::RGB Spaceship::shipColor = RGB(255,255,0);
-const float Spaceship::SHIP_FULL_STARTING_HEALTH = 10;
+const float Spaceship::SHIP_FULL_STARTING_HEALTH = 100;
 //*
 const float scaler = 3;
 Matrix3D cartesian2Screen = Matrix3D::scaleY(-scaler) * Matrix3D::scaleX(scaler);
@@ -52,7 +52,6 @@ void  Spaceship::init(float x, float y, GameSpace *space) {
 	myEffect.init(this,.5);
 	space->addEffect(15,&myEffect);
 	initFullHealth(SHIP_FULL_STARTING_HEALTH);
-	removeHP(5);
 }
 	
 //acc
@@ -107,7 +106,7 @@ void  Spaceship::collide(float dt) {
 	warp();//just in case
 }
 void  Spaceship::manageRot(float dt) {
-	angle+=myMovementLogic.angleAcc(dt);
+	rotationMatrix = myMovementLogic.rotation(dt);
 }
 void Spaceship::unlockTurret() {
 	if(maxAccessibleTurret<SIZE_OF_ARRAY(turrets)) {
@@ -143,10 +142,10 @@ void  Spaceship::draw(Core::Graphics& graphics) {
 	currentTurret->draw(graphics);
 }
 Matrix3D Spaceship::getTransMatrix() {
-	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
+	return Matrix3D::translate(pos) * rotationMatrix;
 }
 Matrix3D Spaceship::getRotationMat() {
-	return Matrix3D::rotationMatrix(angle);
+	return rotationMatrix;
 }
 Vector2D Spaceship::getPos() {
 	return pos;

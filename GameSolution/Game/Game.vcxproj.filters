@@ -145,6 +145,17 @@
     <ClCompile Include="MoveLogic.cpp">
       <Filter>Objects\General Interfaces\MoveLogic</Filter>
     </ClCompile>
+    <ClCompile Include="TargetShipMoveLogic.cpp">
+      <Filter>Objects\General Interfaces\MoveLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEnemyHandler.cpp">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="kamikazeEnemy.cpp" />
+    <ClCompile Include="EnemyFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -270,12 +281,6 @@
     <ClInclude Include="Wall.h">
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Objects\General Interfaces\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyKamikaze.h">
-      <Filter>Objects\General Interfaces\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClInclude>
@@ -287,6 +292,18 @@
     </ClInclude>
     <ClInclude Include="LivingGameEntity.h">
       <Filter>Objects\General Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetShipMoveLogic.h">
+      <Filter>Objects\General Interfaces\MoveLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFactory.h">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="kamikazeEnemy.h">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEnemyHandler.h">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

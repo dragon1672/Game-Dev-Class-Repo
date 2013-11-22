@@ -39,6 +39,9 @@ public:
 		maxLife = amount;
 		checkLifeCap();
 	}
+	inline bool isAlive() {
+		return (life > 0);
+	}
 };
 
 #endif
