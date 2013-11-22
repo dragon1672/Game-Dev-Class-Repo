@@ -58,6 +58,7 @@ public:
 	LivingGameEntity* getLivingEntity(int id);
 	void cleanUpAllLivingEntities();
 	bool cleanUpEntity(int id);
+	void checkEntityEntityCollision();
 	//returns where team does not match
 	int getLivingEntityClosest(      const Vector2D& pos,  int team=NO_TEAM, int startingIndex=0);
 	int getLivingEntityCollidedWith( const Vector2D& pos,  int team=NO_TEAM, int startingIndex=0);

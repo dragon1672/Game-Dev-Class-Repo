@@ -2,9 +2,9 @@
 #ifndef ENEMY_KAMIKAZE_H
 #define ENEMY_KAMIKAZE_H
 
-#include "LivingGameEntity.h"
+#include "Enemy.h"
 
-class EnemyKamikaze : public LivingGameEntity{
+class EnemyKamikaze : public Enemy {
 private:
 	static const float MAX_SPEED;
 	Vector2D pos;

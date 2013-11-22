@@ -38,7 +38,6 @@ int  Lerper::nextIndex() {
 void Lerper::nextLine() {
 	currentLine  = nextIndex();
 	catchedNextLine = path[nextIndex()];
-	//interval = (float)(catchedNextLine-path[currentLine]).lengthSquared()/distacePerSecond;
 	Vector2D temp = catchedNextLine-path[currentLine];
 	float length = (float)temp.length();
 	interval = 1/(length/distacePerSecond);
@@ -59,7 +58,6 @@ Shape* Lerper::getStyle() {
 	return &myStyle;
 }
 void Lerper::draw(Core::Graphics& graphics) {
-	//float scale = 1+2*(angle - (int)angle);
 	getStyle()->draw(graphics, getTransMatrix());
 	bodyGuards.draw(graphics,Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle));
 }

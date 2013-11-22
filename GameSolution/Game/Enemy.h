@@ -14,7 +14,7 @@ private:
 	float angle;
 	GameSpace *space;
 	MoveLogic *myMovementLogic;
-	//addEffect Later
+	//add Effects Later
 	void  addAcc(const Vector2D& toAdd, float scalar) {
 		vel = vel+(scalar*toAdd);
 		if(vel.lengthSquared()>getMaxSpeed()*getMaxSpeed())
@@ -29,8 +29,7 @@ private:
 	void  move(float dt) {
 		pos = pos+(dt*vel);
 		collide(dt);
-}
-	//collision
+	}
 	void     warp() {
 		if(pos.getX() < (*space).getMin().getX()) pos = Vector2D( (*space).getMax().getX(), pos.getY());
 		if(pos.getY() < (*space).getMin().getY()) pos = Vector2D( pos.getX(),               (*space).getMax().getY() );
@@ -46,15 +45,7 @@ private:
 		}
 		warp();//just in case
 	}
-protected:
-	void setSpace(GameSpace* toSet) {
-		space = toSet;
-	}
-	void setMovementLogic(MoveLogic* toSet) {
-		myMovementLogic = toSet;
-	}
 public:
-	//overloading
 	void  update(float dt) {
 		updateMovement(dt);
 		childUpdate(dt);
@@ -63,7 +54,6 @@ public:
 		getStyle()->draw(graphics,getTransMatrix());
 		childDraw(graphics);
 	}
-	
 	Matrix3D getTransMatrix() {
 		return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
 	}
@@ -76,11 +66,19 @@ public:
 	int      getTeam() {
 		return ENEMY_TEAM;
 	}
-	//virtuals
+	
+	//REQUIRED FOR CHILDREN
 	virtual  float getMaxSpeed();
 	virtual  Shape* getStyle();
 	virtual  void childUpdate(float dt);
 	virtual  void childDraw(Core::Graphics&);
+protected: //required for initilization
+	void setSpace(GameSpace* toSet) {
+		space = toSet;
+	}
+	void setMovementLogic(MoveLogic* toSet) {
+		myMovementLogic = toSet;
+	}
 };
 
 #endif

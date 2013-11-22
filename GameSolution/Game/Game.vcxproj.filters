@@ -13,17 +13,11 @@
     <Filter Include="GameManagment">
       <UniqueIdentifier>{95f9933d-e927-4d82-8e02-da0ce1355037}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects\Entities\Turrets">
-      <UniqueIdentifier>{a53c8957-6dd7-4c35-a191-5dbeb70f59fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Objects\World\Boundary">
       <UniqueIdentifier>{697cc196-fe41-49ae-b146-50f8a08dbdae}</UniqueIdentifier>
     </Filter>
     <Filter Include="ToPlaceInEngine">
       <UniqueIdentifier>{87285be6-c3a8-4bed-8410-83464629cba5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Entities\Turrets\TargetLogic">
-      <UniqueIdentifier>{aba16334-aec5-4144-8cda-0489b38876ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Objects\General Interfaces">
       <UniqueIdentifier>{3c4957c7-6591-488f-a221-5fb3a63d0b3a}</UniqueIdentifier>
@@ -37,11 +31,17 @@
     <Filter Include="ToPlaceInEngine\Graphics\Particle Effects">
       <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects\Entities\Enemies">
-      <UniqueIdentifier>{1807515a-04bd-4c21-8c8d-9caf844bc22e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Objects\General Interfaces\MoveLogic">
       <UniqueIdentifier>{7c2b8ba8-ed0c-43f4-8099-3bd0a3b1b8bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\General Interfaces\TargetLogic">
+      <UniqueIdentifier>{aba16334-aec5-4144-8cda-0489b38876ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\General Interfaces\Turrets">
+      <UniqueIdentifier>{a53c8957-6dd7-4c35-a191-5dbeb70f59fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\General Interfaces\Enemies">
+      <UniqueIdentifier>{1807515a-04bd-4c21-8c8d-9caf844bc22e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,7 +61,7 @@
       <Filter>GameManagment</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClCompile>
     <ClCompile Include="Boundary.cpp">
       <Filter>Objects\World\Boundary</Filter>
@@ -76,23 +76,23 @@
       <Filter>Objects\Entities</Filter>
     </ClCompile>
     <ClCompile Include="TurretMark2.cpp">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClCompile>
     <ClCompile Include="BasicTurret.cpp">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClCompile>
     <ClCompile Include="ComplexBoundary.cpp">
       <Filter>Objects\World\Boundary</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TurretMark3.cpp">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClCompile>
     <ClCompile Include="TurretMark4.cpp">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClCompile>
     <ClCompile Include="TurretMark5.cpp">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>GameManagment</Filter>
@@ -110,7 +110,7 @@
       <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClCompile>
     <ClCompile Include="FireOnClick.cpp">
-      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+      <Filter>Objects\General Interfaces\TargetLogic</Filter>
     </ClCompile>
     <ClCompile Include="GameEntity.cpp">
       <Filter>Objects\General Interfaces</Filter>
@@ -140,6 +140,9 @@
       <Filter>Objects\World\Boundary</Filter>
     </ClCompile>
     <ClCompile Include="UserMoveLogic.cpp">
+      <Filter>Objects\General Interfaces\MoveLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveLogic.cpp">
       <Filter>Objects\General Interfaces\MoveLogic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -172,7 +175,7 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Turret.h">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="Boundary.h">
       <Filter>Objects\World\Boundary</Filter>
@@ -184,19 +187,19 @@
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
     <ClInclude Include="BasicTurret.h">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="TurretMark2.h">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="TurretMark5.h">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="TurretMark3.h">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="TurretMark4.h">
-      <Filter>Objects\Entities\Turrets</Filter>
+      <Filter>Objects\General Interfaces\Turrets</Filter>
     </ClInclude>
     <ClInclude Include="..\Engine\Partical.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
@@ -210,9 +213,6 @@
     <ClInclude Include="ExhaustEffect.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
-    <ClInclude Include="StaticEntity.h">
-      <Filter>Objects\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="ParticalManager.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
@@ -220,14 +220,11 @@
     <ClInclude Include="SingleKeyManager.h">
       <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
-    <ClInclude Include="LivingGameEntity.h">
-      <Filter>Objects\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="FireLogic.h">
-      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+      <Filter>Objects\General Interfaces\TargetLogic</Filter>
     </ClInclude>
     <ClInclude Include="FireOnClick.h">
-      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+      <Filter>Objects\General Interfaces\TargetLogic</Filter>
     </ClInclude>
     <ClInclude Include="GameEntity.h">
       <Filter>Objects\General Interfaces</Filter>
@@ -246,13 +243,13 @@
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
     <ClInclude Include="AlwaysFire.h">
-      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+      <Filter>Objects\General Interfaces\TargetLogic</Filter>
     </ClInclude>
     <ClInclude Include="FireAtInterval.h">
-      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+      <Filter>Objects\General Interfaces\TargetLogic</Filter>
     </ClInclude>
     <ClInclude Include="RandomFire.h">
-      <Filter>Objects\Entities\Turrets\TargetLogic</Filter>
+      <Filter>Objects\General Interfaces\TargetLogic</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>ToPlaceInEngine</Filter>
@@ -274,19 +271,22 @@
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
-      <Filter>Objects\Entities\Enemies</Filter>
+      <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyKamikaze.h">
-      <Filter>Objects\Entities\Enemies</Filter>
+      <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Objects\Entities\Enemies</Filter>
+      <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="UserMoveLogic.h">
       <Filter>Objects\General Interfaces\MoveLogic</Filter>
     </ClInclude>
     <ClInclude Include="MoveLogic.h">
       <Filter>Objects\General Interfaces\MoveLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="LivingGameEntity.h">
+      <Filter>Objects\General Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

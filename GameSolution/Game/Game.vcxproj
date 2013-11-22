@@ -104,6 +104,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveLogic.cpp" />
     <ClCompile Include="ParticalEffect.cpp" />
     <ClCompile Include="ParticalManager.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -160,7 +161,6 @@
     <ClInclude Include="SimpleBounary.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceShip.h" />
-    <ClInclude Include="StaticEntity.h" />
     <ClInclude Include="StaticPos.h" />
     <ClInclude Include="TargetMouse.h" />
     <ClInclude Include="Timer.h" />

@@ -79,7 +79,7 @@ void  Spaceship::brake(float scalar, float force) {
 }
 void  Spaceship::manageAcc(float dt) {
 	addAcc(myMovementLogic.getAcc(dt));
-	if(Core::Input::IsPressed( PlayerControls::brake      )) 
+	if(Core::Input::IsPressed( PlayerControls::brake      )) //not compatable with generic movement
 		vel = myMovementLogic.brake(vel,brakePower*dt);
 	//world drag
 	vel = myMovementLogic.brake(vel,GameSpace::WORLD_DRAG*dt);
@@ -87,7 +87,7 @@ void  Spaceship::manageAcc(float dt) {
 //movement
 void  Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
-	if(Core::Input::IsPressed( PlayerControls::warpColision )) warp();
+	if(Core::Input::IsPressed( PlayerControls::warpColision )) warp();//not compatable with generic movement
 	else collide(dt);
 }
 //collision
@@ -141,10 +141,6 @@ Shape* Spaceship::getStyle() {
 void  Spaceship::draw(Core::Graphics& graphics) {
 	getStyle()->draw(graphics,getTransMatrix());
 	currentTurret->draw(graphics);
-
-#ifdef DEBUG_SPACESHIP
-
-#endif
 }
 Matrix3D Spaceship::getTransMatrix() {
 	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
