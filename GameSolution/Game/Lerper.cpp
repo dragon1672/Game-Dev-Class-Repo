@@ -25,7 +25,7 @@ void Lerper::init() {
 	currentLine = 0;
 	pathIndex  = 0;
 	alpha=10;
-	bodyGuards.startup(5);
+	bodyGuards.startup(3,3);
 	initFullHealth(FULL_STARTING_HEALTH);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {
@@ -59,7 +59,7 @@ Shape* Lerper::getStyle() {
 }
 void Lerper::draw(Core::Graphics& graphics) {
 	getStyle()->draw(graphics, getTransMatrix());
-	bodyGuards.draw(graphics,Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle));
+	bodyGuards.draw(graphics,Matrix3D::translate(pos));
 }
 int Lerper::getTeam() {
 	return NEUTRAL_TEAM;

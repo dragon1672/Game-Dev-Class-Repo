@@ -2,4 +2,19 @@ generic bullet
 	turrets will manage bullet memory
 	make a tracking bullet
 	bullet manager will hold bullet pointers in a vector
-partical effect for exaust of ship
+
+
+
+
+
+make vortex that ship and other entities will warp in
+
+make game area much larger, screen moves along the landscape with the ship in the middle until hitting and edge where the ship will hit the edge of the world.
+
+create a full user interface for selecing game options and starting the game (with buttons and everything)
+
+Yellow	RGB(255,255,0)
+orange	RGB(232,142,12)
+red:		RGB(255,0,0)
+purple	RGB(108,12,232)
+teal		RGB(4,167,255)

@@ -11,36 +11,25 @@ Shape SolarSystem::thisStyle(color,
 							);
 
 
-void SolarSystem::addChild(SolarSystem *toAdd) {
-	children.push_back(toAdd);
-}
-/*I was a bit confused about how this section was working, changing this or adding comments would help*/
 void SolarSystem::update(float dt) {
 	orbitAngle+=orbitAcc*dt;
-	for (uint i=0; i<children.size(); i++)
-		children[i]->update(dt);
 }
-void SolarSystem::draw(Core::Graphics graphics,const Matrix3D& transform) {
-	Matrix3D result = transform * Matrix3D::rotationMatrix(orbitAngle) * Matrix3D::translate(Vector2D(0,orbitLength));
-	thisStyle.draw(graphics,result * Matrix3D::scale(size));
-	for (uint i=0; i<children.size(); i++)
-		children[i]->draw(graphics,result);
-}
-
-void SolarSystem::startup(int depth) {
-	const float targetSize = .2f;
-	const float targetAcc  = 5;
-	const float targetLen  = 10;
-	SolarSystem *toAdd = new SolarSystem[depth];//memory leak
-	float lengthDecrease = (toAdd[0].orbitLength -  targetLen ) / depth;
-	float accDecrease    = (toAdd[0].orbitAcc    -  targetAcc ) / depth;
-	float sizeDecrease   = (toAdd[0].size        -  targetSize) / depth;
-	for(int i=1;i<depth;i++) {
-		toAdd[i].orbitLength = toAdd[0].orbitLength - i*lengthDecrease;
-		toAdd[i].orbitAcc    = toAdd[0].orbitAcc    - i*accDecrease;
-		toAdd[i].size        = toAdd[0].size        - i*sizeDecrease;
-		toAdd[i-1].addChild(&toAdd[i]);
+void SolarSystem::draw(Core::Graphics& graphics, const Matrix3D& transform, int depth, float scale, int children) {
+	if(depth>=0) {
+		float averageAngle = anglesInCircle / children;
+		for(int i=0;i<children;i++) {
+			Matrix3D currentTrans = transform
+									* Matrix3D::rotationMatrix(orbitAngle + i * averageAngle)
+									* Matrix3D::translate(Vector2D(0,orbitLength*scale));
+			thisStyle.draw(graphics,currentTrans * Matrix3D::scale(scale));
+			draw(graphics,currentTrans,depth-1,scale*.6f,children);
+		}
 	}
-	addChild(toAdd);
-	//*/
+}
+void SolarSystem::draw(Core::Graphics& graphics, const Matrix3D& transform) {
+	draw(graphics,transform,maxDepth, size, children);//calling private draw
+}
+void SolarSystem::startup(int depth, int children) {
+	maxDepth = depth;
+	this->children = children;
 }

@@ -106,9 +106,9 @@ bool Controller::update(float dt) {
 }
 Core::RGB Controller::getWorldColor() {
 	Core::RGB pauseColor = RGB(50,50,50);
+	if(isPaused) return pauseColor;
 	if(currentBounds == &complexBounds) return RGB(10,10,10);
 	if(currentBounds == &simpleBounds)  return RGB(0,0,10); 
-	if(isPaused) return pauseColor;
 	return RGB(0,255,0);//GREEN, it should never been this
 }
 void Controller::draw(Core::Graphics& graphics) {

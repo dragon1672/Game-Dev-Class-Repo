@@ -11,23 +11,24 @@
 
 class SolarSystem {
 	static Shape thisStyle;
-	std::vector<SolarSystem *> children;
-public:
 	float orbitAcc;
 	float orbitAngle;
 	float orbitLength;
 	float size;
+	int maxDepth;
+	int children;
 
+	void draw(Core::Graphics& graphics, const Matrix3D& transform, int depth, float scale, int children);
+public:
 	SolarSystem() {
-		orbitAcc    = 5;
+		orbitAcc    = .5;
 		orbitAngle  = 25;
-		orbitLength = 40;
-		size        = 1;
+		orbitLength = 50;
+		size        = 2.5;
 	}
-	void addChild(SolarSystem *toAdd);
 	void update(float dt);
-	void draw(Core::Graphics graphic, const Matrix3D& transform);
-	void startup(int depth);
+	void draw(Core::Graphics& graphics, const Matrix3D& transform);
+	void startup(int depth, int children=2);
 };
 
 #endif

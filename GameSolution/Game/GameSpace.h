@@ -17,6 +17,7 @@
 #include "ParticalManager.h"
 
 
+
 const Core::RGB defaultColor = RGB(255,0,50);
 //creates a square world where all game obects will interact in
 class GameSpace {
@@ -24,7 +25,6 @@ public:
 	static const int NO_INDEX = -1;//has to be under 0
 	static const float WORLD_DRAG;
 private:
-
 	Spaceship myShip;
 	Boundary *boundary;
 	Lerper myLerp;

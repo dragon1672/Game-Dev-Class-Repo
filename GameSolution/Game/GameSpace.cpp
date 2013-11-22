@@ -43,6 +43,14 @@ void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *
 	ExtendedGraphics::drawLoadingBar(graphics,posOfHealthBar,target->getHealthPercent(),50,5);
 }
 //core
+void       GameSpace::update(float dt) {
+	for(uint i=0;i<myEntities.size();i++) {
+		myEntities[i]->update(dt);
+	}
+	allMyParticals.update(dt);
+	myBullets.update(dt);
+	checkEntityEntityCollision();
+}
 void       GameSpace::draw(Core::Graphics& graphics) {
 	gameStyle.draw(graphics);
 	boundary->draw(graphics);
@@ -52,14 +60,6 @@ void       GameSpace::draw(Core::Graphics& graphics) {
 		myEntities[i]->draw(graphics);
 		drawHealthBar(graphics,myEntities[i]);
 	}
-}
-void       GameSpace::update(float dt) {
-	for(uint i=0;i<myEntities.size();i++) {
-		myEntities[i]->update(dt);
-	}
-	allMyParticals.update(dt);
-	myBullets.update(dt);
-	checkEntityEntityCollision();
 }
 
 Boundary  *GameSpace::getBoundary() { return boundary; }
@@ -113,7 +113,7 @@ void GameSpace::checkEntityEntityCollision() {
 	for(uint i=0;i<myEntities.size();i++) {
 		int oppositeTeam = NO_TEAM;// = myEntities[i]->getTeam();
 		if(myEntities[i]->getTeam()==FRIENLY_TEAM) oppositeTeam = ENEMY_TEAM;
-		if(myEntities[i]->getTeam()==FRIENLY_TEAM) oppositeTeam = ENEMY_TEAM;
+		if(myEntities[i]->getTeam()==ENEMY_TEAM) oppositeTeam = FRIENLY_TEAM;
 		int temp = getLivingEntityCollidedWithOfTeam(*myEntities[i]->getStyle(),myEntities[i]->getPos(),oppositeTeam);
 		if(temp!=NO_INDEX && temp!=i) {
 			myEntities[i]->removeHP(SHIP_DAMAGE);
