@@ -30,6 +30,7 @@ protected:
 	Vector2D tipOfTurret();//could be on child level, but it is used a lot
 	void pointToTarget();
 	void shoot(Bullet *toShoot);//passes bullet to world to be shot
+	int team;
 public:
 	static Core::RGB defaultTurretColor;
 	static Shape defaultBulletStyle;
@@ -37,7 +38,7 @@ public:
 
 	Turret() { timeSinceLastShot = 0; }
 
-	void init(GameSpace *myWorld, DynamicPosition *location, DynamicPosition *target, FireLogic* logic);
+	void init(GameSpace *myWorld, DynamicPosition *location, DynamicPosition *target, FireLogic* logic, int team);
 	void setFireLogic(FireLogic *toSet);
 	void setTarget(DynamicPosition * toSet);
 	void changePos(DynamicPosition * toSet);
@@ -45,6 +46,8 @@ public:
 	void draw(Core::Graphics& graphics);
 	virtual void  fireBullet()=0;//should create bullet and call shoot
 	virtual float getFireSpeed()=0;//time between Bullets
+	int getTeam();
+	Vector2D getPos();
 };
 
 #endif

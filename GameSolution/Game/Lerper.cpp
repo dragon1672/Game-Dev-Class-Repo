@@ -10,9 +10,10 @@ Vector2D star[] = {
 					};
 Core::RGB Lerper::myColor = RGB(255,102,255);
 float Lerper::turnSpeed = 5;
+const float Lerper::FULL_STARTING_HEALTH=5;
 Shape Lerper::myStyle(
 						Lerper::myColor,
-						sizeof(star)/sizeof(*star),
+						SIZE_OF_ARRAY(star),
 						star[0],
 						star[1],
 						star[2],
@@ -25,9 +26,10 @@ void Lerper::init() {
 	pathIndex  = 0;
 	alpha=10;
 	bodyGuards.startup(5);
+	initFullHealth(FULL_STARTING_HEALTH);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {
-	assert(pathIndex!=MAX_PATH_LENGTH);
+	MY_ASSERT(pathIndex!=MAX_PATH_LENGTH);
 	path[pathIndex++] = toAdd;
 }
 int  Lerper::nextIndex() {
@@ -46,7 +48,7 @@ Matrix3D Lerper::getTransMatrix() {
 	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
 }
 void Lerper::update(float dt) {
-	assert(pathIndex>1);
+	MY_ASSERT(pathIndex>1);
 	angle+=turnSpeed*dt;
 	alpha+=(interval*dt);
 	if(alpha>1) nextLine();
@@ -60,4 +62,10 @@ void Lerper::draw(Core::Graphics& graphics) {
 	//float scale = 1+2*(angle - (int)angle);
 	getStyle()->draw(graphics, getTransMatrix());
 	bodyGuards.draw(graphics,Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle));
+}
+int Lerper::getTeam() {
+	return NEUTRAL_TEAM;
+}
+Vector2D Lerper::getPos() {
+	return pos;
 }

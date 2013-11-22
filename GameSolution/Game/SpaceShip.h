@@ -6,12 +6,12 @@
 
 //interfaces and inheritance
 #include "LivingGameEntity.h"
-#include "DynamicPosition.h"
 
-
+//core
 #include "Vector 2.h"
 #include "Core.h"
 #include "Shape.h"
+#include "Timer.h"//currently for unlocking turret
 
 #include "ExhaustEffect.h"
 
@@ -33,7 +33,8 @@ class GameSpace;
 #define NUM_OF_TURRETS 5
 
 
-class Spaceship : public LivingGameEntity, DynamicPosition {
+class Spaceship : public LivingGameEntity {
+	static const float SHIP_FULL_STARTING_HEALTH;
 	static Core::RGB shipColor;
 	static const float brakePower;
 	static Shape thisShape;
@@ -47,6 +48,8 @@ class Spaceship : public LivingGameEntity, DynamicPosition {
 	//target (mouse)
 	TargetMouse myTarget;
 
+	Timer turretTimer;
+
 	Turret *turrets[NUM_OF_TURRETS];
 	//these are manually placed in the array
 	BasicTurret myBasicTurret;//1
@@ -54,6 +57,7 @@ class Spaceship : public LivingGameEntity, DynamicPosition {
 	TurretMark3 myMark3Turret;//3
 	TurretMark4 myMark4Turret;//4
 	TurretMark5 myMark5Turret;//5
+	int maxAccessibleTurret;
 	Turret *currentTurret;
 	GameSpace *space;
 	ExhaustEffect myEffect;
@@ -63,9 +67,8 @@ class Spaceship : public LivingGameEntity, DynamicPosition {
 	Vector2D pos;
 	float angle;
 
-	void bounce();
 	void warp();
-	void collide();
+	void collide(float dt);
 	void brake(float scalar=1,float force=brakePower);
 
 	//update functions
@@ -82,6 +85,7 @@ public:
 	Matrix3D getTransMatrix();
 	Matrix3D getRotationMat();
 	Vector2D getPos();
+	int getTeam();
 };
 
 #endif

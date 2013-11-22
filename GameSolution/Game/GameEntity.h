@@ -6,8 +6,9 @@
 #include "Matrix3D.h"
 #include "Core.h"
 #include "Shape.h"
+#include "DynamicPosition.h"
 
-class GameEntity {
+class GameEntity : public DynamicPosition {
 public:
 	       virtual Shape* getStyle();
 	       virtual Matrix3D getTransMatrix();
@@ -16,6 +17,8 @@ public:
 	}
 	       virtual void update(float dt);
 	       virtual void draw(Core::Graphics& graphics);
+		   virtual int  getTeam()=0;
+		   virtual Vector2D getPos()=0;
 };
 
 #endif

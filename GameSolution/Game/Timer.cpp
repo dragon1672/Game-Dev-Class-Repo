@@ -34,6 +34,13 @@ float Timer::interval() {
 	_lastInterval = current;
 	return LargeInt2Secs(TEMP);
 }
+float Timer::getCurrentTime() {
+	LARGE_INTEGER current;
+	QueryPerformanceCounter(&current);
+	LARGE_INTEGER TEMP;
+	TEMP.QuadPart = current.QuadPart - _start.QuadPart;
+	return LargeInt2Secs(TEMP);
+}
 float Timer::getElapsedTime() {
 	LARGE_INTEGER TEMP;
 	TEMP.QuadPart = total.QuadPart + _stop.QuadPart - _start.QuadPart;

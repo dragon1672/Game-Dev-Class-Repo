@@ -88,22 +88,7 @@ void Shape::calcMinAndMax() {
 		if(points[i].getY()<minY) minY = points[i].getY();
 	}
 }
-#ifdef DEBUG_SHAPE
-	#include <sstream>
-	#include <string>
-	using std::string;
-	string float2str(int num) {
-		std::stringstream ss;
-		string ret;
-		ss << num;
-		ss >> ret;
-		return ret;
-	}
-	string vec2str(Vector2D vec) {
-		string ret = "{"+float2str(vec.getX())+","+float2str(vec.getY())+"}";
-		return ret;
-	}
-#endif //DEBUG_SHAPE
+
 void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 	if(constructed) {
 		graphics.SetColor(myColor);
@@ -136,23 +121,20 @@ void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rota
 bool Shape::isConstructed() {
 	return constructed;
 }
-
-bool Shape::circleCollisionCheck(const Vector2D& toCheck, const Matrix3D& transformations) {
-	Vector2D center = transformations * Vector2D(0,0);
+bool Shape::circleCollisionCheck(const Vector2D& toCheck, const Vector2D& center) {
 	if( (center - toCheck).lengthSquared() < getRadius() ) return true;
 	return false;
 }
-bool Shape::collision(const Vector2D& toCheck, const Matrix3D& transformations) {
-	return circleCollisionCheck(toCheck,transformations);
+bool Shape::collision(const Vector2D& toCheck, const Vector2D& center) {
+	return circleCollisionCheck(toCheck,center);
 }
 //collision to shape
 
-bool Shape::circleCollisionCheck(const Shape& toCheck, const Matrix3D& trans, const Matrix3D& transForCheck) {
-	Vector2D center1 = trans * Vector2D(0,0);
-	Vector2D center2 = transForCheck * Vector2D(0,0);
-	if( (center1 - center2).lengthSquared()<(this->getRadius() + toCheck.getRadius()) ) return true;
+bool Shape::circleCollisionCheck(const Shape& toCheck, const Vector2D& thisPos, const Vector2D& thatPos) {
+	float checkLength = this->getRadius()+toCheck.getRadius();;
+	if( (thisPos - thatPos).lengthSquared()<(checkLength * checkLength) ) return true;
 	return false;
 }
-bool Shape::collision(const Shape& toCheck, const Matrix3D& trans, const Matrix3D& transForCheck) {
-	return circleCollisionCheck(toCheck,trans,transForCheck);
+bool Shape::collision(const Shape& toCheck, const Vector2D& thisPos, const Vector2D& thatPos) {
+	return circleCollisionCheck(toCheck,thisPos,thatPos);
 }

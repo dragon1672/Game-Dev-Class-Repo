@@ -23,10 +23,10 @@ Shape *TurretMark2::getStyle() {
 void TurretMark2::fireBullet() {
 		Bullet createdBullet;
 		createdBullet.pos   = myPos->getPos() + tipOfTurret();
-		createdBullet.setVel((defaultBulletSpeed*direction) + Random::randomFloatVector(0,3));
+		createdBullet.setVel(defaultBulletSpeed/2*(2*direction + Random::randomFloat(0,.5f)*Random::randomUnitVector()));
 		createdBullet.style = &defaultBulletStyle;
 		shoot(&createdBullet);
 }
 float TurretMark2::getFireSpeed() {
-	return .125;
+	return .15f;
 }

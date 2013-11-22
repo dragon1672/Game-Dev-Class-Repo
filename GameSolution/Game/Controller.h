@@ -30,6 +30,7 @@ class Controller {
 	SimpleBoundary  simpleBounds;
 	ComplexBoundary complexBounds;
 	Boundary *currentBounds;
+	Core::RGB getWorldColor();
 #ifdef DEBUG_Controller
 	Timer FPS_clock;
 	float FPS_clock_storage;

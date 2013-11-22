@@ -11,9 +11,11 @@ class ExhaustEffect : public ParticalEffect {
 	GameEntity *parent;
 	float lifetime;
 	float varianceAngle;
-public:
 	bool active;
+public:
+	bool paused;
 	void init(GameEntity *parent, float lifetime, float varianceAngle=.5);
+	void shutdown();
 	//overloads
 	void initPartical(Partical *toInit);
 	void update(float dt, Partical *toUpdate);

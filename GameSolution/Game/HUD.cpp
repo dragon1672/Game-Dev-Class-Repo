@@ -74,6 +74,7 @@ void      HUD::draw(Core::Graphics& graphics) {
 	//under development
 	loadingBarPercent+=(loadingBarPercent>1)? -1 : loadingBarTimer.interval()/2;
 	ExtendedGraphics::drawLoadingBar(graphics,Vector2D(500,30),loadingBarPercent,250,20);
+	ExtendedGraphics::drawLoadingBar(graphics,Vector2D(500,60),loadingBarPercent,50,5);
 	graphics.DrawString(500,15,"[MESSAGE BOX IS UNDER DEVELOPMENT]");
 	graphics.SetColor(RGB(100,100,100));
 }

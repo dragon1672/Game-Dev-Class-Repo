@@ -29,5 +29,5 @@ void TurretMark4::fireBullet() {//fires 7 shots
 	}
 }
 float TurretMark4::getFireSpeed() {
-	return 1;
+	return 1.2f;
 }

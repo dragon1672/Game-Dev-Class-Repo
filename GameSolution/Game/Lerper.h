@@ -9,11 +9,12 @@
 #include "Shape.h"
 #include "Core.h"
 #include "SolarSystem.h"
-#include "GameEntity.h"
+#include "LivingGameEntity.h"
 
 #define MAX_PATH_LENGTH 100
 
-class Lerper : GameEntity {
+class Lerper : public LivingGameEntity {
+	static const float FULL_STARTING_HEALTH;
 	static Shape myStyle;
 	static Core::RGB myColor;
 	static const int distacePerSecond = 100;
@@ -38,6 +39,8 @@ public:
 	Shape *getStyle();
 	void update(float dt);
 	void draw(Core::Graphics& graphics);
+	int  getTeam();
+	Vector2D getPos();
 };
 
 #endif

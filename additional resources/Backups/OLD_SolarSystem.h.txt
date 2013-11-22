@@ -26,14 +26,17 @@ public:
 	inline void update(float dt) {
 		orbitAngle+=orbitAcc*dt;
 	}
-	inline void draw(Core::Graphics& graphics, const Matrix3D& transform) {
-		draw(graphics, transform,maxDepth);
-	}
-	inline void startup(int depth = 5,int children = 4, float orbitLength = 40, float size = 5) {
-		this->maxDepth    = depth;
-		this->children    = children;
-		this->orbitLength = orbitLength;
-		this->size        = size;
+	inline void draw(Core::Graphics& graphics, const Matrix3D& transform, int depth, float scale, int children=2;) {
+		if(depth>=0)
+			float averageAngle = anglesInCircle / children;
+			for(int i=0;i<children;i++) {
+				Matrix3D currentTrans = transform
+										* Matrix3D::rotationMatrix(orbitAngle + i * averageAngle)
+										* Matrix3D::translate(Vector2D(0,orbitLength*scale))
+										* Matrix3D::scale(scale);
+				thisStyle.draw(graphics,currentTrans);
+				draw(graphics,currentTrans,depth-1,scale*.5);
+			}
 	}
 };
 

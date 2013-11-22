@@ -45,9 +45,6 @@
     <ClCompile Include="GameSpace.cpp">
       <Filter>Objects\World</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Objects\World</Filter>
-    </ClCompile>
     <ClCompile Include="Spaceship.cpp">
       <Filter>Objects\Entities</Filter>
     </ClCompile>
@@ -124,19 +121,22 @@
     <ClCompile Include="Timer.cpp">
       <Filter>ToPlaceInEngine</Filter>
     </ClCompile>
-    <ClCompile Include="AutoProfiler.cpp">
-      <Filter>ToPlaceInEngine</Filter>
-    </ClCompile>
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp">
       <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoProfilerManager.cpp">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Objects\World\Boundary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
       <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Objects\World</Filter>
     </ClInclude>
     <ClInclude Include="GameSpace.h">
       <Filter>Objects\World</Filter>
@@ -256,6 +256,16 @@
     </ClInclude>
     <ClInclude Include="TwoColTable.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="HitInfo.h" />
+    <ClInclude Include="AutoProfileManager.h">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Objects\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

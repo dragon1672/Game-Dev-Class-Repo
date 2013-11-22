@@ -88,9 +88,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp" />
-    <ClCompile Include="AutoProfiler.cpp" />
+    <ClCompile Include="AutoProfilerManager.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="ComplexBoundary.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="..\Engine\Partical.h" />
     <ClInclude Include="..\Engine\ParticalEffect.h" />
     <ClInclude Include="AlwaysFire.h" />
+    <ClInclude Include="AutoProfileManager.h" />
     <ClInclude Include="AutoProfiler.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
@@ -133,6 +135,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ExhaustEffect.h" />
     <ClInclude Include="ExplosionEffect.h" />
     <ClInclude Include="FireAtInterval.h" />
@@ -141,6 +144,7 @@
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="GameSpace.h" />
+    <ClInclude Include="HitInfo.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="LivingGameEntity.h" />

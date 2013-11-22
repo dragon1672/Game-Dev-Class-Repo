@@ -14,13 +14,18 @@ private:
 	float life;
 	float maxLife;
 public:
+	inline void initFullHealth(float amount) {
+		MY_ASSERT(amount>0);
+		maxLife = amount;
+		life = maxLife;
+	}
 	inline void addHP(float amount) {
-		assert(amount>0);
+		MY_ASSERT(amount>0);
 		life+=amount;
 		checkLifeCap();
 	}
 	inline void removeHP(float amount) {
-		assert(amount>0);
+		MY_ASSERT(amount>0);
 		life-=amount;
 		checkLifeCap();
 	}
@@ -30,7 +35,7 @@ public:
 	inline float getHealth() { return life; }
 	inline float getMaxHeath() { return maxLife; }
 	inline void  setMaxHealth(float amount) {
-		assert(amount>0);
+		MY_ASSERT(amount>0);
 		maxLife = amount;
 		checkLifeCap();
 	}

@@ -3,18 +3,7 @@
 #define AUTO_PROFILE_H
 
 #include "Timer.h"
-
-#define ENABLE_PROFILING
-
-#ifdef ENABLE_PROFILING
-	#define PROFILE_FILE_NAME "Profile.csv"
-	#define PROFILE(a) {AutoProfile(#a); //starting Profile
-	#define END_PROFILE } //end the last Profile
-#else
-	#define PROFILE_FILE_NAME "Profile.csv"
-	#define PROFILE(a)
-	#define END_PROFILE
-#endif
+#include "AutoProfileManager.h"
 
 class AutoProfile {
 private:
@@ -28,7 +17,7 @@ public:
 	}
 	~AutoProfile() {
 		myTimer.stop();
-		printToFile();
+		AutoProfileManager::addEntry(profileName,myTimer.getElapsedTime());
 	}
 };
 

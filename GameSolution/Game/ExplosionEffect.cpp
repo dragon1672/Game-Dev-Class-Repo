@@ -43,7 +43,7 @@ void ExplosionEffect::update(float dt,Partical *toUpdate) {
 void ExplosionEffect::draw(Core::Graphics graphics, Partical *toDraw) {
 	graphics.SetColor(toDraw->color);
 	//since it is really an array of lines it should have an even length
-	assert(SIZE_OF_ARRAY(basicPartical)%2==0);
+	MY_ASSERT(SIZE_OF_ARRAY(basicPartical)%2==0);
 	for(int i=0;i<SIZE_OF_ARRAY(basicPartical);i+=2) {
 		Vector2D p1 = toDraw->pos + basicPartical[i];
 		Vector2D p2 = toDraw->pos + basicPartical[i+1];

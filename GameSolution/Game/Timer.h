@@ -19,6 +19,7 @@ public:
 	void pause();
 	void resume();
 	float interval();
+	float getCurrentTime();
 	float getElapsedTime();
 };
 

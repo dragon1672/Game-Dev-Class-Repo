@@ -22,21 +22,27 @@ int    BulletManager::numOfBullets() {
 void   BulletManager::addBullet(Bullet *toAdd) {
 	bullets.push_back(*toAdd);//copys information
 }
-//will delete sequential bullets out of bounds
-void   BulletManager::cleanOutOfBoundBullets(int startingIndex) {
-	if(space->getBoundary()->hasCollided(bullets[startingIndex].pos)) {
-		space->addExplosion(bullets[startingIndex].pos);
-		bullets.erase(bullets.begin() + startingIndex);
+//will delete bullets out of bounds
+void   BulletManager::cleanOutOfBoundBullets(int index) {
+	if(space->getBoundary()->hasCollided(bullets[index].pos)
+		|| !bullets[index].isActive) {
+		space->addExplosion(bullets[index].pos);
+		bullets.erase(bullets.begin() + index);
 	}
 }
 void   BulletManager::update(float dt) {
-	for(unsigned int i=0;i<bullets.size();i++) {
+	for(uint i=0;i<bullets.size();i++) {
 		bullets[i].update(dt);
+		int entityCollidedWith = space->getLivingEntityCollidedWith(*bullets[i].style,bullets[i].pos,bullets[i].team);
+		if(entityCollidedWith!=GameSpace::NO_INDEX) {
+			space->getLivingEntity(entityCollidedWith)->removeHP(bullets[i].power);
+			bullets[i].isActive = false;
+		}
 		cleanOutOfBoundBullets(i);
 	}
 }
 void   BulletManager::draw(Core::Graphics graphics) {
-	for(unsigned int i=0;i<bullets.size();i++) {
+	for(uint i=0;i<bullets.size();i++) {
 		bullets[i].draw(graphics);
 	}
 }

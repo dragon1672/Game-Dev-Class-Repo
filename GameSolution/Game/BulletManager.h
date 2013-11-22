@@ -21,7 +21,7 @@ public:
 	void   addBullet(Bullet *toAdd);
 
 	//will delete sequential bullets out of bounds
-	void cleanOutOfBoundBullets(int startingIndex);
+	void cleanOutOfBoundBullets(int index);
 	
 	void update(float dt);
 	void draw(Core::Graphics graphics);

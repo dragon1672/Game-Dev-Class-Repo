@@ -1,4 +1,5 @@
 #include "ComplexBoundary.h"
+#include <cassert>
 
 void      ComplexBoundary::init(int count, Vector2D *points, const Matrix3D& transform) {
 	numOfWalls = count;
@@ -14,11 +15,13 @@ bool      ComplexBoundary::hasCollided  (const Vector2D& pos) {
 	}
 	return false;
 }
-Vector2D  ComplexBoundary::collideVector(const Vector2D& pos, const Vector2D& vel) {
-	Vector2D ret = vel;
-	for(int i=0;i<numOfWalls;i++) {
+HitInfo   ComplexBoundary::collideVector(const Vector2D& pos, const Vector2D& vel) {
+	HitInfo ret(pos,vel);
+	ret.hasHit = false;
+	for(int i=0;i<numOfWalls && !ret.hasHit;i++) {
 		if(walls[i].hasCollided(pos)) {
 			ret = walls[i].collideVector(pos,vel);
+			MY_ASSERT(ret.hasHit==true);
 		}
 	}
 	return ret;

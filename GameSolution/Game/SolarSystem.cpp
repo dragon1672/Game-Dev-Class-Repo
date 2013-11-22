@@ -17,13 +17,13 @@ void SolarSystem::addChild(SolarSystem *toAdd) {
 /*I was a bit confused about how this section was working, changing this or adding comments would help*/
 void SolarSystem::update(float dt) {
 	orbitAngle+=orbitAcc*dt;
-	for (unsigned int i=0; i<children.size(); i++)
+	for (uint i=0; i<children.size(); i++)
 		children[i]->update(dt);
 }
 void SolarSystem::draw(Core::Graphics graphics,const Matrix3D& transform) {
 	Matrix3D result = transform * Matrix3D::rotationMatrix(orbitAngle) * Matrix3D::translate(Vector2D(0,orbitLength));
 	thisStyle.draw(graphics,result * Matrix3D::scale(size));
-	for (unsigned int i=0; i<children.size(); i++)
+	for (uint i=0; i<children.size(); i++)
 		children[i]->draw(graphics,result);
 }
 

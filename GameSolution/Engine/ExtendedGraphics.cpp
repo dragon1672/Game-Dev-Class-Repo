@@ -2,6 +2,8 @@
 #include "MyRandom.h"
 #include "Vector 2.h"
 
+typedef unsigned int uint;
+
 float catAtRange(float val, float min, float max) {
 	if(val<min) return min;
 	if(val>max) return max;
@@ -34,7 +36,7 @@ void      ExtendedGraphics::drawDottedLine(Core::Graphics& graphics, int x1, int
 	drawDottedLine(graphics,Vector2D((float)x1,(float)y1),Vector2D((float)x2,(float)y2),length);
 }
 void      ExtendedGraphics::drawRainbowText(Core::Graphics& graphics, float x, float y, char* text) {
-	for(unsigned int i=0;i<strlen(text);i++) {
+	for(uint i=0;i<strlen(text);i++) {
 		graphics.SetColor(randomColor());
 		graphics.DrawString((int)x+i*CHAR_SPACING,(int)y,&text[i]);
 	}

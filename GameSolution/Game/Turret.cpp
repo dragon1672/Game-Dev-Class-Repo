@@ -44,15 +44,17 @@ void Turret::pointToTarget() {
 	if(direction.lengthSquared()==0) direction = Vector2D(0,1);
 }
 void Turret::shoot(Bullet *toShoot) {
+	toShoot->team = this->team;
 	space->addBullet(toShoot);
 }
 
 //changing vars
-void Turret::init(GameSpace *myWorld, DynamicPosition *location, DynamicPosition *target, FireLogic* logic) {
+void Turret::init(GameSpace *myWorld, DynamicPosition *location, DynamicPosition *target, FireLogic* logic, int team) {
 	setFireLogic(logic);
 	setTarget(target);
 	changePos(location);
-	this->space       = myWorld;
+	this->space = myWorld;
+	this->team  = team;
 }
 void Turret::setFireLogic(FireLogic *toSet) {
 	this->myFireLogic = toSet;
@@ -76,4 +78,10 @@ void Turret::update(float dt) {
 void Turret::draw(Core::Graphics& graphics) {
 	Matrix3D transform = Matrix3D::translate(myPos->getPos()) * Matrix3D::rotateToVector(direction);
 	getStyle()->draw(graphics, transform);
+}
+int  Turret::getTeam() {
+	return team;
+}
+Vector2D Turret::getPos() {
+	return myPos->getPos();
 }

@@ -1,4 +1,5 @@
 #include "SimpleBounary.h"
+#include "Vector 2.h"
 
 void SimpleBoundary::init(float x1, float y1, float x2, float y2) {
 	this->x1 = x1;
@@ -13,10 +14,19 @@ bool     SimpleBoundary::hasCollided  (const Vector2D& pos) {
 		 || pos.getY()>y2);
 
 }
-Vector2D SimpleBoundary::collideVector(const Vector2D& pos, const Vector2D& vel) {
-	if(pos.getX() < x1 || pos.getX() > x2) return Vector2D(-vel.getX(), vel.getY());
-	if(pos.getY() < y1 || pos.getY() > y2) return Vector2D( vel.getX(),-vel.getY());
-	return vel;
+HitInfo  SimpleBoundary::collideVector(const Vector2D& pos, const Vector2D& vel) {
+	HitInfo ret(pos,vel);
+	ret.hasHit = false;
+	if(pos.getX() < x1 || pos.getX() > x2) {
+		ret.hasHit = true;
+		ret.vel = Vector2D(-vel.getX(), vel.getY());
+		ret.pos = pos-vel;
+	} else if(pos.getY() < y1 || pos.getY() > y2) {
+		ret.hasHit = true;
+		ret.vel = Vector2D( vel.getX(),-vel.getY());
+		ret.pos = pos-vel;
+	}
+	return ret;
 
 }
 void     SimpleBoundary::draw(Core::Graphics& graphics) {

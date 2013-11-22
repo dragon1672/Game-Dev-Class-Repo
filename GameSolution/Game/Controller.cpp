@@ -3,6 +3,10 @@
 #include "ExtendedGraphics.h"
 #include "PlayerControls.h"
 
+const int MAX_POINTS = 60; //for generating circle World
+const int NORMAL_MAX_POINTS = 10;//generating other worlds
+
+
 void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 	float anglesInCircle = 2*3.14f;
 	float variancePercent = 4;
@@ -17,13 +21,11 @@ void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 	}
 }
 
-#define MAX_POINTS 1000
-
 
 Controller::Controller (int width, int height) : width(width), 
 												 height(height), 
-												 hud(width,height),
-												 myWorld(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset()) {
+												 hud(width,height) {
+	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset());
 	ComplexBoundsKey.setToCheck(PlayerControls::boundColision);
 	SimpleBoundsKey.setToCheck(PlayerControls::boxColision);
 	PauseButton.setToCheck(PlayerControls::pauseGame);
@@ -68,7 +70,8 @@ void Controller::setDynamicBounds() {
 	float worldWidth    = hud.getWorldWidth();
 	float worldHeight   = hud.getWorldHeight();
 
-	int sides = Random::randomInt(4,9);
+	int sides = Random::randomInt(4,NORMAL_MAX_POINTS+2);
+	if(sides > NORMAL_MAX_POINTS) sides = MAX_POINTS;//make a circle World
 	generateRandomPolygon(randomPoly, sides, sizeOfWalls);//stored in randomPoly
 	
 	float polyWidth  = 2 * sizeOfWalls;
@@ -101,16 +104,16 @@ bool Controller::update(float dt) {
 #endif//DEBUG_Controller
 	return false;
 }
-void Controller::draw(Core::Graphics& graphics) {
-	Core::RGB worldColor = RGB(0,100,0);//green
+Core::RGB Controller::getWorldColor() {
 	Core::RGB pauseColor = RGB(50,50,50);
-
-	if(currentBounds == &complexBounds) worldColor = RGB(10,10,10);
-	if(currentBounds == &simpleBounds)  worldColor = RGB(0,0,10); 
-	if(isPaused) worldColor = pauseColor;
-
-	hud.draw(graphics);
-	hud.paintWorld(graphics,worldColor);
+	if(currentBounds == &complexBounds) return RGB(10,10,10);
+	if(currentBounds == &simpleBounds)  return RGB(0,0,10); 
+	if(isPaused) return pauseColor;
+	return RGB(0,255,0);//GREEN, it should never been this
+}
+void Controller::draw(Core::Graphics& graphics) {
+	hud.paintWorld(graphics,getWorldColor());
+	hud.draw(graphics);//
 	myWorld.draw(graphics);
 #ifdef DEBUG_Controller
 	graphics.SetColor(hud.defaultTextColor);
@@ -121,7 +124,6 @@ void Controller::draw(Core::Graphics& graphics) {
 	graphics.DrawString(0,0,fps.c_str());
 #endif//DEBUG_Controller
 	if(isPaused) {
-		hud.worldPopup(graphics,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(pauseColor,.5));
-		//ExtendedGraphics::textInABox(graphics,ExtendedGraphics::brightness(pauseColor,.5),HUD::defaultTextColor, "GAME HAS BEEN PAUSED",hud.getWorldoffset().getX(),hud.getWorldoffset().getY(),hud.getWorldWidth(), hud.getWorldHeight());
+		hud.worldPopup(graphics,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(getWorldColor(),.5));
 	}
 }

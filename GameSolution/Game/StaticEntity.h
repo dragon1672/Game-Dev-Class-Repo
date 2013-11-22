@@ -51,10 +51,12 @@ Shape StaticEntity_defaultStyle(RGB(100,100,100),Matrix3D::scaleY(-1) * Matrix3D
 
 class StaticEntity : GameEntity {
 	Matrix3D translation;
+	int team;
 public:
 	StaticEntity() { ; }
-	StaticEntity(const Vector2D& pos) {
+	StaticEntity(const Vector2D& pos,int team = NEUTRAL_TEAM) {
 		init(pos);
+		this->team = team;
 	}
 	inline void init(const Vector2D& pos) {
 		translation = Matrix3D::translate(pos);
@@ -67,6 +69,9 @@ public:
 	}
 	inline void update(float dt) {
 		dt;
+	}
+	inline int getTeam() {
+		return team;
 	}
 };
 

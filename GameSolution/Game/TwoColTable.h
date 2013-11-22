@@ -40,7 +40,7 @@ public:
 		col2_length = width;
 	}
 	inline void addRow(const char* col1Text, const char* col2Text) {
-		assert(currentRows<MAX_ROWS);
+		MY_ASSERT(currentRows<MAX_ROWS);
 		col1Data[currentRows] = col1Text;
 		col2Data[currentRows] = col2Text;
 		currentRows++;

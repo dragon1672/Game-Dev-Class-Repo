@@ -12,6 +12,7 @@ float Spaceship::ACC = 500;
 float Spaceship::rotationAcc = 5;
 float Spaceship::maxSpeed = 1000;
 Core::RGB Spaceship::shipColor = RGB(255,255,0);
+const float Spaceship::SHIP_FULL_STARTING_HEALTH = 10;
 //*
 const float scaler = 3;
 Matrix3D cartesian2Screen = Matrix3D::scaleY(-scaler) * Matrix3D::scaleX(scaler);
@@ -40,12 +41,15 @@ void  Spaceship::init(float x, float y, GameSpace *space) {
 	turrets[3] = &myMark4Turret;
 	turrets[4] = &myMark5Turret;
 
-	for(int i=0;i<sizeof(turrets)/sizeof(*turrets);i++) {
-		turrets[i]->init(space,this,&myTarget,&myFiringLogic);
+	for(int i=0;i<SIZE_OF_ARRAY(turrets);i++) {
+		turrets[i]->init(space,this,&myTarget,&myFiringLogic,getTeam());
 	}
 	currentTurret = turrets[0];
+	maxAccessibleTurret = 1;
 	myEffect.init(this,.5);
-	space->addEffect(50,&myEffect);
+	space->addEffect(15,&myEffect);
+	turretTimer.start();
+	initFullHealth(SHIP_FULL_STARTING_HEALTH);
 }
 	
 //acc
@@ -87,7 +91,7 @@ void  Spaceship::manageAcc(float dt) {
 void  Spaceship::move(float dt) {
 	pos = pos+(dt*vel);
 	if(Core::Input::IsPressed( PlayerControls::warpColision )) warp();
-	else collide();
+	else collide(dt);
 }
 //collision
 void  Spaceship::warp() {
@@ -96,9 +100,14 @@ void  Spaceship::warp() {
 	if(pos.getX() > (*space).getMax().getX()) pos = Vector2D( (*space).getMin().getX(), pos.getY());
 	if(pos.getY() > (*space).getMax().getY()) pos = Vector2D( pos.getX(),               (*space).getMin().getY() );
 }
-void  Spaceship::collide() {
-	vel = space->collideVector(pos,vel);//need to pass dt to accuratly calc if collision will be in bounds again
-	//warp();//just in case
+void  Spaceship::collide(float dt) {
+	//multiply vel by dt 
+	HitInfo temp = space->collideVector(pos,vel*dt);//need to pass dt to accuratly calc if collision will be in bounds again
+	if(temp.hasHit) {
+		vel = temp.vel/dt;
+		pos = temp.pos;
+	}
+	warp();//just in case
 }
 void  Spaceship::manageRot(float dt) {
 	if(Core::Input::IsPressed(PlayerControls::rotateLeft)) {
@@ -109,14 +118,19 @@ void  Spaceship::manageRot(float dt) {
 	}
 }
 void  Spaceship::updateSelectedTurret() {
-	int numToCheck = SIZE_OF_ARRAY(turrets);
+	if(turretTimer.getCurrentTime()>3) {
+		turretTimer.start();//restart
+		if(maxAccessibleTurret<SIZE_OF_ARRAY(turrets))
+			maxAccessibleTurret++;
+	}
+	int numToCheck = this->maxAccessibleTurret;//SIZE_OF_ARRAY(turrets);
 	for(int i=0;i<numToCheck;i++) {
 		if(Core::Input::IsPressed( '1'+i ))
 			currentTurret = turrets[i];
 	}
 }
 void  Spaceship::update(float dt) {
-	myEffect.active = Core::Input::IsPressed(PlayerControls::accelerate);
+	myEffect.paused = !Core::Input::IsPressed(PlayerControls::accelerate);
 	manageAcc(dt);
 	manageRot(dt);
 	move(dt);
@@ -143,4 +157,7 @@ Matrix3D Spaceship::getRotationMat() {
 }
 Vector2D Spaceship::getPos() {
 	return pos;
+}
+int Spaceship::getTeam() {
+	return FRIENLY_TEAM;
 }
