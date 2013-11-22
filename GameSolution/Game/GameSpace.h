@@ -22,6 +22,7 @@ const Core::RGB defaultColor = RGB(255,0,50);
 class GameSpace {
 public:
 	static const int NO_INDEX = -1;//has to be under 0
+	static const float WORLD_DRAG;
 private:
 
 	Spaceship myShip;
@@ -55,6 +56,8 @@ public:
 	Vector2D  getCenter();
 	//Entities
 	LivingGameEntity* getLivingEntity(int id);
+	void cleanUpAllLivingEntities();
+	bool cleanUpEntity(int id);
 	//returns where team does not match
 	int getLivingEntityClosest(      const Vector2D& pos,  int team=NO_TEAM, int startingIndex=0);
 	int getLivingEntityCollidedWith( const Vector2D& pos,  int team=NO_TEAM, int startingIndex=0);

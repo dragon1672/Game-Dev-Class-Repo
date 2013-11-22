@@ -2,7 +2,6 @@
 #include "GameSpace.h"
 #include "PlayerControls.h"
 
-const float worldDrag = 100;
 const float Spaceship::brakePower = 1000;
 //const Vector2D accX(100, 0);
 //const Vector2D accY(0, 100);
@@ -33,23 +32,27 @@ Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 void  Spaceship::init(float x, float y, GameSpace *space) {
 	pos = Vector2D(x,y);
 	this->space = space;
+	//starting up logics
 	myFiringLogic.setKey(PlayerControls::shoot);
+	myMovementLogic.init(this,Spaceship::rotationAcc,Spaceship::ACC);
+	//turrets
 	//have to manually set the array
 	turrets[0] = &myBasicTurret;
 	turrets[1] = &myMark2Turret;
 	turrets[2] = &myMark3Turret;
 	turrets[3] = &myMark4Turret;
 	turrets[4] = &myMark5Turret;
-
 	for(int i=0;i<SIZE_OF_ARRAY(turrets);i++) {
 		turrets[i]->init(space,this,&myTarget,&myFiringLogic,getTeam());
 	}
 	currentTurret = turrets[0];
 	maxAccessibleTurret = 1;
+	turretTimer.start();
+
 	myEffect.init(this,.5);
 	space->addEffect(15,&myEffect);
-	turretTimer.start();
 	initFullHealth(SHIP_FULL_STARTING_HEALTH);
+	removeHP(5);
 }
 	
 //acc
@@ -75,17 +78,11 @@ void  Spaceship::brake(float scalar, float force) {
 	vel = Vector2D(newX,newY);
 }
 void  Spaceship::manageAcc(float dt) {
-#ifdef DEBUG_SPACESHIP
-	if(Core::Input::IsPressed( Core::Input::KEY_UP        )) addAcc(-Vector2D(0,ACC),dt);
-	if(Core::Input::IsPressed( Core::Input::KEY_DOWN      )) addAcc( Vector2D(0,ACC),dt);
-	if(Core::Input::IsPressed( Core::Input::KEY_LEFT      )) addAcc(-Vector2D(ACC,0),dt);
-	if(Core::Input::IsPressed( Core::Input::KEY_RIGHT     )) addAcc( Vector2D(ACC,0),dt);
-#endif
-	if(Core::Input::IsPressed( PlayerControls::brake      )) brake (dt);
-	if(Core::Input::IsPressed( PlayerControls::accelerate )) addAcc( Matrix3D::rotationMatrix(angle) * -Vector2D(0,ACC),dt);
-	if(Core::Input::IsPressed( PlayerControls::decelerate )) addAcc( Matrix3D::rotationMatrix(angle) *  Vector2D(0,ACC),dt);
+	addAcc(myMovementLogic.getAcc(dt));
+	if(Core::Input::IsPressed( PlayerControls::brake      )) 
+		vel = myMovementLogic.brake(vel,brakePower*dt);
 	//world drag
-	brake(dt,worldDrag);
+	vel = myMovementLogic.brake(vel,GameSpace::WORLD_DRAG*dt);
 }
 //movement
 void  Spaceship::move(float dt) {
@@ -102,7 +99,7 @@ void  Spaceship::warp() {
 }
 void  Spaceship::collide(float dt) {
 	//multiply vel by dt 
-	HitInfo temp = space->collideVector(pos,vel*dt);//need to pass dt to accuratly calc if collision will be in bounds again
+	HitInfo temp = space->collideVector(pos,vel*dt);
 	if(temp.hasHit) {
 		vel = temp.vel/dt;
 		pos = temp.pos;
@@ -110,18 +107,18 @@ void  Spaceship::collide(float dt) {
 	warp();//just in case
 }
 void  Spaceship::manageRot(float dt) {
-	if(Core::Input::IsPressed(PlayerControls::rotateLeft)) {
-		angle -= rotationAcc*dt;
-	}
-	if(Core::Input::IsPressed(PlayerControls::rotateRight)) {
-		angle += rotationAcc*dt;
+	angle+=myMovementLogic.angleAcc(dt);
+}
+void Spaceship::unlockTurret() {
+	if(maxAccessibleTurret<SIZE_OF_ARRAY(turrets)) {
+		currentTurret = turrets[maxAccessibleTurret++];
+		//maxAccessibleTurret++;
 	}
 }
 void  Spaceship::updateSelectedTurret() {
 	if(turretTimer.getCurrentTime()>3) {
 		turretTimer.start();//restart
-		if(maxAccessibleTurret<SIZE_OF_ARRAY(turrets))
-			maxAccessibleTurret++;
+		unlockTurret();
 	}
 	int numToCheck = this->maxAccessibleTurret;//SIZE_OF_ARRAY(turrets);
 	for(int i=0;i<numToCheck;i++) {

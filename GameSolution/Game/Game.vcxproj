@@ -118,6 +118,7 @@
     <ClCompile Include="TurretMark3.cpp" />
     <ClCompile Include="TurretMark4.cpp" />
     <ClCompile Include="TurretMark5.cpp" />
+    <ClCompile Include="UserMoveLogic.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,8 @@
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyKamikaze.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="ExhaustEffect.h" />
     <ClInclude Include="ExplosionEffect.h" />
     <ClInclude Include="FireAtInterval.h" />
@@ -148,6 +151,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="LivingGameEntity.h" />
+    <ClInclude Include="MoveLogic.h" />
     <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="RandomFire.h" />
@@ -166,6 +170,7 @@
     <ClInclude Include="TurretMark4.h" />
     <ClInclude Include="TurretMark5.h" />
     <ClInclude Include="TwoColTable.h" />
+    <ClInclude Include="UserMoveLogic.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

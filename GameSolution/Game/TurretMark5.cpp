@@ -27,3 +27,6 @@ void TurretMark5::fireBullet() {
 float TurretMark5::getFireSpeed() {
 	return .08f;
 }
+float TurretMark5::getBulletPower() {
+	return 100;
+}

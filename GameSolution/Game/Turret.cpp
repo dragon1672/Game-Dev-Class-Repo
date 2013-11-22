@@ -2,7 +2,7 @@
 #include "Turret.h"
 #include "MyRandom.h"
 #include "GameSpace.h"
-Core::RGB Turret::defaultTurretColor= RGB(255,255,255);
+Core::RGB Turret::defaultTurretColor= RGB(208,198,177);//RGB(255,255,255);
 float Turret::defaultBulletSpeed = -100;
 
 const float bulletScale = 4;
@@ -44,6 +44,7 @@ void Turret::pointToTarget() {
 	if(direction.lengthSquared()==0) direction = Vector2D(0,1);
 }
 void Turret::shoot(Bullet *toShoot) {
+	toShoot->power = this->getBulletPower();
 	toShoot->team = this->team;
 	space->addBullet(toShoot);
 }

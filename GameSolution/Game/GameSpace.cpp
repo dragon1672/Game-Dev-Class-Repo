@@ -2,6 +2,7 @@
 #include "MyRandom.h"
 
 const int NUMBER_OF_RANDOM_LERP_POINTS = 7; 
+const float GameSpace::WORLD_DRAG = 100;
 
 ExplosionEffect basicBoom;
 
@@ -38,7 +39,7 @@ void       GameSpace::registerBoundary(Boundary *bounds) {
 void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *target) {
 	float offsetFromTarget = 5;
 	float targetSize = target->getStyle()->getRadius();
-	Vector2D posOfHealthBar = target->getPos() + Vector2D(0,targetSize+offsetFromTarget);
+	Vector2D posOfHealthBar = target->getPos() + Vector2D(-targetSize/2,-(targetSize+offsetFromTarget));//centers x and offsets y
 	ExtendedGraphics::drawLoadingBar(graphics,posOfHealthBar,target->getHealthPercent(),50,5);
 }
 void       GameSpace::draw(Core::Graphics& graphics) {
@@ -88,6 +89,21 @@ Vector2D   GameSpace::getCenter() {
 
 LivingGameEntity* GameSpace::getLivingEntity(int id) {
 	return myEntities[id];
+}
+void GameSpace::cleanUpAllLivingEntities() {
+	for(uint i=0;i<myEntities.size();i++) {
+		if(cleanUpEntity(i))
+			i--;
+		//because the array size will be shortened by one offsetting 'i'
+	}
+}
+bool GameSpace::cleanUpEntity(int id) {
+	if(myEntities[id]->getHealth()<=0) {
+		addExplosion(myEntities[id]->getPos(),10);
+		myEntities.erase(myEntities.begin() + id);
+		return true;
+	}
+	return false;
 }
 //that do not match team
 int GameSpace::getLivingEntityClosest(const Vector2D& pos, int team, int startingIndex) {

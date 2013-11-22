@@ -22,10 +22,10 @@
 #include "TurretMark4.h"
 #include "TurretMark5.h"
 
-#include "FireLogic.h"
+//logics
 #include "FireOnClick.h"
-//#include "FireOnClick.h"
 #include "TargetMouse.h"
+#include "UserMoveLogic.h"
 
 class GameSpace;
 
@@ -47,6 +47,7 @@ class Spaceship : public LivingGameEntity {
 	FireOnClick myFiringLogic;
 	//target (mouse)
 	TargetMouse myTarget;
+	UserMoveLogic myMovementLogic;
 
 	Timer turretTimer;
 
@@ -73,6 +74,7 @@ class Spaceship : public LivingGameEntity {
 
 	//update functions
 	void  updateSelectedTurret();
+	void  unlockTurret();//will enable the next Turret
 	void  manageAcc(float dt);
 	void  manageRot(float dt);
 	void  move(float dt);

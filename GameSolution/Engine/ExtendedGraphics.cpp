@@ -67,15 +67,17 @@ void      ExtendedGraphics::textInABox(Core::Graphics& graphics, Core::RGB backC
 	graphics.DrawString(x + (width-strLength)/2 , y + (height-strHeight)/2, text);
 	graphics.SetBackgroundColor(RGB(0,0,0));
 }
-void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float percent, int width, int height) {
+void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float percent, int width, int height, Core::RGB boarderColor, Core::RGB barColor) {
 	float currenHeight = pos.getY();
 	float spacing = 1.5;
+	graphics.SetColor(barColor);
 	while(currenHeight<pos.getY()+height) {
 		//draws a percentage of the width
 		graphics.DrawLine(pos.getX(),currenHeight,pos.getX()+percent*width,currenHeight);
 		currenHeight+= spacing;
 	}
 	//drawing full outline of box
+	graphics.SetColor(boarderColor);
 	Vector2D p1 = pos;
 	Vector2D p2 = pos + Vector2D((float)width,0);
 	graphics.DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
@@ -89,8 +91,8 @@ void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vecto
 	p2 = pos;
 	graphics.DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
 }
-void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float current, float max, int width, int height) {
-	drawLoadingBar(graphics,pos,max/current,width,height);
+void      ExtendedGraphics::drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float current, float max, int width, int height, Core::RGB boarderColor, Core::RGB barColor) {
+	drawLoadingBar(graphics,pos,max/current,width,height,boarderColor, barColor);
 }
 
 //Colors

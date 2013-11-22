@@ -11,6 +11,7 @@ private:
 public:
 	void fireBullet();
 	float getFireSpeed();
+	float getBulletPower();
 };
 
 #endif

@@ -51,3 +51,6 @@ void TurretMark3::fireBullet() {
 float TurretMark3::getFireSpeed() {
 	return .3f;
 }
+float TurretMark3::getBulletPower() {
+	return 2;
+}

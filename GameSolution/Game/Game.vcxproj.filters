@@ -37,6 +37,12 @@
     <Filter Include="ToPlaceInEngine\Graphics\Particle Effects">
       <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Entities\Enemies">
+      <UniqueIdentifier>{1807515a-04bd-4c21-8c8d-9caf844bc22e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\General Interfaces\MoveLogic">
+      <UniqueIdentifier>{7c2b8ba8-ed0c-43f4-8099-3bd0a3b1b8bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -132,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>Objects\World\Boundary</Filter>
+    </ClCompile>
+    <ClCompile Include="UserMoveLogic.cpp">
+      <Filter>Objects\General Interfaces\MoveLogic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,11 +270,23 @@
     <ClInclude Include="AutoProfileManager.h">
       <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Objects\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Objects\World\Boundary</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Objects\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyKamikaze.h">
+      <Filter>Objects\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Objects\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="UserMoveLogic.h">
+      <Filter>Objects\General Interfaces\MoveLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveLogic.h">
+      <Filter>Objects\General Interfaces\MoveLogic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

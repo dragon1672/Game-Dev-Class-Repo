@@ -46,8 +46,16 @@ public:
 	void draw(Core::Graphics& graphics);
 	virtual void  fireBullet()=0;//should create bullet and call shoot
 	virtual float getFireSpeed()=0;//time between Bullets
+	virtual float getBulletPower()=0;//require power setting, will be set before being passed to world
 	int getTeam();
 	Vector2D getPos();
+	//int currentClip
+	//int currentAmmo
+	//bool reloading
+	//float reloadingPercent (use timer)
+	//virtual int maxClip
+	//virtual int maxAmmo?
+	//virtual float reloadTime
 };
 
 #endif
