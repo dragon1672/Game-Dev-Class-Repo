@@ -6,16 +6,16 @@
 
 class Vector2D;
 
-class ENGINE_SHARED Random {
-public:
-	static int      randomInt(int low, int high);
-	static int      randomSign();
-	static float    randomFloat();
-	static float    randomFloat(float low, float high);
-	static Vector2D randomUnitVector();
-	static Vector2D randomFloatVector(float low, float high);
-	static Vector2D randomIntVector  (int   low, int   high);
-	static void     init();
+namespace Random {
+	ENGINE_SHARED int      randomInt(int low, int high);
+	ENGINE_SHARED int      randomSign();
+	ENGINE_SHARED bool     randomBool();
+	ENGINE_SHARED float    randomFloat();
+	ENGINE_SHARED float    randomFloat(float low, float high);
+	ENGINE_SHARED Vector2D randomUnitVector();
+	ENGINE_SHARED Vector2D randomFloatVector(float low, float high);
+	ENGINE_SHARED Vector2D randomIntVector  (int   low, int   high);
+	ENGINE_SHARED void     init();
 };
 
 #endif//MY_RANDOM_H

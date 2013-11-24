@@ -10,7 +10,7 @@ Vector2D star[] = {
 					};
 Core::RGB Lerper::myColor = RGB(255,102,255);
 float Lerper::turnSpeed = 5;
-const float Lerper::FULL_STARTING_HEALTH=5;
+const float Lerper::FULL_STARTING_HEALTH=20;
 Shape Lerper::myStyle(
 						Lerper::myColor,
 						SIZE_OF_ARRAY(star),
@@ -25,7 +25,7 @@ void Lerper::init() {
 	currentLine = 0;
 	pathIndex  = 0;
 	alpha=10;
-	bodyGuards.startup(3,3);
+	bodyGuards.startup(0,5);
 	initFullHealth(FULL_STARTING_HEALTH);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {

@@ -140,6 +140,7 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DroppedItem.h" />
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
     <ClInclude Include="Enemy.h" />

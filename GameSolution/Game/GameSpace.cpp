@@ -45,7 +45,7 @@ void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *
 }
 //core
 void       GameSpace::update(float dt) {
-	enemySpawner.update(dt);
+	enemySpawner.update(dt);//------------------------------------------------------------------------------------------------------TEMP COMMENT
 	for(uint i=0;i<myEntities.size();i++) {
 		myEntities[i]->update(dt);
 	}
@@ -90,7 +90,11 @@ Vector2D   GameSpace::randomOutOfBoundWorldPoint() {
 	float width  = (getMax() - getMin()).getX();
 	float height = (getMax() - getMin()).getY();
 	float radius = (width>height)? width : height;
-	return getCenter() + Vector2D(Random::randomSign() * Random::randomFloat(width, width*2) , Random::randomSign() * Random::randomFloat(height, height*2));
+	Vector2D offset;
+	if(Random::randomBool())
+		return getCenter() + Vector2D(Random::randomSign() * Random::randomFloat(radius,2*radius),Random::randomSign() * Random::randomFloat(0,height/2));
+	else
+		return getCenter() + Vector2D(Random::randomSign() * Random::randomFloat(0,width/2),Random::randomSign() * Random::randomFloat(radius,2*radius));
 }
 Vector2D   GameSpace::getCenter() {
 	float width  = max.getX() - min.getX();

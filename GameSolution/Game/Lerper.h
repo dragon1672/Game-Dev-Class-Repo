@@ -18,14 +18,17 @@ class Lerper : public LivingGameEntity {
 	static Shape myStyle;
 	static Core::RGB myColor;
 	static const int distacePerSecond = 100;
-	int currentLine;
+	static float turnSpeed;
+
 	float alpha;//current position on line
 	float interval;
-	Vector2D pos;//position in space
 	Vector2D path[MAX_PATH_LENGTH];
+	int pathIndex;//length of path
+	int currentLine;
+	//using a catched nextLine to prevent errors with adding a newLine dynamically
 	Vector2D catchedNextLine;
-	int pathIndex;
-	static float turnSpeed;
+	
+	Vector2D pos;
 	float angle;
 
 	SolarSystem bodyGuards;

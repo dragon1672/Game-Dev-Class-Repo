@@ -16,7 +16,10 @@ void     Random::init() {
 	srand((unsigned)time(0));
 }
 int      Random::randomSign() {
-	return (randomInt(0,1)==0)? -1 : 1;
+	return (randomBool())? -1 : 1;
+}
+bool     Random::randomBool() {
+	return (randomInt(0,1)==0);
 }
 float    Random::randomFloat() {
 	return rand()/(static_cast<float>(RAND_MAX));

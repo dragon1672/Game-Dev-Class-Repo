@@ -43,6 +43,9 @@
     <Filter Include="Objects\General Interfaces\Enemies">
       <UniqueIdentifier>{1807515a-04bd-4c21-8c8d-9caf844bc22e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\General Interfaces\DroppedItem">
+      <UniqueIdentifier>{6133ac9c-c841-46c0-adc3-63790897d6d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -154,8 +157,12 @@
     <ClCompile Include="GameEnemyHandler.cpp">
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="kamikazeEnemy.cpp" />
-    <ClCompile Include="EnemyFactory.cpp" />
+    <ClCompile Include="kamikazeEnemy.cpp">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFactory.cpp">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -304,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="GameEnemyHandler.h">
       <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DroppedItem.h">
+      <Filter>Objects\General Interfaces\DroppedItem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
