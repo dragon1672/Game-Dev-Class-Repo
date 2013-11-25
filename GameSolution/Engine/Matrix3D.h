@@ -10,15 +10,6 @@
 class Matrix3D {
 	float matrix[MATRIX3D_LENGTH][MATRIX3D_LENGTH];
 public:
-	/*
-	Matrix3D() {
-		for(int i=0;i<MATRIX3D_LENGTH;i++){
-			for(int j=0;j<MATRIX3D_LENGTH;j++) {
-				if(i==j) matrix[i][j] = 1;
-				else     matrix[i][j] = 0;
-			}
-		}
-	}//*/
 	Matrix3D(const Vector3D& row1=Vector3D(1,0,0), const Vector3D& row2=Vector3D(0,1,0), const Vector3D& row3=Vector3D(0,0,1)) {
 		matrix[0][0] = row1.getX();
 		matrix[0][1] = row1.getY();
@@ -37,17 +28,6 @@ public:
 	inline Vector3D getCol(int j) const;
 	inline static Matrix3D rotationMatrix(float angle);
 	inline static Matrix3D rotateToVector(Vector2D src);
-	/*
-	Matrix3D transpose(Matrix3D max) {
-		Matrix3D result;
-		for(int i=0;i<MATRIX3D_LENGTH;i++) {
-			for(int j=0;j<MATRIX3D_LENGTH;j++) {
-				result.matrix[i][j] = max.get(j,i);
-			}
-		}
-		return result;
-	}
-	//*/
 	inline static Matrix3D scaleX(float alpha);
 	inline static Matrix3D scaleY(float alpha);
 	inline static Matrix3D scale(float alpha);

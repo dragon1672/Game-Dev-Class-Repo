@@ -9,15 +9,15 @@ class AutoProfile {
 private:
 	const char* profileName;
 	Timer myTimer;
-	void printToFile();
 public:
 	AutoProfile(const char* name) {
 		profileName = name;
 		myTimer.start();
 	}
 	~AutoProfile() {
-		myTimer.stop();
-		AutoProfileManager::addEntry(profileName,myTimer.getElapsedTime());
+		float temp = myTimer.stop() * 1000;
+		//float temp = myTimer.getCurrentTime()*1000;
+		AutoProfileManager::addEntry(profileName,temp);
 	}
 };
 

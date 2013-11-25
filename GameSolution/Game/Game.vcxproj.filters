@@ -46,6 +46,9 @@
     <Filter Include="Objects\General Interfaces\DroppedItem">
       <UniqueIdentifier>{6133ac9c-c841-46c0-adc3-63790897d6d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ToPlaceInEngine\DEBUG">
+      <UniqueIdentifier>{611cdf84-37ee-4674-9c33-daa2d0c3673f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -133,9 +136,6 @@
     <ClCompile Include="..\Engine\ExtendedGraphics.cpp">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="AutoProfilerManager.cpp">
-      <Filter>ToPlaceInEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -162,6 +162,9 @@
     </ClCompile>
     <ClCompile Include="EnemyFactory.cpp">
       <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoProfilerManager.cpp">
+      <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +275,6 @@
     <ClInclude Include="Timer.h">
       <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
-    <ClInclude Include="AutoProfiler.h">
-      <Filter>ToPlaceInEngine</Filter>
-    </ClInclude>
     <ClInclude Include="..\Engine\ExtendedGraphics.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
@@ -282,9 +282,6 @@
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="HitInfo.h" />
-    <ClInclude Include="AutoProfileManager.h">
-      <Filter>ToPlaceInEngine</Filter>
-    </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
@@ -314,6 +311,12 @@
     </ClInclude>
     <ClInclude Include="DroppedItem.h">
       <Filter>Objects\General Interfaces\DroppedItem</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoProfileManager.h">
+      <Filter>ToPlaceInEngine\DEBUG</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoProfiler.h">
+      <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

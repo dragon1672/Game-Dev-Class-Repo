@@ -14,10 +14,10 @@ private:
 	float LargeInt2Secs( LARGE_INTEGER & L);
 public:
 	Timer();
-	void start();
-	void stop();
-	void pause();
-	void resume();
+	void  start();
+	float stop();
+	void  pause();
+	void  resume();
 	float interval();
 	float getCurrentTime();
 	float getElapsedTime();

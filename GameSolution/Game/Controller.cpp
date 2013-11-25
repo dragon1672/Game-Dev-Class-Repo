@@ -2,6 +2,7 @@
 #include "MyRandom.h"
 #include "ExtendedGraphics.h"
 #include "PlayerControls.h"
+#include "AutoProfileManager.h"
 
 const int MAX_POINTS = 60; //for generating circle World
 const int NORMAL_MAX_POINTS = 10;//generating other worlds
@@ -95,8 +96,10 @@ bool Controller::update(float dt) {
 		SimpleBoundsKey.update(dt);
 		ComplexBoundsKey.update(dt);
 		updateCurrentBounds();
+		PROFILE("World update");
 		myWorld.registerBoundary(currentBounds);
 		myWorld.update(dt);
+		END_PROFILE;
 	}
 #ifdef DEBUG_Controller
 	FPS = (int)(1/dt);
@@ -112,9 +115,13 @@ Core::RGB Controller::getWorldColor() {
 	return RGB(0,255,0);//GREEN, it should never been this
 }
 void Controller::draw(Core::Graphics& graphics) {
-	hud.paintWorld(graphics,getWorldColor());
-	hud.draw(graphics);//
-	myWorld.draw(graphics);
+	PROFILE("HUD draw");
+		hud.paintWorld(graphics,getWorldColor());
+		hud.draw(graphics);
+	END_PROFILE;
+	PROFILE("World draw");
+		myWorld.draw(graphics);
+	END_PROFILE;
 #ifdef DEBUG_Controller
 	graphics.SetColor(hud.defaultTextColor);
 	std::stringstream ss;

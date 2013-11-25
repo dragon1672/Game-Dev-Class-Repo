@@ -1,6 +1,8 @@
 #include "GameSpace.h"
 #include "MyRandom.h"
 
+#include "AutoProfileManager.h"
+
 const int NUMBER_OF_RANDOM_LERP_POINTS = 7; 
 const float GameSpace::WORLD_DRAG = 100;
 
@@ -41,7 +43,7 @@ void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *
 	float offsetFromTarget = 5;
 	float targetSize = target->getStyle()->getRadius();
 	Vector2D posOfHealthBar = target->getPos() + Vector2D(-targetSize/2,-(targetSize+offsetFromTarget));//centers x and offsets y
-	ExtendedGraphics::drawLoadingBar(graphics,posOfHealthBar,target->getHealthPercent(),50,5);
+	ExtendedGraphics::drawLoadingBar(graphics,posOfHealthBar,target->getHealthPercent(),50,7);
 }
 //core
 void       GameSpace::update(float dt) {
@@ -56,12 +58,18 @@ void       GameSpace::update(float dt) {
 void       GameSpace::draw(Core::Graphics& graphics) {
 	gameStyle.draw(graphics);
 	boundary->draw(graphics);
+	PROFILE("draw bullets");
 	myBullets.draw(graphics);
+	END_PROFILE;
+	PROFILE("draw particals");
 	allMyParticals.draw(graphics);
+	END_PROFILE;
+	PROFILE("draw all entities");
 	for(uint i=0;i<myEntities.size();i++) {
 		myEntities[i]->draw(graphics);
 		drawHealthBar(graphics,myEntities[i]);
 	}
+	END_PROFILE;
 }
 
 Boundary  *GameSpace::getBoundary() { return boundary; }

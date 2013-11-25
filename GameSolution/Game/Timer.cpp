@@ -16,8 +16,9 @@ void  Timer::start() {
 	QueryPerformanceCounter(&_start);
 	QueryPerformanceCounter(&_lastInterval);
 }
-void  Timer::stop() {
+float Timer::stop() {
 	QueryPerformanceCounter(&_stop);
+	return getElapsedTime();
 }
 void  Timer::pause() {
 	QueryPerformanceCounter(&_stop);
