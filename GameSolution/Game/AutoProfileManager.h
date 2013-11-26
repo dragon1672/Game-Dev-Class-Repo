@@ -11,7 +11,7 @@ class AutoProfile;
 
 #ifdef ENABLE_PROFILING//1==1 included to require ';'
 	#define START_PROFILING AutoProfileManager::startup()
-	#define PROFILE(a) {AutoProfile(a) //starting Profile
+	#define PROFILE(a) {AutoProfile someName(a) //starting Profile
 	#define END_PROFILE }1==1 //end the last Profile
 	#define LOG_CURRENT_PROFILE AutoProfileManager::writeToFile()
 	#define STOP_PROFILING AutoProfileManager::shutdown()
@@ -31,10 +31,14 @@ struct profileCategory {
 		this->name = "";
 		timesCalled = 0;
 		totalTime = 0;
+		min = 0;
+		max = 0;
 	}
 	const char* name;
 	int timesCalled;//also index for data
 	float totalTime;
+	float min;
+	float max;
 	float data[MAX_FRAMES_TO_MESURE];
 	//float averageTime = totalTime / timesCalled;
 };

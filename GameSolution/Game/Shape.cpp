@@ -1,5 +1,6 @@
 #include <random>
 #include "Shape.h"
+#include "AutoProfileManager.h"
 
 
 std::random_device rd;//creating engine
@@ -43,6 +44,7 @@ bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count,...
 	return initialize(color,transform,count,temp);
 }
 bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, va_list toStore) {
+	PROFILE("Creating Shape");
 	if(count>1 && !constructed) {
 		constructed = true;
 		this->count = count;
@@ -54,9 +56,11 @@ bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, va
 		setColor(color);
 	}
 	va_end(toStore);
+	END_PROFILE;
 	return constructed;
 }
 bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, Vector2D *toAdd) {
+	PROFILE("Creating Shape");
 	if(count>1 && !constructed) {
 		constructed = true;
 		this->count = count;
@@ -68,6 +72,7 @@ bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, Ve
 		setColor(color);
 	}
 	delete [] toAdd;
+	END_PROFILE;
 	return constructed;
 }
 void Shape::setColor(Core::RGB toSet) {
@@ -90,6 +95,7 @@ void Shape::calcMinAndMax() {
 }
 
 void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
+	PROFILE("Drawing Shape");
 	if(constructed) {
 		graphics.SetColor(myColor);
 		Vector2D start = transform*points[0];
@@ -105,6 +111,7 @@ void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 #endif //DEBUG_SHAPE
 		}
 	}
+	END_PROFILE;
 }
 //
 void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose) {

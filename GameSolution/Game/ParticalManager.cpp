@@ -1,4 +1,5 @@
 #include "ParticalManager.h"
+#include "AutoProfileManager.h"
 
 void ParticalManager::newEffect(int size, ParticalEffect *effect) {
 	for(int i=0;i<MAX_PARTICALS;i++) {
@@ -13,14 +14,18 @@ void ParticalManager::newEffect(int size, ParticalEffect *effect) {
 void ParticalManager::update(float dt) {
 	for(int i=0;i<MAX_PARTICALS;i++) {
 		if(particals[i].lifetime>0) {
+			PROFILE("Single Partical Update");
 			particals[i].update(dt);
+			END_PROFILE;
 		}
 	}
 }
 void ParticalManager::draw(Core::Graphics graphics) {
 	for(int i=0;i<MAX_PARTICALS;i++) {
 		if(particals[i].lifetime>0) {
+			PROFILE("Single Partical Draw");
 			particals[i].draw(graphics);
+			END_PROFILE;
 		}
 	}
 }

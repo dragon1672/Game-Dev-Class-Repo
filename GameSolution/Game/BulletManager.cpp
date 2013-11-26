@@ -2,6 +2,7 @@
 #include "Boundary.h"
 #include "GameSpace.h"
 
+#include "AutoProfileManager.h"
 
 Shape temp(RGB(255,0,255), 5,
 	10*Vector2D(   .7f, -1.0f ),
@@ -33,6 +34,7 @@ bool   BulletManager::cleanOutOfBoundBullet(int index) {
 	return false;
 }
 void   BulletManager::update(float dt) {
+	PROFILE("Single Bullet Update");
 	for(uint i=0;i<bullets.size();i++) {
 		bullets[i].update(dt);
 		int entityCollidedWith = space->getLivingEntityCollidedWith(*bullets[i].style,bullets[i].pos,bullets[i].team);
@@ -42,10 +44,13 @@ void   BulletManager::update(float dt) {
 			bullets[i].isActive = false;
 		}
 		if(cleanOutOfBoundBullet(i)) i--;//because this will decrease size of the array by one, which throws off the iterator 'i'
+		END_PROFILE;
 	}
 }
 void   BulletManager::draw(Core::Graphics graphics) {
 	for(uint i=0;i<bullets.size();i++) {
+		PROFILE("Single Bullet Draw");
 		bullets[i].draw(graphics);
+		END_PROFILE;
 	}
 }

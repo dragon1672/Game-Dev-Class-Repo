@@ -28,39 +28,7 @@ void startCoreEngine() {
 #include "Timer.h"
 #include <Windows.h>
 int main() {
-	//*debugging
-	START_PROFILING;
-	//doing look with manual timers
-	for(int i=0;i<10;i++) {
-		Timer myTimer;
-		myTimer.start();
-		Sleep(100);
-		{
-			Timer myTimer;
-			myTimer.start();
-			Sleep(100);
-			AutoProfileManager::addEntry("Testing2",myTimer.getCurrentTime()*1000);
-		}
-		AutoProfileManager::addEntry("Testing",myTimer.getCurrentTime()*1000);
-
-	}
-	//same for loop
-	for(int i=0;i<10;i++) {
-		PROFILE("_AUTO_TESTING");
-		Sleep(100);
-		PROFILE("_AUTO_TESTING_2");
-		Sleep(100);
-		END_PROFILE;
-		END_PROFILE;
-
-	}
-	//finished
-	LOG_CURRENT_PROFILE;
-	STOP_PROFILING;
-	return 0;
-	//*/
-
-	/* actual game
+	//* actual game
 	START_PROFILING;
 	Random::init();
 	startCoreEngine();

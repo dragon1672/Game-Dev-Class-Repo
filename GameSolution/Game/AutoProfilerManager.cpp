@@ -18,15 +18,15 @@ void AutoProfileManager::writeToFile() {
 	std::ofstream profileOutput;
 	profileOutput.open (PROFILE_FILE_NAME);
 	//headers
-	profileOutput << "name,times called,total time(ms),average time(ms)";
+	profileOutput << "name,times called,total time(ms),min Time(ms),max Time(ms),average time(ms)";
 	for(int i=0; i < MAX_FRAMES_TO_MESURE; i++) {
 		profileOutput << ",frame(" << i << ")";
 	}
 	//populating data
 	for(int i=0; i < numberOfProfiles; i++) {
 		profileOutput << "\n";
-		//headers-----------NAME-------------------------TIMES CALLED------------------------TOTAL TIME(ms)-----------------------------AVERAGE TIME(ms)-------------------------------//
-		profileOutput << categories[i].name << "," << categories[i].timesCalled << "," << categories[i].totalTime << "," << categories[i].totalTime / categories[i].timesCalled;
+		//headers-----------NAME-------------------------TIMES CALLED----------------------------Total Time-----------------MIN TIME---------------------MAX TIME-----------------------------AVERAGE TIME(ms)-------------------------------//
+		profileOutput << categories[i].name << "," << categories[i].timesCalled << "," << categories[i].totalTime << "," << categories[i].min << "," << categories[i].max <<  "," << categories[i].totalTime / categories[i].timesCalled;
 		//in case function doesn't have max frames (like called 10 out of 50 possible)
 		int frames = (MAX_FRAMES_TO_MESURE>categories[i].timesCalled)? categories[i].timesCalled : MAX_FRAMES_TO_MESURE;
 		int startingIndex = categories[i].timesCalled % SIZE_OF_ARRAY(categories[i].data) - 1;
@@ -53,6 +53,9 @@ void AutoProfileManager::addToProfile(int i, float time) {
 	int index = categories[i].timesCalled % SIZE_OF_ARRAY(categories[i].data);
 	categories[i].data[index] = time;
 	categories[i].timesCalled++;
+	categories[i].min = ((categories[i].min>time || categories[i].min==0) && time!=0)? time : categories[i].min;
+	categories[i].max = (categories[i].max<time)? time : categories[i].max;
+
 }
 void AutoProfileManager::addNewProfile(const char* description, float time) {
 	categories[numberOfProfiles++].name = description;

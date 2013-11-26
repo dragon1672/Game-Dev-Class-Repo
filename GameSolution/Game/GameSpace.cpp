@@ -47,13 +47,23 @@ void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *
 }
 //core
 void       GameSpace::update(float dt) {
-	enemySpawner.update(dt);//------------------------------------------------------------------------------------------------------TEMP COMMENT
-	for(uint i=0;i<myEntities.size();i++) {
-		myEntities[i]->update(dt);
-	}
-	allMyParticals.update(dt);
-	myBullets.update(dt);
-	checkEntityEntityCollision();
+	PROFILE("Enemy Update");
+		enemySpawner.update(dt);
+	END_PROFILE;
+	PROFILE("Entities Update");
+		for(uint i=0;i<myEntities.size();i++) {
+			myEntities[i]->update(dt);
+		}
+	END_PROFILE;
+	PROFILE("All partical Update");
+		allMyParticals.update(dt);
+	END_PROFILE;
+	PROFILE("All partical Update");
+		myBullets.update(dt);
+	END_PROFILE;
+	PROFILE("All Entity to Entity collision Update");
+		checkEntityEntityCollision();
+	END_PROFILE;
 }
 void       GameSpace::draw(Core::Graphics& graphics) {
 	gameStyle.draw(graphics);
