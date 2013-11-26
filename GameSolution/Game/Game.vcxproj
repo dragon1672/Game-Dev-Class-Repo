@@ -133,6 +133,7 @@
     <ClInclude Include="..\Engine\ParticalEffect.h" />
     <ClInclude Include="AlwaysFire.h" />
     <ClInclude Include="AutoProfileManager.h" />
+    <ClInclude Include="AutoProfileManagerMacros.h" />
     <ClInclude Include="AutoProfiler.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
@@ -159,9 +160,11 @@
     <ClInclude Include="kamikazeEnemy.h" />
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="LivingGameEntity.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="MoveLogic.h" />
     <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="PlayerControls.h" />
+    <ClInclude Include="ProfileCategory.h" />
     <ClInclude Include="RandomFire.h" />
     <ClInclude Include="SingleKeyManager.h" />
     <ClInclude Include="Shape.h" />

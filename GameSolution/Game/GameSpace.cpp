@@ -132,7 +132,7 @@ void GameSpace::cleanUpAllLivingEntities() {
 }
 bool GameSpace::cleanUpEntity(int id) {
 	if(myEntities[id]->getHealth()<=0) {
-		addExplosion(myEntities[id]->getPos(),10);
+		addExplosion(myEntities[id]->getPos(),50);
 		myEntities.erase(myEntities.begin() + id);
 		return true;
 	}

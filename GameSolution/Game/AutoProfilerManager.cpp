@@ -5,7 +5,7 @@
 #define SIZE_OF_ARRAY(a) (sizeof(a) / sizeof(*a))
 
 int AutoProfileManager::numberOfProfiles = 0;
-profileCategory AutoProfileManager::categories[MAX_CATEGORIES];
+ProfileCategory AutoProfileManager::categories[MAX_CATEGORIES];
 
 
 void AutoProfileManager::startup() {

@@ -15,8 +15,7 @@ public:
 		myTimer.start();
 	}
 	~AutoProfile() {
-		float temp = myTimer.stop() * 1000;
-		//float temp = myTimer.getCurrentTime()*1000;
+		float temp = myTimer.stop() * 1000;//converting to miliseconds
 		AutoProfileManager::addEntry(profileName,temp);
 	}
 };

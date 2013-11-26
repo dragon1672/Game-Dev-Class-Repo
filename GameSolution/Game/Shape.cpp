@@ -9,12 +9,6 @@ std::uniform_int_distribution<int>randColor(0,255);
 
 #define RANDOM_COLOR RGB(randColor(seed),randColor(seed),randColor(seed))
 const Core::RGB defaultColor = RGB(0,255,0);
-/*Shape::Shape(int count,...) {
-	constructed = false;
-	va_list temp;
-	va_start(temp,count);
-	initialize(defaultColor,count,temp);
-}//*/
 Shape::Shape(Core::RGB color, int count,...) {
 	constructed = false;
 	va_list temp;

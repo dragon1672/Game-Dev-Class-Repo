@@ -49,6 +49,9 @@
     <Filter Include="ToPlaceInEngine\DEBUG">
       <UniqueIdentifier>{611cdf84-37ee-4674-9c33-daa2d0c3673f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ToPlaceInEngine\LOGGING">
+      <UniqueIdentifier>{8f20907c-8aa5-4f42-82f9-369342571a67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -316,6 +319,15 @@
       <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClInclude>
     <ClInclude Include="AutoProfiler.h">
+      <Filter>ToPlaceInEngine\DEBUG</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>ToPlaceInEngine\LOGGING</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoProfileManagerMacros.h">
+      <Filter>ToPlaceInEngine\DEBUG</Filter>
+    </ClInclude>
+    <ClInclude Include="ProfileCategory.h">
       <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClInclude>
   </ItemGroup>
