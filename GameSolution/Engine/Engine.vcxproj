@@ -88,13 +88,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Game\Timer.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="MyRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Game\SingleKeyManager.h" />
-    <ClInclude Include="..\Game\Timer.h" />
     <ClInclude Include="ExportHeader.h" />
     <ClInclude Include="MyRandom.h" />
     <ClInclude Include="Vector3D.h" />

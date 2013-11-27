@@ -107,6 +107,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="kamikazeEnemy.cpp" />
     <ClCompile Include="Lerper.cpp" />
+    <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLogic.cpp" />
     <ClCompile Include="ParticalEffect.cpp" />
@@ -160,8 +161,9 @@
     <ClInclude Include="kamikazeEnemy.h" />
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="LivingGameEntity.h" />
-    <ClInclude Include="Logger.h" />
+    <ClInclude Include="LogManager.h" />
     <ClInclude Include="MoveLogic.h" />
+    <ClInclude Include="MyGraphics.h" />
     <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="ProfileCategory.h" />

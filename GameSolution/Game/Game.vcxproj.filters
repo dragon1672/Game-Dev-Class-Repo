@@ -169,6 +169,9 @@
     <ClCompile Include="AutoProfilerManager.cpp">
       <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClCompile>
+    <ClCompile Include="LogManager.cpp">
+      <Filter>ToPlaceInEngine\LOGGING</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -321,14 +324,17 @@
     <ClInclude Include="AutoProfiler.h">
       <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>ToPlaceInEngine\LOGGING</Filter>
-    </ClInclude>
     <ClInclude Include="AutoProfileManagerMacros.h">
       <Filter>ToPlaceInEngine\DEBUG</Filter>
     </ClInclude>
     <ClInclude Include="ProfileCategory.h">
       <Filter>ToPlaceInEngine\DEBUG</Filter>
+    </ClInclude>
+    <ClInclude Include="LogManager.h">
+      <Filter>ToPlaceInEngine\LOGGING</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGraphics.h">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
