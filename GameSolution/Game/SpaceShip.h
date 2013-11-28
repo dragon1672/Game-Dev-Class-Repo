@@ -45,8 +45,6 @@ class Spaceship : public LivingGameEntity {
 	
 	//firing logic for player
 	FireOnClick myFiringLogic;
-	//target (mouse)
-	TargetMouse myTarget;
 	UserMoveLogic myMovementLogic;
 
 	Timer turretTimer;
@@ -82,7 +80,7 @@ public:
 	void     init(float x, float y, GameSpace *space);
 	void     addAcc(const Vector2D& toAdd, float scalar=1);
 	Shape*   getStyle();
-	void     draw(Core::Graphics& graphics);
+	void     draw(MyGraphics& graphics);
 	void     update(float dt);
 	Matrix3D getTransMatrix();
 	Matrix3D getRotationMat();

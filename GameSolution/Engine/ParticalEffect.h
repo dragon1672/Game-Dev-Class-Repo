@@ -15,7 +15,7 @@ public:
 	static const float defaulMaxVel;
 	virtual void initPartical(Partical *toInit)=0;
 	virtual void update(float dt, Partical *toUpdate)=0;
-	virtual void draw(Core::Graphics graphics, Partical *toUpdate)=0;
+	virtual void draw(MyGraphics& graphics, Partical *toUpdate)=0;
 };
 
 #endif

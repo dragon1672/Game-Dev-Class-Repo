@@ -37,22 +37,22 @@ void ExhaustEffect::update(float dt, Partical *toUpdate) {
 	}
 	if(toUpdate->lifetime<.1 || toUpdate->paused) initPartical(toUpdate);//refresh partical
 }
-void ExhaustEffect::draw(Core::Graphics graphics, Partical *toUpdate) {
+void ExhaustEffect::draw(MyGraphics& graphics, Partical *toUpdate) {
 	if(!toUpdate->paused) {
-		graphics.SetColor(toUpdate->color);
+		graphics.setColor(toUpdate->color);
 		Vector2D start = toUpdate->pos;
 		Vector2D end   = toUpdate->pos + toUpdate->vel*-1;
-		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+		graphics.drawLine(start,end);
 		//creating a square around position and drawing to the same end point
 		//this make the partical look larger
 		start = toUpdate->pos+Vector2D( 1, 1);
-		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+		graphics.drawLine(start,end);
 		start = toUpdate->pos+Vector2D(-1, 1);
-		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+		graphics.drawLine(start,end);
 		start = toUpdate->pos+Vector2D(-1,-1);
-		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+		graphics.drawLine(start,end);
 		start = toUpdate->pos+Vector2D( 1, -1);
-		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+		graphics.drawLine(start,end);
 	}
 }
 //*/

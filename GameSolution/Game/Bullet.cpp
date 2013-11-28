@@ -7,6 +7,6 @@ void Bullet::setVel(const Vector2D& newVel) {
 void     Bullet::update(float dt) {
 	pos = pos + vel*dt;
 }
-void    Bullet::draw(Core::Graphics graphics) {
+void    Bullet::draw(MyGraphics& graphics) {
 	style->draw(graphics,Matrix3D::translate(pos) * Matrix3D::rotateToVector(-velNorm));
 }

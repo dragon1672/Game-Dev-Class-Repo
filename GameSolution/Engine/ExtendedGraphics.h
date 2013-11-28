@@ -19,8 +19,8 @@ namespace ExtendedGraphics {
 	void      drawPlane( Core::Graphics& graphics, const Vector2D& p1,const Vector2D& p2,const Vector2D& p3,const Vector2D& p4);
 	void      drawSquare(Core::Graphics& graphics, const Vector2D& p1,const Vector2D& p2);
 	void      textInABox(Core::Graphics& graphics, Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height);
-	void      drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float percent, int width=100, int height=10, Core::RGB boarderColor=RGB(255,255,0), Core::RGB barColor=RGB(255,0,0));
-	void      drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float current, float max, int width=100, int height=10, Core::RGB boarderColor=RGB(255,255,0), Core::RGB barColor=RGB(255,0,0));
+	void      drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float percent, int width, int height, Core::RGB boarderColor=RGB(255,255,0), Core::RGB barColor=RGB(255,0,0));
+	void      drawLoadingBar(Core::Graphics& graphics, const Vector2D& pos, float current, float max, int width, int height, Core::RGB boarderColor=RGB(255,255,0), Core::RGB barColor=RGB(255,0,0));
 	//color manpulations
 	Core::RGB randomColor();
 	Core::RGB brightness(Core::RGB col, float percent);

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 #include "Vector 2.h"
+#include "MyGraphics.h"
 
 class HUD {
 	int   screenWith;
@@ -15,10 +16,10 @@ class HUD {
 public:
 	static Core::RGB defaultTextColor;
 	HUD(int screenWidth, int screenHeight);
-	void     draw(Core::Graphics& graphics);
+	void     draw(MyGraphics& graphics);
 	Vector2D getWorldoffset();
 	float    getWorldWidth();
 	float    getWorldHeight();
-	void HUD::paintWorld(Core::Graphics graphics, Core::RGB color);
-	void HUD::worldPopup(Core::Graphics graphics, char* text,Core::RGB color, int width=500, int height=100);
+	void HUD::paintWorld(MyGraphics& graphics, Core::RGB color);
+	void HUD::worldPopup(MyGraphics& graphics, char* text,Core::RGB color, int width=500, int height=100);
 };

@@ -172,6 +172,12 @@
     <ClCompile Include="LogManager.cpp">
       <Filter>ToPlaceInEngine\LOGGING</Filter>
     </ClCompile>
+    <ClCompile Include="MyGraphics.cpp">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="OffsetGraphic.cpp">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -334,6 +340,9 @@
       <Filter>ToPlaceInEngine\LOGGING</Filter>
     </ClInclude>
     <ClInclude Include="MyGraphics.h">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="OffsetGraphic.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

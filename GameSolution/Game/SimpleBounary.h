@@ -14,7 +14,7 @@ public:
 	void init(float x1, float y1, float x2, float y2);
 	virtual bool     hasCollided  (const Vector2D& pos);
 	virtual HitInfo  collideVector(const Vector2D& pos, const Vector2D& vel);
-	virtual void     draw(Core::Graphics& graphics);
+	virtual void     draw(MyGraphics& graphics);
 };
 
 #endif

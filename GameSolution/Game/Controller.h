@@ -6,12 +6,14 @@
 #include "ComplexBoundary.h"
 
 #include "SingleKeyManager.h"
+#include "TargetMouse.h"
 
 #include "HUD.h"
 #include "Vector 2.h"
 #include "GameSpace.h"
 
-#define DEBUG_Controller
+#include "MyGraphics.h"
+#include "OffsetGraphic.h"
 
 #ifdef DEBUG_Controller
 	#include "Timer.h"
@@ -25,11 +27,18 @@ class Controller {
 	
 	int width;
 	int height;
+
+	TargetMouse mousePos;
+	TargetMouse worldMousePos;
+
 	HUD hud;
 	GameSpace myWorld;
 	SimpleBoundary  simpleBounds;
 	ComplexBoundary complexBounds;
 	Boundary *currentBounds;
+	MyGraphics myGraphic;
+	OffsetGraphic gameSpaceGraphic;
+	
 	Core::RGB getWorldColor();
 #ifdef DEBUG_Controller
 	Timer FPS_clock;
@@ -44,6 +53,8 @@ public:
 	Controller (int width, int height);
 	bool update(float dt);
 	void draw(Core::Graphics& graphics);
+	DynamicPosition *getMouse();
+	DynamicPosition *getWorldMouse();
 };
 
 

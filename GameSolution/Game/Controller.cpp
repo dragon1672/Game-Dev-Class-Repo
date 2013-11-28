@@ -26,10 +26,20 @@ void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 Controller::Controller (int width, int height) : width(width), 
 												 height(height), 
 												 hud(width,height) {
-	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),hud.getWorldoffset());
+	//gamespace
+	Vector2D worldOffset = Vector2D(hud.getWorldWidth()/2,hud.getWorldHeight()/2);
+	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),-worldOffset,&worldMousePos);//hud.getWorldoffset());
+	worldOffset = hud.getWorldoffset() + worldOffset;
+	gameSpaceGraphic.init(worldOffset,hud.getWorldWidth(),hud.getWorldHeight());
+	//mice
+	mousePos.init(Vector2D(0,0));
+	worldMousePos.init(-worldOffset);
+	
+	//buttons
 	ComplexBoundsKey.setToCheck(PlayerControls::boundColision);
 	SimpleBoundsKey.setToCheck(PlayerControls::boxColision);
 	PauseButton.setToCheck(PlayerControls::pauseGame);
+	//bounds
 	setDynamicBounds();
 	initSimpleBounds();
 	currentBounds = &complexBounds;
@@ -88,7 +98,13 @@ void Controller::updateCurrentBounds() {
 	if(SimpleBoundsKey.hasBeenClicked()) currentBounds = &simpleBounds;
 	if(ComplexBoundsKey.hasBeenClicked()) currentBounds = &complexBounds;
 }
+float tempAngle = 0;
+float tempangleAcc = 2;
 bool Controller::update(float dt) {
+	tempAngle += tempangleAcc*dt;
+	gameSpaceGraphic.setGlobalTrans(Matrix3D::rotationMatrix(tempAngle));
+
+
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	PauseButton.update(dt);
 	if(PauseButton.hasBeenClicked()) isPaused = !isPaused; //toggle pause
@@ -115,12 +131,15 @@ Core::RGB Controller::getWorldColor() {
 	return RGB(0,255,0);//GREEN, it should never been this
 }
 void Controller::draw(Core::Graphics& graphics) {
+	//update graphic pointers
+	myGraphic.setGraphic(&graphics);
+	gameSpaceGraphic.setGraphic(&graphics);
 	PROFILE("HUD draw");
-		hud.paintWorld(graphics,getWorldColor());
-		hud.draw(graphics);
+		hud.paintWorld(myGraphic,getWorldColor());
+		hud.draw(myGraphic);
 	END_PROFILE;
 	PROFILE("World draw");
-		myWorld.draw(graphics);
+		myWorld.draw(gameSpaceGraphic);
 	END_PROFILE;
 #ifdef DEBUG_Controller
 	graphics.SetColor(hud.defaultTextColor);
@@ -131,6 +150,12 @@ void Controller::draw(Core::Graphics& graphics) {
 	graphics.DrawString(0,0,fps.c_str());
 #endif//DEBUG_Controller
 	if(isPaused) {
-		hud.worldPopup(graphics,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(getWorldColor(),.5));
+		hud.worldPopup(myGraphic,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(getWorldColor(),.5));
 	}
+}
+DynamicPosition *Controller::getMouse() {
+	return &mousePos;
+}
+DynamicPosition *Controller::getWorldMouse() {
+	return &worldMousePos;
 }

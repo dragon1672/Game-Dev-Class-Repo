@@ -58,7 +58,7 @@ void     Enemy::update(float dt) {
 	updateMovement(dt);
 	childUpdate(dt);
 }
-void     Enemy::draw(Core::Graphics& graphics) {
+void     Enemy::draw(MyGraphics& graphics) {
 	getStyle()->draw(graphics,getTransMatrix());
 	childDraw(graphics);
 }
@@ -89,7 +89,7 @@ Shape *Enemy::getStyle() {
 void Enemy::childUpdate(float dt) {
 	dt;//default to do nothing
 }
-void Enemy::childDraw(Core::Graphics& graphics) {
+void Enemy::childDraw(MyGraphics& graphics) {
 	graphics;//default to do nothing
 }
 float Enemy::getStartingHealth() {

@@ -16,7 +16,7 @@ public:
 		return Matrix3D();
 	}
 	       virtual void update(float dt);
-	       virtual void draw(Core::Graphics& graphics);
+	       virtual void draw(MyGraphics& graphics);
 		   virtual int  getTeam()=0;
 		   virtual Vector2D getPos()=0;
 };

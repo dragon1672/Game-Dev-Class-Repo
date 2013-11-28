@@ -17,7 +17,7 @@ public:
 	//overloads
 	void initPartical(Partical *toInit);
 	void update(float dt, Partical *toUpdate);
-	void draw(Core::Graphics graphics, Partical *toDraw);
+	void draw(MyGraphics& graphics, Partical *toDraw);
 };
 
 #endif

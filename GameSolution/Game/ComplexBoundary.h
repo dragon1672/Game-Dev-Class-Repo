@@ -16,7 +16,7 @@ public:
 	void     init(int count, Vector2D *points,const Matrix3D& transform=Matrix3D());
 	virtual bool     hasCollided  (const Vector2D& pos);
 	virtual HitInfo  collideVector(const Vector2D& pos, const Vector2D& vel);
-	virtual void     draw(Core::Graphics& graphics);
+	virtual void     draw(MyGraphics& graphics);
 };
 
 #endif

@@ -9,8 +9,8 @@ const float GameSpace::WORLD_DRAG = 100;
 ExplosionEffect basicBoom;
 
 GameSpace::GameSpace() { ; }
-GameSpace::GameSpace(float width, float height, const Vector2D& pos, Core::RGB color) {
-	init(width, height, pos, color);
+GameSpace::GameSpace(float width, float height, const Vector2D& pos, DynamicPosition *mousePos) {
+	init(width, height, pos, mousePos);
 }
 void       GameSpace::initObjects() {
 	float width  = max.getX() - min.getX();
@@ -25,25 +25,26 @@ void       GameSpace::initObjects() {
 	addLivingEntity(&myLerp);
 	enemySpawner.init(this,&myShip);
 }
-void       GameSpace::init(float width, float height, const Vector2D& pos, Core::RGB color) {
+void       GameSpace::init(float width, float height, const Vector2D& pos, DynamicPosition *mousePos) {
+	this->mousePointer = mousePos;
 	//init Shape
-	min = pos+Vector2D(0,0);
+	min = pos;
 	max = pos+Vector2D(width,height);
 	initObjects();
 	Vector2D one   = min;
 	Vector2D two   = pos+Vector2D(width,0);
 	Vector2D three = max;
 	Vector2D four  = pos+Vector2D(0,height);
-	gameStyle.initialize(color, Matrix3D(), 4, one,two,three,four);
+	gameStyle.initialize(defaultColor, Matrix3D(), 4, one,two,three,four);
 }
 void       GameSpace::registerBoundary(Boundary *bounds) {
 	boundary = bounds;
 }
-void       GameSpace::drawHealthBar(Core::Graphics& graphics, LivingGameEntity *target) {
+void       GameSpace::drawHealthBar(MyGraphics& graphics, LivingGameEntity *target) {
 	float offsetFromTarget = 5;
 	float targetSize = target->getStyle()->getRadius();
 	Vector2D posOfHealthBar = target->getPos() + Vector2D(-targetSize/2,-(targetSize+offsetFromTarget));//centers x and offsets y
-	ExtendedGraphics::drawLoadingBar(graphics,posOfHealthBar,target->getHealthPercent(),50,7);
+	graphics.drawLoadingBar(posOfHealthBar,target->getHealthPercent(),50,7);
 }
 //core
 void       GameSpace::update(float dt) {
@@ -65,7 +66,7 @@ void       GameSpace::update(float dt) {
 		checkEntityEntityCollision();
 	END_PROFILE;
 }
-void       GameSpace::draw(Core::Graphics& graphics) {
+void       GameSpace::draw(MyGraphics& graphics) {
 	gameStyle.draw(graphics);
 	boundary->draw(graphics);
 	PROFILE("draw bullets");
@@ -119,7 +120,9 @@ Vector2D   GameSpace::getCenter() {
 	float height = max.getY() - min.getY();
 	return Vector2D(min.getX()+width/2, min.getY()+height/2);
 }
-
+DynamicPosition *GameSpace::getMouse() {
+	return mousePointer;
+}
 LivingGameEntity* GameSpace::getLivingEntity(int id) {
 	return myEntities[id];
 }

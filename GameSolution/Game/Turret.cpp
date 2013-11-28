@@ -76,7 +76,7 @@ void Turret::update(float dt) {
 		fireBullet();
 	}
 }
-void Turret::draw(Core::Graphics& graphics) {
+void Turret::draw(MyGraphics& graphics) {
 	Matrix3D transform = Matrix3D::translate(myPos->getPos()) * Matrix3D::rotateToVector(direction);
 	getStyle()->draw(graphics, transform);
 }

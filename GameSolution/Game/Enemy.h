@@ -27,7 +27,7 @@ public:
 		this->initFullHealth(getStartingHealth());
 	}
 	void  update(float dt);
-	void  draw(Core::Graphics& graphics);
+	void  draw(MyGraphics& graphics);
 	Matrix3D getTransMatrix();
 	Matrix3D getRotationMat();
 	Vector2D getPos();
@@ -38,7 +38,7 @@ public:
 	virtual  Shape* getStyle();
 	//so children can implement say a turret
 	virtual  void  childUpdate(float dt);
-	virtual  void  childDraw(Core::Graphics& graphics);
+	virtual  void  childDraw(MyGraphics& graphics);
 	virtual  float getStartingHealth();
 	//required for initilization
 	void setPosition(const Vector2D& toSet);

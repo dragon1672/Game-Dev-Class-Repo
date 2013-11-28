@@ -26,7 +26,7 @@ public:
 	}
 	void setVel(const Vector2D& newVel);
 	void update(float dt);
-	void draw(Core::Graphics graphics);
+	void draw(MyGraphics& graphics);
 };
 
 #endif

@@ -88,17 +88,17 @@ void Shape::calcMinAndMax() {
 	}
 }
 
-void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
+void Shape::draw(MyGraphics& graphics, const Matrix3D& transform) {
 	PROFILE("Drawing Shape");
 	if(constructed) {
-		graphics.SetColor(myColor);
+		graphics.setColor(myColor);
 		Vector2D start = transform*points[0];
 		Vector2D end   = transform*points[count-1];
-		graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+		graphics.drawLine(start,end);
 		for(int i=1;i<count;i++) {
 			start = transform*points[i-1];
 			end   = transform*points[i];
-			graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+			graphics.drawLine(start,end);
 #ifdef DEBUG_SHAPE
 			graphics.DrawString(start.getX(),start.getY(),vec2str(start).c_str());
 			graphics.DrawString(end.getX(),  end.getY(),  vec2str(end).c_str());
@@ -108,13 +108,13 @@ void Shape::draw(Core::Graphics& graphics, const Matrix3D& transform) {
 	END_PROFILE;
 }
 //
-void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose) {
+void Shape::draw(MyGraphics& graphics, const Vector2D& transpose) {
 	draw(graphics,Matrix3D::translate(transpose));
 }
-void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scale) {//just and overload to scale x and y by the same amount
+void Shape::draw(MyGraphics& graphics, const Vector2D& transpose, float rotation, float scale) {//just and overload to scale x and y by the same amount
 	draw(graphics,transpose,rotation,scale,scale);
 }
-void Shape::draw(Core::Graphics& graphics, const Vector2D& transpose, float rotation, float scaleX, float scaleY) {
+void Shape::draw(MyGraphics& graphics, const Vector2D& transpose, float rotation, float scaleX, float scaleY) {
 	Matrix3D transform = Matrix3D::translate(transpose) * Matrix3D::rotationMatrix(rotation) * Matrix3D::scaleX(scaleX) * Matrix3D::scaleX(scaleY);
 	draw(graphics,transform);
 }

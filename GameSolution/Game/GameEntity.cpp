@@ -7,6 +7,6 @@ Matrix3D GameEntity::getTransMatrix() {
 void     GameEntity::update(float dt) {
 	dt;
 }
-void     GameEntity::draw(Core::Graphics& graphics) {
+void     GameEntity::draw(MyGraphics& graphics) {
 	getStyle()->draw(graphics,getTransMatrix());
 }

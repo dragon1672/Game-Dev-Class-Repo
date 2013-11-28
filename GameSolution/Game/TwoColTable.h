@@ -45,7 +45,7 @@ public:
 		col2Data[currentRows] = col2Text;
 		currentRows++;
 	}
-	inline void draw(Core::Graphics graphics, const Vector2D& pos) {
+	inline void draw(MyGraphics& graphics, const Vector2D& pos) {
 		int xPos = (int)pos.getX();
 		int currentHeight = (int)pos.getY();
 		ExtendedGraphics::drawDottedLine(graphics, xPos, currentHeight + lineSpacing - 2, 

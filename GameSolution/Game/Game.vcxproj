@@ -110,6 +110,8 @@
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLogic.cpp" />
+    <ClCompile Include="MyGraphics.cpp" />
+    <ClCompile Include="OffsetGraphic.cpp" />
     <ClCompile Include="ParticalEffect.cpp" />
     <ClCompile Include="ParticalManager.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="MoveLogic.h" />
     <ClInclude Include="MyGraphics.h" />
+    <ClInclude Include="OffsetGraphic.h" />
     <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="ProfileCategory.h" />

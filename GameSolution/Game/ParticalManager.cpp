@@ -20,7 +20,7 @@ void ParticalManager::update(float dt) {
 		}
 	}
 }
-void ParticalManager::draw(Core::Graphics graphics) {
+void ParticalManager::draw(MyGraphics& graphics) {
 	for(int i=0;i<MAX_PARTICALS;i++) {
 		if(particals[i].lifetime>0) {
 			PROFILE("Single Partical Draw");

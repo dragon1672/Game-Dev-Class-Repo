@@ -47,7 +47,7 @@ void   BulletManager::update(float dt) {
 		END_PROFILE;
 	}
 }
-void   BulletManager::draw(Core::Graphics graphics) {
+void   BulletManager::draw(MyGraphics& graphics) {
 	for(uint i=0;i<bullets.size();i++) {
 		PROFILE("Single Bullet Draw");
 		bullets[i].draw(graphics);

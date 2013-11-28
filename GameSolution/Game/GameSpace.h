@@ -28,6 +28,7 @@ public:
 private:
 	Boundary *boundary;
 	
+	DynamicPosition *mousePointer;
 	Spaceship myShip;
 	Lerper myLerp;
 	//managers
@@ -43,12 +44,12 @@ private:
 	void initObjects();
 	bool hasBounds;
 
-	void drawHealthBar(Core::Graphics& graphics, LivingGameEntity *target);
+	void drawHealthBar(MyGraphics& graphics, LivingGameEntity *target);
 public:
 	GameSpace();
-	GameSpace(float width, float height, const Vector2D& pos=Vector2D(0,0), Core::RGB color=defaultColor);
-	void init(float width, float height, const Vector2D& pos=Vector2D(0,0), Core::RGB color=defaultColor);
-	void      draw(Core::Graphics& graphics);
+	GameSpace(float width, float height, const Vector2D& pos, DynamicPosition* mousePos);
+	void init(float width, float height, const Vector2D& pos, DynamicPosition* mousePos);
+	void      draw(MyGraphics& graphics);
 	void      update(float dt);
 	//getters
 	Boundary *getBoundary();
@@ -58,6 +59,7 @@ public:
 	Vector2D  randomWorldPoint();
 	Vector2D  randomOutOfBoundWorldPoint();
 	Vector2D  getCenter();
+	DynamicPosition *getMouse();
 	//Entities
 	LivingGameEntity* getLivingEntity(int id);
 	void cleanUpAllLivingEntities();

@@ -26,8 +26,8 @@ HitInfo   ComplexBoundary::collideVector(const Vector2D& pos, const Vector2D& ve
 	}
 	return ret;
 }
-void      ComplexBoundary::draw(Core::Graphics& graphics) {
-	graphics.SetColor(defaultColor);
+void      ComplexBoundary::draw(MyGraphics& graphics) {
+	graphics.setColor(defaultColor);
 	for(int i=0;i<numOfWalls;i++) {
 		walls[i].draw(graphics);
 	}

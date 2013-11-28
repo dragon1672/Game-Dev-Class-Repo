@@ -18,7 +18,7 @@ class SolarSystem {
 	int maxDepth;
 	int children;
 
-	void draw(Core::Graphics& graphics, const Matrix3D& transform, int depth, float scale, int children);
+	void draw(MyGraphics& graphics, const Matrix3D& transform, int depth, float scale, int children);
 public:
 	SolarSystem() {
 		orbitAcc    = .5;
@@ -27,7 +27,7 @@ public:
 		size        = 2.5;
 	}
 	void update(float dt);
-	void draw(Core::Graphics& graphics, const Matrix3D& transform);
+	void draw(MyGraphics& graphics, const Matrix3D& transform);
 	void startup(int depth, int children=2);
 };
 

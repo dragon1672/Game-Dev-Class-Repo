@@ -19,7 +19,7 @@ public:
 	inline void update(float dt) {
 		myEffect->update(dt,this);
 	}
-	inline void draw(Core::Graphics graphics) {
+	inline void draw(MyGraphics& graphics) {
 		myEffect->draw(graphics,this);
 	}
 };

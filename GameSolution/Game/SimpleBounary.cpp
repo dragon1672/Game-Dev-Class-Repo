@@ -29,10 +29,10 @@ HitInfo  SimpleBoundary::collideVector(const Vector2D& pos, const Vector2D& vel)
 	return ret;
 
 }
-void     SimpleBoundary::draw(Core::Graphics& graphics) {
-	graphics.SetColor(defaultColor);
-	graphics.DrawLine(x1,y1,x1,y2);//left wall
-	graphics.DrawLine(x1,y2,x2,y2);//bottom wall
-	graphics.DrawLine(x2,y2,x2,y1);//right wall
-	graphics.DrawLine(x1,y1,x2,y1);//top wall
+void     SimpleBoundary::draw(MyGraphics& graphics) {
+	graphics.setColor(defaultColor);
+	graphics.drawLine(x1,y1,x1,y2);//left wall
+	graphics.drawLine(x1,y2,x2,y2);//bottom wall
+	graphics.drawLine(x2,y2,x2,y1);//right wall
+	graphics.drawLine(x1,y1,x2,y1);//top wall
 }

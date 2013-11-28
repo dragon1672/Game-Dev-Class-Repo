@@ -24,6 +24,6 @@ HitInfo  Wall::collideVector(const Vector2D& pos, const Vector2D& vel) {
 	}
 	return ret;
 }
-void     Wall::draw(Core::Graphics& graphics) {
-	graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+void     Wall::draw(MyGraphics& graphics) {
+	graphics.drawLine(start,end);
 }

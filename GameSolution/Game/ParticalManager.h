@@ -15,7 +15,7 @@ private:
 public:
 	void newEffect(int size, ParticalEffect *effect);
 	void update(float dt);
-	void draw(Core::Graphics graphics);
+	void draw(MyGraphics& graphics);
 };
 
 #endif

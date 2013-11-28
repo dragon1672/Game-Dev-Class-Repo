@@ -41,4 +41,6 @@ namespace DEBUG {
 }
 #endif//DEBUG
 
+#include "MyGraphics.h"
+
 #endif

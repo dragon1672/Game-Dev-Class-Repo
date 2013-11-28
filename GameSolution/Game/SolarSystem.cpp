@@ -14,7 +14,7 @@ Shape SolarSystem::thisStyle(color,
 void SolarSystem::update(float dt) {
 	orbitAngle+=orbitAcc*dt;
 }
-void SolarSystem::draw(Core::Graphics& graphics, const Matrix3D& transform, int depth, float scale, int children) {
+void SolarSystem::draw(MyGraphics& graphics, const Matrix3D& transform, int depth, float scale, int children) {
 	if(depth>=0) {
 		float averageAngle = anglesInCircle / children;
 		for(int i=0;i<children;i++) {
@@ -26,7 +26,7 @@ void SolarSystem::draw(Core::Graphics& graphics, const Matrix3D& transform, int 
 		}
 	}
 }
-void SolarSystem::draw(Core::Graphics& graphics, const Matrix3D& transform) {
+void SolarSystem::draw(MyGraphics& graphics, const Matrix3D& transform) {
 	draw(graphics,transform,maxDepth, size, children);//calling private draw
 }
 void SolarSystem::startup(int depth, int children) {

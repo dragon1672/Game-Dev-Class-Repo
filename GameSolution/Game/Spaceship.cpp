@@ -43,7 +43,7 @@ void  Spaceship::init(float x, float y, GameSpace *space) {
 	turrets[3] = &myMark4Turret;
 	turrets[4] = &myMark5Turret;
 	for(int i=0;i<SIZE_OF_ARRAY(turrets);i++) {
-		turrets[i]->init(space,this,&myTarget,&myFiringLogic,getTeam());
+		turrets[i]->init(space,this,space->getMouse(),&myFiringLogic,getTeam());
 	}
 	currentTurret = turrets[0];
 	maxAccessibleTurret = 1;
@@ -137,7 +137,7 @@ void  Spaceship::update(float dt) {
 Shape* Spaceship::getStyle() {
 	return &thisShape;
 }
-void  Spaceship::draw(Core::Graphics& graphics) {
+void  Spaceship::draw(MyGraphics& graphics) {
 	getStyle()->draw(graphics,getTransMatrix());
 	currentTurret->draw(graphics);
 }

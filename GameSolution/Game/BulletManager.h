@@ -24,7 +24,7 @@ public:
 	bool cleanOutOfBoundBullet(int index);
 	
 	void update(float dt);
-	void draw(Core::Graphics graphics);
+	void draw(MyGraphics& graphics);
 };
 
 #endif

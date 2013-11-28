@@ -57,7 +57,7 @@ void Lerper::update(float dt) {
 Shape* Lerper::getStyle() {
 	return &myStyle;
 }
-void Lerper::draw(Core::Graphics& graphics) {
+void Lerper::draw(MyGraphics& graphics) {
 	getStyle()->draw(graphics, getTransMatrix());
 	bodyGuards.draw(graphics,Matrix3D::translate(pos));
 }

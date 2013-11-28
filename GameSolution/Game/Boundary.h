@@ -13,7 +13,7 @@ protected:
 public:
 	virtual bool     hasCollided  (const Vector2D& pos)=0;
 	virtual HitInfo  collideVector(const Vector2D& pos, const Vector2D& vel)=0;
-	virtual void     draw(Core::Graphics& graphics)=0;
+	virtual void     draw(MyGraphics& graphics)=0;
 };
 
 #endif

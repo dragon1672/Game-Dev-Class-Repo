@@ -41,7 +41,7 @@ public:
 	Matrix3D getTransMatrix();
 	Shape *getStyle();
 	void update(float dt);
-	void draw(Core::Graphics& graphics);
+	void draw(MyGraphics& graphics);
 	int  getTeam();
 	Vector2D getPos();
 };

@@ -43,7 +43,7 @@ public:
 	void setTarget(DynamicPosition * toSet);
 	void changePos(DynamicPosition * toSet);
 	void update(float dt);
-	void draw(Core::Graphics& graphics);
+	void draw(MyGraphics& graphics);
 	virtual void  fireBullet()=0;//should create bullet and call shoot
 	virtual float getFireSpeed()=0;//time between Bullets
 	virtual float getBulletPower()=0;//require power setting, will be set before being passed to world
