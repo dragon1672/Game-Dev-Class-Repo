@@ -2,15 +2,15 @@
 #ifndef ENEMY_FACTORY_H
 #define ENEMY_FACTORY_H
 
-#include "kamikazeEnemy.h"
+#include "KamikazeEnemy.h"
 
 class EnemyFactory {
 	static const int MAX_KAMIKAZE_ENTITIES = 100;
-	kamikazeEnemy kamikazeEntities[MAX_KAMIKAZE_ENTITIES];
+	KamikazeEnemy kamikazeEntities[MAX_KAMIKAZE_ENTITIES];
 	int currentKamikazeEnemy;
 public:
 	void init(GameSpace *space, GameEntity *player);
-	kamikazeEnemy *getNextKamikazeEnemy();
+	KamikazeEnemy *getNextKamikazeEnemy();
 };
 
 #endif

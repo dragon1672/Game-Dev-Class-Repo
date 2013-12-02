@@ -41,6 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -63,6 +64,13 @@
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Engine.lib;Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Generate fonts</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -95,6 +103,7 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="ComplexBoundary.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="DynamicPositionOfEntity.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
@@ -105,7 +114,7 @@
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameSpace.cpp" />
     <ClCompile Include="HUD.cpp" />
-    <ClCompile Include="kamikazeEnemy.cpp" />
+    <ClCompile Include="KamikazeEnemy.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,6 +153,7 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DebugTimer.h" />
     <ClInclude Include="DroppedItem.h" />
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
@@ -160,9 +170,10 @@
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HitInfo.h" />
     <ClInclude Include="HUD.h" />
-    <ClInclude Include="kamikazeEnemy.h" />
+    <ClInclude Include="KamikazeEnemy.h" />
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="LivingGameEntity.h" />
+    <ClInclude Include="LogData.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="MoveLogic.h" />
     <ClInclude Include="MyGraphics.h" />

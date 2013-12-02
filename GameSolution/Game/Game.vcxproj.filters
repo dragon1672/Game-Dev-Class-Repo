@@ -160,9 +160,6 @@
     <ClCompile Include="GameEnemyHandler.cpp">
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="kamikazeEnemy.cpp">
-      <Filter>Objects\General Interfaces\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyFactory.cpp">
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClCompile>
@@ -178,6 +175,10 @@
     <ClCompile Include="OffsetGraphic.cpp">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="KamikazeEnemy.cpp">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -293,7 +294,6 @@
     <ClInclude Include="TwoColTable.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="HitInfo.h" />
     <ClInclude Include="Wall.h">
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
@@ -313,9 +313,6 @@
       <Filter>Objects\General Interfaces\MoveLogic</Filter>
     </ClInclude>
     <ClInclude Include="EnemyFactory.h">
-      <Filter>Objects\General Interfaces\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="kamikazeEnemy.h">
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="GameEnemyHandler.h">
@@ -344,6 +341,18 @@
     </ClInclude>
     <ClInclude Include="OffsetGraphic.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="KamikazeEnemy.h">
+      <Filter>Objects\General Interfaces\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HitInfo.h">
+      <Filter>Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="LogData.h">
+      <Filter>ToPlaceInEngine\LOGGING</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugTimer.h">
+      <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

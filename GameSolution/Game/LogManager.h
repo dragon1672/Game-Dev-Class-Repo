@@ -2,52 +2,45 @@
 #ifndef LOGGING_H
 #define LOGGING_H
 
-//#define LOGGING
+#include <vector>//used to store logs
+#include "LogData.h"
 
-enum Severity {
-	Info, Warning, Error, Severe
-};
+#define LOG_ON
 
-#ifndef LOGGING
-#else
-#endif//LOGGING
+#define LOG( severity, message, verbosity) LogManager::Log( severity, message, __FILE__, __LINE__,verbosity)
+#define END_LOG LogManager::shutDown();
 
-/* Verbose Levels
- * 0 - prints the first instance of a log call Verbose 0
- * 1 - prints second instances of a log call Verbose 0 and all first instances of log call Verbose 1
- * 2-n Repeat pattern
- * second instance will automatically increment the passed verbosity level
-//*/
-
-struct BasicLog {
-	Severity severity;
-	const char* location;
-	const char* file;
-	const char* message;
-	int verbosity;
-	float timeStamp;
-};
-
-#include "Timer.h"
-#define LOG_OUTPUT_FILE "../Log Report.html"
+#pragma warning ( disable : 4100)
 
 class LogManager {
-private:
-	Timer myTimer;//stores timestamp
-	bool storeDuplicates;
-	BasicLog myLogs[100];
-	int numOfLogs;
-
-	int getEntry(const char *location, const char *file, const char *message, int startingIndex = 0);
-	void addNewLog(const char *location, const char *file, const char *message, Severity severity, int verbosity);
-	void updateLog(int index, const char *location, const char *file, const char *message, Severity severity, int verbosity);
 public:
-	LogManager() {
-		numOfLogs = 0;
-		storeDuplicates = true;
-	}
-	void addEntriy(const char *location, const char *file, const char *message, Severity severity, int verbosity=0);
-	void writeToFile();
+#ifdef LOG_ON
+	LogManager(void);
+	~LogManager(void);
+	static void StringReplace(std::string& str, const std::string& from, const std::string& to);
+	static void Log( Severity severity, const char* message, const char * logFile, int logLine, int verbosity);
+	static void shutDown();
+	static const int verbosityLevel = 0;
+#else
+	LogManager(void){}
+	~LogManager(void){}
+	static void StringReplace(std::string& str, const std::string& from, const std::string& to) {}
+	static void Log( Severity severity, const char* message, const char * logFile, int logLine, int verbosity) {}
+	static void shutDown() {}
+	static const int verbosityLevel = 0;
+#endif
+
+private:
+#ifdef LOG_ON
+	static std::vector <LogData> logList;
+	static void WriteFile();
+	static std::string Sanitize(std::string str);
+	static void Sanitize(LogData * toClean);
+	static int indexOfLog(std::string& location, int lineNum, std::string& message, int startingIndex, int endIndex);
+	static int indexOfLog(LogData& toFind, int startingIndex, int endIndex);
+#endif
 };
+
+#pragma warning ( default : 4100)
 
 #endif

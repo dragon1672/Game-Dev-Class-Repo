@@ -5,7 +5,7 @@
 #include "Enemy.h"
 #include "TargetShipMoveLogic.h"
 
-class kamikazeEnemy : public Enemy {
+class KamikazeEnemy : public Enemy {
 	TargetShipMoveLogic myLogic;
 public:
 	void init(GameEntity *target, GameSpace *mySpace);

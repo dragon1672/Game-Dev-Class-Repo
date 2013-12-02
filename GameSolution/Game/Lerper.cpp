@@ -25,7 +25,7 @@ void Lerper::init() {
 	currentLine = 0;
 	pathIndex  = 0;
 	alpha=10;
-	bodyGuards.startup(0,5);
+	bodyGuards.startup(3,3);
 	initFullHealth(FULL_STARTING_HEALTH);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {

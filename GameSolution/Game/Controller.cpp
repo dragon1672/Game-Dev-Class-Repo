@@ -99,11 +99,10 @@ void Controller::updateCurrentBounds() {
 	if(ComplexBoundsKey.hasBeenClicked()) currentBounds = &complexBounds;
 }
 float tempAngle = 0;
-float tempangleAcc = 2;
+float tempangleAcc = 1;
 bool Controller::update(float dt) {
-	tempAngle += tempangleAcc*dt;
+	//tempAngle += tempangleAcc*dt;
 	gameSpaceGraphic.setGlobalTrans(Matrix3D::rotationMatrix(tempAngle));
-
 
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	PauseButton.update(dt);

@@ -10,7 +10,7 @@ void EnemyFactory::init(GameSpace *space, GameEntity *player) {
 	}
 }
 
-kamikazeEnemy *EnemyFactory::getNextKamikazeEnemy() {
+KamikazeEnemy *EnemyFactory::getNextKamikazeEnemy() {
 	MY_ASSERT(currentKamikazeEnemy<MAX_KAMIKAZE_ENTITIES);
 	return &kamikazeEntities[currentKamikazeEnemy++];
 }

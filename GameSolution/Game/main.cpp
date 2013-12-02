@@ -1,6 +1,8 @@
 #include "Core.h"
 #include "Controller.h"
 #include "MyRandom.h"
+#include "LogManager.h"
+#include "DebugTimer.h"
 
 #include "AutoProfileManager.h"
 
@@ -28,7 +30,20 @@ void startCoreEngine() {
 #include "Timer.h"
 #include <Windows.h>
 int main() {
-	//* actual game
+	START_GLOBAL_TIMER;
+	LOG(Info,"Info Message 0",0);
+	LOG(Info,"Info Message doubleCheck<0>",0); LOG(Info,"Info Message doubleCheck<0>",0);
+	LOG(Info,"Info Message 1",1);
+	LOG(Warning,"Warning Message 1",1);
+	LOG(Warning,"Warning Message 0",0);
+	LOG(Error,"Error Message 1",1);
+	LOG(Error,"Error Message 0",0);
+	LOG(Severe,"Severe Message 1",1);
+	LOG(Severe,"Severe Message 0",0);
+	END_LOG;
+
+
+	/* actual game
 	START_PROFILING;
 	Random::init();
 	startCoreEngine();

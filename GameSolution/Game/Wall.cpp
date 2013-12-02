@@ -3,7 +3,7 @@
 void     Wall::init(const Vector2D& start, const Vector2D& end) {
 	Vector2D wallVector = end-start;
 	this->start = start;//copy the memory
-	this->end   = end;//copy the memory
+	this->end   = end;  //copy the memory
 	norm = wallVector.perpCCW().normalized();
 }
 bool     Wall::hasCollided(const Vector2D& pos) {
