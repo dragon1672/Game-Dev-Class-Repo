@@ -11,6 +11,9 @@ void TextParticalManager::initText(Vector2D& pos, const char* text, Font *style,
 }
 float mouseRadius = 50;
 void TextParticalManager::update(float dt) {
+	if(Core::Input::IsPressed(Core::Input::BUTTON_LEFT)) mouseRadius  = 500;
+	else if(Core::Input::IsPressed(Core::Input::BUTTON_RIGHT)) mouseRadius = 10;
+	else mouseRadius = 50;
 	Vector2D mouse = Vector2D((float)Core::Input::GetMouseX(),(float)Core::Input::GetMouseY());
 	for(int i=0; i < numOfParticals; i++) {//since all particles are used no lifetime required
 		Vector2D difference = mouse - myParticals[i].pos;
