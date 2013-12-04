@@ -4,10 +4,11 @@
 
 
 #include <string>
-#include <cassert>
 #include "Core.h"
 #include "ExtendedGraphics.h"
 #include "Vector 2.h"
+#include "myAssert.h"
+#include "MyGraphics.h"
 
 //using std::string;
 
@@ -40,7 +41,7 @@ public:
 		col2_length = width;
 	}
 	inline void addRow(const char* col1Text, const char* col2Text) {
-		MY_ASSERT(currentRows<MAX_ROWS);
+		ASSERT(currentRows<MAX_ROWS);
 		col1Data[currentRows] = col1Text;
 		col2Data[currentRows] = col2Text;
 		currentRows++;
@@ -48,13 +49,13 @@ public:
 	inline void draw(MyGraphics& graphics, const Vector2D& pos) {
 		int xPos = (int)pos.getX();
 		int currentHeight = (int)pos.getY();
-		ExtendedGraphics::drawDottedLine(graphics, xPos, currentHeight + lineSpacing - 2, 
+		graphics.drawDottedLine(xPos, currentHeight + lineSpacing - 2, 
 													xPos + col1_length + col2_length,currentHeight + lineSpacing - 2,
 													3);
-		graphics.DrawLine(xPos+col1_length+1,(float)currentHeight,xPos+col1_length+1,currentHeight+lineSpacing*currentRows);
+		graphics.drawLine(xPos+col1_length+1,currentHeight,xPos+col1_length+1,currentHeight+lineSpacing*currentRows);
 		for(int i=0;i<currentRows;i++) {
-			graphics.DrawString(xPos,              currentHeight,textInArea(col1Data[i],col1_length).c_str());
-			graphics.DrawString(xPos+col1_length+3,currentHeight,textInArea(col1Data[i],col2_length).c_str());//+3 pad
+			graphics.drawString(xPos,              currentHeight,textInArea(col1Data[i],col1_length).c_str());
+			graphics.drawString(xPos+col1_length+3,currentHeight,textInArea(col1Data[i],col2_length).c_str());//+3 pad
 			currentHeight += lineSpacing;
 		}
 	}

@@ -1,6 +1,5 @@
 #include "SolarSystem.h"
 #include "Matrix3D.h"
-#include <cassert>
 
 Core::RGB color = RGB(100,255,0);
 Shape SolarSystem::thisStyle(color,

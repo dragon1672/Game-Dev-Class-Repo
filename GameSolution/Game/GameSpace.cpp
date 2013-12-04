@@ -13,6 +13,7 @@ GameSpace::GameSpace(float width, float height, const Vector2D& pos, DynamicPosi
 	init(width, height, pos, mousePos);
 }
 void       GameSpace::initObjects() {
+	LOG(Info,"Initilizing Game Space Objects",1);
 	float width  = max.getX() - min.getX();
 	float height = max.getY() - min.getY();
 	myShip.init(min.getX()+(width/2),min.getY()+(height/2),this);
@@ -26,6 +27,7 @@ void       GameSpace::initObjects() {
 	enemySpawner.init(this,&myShip);
 }
 void       GameSpace::init(float width, float height, const Vector2D& pos, DynamicPosition *mousePos) {
+	LOG(Info,"Game Space Init",0);
 	this->mousePointer = mousePos;
 	//init Shape
 	min = pos;
@@ -35,6 +37,7 @@ void       GameSpace::init(float width, float height, const Vector2D& pos, Dynam
 	Vector2D two   = pos+Vector2D(width,0);
 	Vector2D three = max;
 	Vector2D four  = pos+Vector2D(0,height);
+	LOG(Info,"Creating Game Style",1);
 	gameStyle.initialize(defaultColor, Matrix3D(), 4, one,two,three,four);
 }
 void       GameSpace::registerBoundary(Boundary *bounds) {
@@ -100,6 +103,7 @@ void       GameSpace::addExplosion(const Vector2D& pos, int size, float lifetime
 	allMyParticals.newEffect(size, &basicBoom);
 }
 void       GameSpace::addLivingEntity(LivingGameEntity *toAdd) {
+	LOG(Info,"Entity Added To World",1);
 	myEntities.push_back(toAdd);
 }
 Vector2D   GameSpace::randomWorldPoint() {

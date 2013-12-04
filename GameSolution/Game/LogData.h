@@ -5,6 +5,7 @@
 #include "DebugTimer.h"
 
 enum Severity { Info, Warning, Error, Severe };
+#define MAX_SEVERITY Severe
 
 /* Verbose Levels
  * 0 - prints the first instance of a log call Verbose 0

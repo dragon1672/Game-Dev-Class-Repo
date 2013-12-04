@@ -5,7 +5,6 @@
 #include "GameGlobal.h"
 
 #include "Vector 2.h"
-#include <cassert>
 #include "Shape.h"
 #include "Core.h"
 #include "SolarSystem.h"
@@ -23,7 +22,7 @@ class Lerper : public LivingGameEntity {
 	float alpha;//current position on line
 	float interval;
 	Vector2D path[MAX_PATH_LENGTH];
-	int pathIndex;//length of path
+	int numOfWayPoints;//length of path
 	int currentLine;
 	//using a catched nextLine to prevent errors with adding a newLine dynamically
 	Vector2D catchedNextLine;

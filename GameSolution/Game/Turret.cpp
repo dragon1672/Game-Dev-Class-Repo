@@ -51,6 +51,7 @@ void Turret::shoot(Bullet *toShoot) {
 
 //changing vars
 void Turret::init(GameSpace *myWorld, DynamicPosition *location, DynamicPosition *target, FireLogic* logic, int team) {
+	LOG(Info,"Turret Initlized",2);
 	setFireLogic(logic);
 	setTarget(target);
 	changePos(location);

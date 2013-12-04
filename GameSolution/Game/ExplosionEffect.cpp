@@ -1,8 +1,8 @@
 #include "ExplosionEffect.h"
 #include "MyRandom.h"
-#include <cassert>
 #include "ExtendedGraphics.h"
 #include "Partical.h"
+#include "myAssert.h"
 
 #include "Shape.h"
 
@@ -42,8 +42,7 @@ void ExplosionEffect::update(float dt,Partical *toUpdate) {
 }
 void ExplosionEffect::draw(MyGraphics& graphics, Partical *toDraw) {
 	graphics.setColor(toDraw->color);
-	//since it is really an array of lines it should have an even length
-	MY_ASSERT(SIZE_OF_ARRAY(basicPartical)%2==0);
+	ASSERT(SIZE_OF_ARRAY(basicPartical)%2==0,"Even number of points required for drawing set of lines");
 	for(int i=0;i<SIZE_OF_ARRAY(basicPartical);i+=2) {
 		Vector2D p1 = toDraw->pos + basicPartical[i];
 		Vector2D p2 = toDraw->pos + basicPartical[i+1];

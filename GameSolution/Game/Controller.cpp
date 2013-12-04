@@ -26,16 +26,19 @@ void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 Controller::Controller (int width, int height) : width(width), 
 												 height(height), 
 												 hud(width,height) {
+	LOG(Info,"Controller Init Start",0);
 	//gamespace
 	Vector2D worldOffset = Vector2D(hud.getWorldWidth()/2,hud.getWorldHeight()/2);
 	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),-worldOffset,&worldMousePos);//hud.getWorldoffset());
 	worldOffset = hud.getWorldoffset() + worldOffset;
 	gameSpaceGraphic.init(worldOffset,hud.getWorldWidth(),hud.getWorldHeight());
 	//mice
+	LOG(Info,"Setting Mouse positions and offsets",1);
 	mousePos.init(Vector2D(0,0));
 	worldMousePos.init(-worldOffset);
 	
 	//buttons
+	LOG(Info,"Starting up Buttons",1);
 	ComplexBoundsKey.setToCheck(PlayerControls::boundColision);
 	SimpleBoundsKey.setToCheck(PlayerControls::boxColision);
 	PauseButton.setToCheck(PlayerControls::pauseGame);
@@ -101,8 +104,8 @@ void Controller::updateCurrentBounds() {
 float tempAngle = 0;
 float tempangleAcc = 1;
 bool Controller::update(float dt) {
-	//tempAngle += tempangleAcc*dt;
-	gameSpaceGraphic.setGlobalTrans(Matrix3D::rotationMatrix(tempAngle));
+	tempAngle += tempangleAcc*dt;
+	//gameSpaceGraphic.setGlobalTrans(Matrix3D::rotationMatrix(tempAngle));
 
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	PauseButton.update(dt);

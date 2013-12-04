@@ -1,6 +1,5 @@
 #include "GameGlobal.h"
 #include "EnemyFactory.h"
-#include <cassert>
 
 
 void EnemyFactory::init(GameSpace *space, GameEntity *player) {
@@ -11,6 +10,6 @@ void EnemyFactory::init(GameSpace *space, GameEntity *player) {
 }
 
 KamikazeEnemy *EnemyFactory::getNextKamikazeEnemy() {
-	MY_ASSERT(currentKamikazeEnemy<MAX_KAMIKAZE_ENTITIES);
+	ASSERT(currentKamikazeEnemy<MAX_KAMIKAZE_ENTITIES,"Out of Array Space");
 	return &kamikazeEntities[currentKamikazeEnemy++];
 }

@@ -110,12 +110,14 @@
     <ClCompile Include="ExhaustEffect.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="FireOnClick.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameEnemyHandler.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameSpace.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="KamikazeEnemy.cpp" />
     <ClCompile Include="Lerper.cpp" />
+    <ClCompile Include="Letter.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLogic.cpp" />
@@ -123,6 +125,7 @@
     <ClCompile Include="OffsetGraphic.cpp" />
     <ClCompile Include="ParticalEffect.cpp" />
     <ClCompile Include="ParticalManager.cpp" />
+    <ClCompile Include="ParticalWithDestination.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SimpleBounary.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
@@ -130,6 +133,7 @@
     <ClCompile Include="StaticPos.cpp" />
     <ClCompile Include="TargetMouse.cpp" />
     <ClCompile Include="TargetShipMoveLogic.cpp" />
+    <ClCompile Include="TextParticalManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Turret.cpp" />
     <ClCompile Include="TurretMark2.cpp" />
@@ -164,6 +168,7 @@
     <ClInclude Include="FireAtInterval.h" />
     <ClInclude Include="FireLogic.h" />
     <ClInclude Include="FireOnClick.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="GameEnemyHandler.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameGlobal.h" />
@@ -172,13 +177,16 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="KamikazeEnemy.h" />
     <ClInclude Include="Lerper.h" />
+    <ClInclude Include="Letter.h" />
     <ClInclude Include="LivingGameEntity.h" />
     <ClInclude Include="LogData.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="MoveLogic.h" />
+    <ClInclude Include="myAssert.h" />
     <ClInclude Include="MyGraphics.h" />
     <ClInclude Include="OffsetGraphic.h" />
     <ClInclude Include="ParticalManager.h" />
+    <ClInclude Include="ParticalWithDestination.h" />
     <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="ProfileCategory.h" />
     <ClInclude Include="RandomFire.h" />
@@ -190,6 +198,7 @@
     <ClInclude Include="StaticPos.h" />
     <ClInclude Include="TargetMouse.h" />
     <ClInclude Include="TargetShipMoveLogic.h" />
+    <ClInclude Include="TextParticalManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="TurretMark2.h" />

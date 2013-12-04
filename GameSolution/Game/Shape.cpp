@@ -1,7 +1,7 @@
 #include <random>
 #include "Shape.h"
 #include "AutoProfileManager.h"
-
+#include "LogManager.h"
 
 std::random_device rd;//creating engine
 std::mt19937 seed(rd()); //seed
@@ -38,6 +38,7 @@ bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count,...
 	return initialize(color,transform,count,temp);
 }
 bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, va_list toStore) {
+	LOG(Info,"Creating Shape via var args",2);
 	PROFILE("Creating Shape");
 	if(count>1 && !constructed) {
 		constructed = true;
@@ -54,6 +55,7 @@ bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, va
 	return constructed;
 }
 bool Shape::initialize(Core::RGB color, const Matrix3D& transform, int count, Vector2D *toAdd) {
+	LOG(Info,"Creating Shape via array",2);
 	PROFILE("Creating Shape");
 	if(count>1 && !constructed) {
 		constructed = true;

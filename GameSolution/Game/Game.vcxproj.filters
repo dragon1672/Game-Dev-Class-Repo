@@ -52,6 +52,9 @@
     <Filter Include="ToPlaceInEngine\LOGGING">
       <UniqueIdentifier>{8f20907c-8aa5-4f42-82f9-369342571a67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ToPlaceInEngine\Graphics\Particle Effects\CustomFont">
+      <UniqueIdentifier>{23fb4ef7-7281-4f03-9482-3b519f4ad3d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -179,6 +182,18 @@
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="DebugTimer.cpp" />
+    <ClCompile Include="ParticalWithDestination.cpp">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClCompile>
+    <ClCompile Include="TextParticalManager.cpp">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClCompile>
+    <ClCompile Include="Letter.cpp">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -353,6 +368,21 @@
     </ClInclude>
     <ClInclude Include="DebugTimer.h">
       <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="myAssert.h">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Letter.h">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticalWithDestination.h">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="TextParticalManager.h">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

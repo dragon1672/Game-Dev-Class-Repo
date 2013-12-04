@@ -30,6 +30,7 @@ Shape Spaceship::thisShape( shipColor, cartesian2Screen,
 #include "TurretMark2.h"
 
 void  Spaceship::init(float x, float y, GameSpace *space) {
+	LOG(Info,"Space Ship Init",0);
 	pos = Vector2D(x,y);
 	this->space = space;
 	//starting up logics
@@ -37,18 +38,20 @@ void  Spaceship::init(float x, float y, GameSpace *space) {
 	myMovementLogic.init(this,Spaceship::rotationAcc,Spaceship::ACC);
 	//turrets
 	//have to manually set the array
+	LOG(Info,"Loading Turrets into local array",2);
 	turrets[0] = &myBasicTurret;
 	turrets[1] = &myMark2Turret;
 	turrets[2] = &myMark3Turret;
 	turrets[3] = &myMark4Turret;
 	turrets[4] = &myMark5Turret;
+	LOG(Info,"Initing turrets",1);
 	for(int i=0;i<SIZE_OF_ARRAY(turrets);i++) {
 		turrets[i]->init(space,this,space->getMouse(),&myFiringLogic,getTeam());
 	}
 	currentTurret = turrets[0];
 	maxAccessibleTurret = 1;
 	turretTimer.start();
-
+	LOG(Info,"Init spaceship exaust effect",1);
 	myEffect.init(this,.5);
 	space->addEffect(15,&myEffect);
 	initFullHealth(SHIP_FULL_STARTING_HEALTH);

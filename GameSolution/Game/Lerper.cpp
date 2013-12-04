@@ -22,18 +22,19 @@ Shape Lerper::myStyle(
 					);
 
 void Lerper::init() {
-	currentLine = 0;
-	pathIndex  = 0;
+	LOG(Info,"Lerper Init",0);
+	currentLine    = 0;
+	numOfWayPoints = 0;
 	alpha=10;
 	bodyGuards.startup(3,3);
 	initFullHealth(FULL_STARTING_HEALTH);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {
-	MY_ASSERT(pathIndex!=MAX_PATH_LENGTH);
-	path[pathIndex++] = toAdd;
+	ASSERT(numOfWayPoints!=MAX_PATH_LENGTH,"Array length for lerper exceeded");
+	path[numOfWayPoints++] = toAdd;
 }
 int  Lerper::nextIndex() {
-	return (currentLine+1)%pathIndex;
+	return (currentLine+1)%numOfWayPoints;
 }
 void Lerper::nextLine() {
 	currentLine  = nextIndex();
@@ -47,7 +48,7 @@ Matrix3D Lerper::getTransMatrix() {
 	return Matrix3D::translate(pos) * Matrix3D::rotationMatrix(angle);
 }
 void Lerper::update(float dt) {
-	MY_ASSERT(pathIndex>1);
+	ASSERT(numOfWayPoints>1,"");
 	angle+=turnSpeed*dt;
 	alpha+=(interval*dt);
 	if(alpha>1) nextLine();

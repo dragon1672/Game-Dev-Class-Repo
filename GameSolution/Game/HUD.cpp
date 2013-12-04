@@ -2,6 +2,7 @@
 #include "MyRandom.h"
 #include "ExtendedGraphics.h"
 #include "PlayerControls.h"
+#include "LogManager.h"
 
 #include "Timer.h"//Only used for loading bar with the under development section
 Timer loadingBarTimer;//started in constructor
@@ -16,6 +17,7 @@ using ExtendedGraphics::drawSquare;
 Core::RGB HUD::defaultTextColor = RGB(255,255,0);
 
 HUD::HUD(int screenWidth, int screenHeight) : screenWith(screenWith), screenHeight(screenHeight) {
+	LOG(Info,"Init HUD",0);
 	pad = 20;
 	addLeftPad  = 200-pad;
 	addRightPad = 0;

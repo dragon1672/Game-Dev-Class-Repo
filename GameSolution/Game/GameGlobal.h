@@ -3,7 +3,6 @@
 #define GAME_GLOBAL_H
 
 #define SIZE_OF_ARRAY(a) sizeof(a)/sizeof(*a)
-#define MY_ASSERT(a) assert(a);
 
 typedef unsigned int uint;
 

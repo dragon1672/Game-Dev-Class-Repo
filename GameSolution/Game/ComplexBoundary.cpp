@@ -1,5 +1,5 @@
 #include "ComplexBoundary.h"
-#include <cassert>
+#include "myAssert.h"
 
 void      ComplexBoundary::init(int count, Vector2D *points, const Matrix3D& transform) {
 	numOfWalls = count;
@@ -21,7 +21,7 @@ HitInfo   ComplexBoundary::collideVector(const Vector2D& pos, const Vector2D& ve
 	for(int i=0;i<numOfWalls && !ret.hasHit;i++) {
 		if(walls[i].hasCollided(pos)) {
 			ret = walls[i].collideVector(pos,vel);
-			MY_ASSERT(ret.hasHit==true);
+			ASSERT(ret.hasHit==true,"Collision detected, hit info returning invalid data (wall has collided and getCollide vector returning different results)");
 		}
 	}
 	return ret;

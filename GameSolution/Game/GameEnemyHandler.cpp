@@ -4,6 +4,7 @@
 
 
 void GameEnemyHandler::init(GameSpace *space, GameEntity *player) {
+	LOG(Info,"Spawner Init",0);
 	this->space = space;
 	myFactory.init(space,player);
 	numberOfEntitiesSpawned = 0;

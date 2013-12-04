@@ -7,15 +7,14 @@
 #include "Partical.h"
 #include "ParticalEffect.h"
 
-#define MAX_PARTICALS 5000
-
 class ParticalManager {
-private:
-	Partical particals[MAX_PARTICALS];
 public:
+	static const int MAX_PARTICALS = 5000;
 	void newEffect(int size, ParticalEffect *effect);
 	void update(float dt);
 	void draw(MyGraphics& graphics);
+private:
+	Partical particals[MAX_PARTICALS];
 };
 
 #endif
