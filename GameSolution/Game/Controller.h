@@ -6,6 +6,7 @@
 #include "MyGraphics.h"
 
 #include "StartScreen.h"
+#include "GameInstance.h"
 
 class Controller {
 	int width;
@@ -15,6 +16,8 @@ class Controller {
 
 	static const char* startScreenOptions[];
 	StartScreen myStartScreen;
+	//views
+	GameInstance myGameView;
 
 public:
 	Controller (int width, int height);

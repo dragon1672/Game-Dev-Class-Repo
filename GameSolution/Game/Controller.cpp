@@ -6,7 +6,8 @@
 
 
 Controller::Controller (int width, int height) : width(width), 
-												 height(height) {
+												 height(height),
+												 myGameView(width,height) {
 	LOG(Info,"Controller Init Start",0);
 	const char* options[] = {
 		"Start Game",

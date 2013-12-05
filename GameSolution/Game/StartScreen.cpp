@@ -48,7 +48,7 @@ void StartScreen::initButtons(const char* optionText[], int numOfOptions) {
 	int buttonHeight = 30;
 	int buttonOffset = 3*buttonHeight/4;
 	Vector2D buttonPos((float)(SCREEN_WIDTH-buttonWidth)/2,(float)(SCREEN_HEIGHT-buttonWidth)/2);
-	Vector2D offset(0,buttonHeight+buttonOffset);
+	Vector2D offset(0,(float)(buttonHeight+buttonOffset));
 
 
 	for(int i=0;i<numOfButtons;i++) {

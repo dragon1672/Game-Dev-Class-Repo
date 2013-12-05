@@ -15,7 +15,7 @@ void TextParticalManager::initText(Vector2D& pos, const char* text, Font *myFont
 			startingPos = startingPos + Vector2D(0,(float)charHeight);
 			offset = 0;
 		} else {
-			Vector2D charPos = startingPos + Vector2D(offset,0);
+			Vector2D charPos = startingPos + Vector2D((float)offset,0);
 			myFont->getCharacter(text[i])->initParticals(charPos,format,this);
 			offset += charWidth;
 		}

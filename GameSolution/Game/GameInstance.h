@@ -2,6 +2,8 @@
 #ifndef GAME_INSTANCE_H
 #define GAME_INSTANCE_H
 
+#include "View.h"
+
 #include "Boundary.h"
 #include "SimpleBounary.h"
 #include "ComplexBoundary.h"
@@ -16,7 +18,7 @@
 #include "MyGraphics.h"
 #include "OffsetGraphic.h"
 
-class GameInstance {
+class GameInstance : public View {
 	SingleKeyManager ComplexBoundsKey;
 	SingleKeyManager SimpleBoundsKey;
 	SingleKeyManager PauseButton;

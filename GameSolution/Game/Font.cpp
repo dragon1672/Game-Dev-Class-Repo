@@ -2,6 +2,8 @@
 #include <fstream>
 #include "myAssert.h"
 
+Font Font::defaultFont("../FONT.txt");//change this so it is loaded into the program at compile time and not at runtime (like my orginal plan for font)
+
 std::string defaultLetterLines[] = {// it's a ?
 	".***.",
 	"*...*",

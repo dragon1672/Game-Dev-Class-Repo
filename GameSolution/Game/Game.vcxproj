@@ -107,12 +107,14 @@
     <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="DynamicPositionOfEntity.cpp" />
     <ClCompile Include="DynamicPosRandom.cpp" />
+    <ClCompile Include="EndGameView.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="ExhaustEffect.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="FireOnClick.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontRender.cpp" />
     <ClCompile Include="GameEnemyHandler.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GameInstance.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
     <ClInclude Include="DynamicPosRandom.h" />
+    <ClInclude Include="EndGameView.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="ExhaustEffect.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="FireLogic.h" />
     <ClInclude Include="FireOnClick.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="FontRender.h" />
     <ClInclude Include="GameDebugDefines.h" />
     <ClInclude Include="GameEnemyHandler.h" />
     <ClInclude Include="GameEntity.h" />
@@ -200,6 +204,7 @@
     <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="ProfileCategory.h" />
     <ClInclude Include="RandomFire.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="SingleKeyManager.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SimpleBounary.h" />
