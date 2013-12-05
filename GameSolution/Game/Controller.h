@@ -23,7 +23,6 @@ class Controller {
 	int activeInterface;
 	//views
 	GameInstance myGameView;
-
 public:
 	Controller (int width, int height);
 	bool update(float dt);
