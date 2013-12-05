@@ -1,4 +1,7 @@
 #include "GameEnemyHandler.h"
+
+#include "GameMacros.h"
+
 #include "MyRandom.h"
 #include "GameSpace.h"
 

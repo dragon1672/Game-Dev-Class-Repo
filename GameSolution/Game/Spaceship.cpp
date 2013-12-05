@@ -1,6 +1,7 @@
 #include "SpaceShip.h"
 #include "GameSpace.h"
 #include "PlayerControls.h"
+#include "GameMacros.h"
 
 const float Spaceship::brakePower = 1000;
 //const Vector2D accX(100, 0);
@@ -154,5 +155,5 @@ Vector2D Spaceship::getPos() {
 	return pos;
 }
 int Spaceship::getTeam() {
-	return FRIENLY_TEAM;
+	return TeamInfo::FRIENLY_TEAM;
 }

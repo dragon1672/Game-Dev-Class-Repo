@@ -2,7 +2,6 @@
 #ifndef LIVING_GAME_ENTITY_H
 #define LIVING_GAME_ENTITY_H
 #include "GameEntity.h"
-#include "GameGlobal.h"
 #include "myAssert.h"
 
 class LivingGameEntity : public GameEntity {

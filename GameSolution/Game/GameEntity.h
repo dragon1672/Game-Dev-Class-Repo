@@ -2,11 +2,12 @@
 #ifndef GAME_ENTITY_H
 #define GAME_ENTITY_H
 
-#include "GameGlobal.h"
 #include "Matrix3D.h"
 #include "Core.h"
 #include "Shape.h"
 #include "DynamicPosition.h"
+
+class MyGraphics;
 
 class GameEntity : public DynamicPosition {
 public:

@@ -5,6 +5,8 @@
 #include "Boundary.h"
 #include "HitInfo.h"
 
+class MyGraphics;
+
 class SimpleBoundary : public Boundary {
 	float x1;
 	float y1;

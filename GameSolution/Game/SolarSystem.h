@@ -2,8 +2,6 @@
 #ifndef SOLAR_SYSTEM_H
 #define SOLAR_SYSTEM_H
 
-#include "GameGlobal.h"
-
 #include "Core.h"
 #include "Shape.h"
 #include <vector>

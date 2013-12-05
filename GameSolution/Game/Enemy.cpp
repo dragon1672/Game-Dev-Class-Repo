@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "MoveLogic.h"
 #include "GameSpace.h"
+#include "MyGraphics.h"
 
 Shape Enemy::defaultStyle = Shape(RGB(255,0,0),
 	17,
@@ -72,7 +73,7 @@ Vector2D Enemy::getPos() {
 	return pos;
 }
 int      Enemy::getTeam() {
-	return ENEMY_TEAM;
+	return TeamInfo::ENEMY_TEAM;
 }
 	
 //REQUIRED FOR CHILDREN

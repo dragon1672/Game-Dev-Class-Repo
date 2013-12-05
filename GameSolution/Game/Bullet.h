@@ -2,12 +2,12 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#include "GameGlobal.h"
-
 #include "Vector 2.h"
 #include "Shape.h"
 #include "Core.h"
 #include "ExhaustEffect.h"
+
+class MyGraphics;
 
 class Bullet {
 public:

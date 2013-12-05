@@ -2,8 +2,6 @@
 #ifndef PARTICAL_H
 #define PARTICAL_H
 
-#include "GameGlobal.h"
-
 #include "Vector 2.h"
 #include "Core.h"
 #include "ParticalEffect.h"

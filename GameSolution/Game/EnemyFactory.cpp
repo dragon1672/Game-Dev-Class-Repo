@@ -1,6 +1,6 @@
-#include "GameGlobal.h"
 #include "EnemyFactory.h"
 
+#include "GameMacros.h"
 
 void EnemyFactory::init(GameSpace *space, GameEntity *player) {
 	currentKamikazeEnemy = 0;

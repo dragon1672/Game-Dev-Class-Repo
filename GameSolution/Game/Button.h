@@ -8,8 +8,10 @@
 #include "DynamicPosition.h"
 
 class Button {
+public:
 	static Core::RGB DEFAULT_hoverColor;
 	static Core::RGB DEFAULT_defaultColor;
+private:
 	Core::RGB hoverColor;
 	Core::RGB defaultColor;
 
@@ -18,6 +20,7 @@ class Button {
 	Vector2D pos;
 	int width, height;
 	const char* text;
+public:
 	void init(DynamicPosition * cursor, Vector2D& pos, const char* text, int width, int height, Core::RGB setHoverColor = DEFAULT_hoverColor, Core::RGB setDefaultColor = DEFAULT_defaultColor);
 	void update(float dt);
 	void draw(MyGraphics& graphics);

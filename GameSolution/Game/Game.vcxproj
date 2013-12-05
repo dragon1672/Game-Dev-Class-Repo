@@ -101,6 +101,7 @@
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ComplexBoundary.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DebugTimer.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameEnemyHandler.cpp" />
     <ClCompile Include="GameEntity.cpp" />
+    <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="GameSpace.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="KamikazeEnemy.cpp" />
@@ -174,9 +176,11 @@
     <ClInclude Include="FireLogic.h" />
     <ClInclude Include="FireOnClick.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="GameDebugDefines.h" />
     <ClInclude Include="GameEnemyHandler.h" />
     <ClInclude Include="GameEntity.h" />
-    <ClInclude Include="GameGlobal.h" />
+    <ClInclude Include="GameMacros.h" />
+    <ClInclude Include="GameInstance.h" />
     <ClInclude Include="GameSpace.h" />
     <ClInclude Include="HitInfo.h" />
     <ClInclude Include="HUD.h" />
@@ -205,6 +209,7 @@
     <ClInclude Include="StaticPos.h" />
     <ClInclude Include="TargetMouse.h" />
     <ClInclude Include="TargetShipMoveLogic.h" />
+    <ClInclude Include="TeamInfo.h" />
     <ClInclude Include="TextFormatting.h" />
     <ClInclude Include="TextParticalManager.h" />
     <ClInclude Include="Timer.h" />
@@ -215,6 +220,7 @@
     <ClInclude Include="TurretMark5.h" />
     <ClInclude Include="TwoColTable.h" />
     <ClInclude Include="UserMoveLogic.h" />
+    <ClInclude Include="View.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

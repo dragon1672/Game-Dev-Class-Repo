@@ -1,20 +1,10 @@
 #pragma once
-#ifndef GAME_GLOBAL_H
-#define GAME_GLOBAL_H
+#ifndef GAME_DEBUG_DEFINES_H
+#define GAME_DEBUG_DEFINES_H
 
-#define SIZE_OF_ARRAY(a) sizeof(a)/sizeof(*a)
-
-typedef unsigned int uint;
-
-const float anglesInCircle = 2*3.14f;
-const int FRIENLY_TEAM = 1;
-const int NEUTRAL_TEAM = 2;
-const int ENEMY_TEAM   = 3;
-const int NO_TEAM      = -1;
-//-------------------START OF DEBUG SECTION-------------------//
 #define DEBUG_GLOBAL
 #ifdef DEBUG_GLOBAL
-	//pther debug defines
+	//other debug defines
 	#define DEBUG_Controller
 	#define DEBUG_SPACESHIP
 	
@@ -39,7 +29,5 @@ namespace DEBUG {
 	}
 }
 #endif//DEBUG
-
-#include "MyGraphics.h"
 
 #endif

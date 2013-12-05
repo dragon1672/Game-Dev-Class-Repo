@@ -1,8 +1,14 @@
 #include "BulletManager.h"
+
+#include "GameMacros.h"
+
 #include "Boundary.h"
 #include "GameSpace.h"
-
 #include "AutoProfileManager.h"
+
+#include "GameMacros.h"
+
+#include "MyGraphics.h"
 
 Shape temp(RGB(255,0,255), 5,
 	10*Vector2D(   .7f, -1.0f ),

@@ -2,10 +2,10 @@
 #ifndef BOUNDARY_H
 #define BOUNDARY_H
 
-#include "GameGlobal.h"
 #include "Core.h"
 #include "HitInfo.h"
 
+class MyGraphics;
 
 class Boundary {
 protected:

@@ -1,7 +1,9 @@
 #include "GameSpace.h"
-#include "MyRandom.h"
 
+#include "GameMacros.h"
+#include "MyRandom.h"
 #include "AutoProfileManager.h"
+#include "MyGraphics.h"
 
 const int NUMBER_OF_RANDOM_LERP_POINTS = 7; 
 const float GameSpace::WORLD_DRAG = 100;
@@ -148,9 +150,9 @@ bool GameSpace::cleanUpEntity(int id) {
 void GameSpace::checkEntityEntityCollision() {
 	float SHIP_DAMAGE = 3;
 	for(uint i=0;i<myEntities.size();i++) {
-		int oppositeTeam = NO_TEAM;// = myEntities[i]->getTeam();
-		if(myEntities[i]->getTeam()==FRIENLY_TEAM) oppositeTeam = ENEMY_TEAM;
-		if(myEntities[i]->getTeam()==ENEMY_TEAM) oppositeTeam = FRIENLY_TEAM;
+		int oppositeTeam = TeamInfo::NO_TEAM;// = myEntities[i]->getTeam();
+		if(myEntities[i]->getTeam()==TeamInfo::FRIENLY_TEAM) oppositeTeam = TeamInfo::ENEMY_TEAM;
+		if(myEntities[i]->getTeam()==TeamInfo::ENEMY_TEAM) oppositeTeam = TeamInfo::FRIENLY_TEAM;
 		int temp = getLivingEntityCollidedWithOfTeam(*myEntities[i]->getStyle(),myEntities[i]->getPos(),oppositeTeam);
 		if(temp!=NO_INDEX && (unsigned)temp!=i) {
 			myEntities[i]->removeHP(SHIP_DAMAGE);

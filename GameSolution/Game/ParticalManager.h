@@ -2,8 +2,6 @@
 #ifndef PARTICAL_MANAGER_H
 #define PARTICAL_MANAGER_H
 
-#include "GameGlobal.h"
-
 #include "Partical.h"
 #include "ParticalEffect.h"
 

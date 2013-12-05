@@ -2,6 +2,7 @@
 #include "Shape.h"
 #include "AutoProfileManager.h"
 #include "LogManager.h"
+#include "MyGraphics.h"
 
 std::random_device rd;//creating engine
 std::mt19937 seed(rd()); //seed

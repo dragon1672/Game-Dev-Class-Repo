@@ -1,6 +1,6 @@
 #include "Button.h"
 
-void Button::init(DynamicPosition * cursor, Vector2D& pos, const char* text, int width, int height, Core::RGB setHoverColor = DEFAULT_hoverColor, Core::RGB setDefaultColor = DEFAULT_defaultColor) {
+void Button::init(DynamicPosition * cursor, Vector2D& pos, const char* text, int width, int height, Core::RGB setHoverColor, Core::RGB setDefaultColor) {
 	this->cursor = cursor;
 	this->pos = pos;
 	this->text = text;

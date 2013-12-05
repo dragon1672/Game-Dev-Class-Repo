@@ -2,8 +2,6 @@
 #ifndef SPACE_SHIP_H
 #define SPACE_SHIP_H
 
-#include "GameGlobal.h"
-
 //interfaces and inheritance
 #include "LivingGameEntity.h"
 

@@ -3,7 +3,8 @@
 #include "ExtendedGraphics.h"
 #include "Partical.h"
 #include "myAssert.h"
-
+#include "GameMacros.h"
+#include "MyGraphics.h"
 #include "Shape.h"
 
 using ExtendedGraphics::randomColor;

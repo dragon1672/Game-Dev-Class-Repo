@@ -2,10 +2,10 @@
 #ifndef EXHAUST_EFFECT_H
 #define EXHAUST_Effect_H
 
-#include "GameGlobal.h"
-
 #include "ParticalEffect.h"
 #include "GameEntity.h"
+
+class MyGraphics;
 
 class ExhaustEffect : public ParticalEffect {
 	GameEntity *parent;

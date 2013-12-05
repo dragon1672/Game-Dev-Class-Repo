@@ -1,4 +1,6 @@
 #include "Lerper.h"
+#include "GameMacros.h"
+#include "TeamInfo.h"
 
 #define SCALAR 20
 Vector2D star[] = {
@@ -63,7 +65,7 @@ void Lerper::draw(MyGraphics& graphics) {
 	bodyGuards.draw(graphics,Matrix3D::translate(pos));
 }
 int Lerper::getTeam() {
-	return NEUTRAL_TEAM;
+	return TeamInfo::NEUTRAL_TEAM;
 }
 Vector2D Lerper::getPos() {
 	return pos;

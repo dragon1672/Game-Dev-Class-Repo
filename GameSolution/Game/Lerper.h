@@ -2,8 +2,6 @@
 #ifndef LERPER_H
 #define LERPER_H
 
-#include "GameGlobal.h"
-
 #include "Vector 2.h"
 #include "Shape.h"
 #include "Core.h"

@@ -14,6 +14,7 @@
 
 class GameSpace;
 class Bullet;
+class MyGraphics;
 
 class Turret : GameEntity {
 private:

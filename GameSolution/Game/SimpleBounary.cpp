@@ -1,5 +1,6 @@
 #include "SimpleBounary.h"
 #include "Vector 2.h"
+#include "MyGraphics.h"
 
 void SimpleBoundary::init(float x1, float y1, float x2, float y2) {
 	this->x1 = x1;

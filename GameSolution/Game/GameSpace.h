@@ -2,6 +2,8 @@
 #ifndef GAMESPACE_H
 #define GAMESPACE_H
 
+#include "TeamInfo.h"
+
 //core
 #include "Shape.h"
 #include "Boundary.h"
@@ -66,9 +68,9 @@ public:
 	bool cleanUpEntity(int id);
 	void checkEntityEntityCollision();
 	//returns where team does not match
-	int getLivingEntityClosest(      const Vector2D& pos,  int team=NO_TEAM, int startingIndex=0);
-	int getLivingEntityCollidedWith( const Vector2D& pos,  int team=NO_TEAM, int startingIndex=0);
-	int getLivingEntityCollidedWith( const Shape& toCheck, const Vector2D& pos, int team=NO_TEAM, int startingIndex=0);
+	int getLivingEntityClosest(      const Vector2D& pos,  int team=TeamInfo::NO_TEAM, int startingIndex=0);
+	int getLivingEntityCollidedWith( const Vector2D& pos,  int team=TeamInfo::NO_TEAM, int startingIndex=0);
+	int getLivingEntityCollidedWith( const Shape& toCheck, const Vector2D& pos, int team=TeamInfo::NO_TEAM, int startingIndex=0);
 	//returns where team matches
 	int getLivingEntityClosestOfTeam(      const Vector2D& pos,  int team, int startingIndex=0);
 	int getLivingEntityCollidedWithOfTeam( const Vector2D& pos,  int team, int startingIndex=0);

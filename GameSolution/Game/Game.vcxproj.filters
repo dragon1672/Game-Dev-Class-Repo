@@ -58,6 +58,12 @@
     <Filter Include="StartScreen">
       <UniqueIdentifier>{8d119edc-01d2-4ba6-9cb1-7db214a669f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameManagment\UI">
+      <UniqueIdentifier>{4a755c81-c2a8-4eaf-bdcc-5aec19e2c349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManagment\Headers">
+      <UniqueIdentifier>{dd708892-51cc-41a3-92be-d4944558cf7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -71,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="Lerper.cpp">
       <Filter>Objects\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>GameManagment</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
       <Filter>Objects\General Interfaces\Turrets</Filter>
@@ -184,7 +187,6 @@
     <ClCompile Include="KamikazeEnemy.cpp">
       <Filter>Objects\General Interfaces\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="ParticalWithDestination.cpp">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClCompile>
@@ -203,7 +205,21 @@
     <ClCompile Include="TextFormatting.cpp">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicPosRandom.cpp" />
+    <ClCompile Include="DebugTimer.cpp">
+      <Filter>ToPlaceInEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicPosRandom.cpp">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInstance.cpp">
+      <Filter>GameManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GameManagment\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>GameManagment\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -217,9 +233,6 @@
     </ClInclude>
     <ClInclude Include="Lerper.h">
       <Filter>Objects\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>GameManagment</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>GameManagment</Filter>
@@ -272,7 +285,6 @@
     <ClInclude Include="ExhaustEffect.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
-    <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="ParticalManager.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects</Filter>
     </ClInclude>
@@ -297,7 +309,6 @@
     <ClInclude Include="StaticPos.h">
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="TargetMouse.h">
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
@@ -397,7 +408,6 @@
     <ClInclude Include="StartScreen.h">
       <Filter>StartScreen</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h" />
     <ClInclude Include="TextFormatting.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClInclude>
@@ -407,5 +417,27 @@
     <ClInclude Include="DynamicPosRandom.h">
       <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
+    <ClInclude Include="GameDebugDefines.h">
+      <Filter>GameManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInstance.h">
+      <Filter>GameManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GameManagment\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>GameManagment\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TeamInfo.h">
+      <Filter>GameManagment\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControls.h">
+      <Filter>GameManagment\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMacros.h">
+      <Filter>GameManagment\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h" />
   </ItemGroup>
 </Project>

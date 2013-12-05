@@ -1,8 +1,8 @@
-//*
 #include "ExhaustEffect.h"
 #include "MyRandom.h"
 #include "Partical.h"
 #include "ExtendedGraphics.h"
+#include "MyGraphics.h"
 
 using ExtendedGraphics::randomColor;
 
@@ -55,4 +55,3 @@ void ExhaustEffect::draw(MyGraphics& graphics, Partical *toUpdate) {
 		graphics.drawLine(start,end);
 	}
 }
-//*/
