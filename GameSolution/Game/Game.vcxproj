@@ -224,7 +224,6 @@
     <ClInclude Include="TurretMark3.h" />
     <ClInclude Include="TurretMark4.h" />
     <ClInclude Include="TurretMark5.h" />
-    <ClInclude Include="TwoColTable.h" />
     <ClInclude Include="UserMoveLogic.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Wall.h" />

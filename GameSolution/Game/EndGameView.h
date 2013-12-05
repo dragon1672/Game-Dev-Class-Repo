@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "TextParticalManager.h"
 #include "Core.h"
+#include "TargetMouse.h"
 
 class EndGameView : View {
 private:
@@ -26,6 +27,7 @@ private:
 	Vector2D subHeaderTextPos;
 	Vector2D scoreTextPos;
 	Vector2D footerTextPos;
+	TargetMouse mouse;
 
 	int score;
 

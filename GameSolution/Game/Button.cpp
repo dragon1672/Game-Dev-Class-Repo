@@ -1,5 +1,8 @@
 #include "Button.h"
 
+Core::RGB Button::DEFAULT_hoverColor   = RGB(150,150,150);
+Core::RGB Button::DEFAULT_defaultColor = RGB(100,100,100);
+
 void Button::init(DynamicPosition * cursor, Vector2D& pos, const char* text, int width, int height, Core::RGB setHoverColor, Core::RGB setDefaultColor) {
 	this->cursor = cursor;
 	this->pos = pos;
@@ -20,7 +23,7 @@ bool Button::mouseWithinBounds() {
 }
 
 bool Button::isPressed() {
-	if(mouseWithinBounds()) return hoverColor;
+	return mouseWithinBounds() && Core::Input::IsPressed(Core::Input::BUTTON_LEFT);
 }
 
 Core::RGB Button::currentColor() {

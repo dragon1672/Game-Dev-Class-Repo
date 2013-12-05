@@ -13,7 +13,7 @@ std::string defaultLetterLines[] = {// it's a ?
 	"..*.."
 
 };
-std::string blankLetterLines[] = {// it's a ?
+std::string blankLetterLines[] = {// it's a ' '
 	".....",
 	".....",
 	".....",

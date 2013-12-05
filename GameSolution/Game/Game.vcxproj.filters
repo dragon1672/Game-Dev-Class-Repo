@@ -34,9 +34,6 @@
     <Filter Include="ToPlaceInEngine\Graphics\Particle Effects\CustomFont">
       <UniqueIdentifier>{23fb4ef7-7281-4f03-9482-3b519f4ad3d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="StartScreen">
-      <UniqueIdentifier>{8d119edc-01d2-4ba6-9cb1-7db214a669f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameManagment\UI">
       <UniqueIdentifier>{4a755c81-c2a8-4eaf-bdcc-5aec19e2c349}</UniqueIdentifier>
     </Filter>
@@ -202,9 +199,6 @@
     <ClCompile Include="Font.cpp">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClCompile>
-    <ClCompile Include="StartScreen.cpp">
-      <Filter>StartScreen</Filter>
-    </ClCompile>
     <ClCompile Include="TextFormatting.cpp">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClCompile>
@@ -229,7 +223,12 @@
     <ClCompile Include="EndGameView.cpp">
       <Filter>GameManagment\View</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreManager.cpp" />
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>GameManagment</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScreen.cpp">
+      <Filter>GameManagment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -337,9 +336,6 @@
     <ClInclude Include="..\Engine\ExtendedGraphics.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="TwoColTable.h">
-      <Filter>ToPlaceInEngine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Objects\World\Boundary</Filter>
     </ClInclude>
@@ -415,9 +411,6 @@
     <ClInclude Include="Font.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClInclude>
-    <ClInclude Include="StartScreen.h">
-      <Filter>StartScreen</Filter>
-    </ClInclude>
     <ClInclude Include="TextFormatting.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClInclude>
@@ -454,9 +447,14 @@
     <ClInclude Include="EndGameView.h">
       <Filter>GameManagment\View</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="FontRender.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>GameManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScreen.h">
+      <Filter>GameManagment</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

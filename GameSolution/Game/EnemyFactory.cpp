@@ -13,3 +13,6 @@ KamikazeEnemy *EnemyFactory::getNextKamikazeEnemy() {
 	ASSERT(currentKamikazeEnemy<MAX_KAMIKAZE_ENTITIES,"Out of Array Space");
 	return &kamikazeEntities[currentKamikazeEnemy++];
 }
+int EnemyFactory::enemiesLeft() {
+	return MAX_KAMIKAZE_ENTITIES - currentKamikazeEnemy;
+}

@@ -27,7 +27,9 @@ GameInstance::GameInstance (int width, int height) : width(width),
 												 height(height), 
 												 hud(width,height) {
 	LOG(Info,"GameInstance Init Start",0);
-
+	isPaused = false;
+	gameOver = false;
+	gameOverScreen.init(width,height);
 	//gamespace
 	Vector2D worldOffset = Vector2D(hud.getWorldWidth()/2,hud.getWorldHeight()/2);
 	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),-worldOffset,&worldMousePos, &scoreKeeper);
@@ -43,9 +45,10 @@ GameInstance::GameInstance (int width, int height) : width(width),
 	ComplexBoundsKey.setToCheck(PlayerControls::boundColision);
 	SimpleBoundsKey.setToCheck(PlayerControls::boxColision);
 	PauseButton.setToCheck(PlayerControls::pauseGame);
+
 	//bounds
-	setDynamicBounds();
 	initSimpleBounds();
+	setDynamicBounds();
 	currentBounds = &simpleBounds;
 	myWorld.registerBoundary(currentBounds);
 }
@@ -98,25 +101,27 @@ void GameInstance::updateCurrentBounds() {
 	if(SimpleBoundsKey.hasBeenClicked()) currentBounds = &simpleBounds;
 	if(ComplexBoundsKey.hasBeenClicked()) currentBounds = &complexBounds;
 }
-float tempAngle = 0;
-float tempangleAcc = 1;
 bool GameInstance::update(float dt) {
-	tempAngle += tempangleAcc*dt;
-	//gameSpaceGraphic.setGlobalTrans(Matrix3D::rotationMatrix(tempAngle));
-
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
-	PauseButton.update(dt);
-	if(PauseButton.hasBeenClicked()) isPaused = !isPaused; //toggle pause
-	if(!isPaused) {
-		SimpleBoundsKey.update(dt);
-		ComplexBoundsKey.update(dt);
-		updateCurrentBounds();
-		PROFILE("World update");
-		myWorld.registerBoundary(currentBounds);
-		myWorld.update(dt);
-		END_PROFILE;
+	if(!gameOver) {
+		PauseButton.update(dt);
+		if(PauseButton.hasBeenClicked()) isPaused = !isPaused; //toggle pause
+		if(!isPaused) {
+			SimpleBoundsKey.update(dt);
+			ComplexBoundsKey.update(dt);
+			updateCurrentBounds();
+			PROFILE("World update");
+			myWorld.registerBoundary(currentBounds);
+			gameOver = myWorld.update(dt);
+			END_PROFILE;
+			if(gameOver) {//game over called for first time
+				gameOverScreen.setScore(scoreKeeper.getTotalPoints());
+			}
+		}
+		return false;
+	} else {
+		return gameOverScreen.update(dt);
 	}
-	return false;
 }
 Core::RGB GameInstance::getWorldColor() {
 	Core::RGB pauseColor = RGB(50,50,50);
@@ -127,17 +132,20 @@ Core::RGB GameInstance::getWorldColor() {
 }
 void GameInstance::draw(MyGraphics& graphics) {
 	//update graphic pointers
-	myGraphic.setGraphic(&graphics);
-	gameSpaceGraphic.setGraphic(&graphics);
-	PROFILE("HUD draw");
-		hud.paintWorld(myGraphic,getWorldColor());
-		hud.draw(myGraphic);
-	END_PROFILE;
-	PROFILE("World draw");
-		myWorld.draw(gameSpaceGraphic);
-	END_PROFILE;
-	if(isPaused) {
-		hud.worldPopup(myGraphic,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(getWorldColor(),.5));
+	if(!gameOver) {
+		gameSpaceGraphic.setGraphic(&graphics);
+		PROFILE("HUD draw");
+			hud.paintWorld(graphics,getWorldColor());
+			hud.draw(graphics);
+		END_PROFILE;
+		PROFILE("World draw");
+			myWorld.draw(gameSpaceGraphic);
+		END_PROFILE;
+		if(isPaused) {
+			hud.worldPopup(graphics,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(getWorldColor(),.5));
+		}
+	} else {
+		gameOverScreen.draw(graphics);
 	}
 }
 DynamicPosition *GameInstance::getMouse() {

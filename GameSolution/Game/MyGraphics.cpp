@@ -4,7 +4,7 @@ void MyGraphics::setGraphic(Core::Graphics *toSet) {
 	masterGraphic = toSet;
 }
 void MyGraphics::setGraphic(MyGraphics *toSet) {
-	masterGraphic = toSet->masterGraphic;
+	this->masterGraphic = toSet->masterGraphic;
 }
 /*
 void MyGraphics::setGlobalTrans(const Matrix3D& toSet) {

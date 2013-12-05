@@ -18,8 +18,9 @@ Shape temp(RGB(255,0,255), 5,
 	10*Vector2D( -1.0f,   .25f) );
 
 void   BulletManager::init(GameSpace *space) {
-	LOG(Info,"Bullet Manager init (set gamespace)",0);
+	LOG(Info,"Bullet Manager init (set gamespace and clear vector)",0);
 	this->space  = space;
+	bullets.clear();
 }
 Bullet BulletManager::getBullet(int id) {
 	return bullets[id];

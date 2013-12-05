@@ -21,7 +21,6 @@
 #include "ScoreManager.h"
 
 
-
 const Core::RGB defaultColor = RGB(255,0,50);
 //creates a square world where all game obects will interact in
 class GameSpace {
@@ -40,6 +39,8 @@ private:
 	GameEnemyHandler enemySpawner;
 	ScoreManager * scoreBoard;
 
+	bool playerHasWon;
+
 	std::vector<LivingGameEntity *> myEntities;
 
 	Vector2D min;
@@ -54,7 +55,7 @@ public:
 	GameSpace(float width, float height, const Vector2D& pos, DynamicPosition* mousePos, ScoreManager * manager);
 	void init(float width, float height, const Vector2D& pos, DynamicPosition* mousePos, ScoreManager * manager);
 	void      draw(MyGraphics& graphics);
-	void      update(float dt);
+	bool      update(float dt);
 	//getters
 	Boundary *getBoundary();
 	Vector2D  getMin();

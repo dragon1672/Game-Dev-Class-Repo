@@ -11,6 +11,7 @@ class EnemyFactory {
 public:
 	void init(GameSpace *space, GameEntity *player);
 	KamikazeEnemy *getNextKamikazeEnemy();
+	int enemiesLeft();
 };
 
 #endif

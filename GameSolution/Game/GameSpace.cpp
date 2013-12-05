@@ -53,7 +53,7 @@ void       GameSpace::drawHealthBar(MyGraphics& graphics, LivingGameEntity *targ
 	graphics.drawLoadingBar(posOfHealthBar,target->getHealthPercent(),50,7);
 }
 //core
-void       GameSpace::update(float dt) {
+bool       GameSpace::update(float dt) {
 	PROFILE("Enemy Update");
 		enemySpawner.update(dt);
 	END_PROFILE;
@@ -71,6 +71,11 @@ void       GameSpace::update(float dt) {
 	PROFILE("All Entity to Entity collision Update");
 		checkEntityEntityCollision();
 	END_PROFILE;
+	if(enemySpawner.hasBeenDefeated() || myShip.getHealth()<=0) {
+		playerHasWon = myShip.getHealth()>0;
+		return true;
+	}
+	return false;
 }
 void       GameSpace::draw(MyGraphics& graphics) {
 	gameStyle.draw(graphics);

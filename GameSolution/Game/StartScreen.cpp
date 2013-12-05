@@ -6,8 +6,6 @@ const char* StartScreen::TITLE_TEXT     = "Space Wars!";
 Core::RGB   StartScreen::TITLE_COLOR    = RGB(255,255,0);//yellow
 const char* StartScreen::SUBTITLE_TEXT  = "Created By:\n-=AnthonyCorbin=-";
 Core::RGB   StartScreen::SUBTITLE_COLOR = RGB(34,155,56);//green
-Core::RGB   StartScreen::BUTTON_COLOR   = RGB(100,100,100);
-Core::RGB   StartScreen::BUTTON_MOUSE_OVER_COLOR = RGB(150,150,150);
 const char* FONT_FILE_LOCATION = "../FONT.txt";
 
 void StartScreen::initTitleText() {
@@ -52,13 +50,12 @@ void StartScreen::initButtons(const char* optionText[], int numOfOptions) {
 
 
 	for(int i=0;i<numOfButtons;i++) {
-		options[i].init(&cursor,buttonPos,optionText[i],buttonWidth,buttonHeight,BUTTON_COLOR,BUTTON_MOUSE_OVER_COLOR);
+		options[i].init(&cursor,buttonPos,optionText[i],buttonWidth,buttonHeight);
 		buttonPos = buttonPos+offset;
 	}
 }
 
 void StartScreen::init(int screenWidth, int screenHeight,const char* optionText[], int numOfOptions) {
-	statusCode = WINDOW_STILL_ACTIVE;
 
 	SCREEN_WIDTH  = screenWidth;
 	SCREEN_HEIGHT = screenHeight;
@@ -71,11 +68,12 @@ void StartScreen::init(int screenWidth, int screenHeight,const char* optionText[
 	
 }
 
-void StartScreen::update(float dt) {
+int  StartScreen::update(float dt) {
 	textManager.update(dt);
 	for(int i=0;i<numOfButtons;i++) {
-		if(options[i].isPressed()) statusCode = i;
+		if(options[i].isPressed()) return i;
 	}
+	return WINDOW_STILL_ACTIVE;
 }
 void StartScreen::draw(MyGraphics& graphics) {
 	textManager.draw(graphics);

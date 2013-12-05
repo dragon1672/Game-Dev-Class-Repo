@@ -4,41 +4,43 @@
 #include "LogManager.h"
 #include "GameMacros.h"
 
-//temp
-#include "EndGameView.h"
-//end temp
-
-EndGameView Testing;
+const char* Controller::startScreenOptions[] = {
+													"Start Game",
+													"Exit"
+												};
 
 Controller::Controller (int width, int height) : width(width), 
 												 height(height),
 												 myGameView(width,height) {
 	LOG(Info,"Controller Init Start",0);
-	const char* options[] = {
-		"Start Game",
-		"Help",
-		"Exit"
-	};
-	myStartScreen.init(width,height,options,SIZE_OF_ARRAY(options));
-	//temp
-	Testing.init(width,height);
-	Testing.setScore(8888888);
-	//end temp
+	myStartScreen.init(width,height,startScreenOptions,SIZE_OF_ARRAY(startScreenOptions));
+	activeInterface = StartScreen::WINDOW_STILL_ACTIVE;
+	interfaces[0] = &myGameView;
 }
 bool Controller::update(float dt) {
-	//temp
-	Testing.update(dt);
-	//end temp
-	//myStartScreen.update(dt);
+	if(activeInterface == StartScreen::WINDOW_STILL_ACTIVE) {
+		activeInterface = myStartScreen.update(dt);
+	} else {
+		if(interfaces[activeInterface]->update(dt)) {
+			activeInterface = StartScreen::WINDOW_STILL_ACTIVE;
+		}
+	}
+	if(activeInterface == SIZE_OF_ARRAY(startScreenOptions)-1
+		|| Core::Input::IsPressed( Core::Input::KEY_ESCAPE)) {
+		return true;//exit the game
+	}
 	return false;
 }
 void Controller::draw(Core::Graphics& graphics) {
 	//update graphic pointers
 	myGraphic.setGraphic(&graphics);
-	//myStartScreen.draw(myGraphic);
-	//temp
-	Testing.draw(myGraphic);
-	//endtemp
+
+	if(activeInterface == StartScreen::WINDOW_STILL_ACTIVE
+		|| activeInterface == SIZE_OF_ARRAY(startScreenOptions)-1) {
+		myStartScreen.draw(myGraphic);
+	} else {
+		interfaces[activeInterface]->draw(myGraphic);
+	}
 }
 DynamicPosition *Controller::getMouse() {
 	return &mousePos;

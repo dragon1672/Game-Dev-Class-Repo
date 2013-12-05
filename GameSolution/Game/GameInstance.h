@@ -14,6 +14,7 @@
 #include "HUD.h"
 #include "Vector 2.h"
 #include "GameSpace.h"
+#include "EndGameView.h"
 
 #include "MyGraphics.h"
 #include "OffsetGraphic.h"
@@ -25,6 +26,7 @@ class GameInstance : public View {
 	SingleKeyManager SimpleBoundsKey;
 	SingleKeyManager PauseButton;
 	bool isPaused;
+	bool gameOver;
 	
 	int width;
 	int height;
@@ -37,10 +39,10 @@ class GameInstance : public View {
 	Boundary *currentBounds;
 
 	//graphics
-	MyGraphics myGraphic;
 	OffsetGraphic gameSpaceGraphic;
 
 	ScoreManager scoreKeeper;
+	EndGameView  gameOverScreen;
 	
 	//interfaces
 	HUD hud;

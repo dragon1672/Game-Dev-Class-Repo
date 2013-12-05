@@ -5,7 +5,7 @@
 #include "TextFormatting.h"
 #include "ParticalTextFormat.h"
 #include "DynamicPosRandom.h"
-#include <sstream>//for converting score
+#include <sstream>//for converting 
 
 const char* EndGameView::HEADER_TEXT      = "YOU DIED!!";
 const char* EndGameView::SUB_HEADER_TEXT  = "With a Score Of";
@@ -28,9 +28,13 @@ void EndGameView::init(int width, int height) {
 	int headerTextWidth    = headerTextStyle.widthOfString(HEADER_TEXT);
 	int subHeaderTextWidth = subHeaderTextStyle.widthOfString(SUB_HEADER_TEXT);
 	int footerTextWidth    = footerTextStyle.widthOfString(FOOTER_TEXT);
-	headerTextPos    = .1f  * vertical + horzCenter - Vector2D((float)headerTextWidth/2,    0);
+	int buttonWidth = 200;
+	headerTextPos    = .10f * vertical + horzCenter - Vector2D((float)headerTextWidth/2,    0);
 	subHeaderTextPos = .25f * vertical + horzCenter - Vector2D((float)subHeaderTextWidth/2, 0);
-	footerTextPos    = .75f * vertical + horzCenter - Vector2D((float)footerTextWidth/2,    0);
+	footerTextPos    = .60f * vertical + horzCenter - Vector2D((float)footerTextWidth/2,    0);
+	Vector2D buttonPos = .75f * vertical + horzCenter - Vector2D((float)buttonWidth/2,      0);
+
+	returnButton.init(&mouse,buttonPos,"Return to main menu",buttonWidth,50);
 }
 void EndGameView::setScore(int score) {
 	Vector2D vertical(0,(float)SCREEN_HEIGHT);
@@ -51,13 +55,12 @@ void EndGameView::setScore(int score) {
 };
 bool EndGameView::update(float dt) {
 	scoreText.update(dt);
-	//return returnButton.isPressed();
-	return false;
+	return returnButton.isPressed();
 }
 void EndGameView::draw(MyGraphics& graphics) {
+	returnButton.draw(graphics);
 	scoreText.draw(graphics);
 	FontRender::draw(graphics, headerTextPos,    &Font::defaultFont, &headerTextStyle,    HEADER_TEXT);
 	FontRender::draw(graphics, subHeaderTextPos, &Font::defaultFont, &subHeaderTextStyle, SUB_HEADER_TEXT);
 	FontRender::draw(graphics, footerTextPos,    &Font::defaultFont, &footerTextStyle,    FOOTER_TEXT);
-	//returnButton.draw(graphics);
 }

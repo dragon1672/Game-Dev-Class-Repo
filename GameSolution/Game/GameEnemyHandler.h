@@ -7,7 +7,7 @@
 
 class GameEnemyHandler {
 private:
-	static const int MAX_ACTIVE_ENTITIES = 10;
+	static const int MAX_ACTIVE_ENTITIES = 5;
 	float delayBetweenEntitySpawnsDecreaseScaler;
 	float delayBetweenEntitySpawnsRange;
 	EnemyFactory myFactory;
@@ -17,6 +17,10 @@ private:
 	
 	Timer entitySpawnClock;
 	float delayBetweenEntitySpawns;
+
+	void resetArray();
+
+	bool isEmpty;
 public:
 	GameEnemyHandler() {
 		delayBetweenEntitySpawnsDecreaseScaler = .7f;
@@ -27,6 +31,7 @@ public:
 	int  getFreeArraySpot();
 	void spawnEntity();
 	void update(float dt);
+	bool hasBeenDefeated();
 };
 
 #endif

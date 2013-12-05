@@ -15,7 +15,6 @@
 class StartScreen {
 public:
 	static const int WINDOW_STILL_ACTIVE = -1;//relates to status code
-	int statusCode;
 
 	static const int MAX_BUTTONS = 5;
 
@@ -23,8 +22,6 @@ public:
 	static Core::RGB   TITLE_COLOR;
 	static const char* SUBTITLE_TEXT;
 	static Core::RGB   SUBTITLE_COLOR;
-	static Core::RGB   BUTTON_COLOR;
-	static Core::RGB   BUTTON_MOUSE_OVER_COLOR;
 	
 private:
 	Font myFont;
@@ -41,9 +38,8 @@ private:
 	void initButtons(const char* optionText[], int numOfOptions);
 public:
 	void init(int screenWidth, int screenHeight, const char* optionText[], int numOfOptions);
-	void update(float dt);//since it will have buttons
+	int  update(float dt);//since it will have buttons
 	void draw(MyGraphics& graphics);
-	int  getStatusCode();
 };
 
 #endif

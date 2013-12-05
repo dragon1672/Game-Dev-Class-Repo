@@ -7,8 +7,10 @@
 
 #include "StartScreen.h"
 #include "GameInstance.h"
+#include "View.h"
 
 class Controller {
+	static const int MAX_MENU_OPTIONS = 5;
 	int width;
 	int height;
 	TargetMouse mousePos;
@@ -16,6 +18,9 @@ class Controller {
 
 	static const char* startScreenOptions[];
 	StartScreen myStartScreen;
+
+	View *interfaces[MAX_MENU_OPTIONS];
+	int activeInterface;
 	//views
 	GameInstance myGameView;
 
