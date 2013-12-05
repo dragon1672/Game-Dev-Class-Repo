@@ -3,6 +3,8 @@
 #define SCORE_MANAGER_H
 
 #include "myAssert.h"
+#include "LivingGameEntity.h"
+#include "Core.h"
 
 class ScoreManager {
 public:
@@ -11,22 +13,15 @@ public:
 private:
 	int totalPoints;
 public:
-	void kilBoss();
-	void killEnemy();
-	inline int getTotalPoints() {
-		return totalPoints;
-	}
-	inline void addPoints(int amount) {
-		ASSERT(amount>0,"trying to pass a neg amount of points to add");
-		totalPoints += amount;
-	}
-	inline void spendPoints(int amount) {
-		ASSERT(amount>0,"trying to pass a neg amount of points to spend");
-		totalPoints -= amount;
-	};
-	inline void resetPoints() {
+	ScoreManager() {
 		totalPoints = 0;
 	}
+	void LivingEntityDeath(LivingGameEntity * thatDied);
+	int getTotalPoints();
+	void addPoints(int amount);
+	void spendPoints(int amount);
+	void resetPoints();
+	void draw(MyGraphics& graphics, Vector2D& pos, int size, Core::RGB color);
 };
 
 #endif

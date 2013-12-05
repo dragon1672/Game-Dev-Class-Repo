@@ -10,7 +10,7 @@ class Font;
 
 class FontRender {
 public:
-	void draw(MyGraphics& graphics, Vector2D& pos, Font *myFont, TextFormatting * format, const char* text);
+	static void draw(MyGraphics& graphics, Vector2D& pos, Font *myFont, TextFormatting * format, const char* text);
 };
 
 #endif

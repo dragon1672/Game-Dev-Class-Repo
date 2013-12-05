@@ -11,8 +11,8 @@ const float GameSpace::WORLD_DRAG = 100;
 ExplosionEffect basicBoom;
 
 GameSpace::GameSpace() { ; }
-GameSpace::GameSpace(float width, float height, const Vector2D& pos, DynamicPosition *mousePos) {
-	init(width, height, pos, mousePos);
+GameSpace::GameSpace(float width, float height, const Vector2D& pos, DynamicPosition *mousePos, ScoreManager * manager) {
+	init(width, height, pos, mousePos,manager);
 }
 void       GameSpace::initObjects() {
 	LOG(Info,"Initilizing Game Space Objects",1);
@@ -28,9 +28,10 @@ void       GameSpace::initObjects() {
 	addLivingEntity(&myLerp);
 	enemySpawner.init(this,&myShip);
 }
-void       GameSpace::init(float width, float height, const Vector2D& pos, DynamicPosition *mousePos) {
+void       GameSpace::init(float width, float height, const Vector2D& pos, DynamicPosition *mousePos, ScoreManager * manager) {
 	LOG(Info,"Game Space Init",0);
 	this->mousePointer = mousePos;
+	this->scoreBoard = manager;
 	//init Shape
 	min = pos;
 	max = pos+Vector2D(width,height);
@@ -74,6 +75,9 @@ void       GameSpace::update(float dt) {
 void       GameSpace::draw(MyGraphics& graphics) {
 	gameStyle.draw(graphics);
 	boundary->draw(graphics);
+	PROFILE("draw score");
+	scoreBoard->draw(graphics,getMin(),2,RGB(255,255,0));
+	END_PROFILE;
 	PROFILE("draw bullets");
 	myBullets.draw(graphics);
 	END_PROFILE;
@@ -142,6 +146,7 @@ void GameSpace::cleanUpAllLivingEntities() {
 bool GameSpace::cleanUpEntity(int id) {
 	if(myEntities[id]->getHealth()<=0) {
 		addExplosion(myEntities[id]->getPos(),50);
+		scoreBoard->LivingEntityDeath(myEntities[id]);
 		myEntities.erase(myEntities.begin() + id);
 		return true;
 	}

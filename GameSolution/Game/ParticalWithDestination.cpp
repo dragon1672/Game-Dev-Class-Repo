@@ -4,7 +4,8 @@
 float ParticalWithDestination::PARTICAL_SPEED = 100;
 
 void ParticalWithDestination::updateVelToPos(Vector2D& newTarget) {
-	float marginOfError = 2;
+	float marginOfError = 5;
+	//a higher margin of error will group particals together at a slight distance, well suited for lower frame rates
 	vel = (newTarget - pos);
 	if(vel.lengthSquared() > marginOfError * marginOfError)
 		if(!slowAtRange || vel.lengthSquared() >= PARTICAL_SPEED * PARTICAL_SPEED)

@@ -5,6 +5,7 @@
 #include "Font.h"
 
 void FontRender::draw(MyGraphics& graphics, Vector2D& pos,  Font *myFont, TextFormatting * format, const char* text) {
+	graphics.setColor(format->color);
 	Vector2D startingPos = pos;//copy memory
 
 	int charWidth  = format->getCharacterWidth()  + format->characterPadding;

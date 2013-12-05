@@ -131,6 +131,7 @@
     <ClCompile Include="ParticalEffect.cpp" />
     <ClCompile Include="ParticalManager.cpp" />
     <ClCompile Include="ParticalWithDestination.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SimpleBounary.cpp" />
     <ClCompile Include="SolarSystem.cpp" />

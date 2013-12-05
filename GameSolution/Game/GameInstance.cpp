@@ -30,7 +30,7 @@ GameInstance::GameInstance (int width, int height) : width(width),
 
 	//gamespace
 	Vector2D worldOffset = Vector2D(hud.getWorldWidth()/2,hud.getWorldHeight()/2);
-	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),-worldOffset,&worldMousePos);
+	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),-worldOffset,&worldMousePos, &scoreKeeper);
 	worldOffset = hud.getWorldoffset() + worldOffset;
 	gameSpaceGraphic.init(worldOffset,hud.getWorldWidth(),hud.getWorldHeight());
 	//mice

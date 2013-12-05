@@ -223,10 +223,13 @@
     <ClCompile Include="HUD.cpp">
       <Filter>GameManagment\UI</Filter>
     </ClCompile>
-    <ClCompile Include="EndGameView.cpp" />
     <ClCompile Include="FontRender.cpp">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClCompile>
+    <ClCompile Include="EndGameView.cpp">
+      <Filter>GameManagment\View</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">

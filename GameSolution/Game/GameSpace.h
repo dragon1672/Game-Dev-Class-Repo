@@ -18,6 +18,7 @@
 #include "BulletManager.h"
 #include "ParticalManager.h"
 #include "GameEnemyHandler.h"
+#include "ScoreManager.h"
 
 
 
@@ -37,6 +38,7 @@ private:
 	BulletManager myBullets;
 	ParticalManager allMyParticals;
 	GameEnemyHandler enemySpawner;
+	ScoreManager * scoreBoard;
 
 	std::vector<LivingGameEntity *> myEntities;
 
@@ -49,8 +51,8 @@ private:
 	void drawHealthBar(MyGraphics& graphics, LivingGameEntity *target);
 public:
 	GameSpace();
-	GameSpace(float width, float height, const Vector2D& pos, DynamicPosition* mousePos);
-	void init(float width, float height, const Vector2D& pos, DynamicPosition* mousePos);
+	GameSpace(float width, float height, const Vector2D& pos, DynamicPosition* mousePos, ScoreManager * manager);
+	void init(float width, float height, const Vector2D& pos, DynamicPosition* mousePos, ScoreManager * manager);
 	void      draw(MyGraphics& graphics);
 	void      update(float dt);
 	//getters

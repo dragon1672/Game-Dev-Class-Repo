@@ -38,8 +38,7 @@ void TextParticalManager::update(float dt) {
 }
 void TextParticalManager::draw(MyGraphics& graphics) {
 	for(int i=0; i < numOfParticals; i++) {//since all particles are used no lifetime required
-		graphics.setColor(RGB(255,255,0));
-		//graphics.SetColor(myParticals[i].color);
+		graphics.setColor(myParticals[i].color);
 		for(int j=0; j < myParticals[i].size; j++) {
 			Vector2D start = myParticals[i].pos + Vector2D((float)j,0);
 			Vector2D end   = start + Vector2D(0,(float)myParticals[i].size);

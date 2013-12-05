@@ -18,6 +18,8 @@
 #include "MyGraphics.h"
 #include "OffsetGraphic.h"
 
+#include "ScoreManager.h"
+
 class GameInstance : public View {
 	SingleKeyManager ComplexBoundsKey;
 	SingleKeyManager SimpleBoundsKey;
@@ -37,6 +39,8 @@ class GameInstance : public View {
 	//graphics
 	MyGraphics myGraphic;
 	OffsetGraphic gameSpaceGraphic;
+
+	ScoreManager scoreKeeper;
 	
 	//interfaces
 	HUD hud;
