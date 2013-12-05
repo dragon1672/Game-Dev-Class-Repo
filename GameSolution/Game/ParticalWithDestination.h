@@ -11,7 +11,8 @@ public:
 	Vector2D pos;
 	Vector2D target;
 	Core::RGB color;
-	int size;
+	int  size;
+	bool slowAtRange;
 	void updateVelToTarget();
 	void updateVelToPos(Vector2D& newTarget);
 	void update(float dt);

@@ -27,6 +27,9 @@ Controller::Controller (int width, int height) : width(width),
 												 height(height), 
 												 hud(width,height) {
 	LOG(Info,"Controller Init Start",0);
+
+	myStartScreen.init(width,height);
+
 	//gamespace
 	Vector2D worldOffset = Vector2D(hud.getWorldWidth()/2,hud.getWorldHeight()/2);
 	myWorld.init(hud.getWorldWidth(),hud.getWorldHeight(),-worldOffset,&worldMousePos);//hud.getWorldoffset());
@@ -104,6 +107,8 @@ void Controller::updateCurrentBounds() {
 float tempAngle = 0;
 float tempangleAcc = 1;
 bool Controller::update(float dt) {
+	myStartScreen.update(dt);
+	/*
 	tempAngle += tempangleAcc*dt;
 	//gameSpaceGraphic.setGlobalTrans(Matrix3D::rotationMatrix(tempAngle));
 
@@ -119,6 +124,7 @@ bool Controller::update(float dt) {
 		myWorld.update(dt);
 		END_PROFILE;
 	}
+	//*/
 #ifdef DEBUG_Controller
 	FPS = (int)(1/dt);
 	FPS_clock_storage = 1/FPS_clock.interval();
@@ -136,6 +142,8 @@ void Controller::draw(Core::Graphics& graphics) {
 	//update graphic pointers
 	myGraphic.setGraphic(&graphics);
 	gameSpaceGraphic.setGraphic(&graphics);
+	myStartScreen.draw(myGraphic);
+	/*
 	PROFILE("HUD draw");
 		hud.paintWorld(myGraphic,getWorldColor());
 		hud.draw(myGraphic);
@@ -154,6 +162,7 @@ void Controller::draw(Core::Graphics& graphics) {
 	if(isPaused) {
 		hud.worldPopup(myGraphic,"GAME HAS BEEN PAUSED",ExtendedGraphics::brightness(getWorldColor(),.5));
 	}
+	//*/
 }
 DynamicPosition *Controller::getMouse() {
 	return &mousePos;

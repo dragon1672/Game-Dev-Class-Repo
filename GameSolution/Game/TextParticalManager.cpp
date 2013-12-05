@@ -1,11 +1,24 @@
 #include "TextParticalManager.h"
+#include "ParticalTextFormat.h"
+#include "MyRandom.h"
 
-void TextParticalManager::initText(Vector2D& pos, const char* text, Font *style, int size, int particalSize) {
-	int charWidth = LETTER_WIDTH * size*particalSize;
+
+void TextParticalManager::initText(Vector2D& pos, const char* text, Font *myFont, ParticalTextFormat * format) {
+	Vector2D startingPos = pos;//copy memory
+
+	int charWidth  = format->getCharacterWidth()  + format->characterPadding;
+	int charHeight = format->getCharacterHeight() + format->characterPadding;
+	int offset = 0;
+
 	for(unsigned int i=0; i < strlen(text); i++) {
-		Vector2D startingPos = pos + Vector2D((float)(i * (charWidth+paddingBetweenCharacters)),0);
-		//Vector2D startingPos = pos + Vector2D((float)(i * 50),0);
-		style->getCharacter(text[i])->initParticals(startingPos,particalSize,size,this);
+		if(text[i]=='\n') {
+			startingPos = startingPos + Vector2D(0,(float)charHeight);
+			offset = 0;
+		} else {
+			Vector2D charPos = startingPos + Vector2D(offset,0);
+			myFont->getCharacter(text[i])->initParticals(charPos,format,this);
+			offset += charWidth;
+		}
 	}
 }
 float mouseRadius = 50;
@@ -23,26 +36,26 @@ void TextParticalManager::update(float dt) {
 		myParticals[i].update(dt);
 	}
 }
-void TextParticalManager::draw(Core::Graphics& graphics) {
+void TextParticalManager::draw(MyGraphics& graphics) {
 	for(int i=0; i < numOfParticals; i++) {//since all particles are used no lifetime required
-		graphics.SetColor(RGB(255,255,0));
+		graphics.setColor(RGB(255,255,0));
 		//graphics.SetColor(myParticals[i].color);
 		for(int j=0; j < myParticals[i].size; j++) {
 			Vector2D start = myParticals[i].pos + Vector2D((float)j,0);
 			Vector2D end   = start + Vector2D(0,(float)myParticals[i].size);
-			graphics.DrawLine(start.getX(),start.getY(),end.getX(),end.getY());
+			graphics.drawLine(start,end);
 		}
 	}
 }
-#include <random>
 
-void TextParticalManager::initPartical(Vector2D& destinationLocation, int particalSize) {
+void TextParticalManager::initPartical(Vector2D& destinationLocation, ParticalTextFormat * format) {
 	int index = numOfParticals++;
 	myParticals[index].target = destinationLocation;
-
-	myParticals[index].pos    = Vector2D(rand()%1000,rand()%1000);
-	//myParticals[index].pos    = Vector2D(500,500);
-	//myParticals[index].pos    = Vector2D(0,0);//set to random--------------------------------------------TODO
-	myParticals[index].color  = textColor;
-	myParticals[index].size   = particalSize;
+	myParticals[index].pos    = format->spawnLocation->getPos();
+	myParticals[index].color  = format->color;
+	myParticals[index].size   = format->particalSize;
+	myParticals[index].slowAtRange = format->slowEffect;
+}
+void TextParticalManager::reset() {
+	numOfParticals = 0;
 }

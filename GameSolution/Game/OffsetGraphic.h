@@ -7,6 +7,7 @@
 
 class OffsetGraphic : public MyGraphics {
 private:
+	Matrix3D globalTrans;
 	Vector2D transpose;
 	float width,height;
 public:

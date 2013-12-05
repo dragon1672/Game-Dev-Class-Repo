@@ -55,6 +55,9 @@
     <Filter Include="ToPlaceInEngine\Graphics\Particle Effects\CustomFont">
       <UniqueIdentifier>{23fb4ef7-7281-4f03-9482-3b519f4ad3d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StartScreen">
+      <UniqueIdentifier>{8d119edc-01d2-4ba6-9cb1-7db214a669f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -194,6 +197,13 @@
     <ClCompile Include="Font.cpp">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
     </ClCompile>
+    <ClCompile Include="StartScreen.cpp">
+      <Filter>StartScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFormatting.cpp">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicPosRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -383,6 +393,19 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScreen.h">
+      <Filter>StartScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="TextFormatting.h">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticalTextFormat.h">
+      <Filter>ToPlaceInEngine\Graphics\Particle Effects\CustomFont</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicPosRandom.h">
+      <Filter>Objects\General Interfaces\Dynamic Pos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

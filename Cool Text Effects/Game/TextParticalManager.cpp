@@ -2,10 +2,12 @@
 #include "TempGlobal.h"
 
 void TextParticalManager::initText(Vector2D& pos, const char* text, Font *style, int size, int particalSize) {
-	int charWidth = LETTER_WIDTH * size*particalSize;
+	Vector2D startingPos = pos;//copy memory
+	int charWidth  = LETTER_WIDTH * size*particalSize + paddingBetweenCharacters;
+	int charHeight = LETTER_WIDTH * size*particalSize + paddingBetweenCharacters;
 	for(unsigned int i=0; i < strlen(text); i++) {
-		Vector2D startingPos = pos + Vector2D((float)(i * (charWidth+paddingBetweenCharacters)),0);
-		//Vector2D startingPos = pos + Vector2D((float)(i * 50),0);
+		if(
+		Vector2D charPos = startingPos + Vector2D((float)(i * charWidth),0);
 		style->getCharacter(text[i])->initParticals(startingPos,particalSize,size,this);
 	}
 }

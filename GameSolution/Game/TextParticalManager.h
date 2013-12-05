@@ -2,7 +2,9 @@
 
 #include "ParticalWithDestination.h"
 #include "Font.h"
-#include "Core.h"
+#include "MyGraphics.h"
+
+class ParticalTextFormat;
 
 class TextParticalManager {
 private:
@@ -15,8 +17,9 @@ public:
 		paddingBetweenCharacters = 3;
 	}
 	Core::RGB textColor;
-	void initText(Vector2D& pos, const char* text, Font *style, int size=1, int particalSize=1);
+	void initText(Vector2D& pos, const char* text, Font *style, ParticalTextFormat * format);
 	void update(float dt);
-	void draw(Core::Graphics& graphics);
-	void initPartical(Vector2D& destinationLocation, int particalWidth);
+	void draw(MyGraphics& graphics);
+	void initPartical(Vector2D& destinationLocation, ParticalTextFormat * format);
+	void reset();
 };

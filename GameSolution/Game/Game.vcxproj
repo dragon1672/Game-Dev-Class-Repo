@@ -105,6 +105,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="DynamicPositionOfEntity.cpp" />
+    <ClCompile Include="DynamicPosRandom.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="ExhaustEffect.cpp" />
@@ -130,9 +131,11 @@
     <ClCompile Include="SimpleBounary.cpp" />
     <ClCompile Include="SolarSystem.cpp" />
     <ClCompile Include="Spaceship.cpp" />
+    <ClCompile Include="StartScreen.cpp" />
     <ClCompile Include="StaticPos.cpp" />
     <ClCompile Include="TargetMouse.cpp" />
     <ClCompile Include="TargetShipMoveLogic.cpp" />
+    <ClCompile Include="TextFormatting.cpp" />
     <ClCompile Include="TextParticalManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Turret.cpp" />
@@ -155,12 +158,14 @@
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DebugTimer.h" />
     <ClInclude Include="DroppedItem.h" />
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
+    <ClInclude Include="DynamicPosRandom.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="ExhaustEffect.h" />
@@ -186,6 +191,7 @@
     <ClInclude Include="MyGraphics.h" />
     <ClInclude Include="OffsetGraphic.h" />
     <ClInclude Include="ParticalManager.h" />
+    <ClInclude Include="ParticalTextFormat.h" />
     <ClInclude Include="ParticalWithDestination.h" />
     <ClInclude Include="PlayerControls.h" />
     <ClInclude Include="ProfileCategory.h" />
@@ -195,9 +201,11 @@
     <ClInclude Include="SimpleBounary.h" />
     <ClInclude Include="SolarSystem.h" />
     <ClInclude Include="SpaceShip.h" />
+    <ClInclude Include="StartScreen.h" />
     <ClInclude Include="StaticPos.h" />
     <ClInclude Include="TargetMouse.h" />
     <ClInclude Include="TargetShipMoveLogic.h" />
+    <ClInclude Include="TextFormatting.h" />
     <ClInclude Include="TextParticalManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Turret.h" />

@@ -7,7 +7,7 @@ void ParticalWithDestination::updateVelToPos(Vector2D& newTarget) {
 	float marginOfError = 2;
 	vel = (newTarget - pos);
 	if(vel.lengthSquared() > marginOfError * marginOfError)
-		if(vel.lengthSquared() > PARTICAL_SPEED * PARTICAL_SPEED)
+		if(!slowAtRange || vel.lengthSquared() >= PARTICAL_SPEED * PARTICAL_SPEED)
 			vel = PARTICAL_SPEED * vel.normalized();
 }
 

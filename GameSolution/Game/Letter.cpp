@@ -1,5 +1,6 @@
 #include "Letter.h"
 #include "TextParticalManager.h"
+#include "ParticalTextFormat.h"
 
 void Letter::init(char toMatch, std::string lines[LETTER_HEIGHT]) {
 	this->toMatch = toMatch;
@@ -9,14 +10,16 @@ void Letter::init(char toMatch, std::string lines[LETTER_HEIGHT]) {
 		}
 	}
 }
-void Letter::initParticals(const Vector2D& pos, int particalWidth, int particalPerSquare, TextParticalManager * manager) {
-	for(int charWidth = 0; charWidth<LETTER_WIDTH;charWidth++) {
-		for(int charHeight = 0; charHeight<LETTER_HEIGHT;charHeight++) {
-			if(bitMap[charHeight][charWidth]) {
-				for(int i=0;i<particalPerSquare;i++) {
-					for(int j=0;j<particalPerSquare;j++) {
-						Vector2D pos2Init = pos+Vector2D((float)(charWidth * particalWidth*particalPerSquare), (float)(charHeight * particalWidth*particalPerSquare)) + Vector2D((float)(i*particalWidth), (float)(j*particalWidth));
-						manager->initPartical(pos2Init, particalWidth);
+void Letter::initParticals(const Vector2D& pos, ParticalTextFormat * format, TextParticalManager *manager) {
+	for(int charWidthIndex = 0; charWidthIndex<LETTER_WIDTH;charWidthIndex++) {
+		for(int charHeightIndex = 0; charHeightIndex<LETTER_HEIGHT;charHeightIndex++) {
+			if(bitMap[charHeightIndex][charWidthIndex]) {
+				for(int i=0;i<format->particalDensity;i++) {
+					for(int j=0;j<format->particalDensity;j++) {
+						Vector2D pos2Init = pos
+											+ Vector2D((float)(charWidthIndex * format->particalSize*format->particalDensity), (float)(charHeightIndex * format->particalSize*format->particalDensity))//location in bitmap offset
+											+ Vector2D((float)(i*format->particalSize), (float)(j*format->particalSize));//location in bitmap pixal offset
+						manager->initPartical(pos2Init, format);
 					}
 				}
 			}

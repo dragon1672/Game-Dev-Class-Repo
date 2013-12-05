@@ -4,7 +4,7 @@
 
 #include "DynamicPosition.h"
 
-class StaticPos : DynamicPosition {
+class StaticPos : public DynamicPosition {
 private:
 	Vector2D pos;
 public:

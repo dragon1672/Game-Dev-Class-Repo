@@ -13,6 +13,8 @@ namespace Random {
 	ENGINE_SHARED float    randomFloat();
 	ENGINE_SHARED float    randomFloat(float low, float high);
 	ENGINE_SHARED Vector2D randomUnitVector();
+	ENGINE_SHARED Vector2D randomFloatVectorInBox(float width, float height);
+	ENGINE_SHARED Vector2D randomIntVectorInBox  (int   width, int   height);
 	ENGINE_SHARED Vector2D randomFloatVector(float low, float high);
 	ENGINE_SHARED Vector2D randomIntVector  (int   low, int   high);
 	ENGINE_SHARED void     init();

@@ -1,5 +1,6 @@
 #include "Font.h"
 #include <fstream>
+#include "myAssert.h"
 
 std::string defaultLetterLines[] = {// it's a ?
 	".***.",
@@ -35,17 +36,15 @@ Letter  Font::constructLetterFromStream(std::istream& input) {
 
     consumeBlankLines(input);
 
-    std::string lines[LETTER_HEIGHT];
+    std::string lines[Letter::LETTER_HEIGHT];
     std::string currentLine;
 	int lineNum = 0;
     do {
         std::getline(input, currentLine);
-        if (currentLine.empty()) {
-            break;
-        } else {
-            lines[lineNum++] = currentLine;
-        }
-    } while (lineNum<LETTER_HEIGHT);
+		ASSERT(!currentLine.empty(),"Font Parse Error: Missing expected line");
+		ASSERT(currentLine.length()>=Letter::LETTER_WIDTH,"Font Parse Error: not enough characters given for forming letter")
+        lines[lineNum++] = currentLine;
+    } while (lineNum<Letter::LETTER_HEIGHT);
 
     return Letter(characterName, lines);
 }

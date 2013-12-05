@@ -15,6 +15,8 @@
 #include "MyGraphics.h"
 #include "OffsetGraphic.h"
 
+#include "StartScreen.h"
+
 #ifdef DEBUG_Controller
 	#include "Timer.h"
 #endif//DEBUG_Controller
@@ -31,13 +33,18 @@ class Controller {
 	TargetMouse mousePos;
 	TargetMouse worldMousePos;
 
-	HUD hud;
-	GameSpace myWorld;
 	SimpleBoundary  simpleBounds;
 	ComplexBoundary complexBounds;
 	Boundary *currentBounds;
+
+	//graphics
 	MyGraphics myGraphic;
 	OffsetGraphic gameSpaceGraphic;
+	
+	//interfaces
+	HUD hud;
+	GameSpace myWorld;
+	StartScreen myStartScreen;
 	
 	Core::RGB getWorldColor();
 #ifdef DEBUG_Controller

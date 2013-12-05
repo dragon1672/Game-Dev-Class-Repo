@@ -6,13 +6,15 @@
 class TextParticalManager;
 
 //if these are changed the text file the font is loaded from becomes useless
-const int  LETTER_WIDTH  = 5;
-const int  LETTER_HEIGHT = 6;
 const char LETTER_BIT_MAP_TRUE  = '*';
 const char LETTER_BIT_MAP_FALSE = '.';
 
+class ParticalTextFormat;
 
 class Letter {
+public:
+	static const int  LETTER_WIDTH  = 5;
+	static const int  LETTER_HEIGHT = 6;
 private:
 	char toMatch;
 	bool bitMap[LETTER_HEIGHT][LETTER_WIDTH];
@@ -22,6 +24,6 @@ public:
 		init(tomMath, lines);
 	}
 	void init(char tomMath, std::string lines[LETTER_HEIGHT]);
-	void initParticals(const Vector2D& pos, int particalWidth, int particalPerSquare, TextParticalManager *manager);
+	void initParticals(const Vector2D& pos, ParticalTextFormat * format, TextParticalManager *manager);
 	char getMatch();
 };

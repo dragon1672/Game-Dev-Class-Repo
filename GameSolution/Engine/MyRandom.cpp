@@ -27,6 +27,12 @@ float    Random::randomFloat() {
 Vector2D Random::randomUnitVector() {
 	return Vector2D(randomFloat(-1,1),randomFloat(-1,1)).normalized();
 }
+Vector2D Random::randomFloatVectorInBox(float width, float height) {
+	return Vector2D(randomFloat(0,width),randomFloat(0,height));
+}
+Vector2D Random::randomIntVectorInBox(int   width, int   height) {
+	return Vector2D((float)randomInt(0,width),(float)randomInt(0,height));
+}
 Vector2D Random::randomFloatVector(float low, float high) {
 	return Vector2D(randomFloat(low,high),randomFloat(low,high));
 }

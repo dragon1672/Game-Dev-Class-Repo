@@ -3,9 +3,11 @@
 void MyGraphics::setGraphic(Core::Graphics *toSet) {
 	masterGraphic = toSet;
 }
+/*
 void MyGraphics::setGlobalTrans(const Matrix3D& toSet) {
 	globalTrans = toSet;
-}
+
+	//*/
 void MyGraphics::setColor(Core::RGB toSet) {
 	masterGraphic->SetColor(toSet);
 }
@@ -16,8 +18,8 @@ void MyGraphics::drawString( int x, int y, const char* string ) {
 	masterGraphic->DrawString(x,y,string);
 }
 void MyGraphics::drawLine(Vector2D p1, Vector2D p2) { //yes copied so I can edit them
-	p1 = globalTrans * p1;
-	p2 = globalTrans * p2;
+	//p1 = globalTrans * p1;
+	//p2 = globalTrans * p2;
 	masterGraphic->DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
 }
 void MyGraphics::drawLine(int x1,int y1, int x2, int y2) {
@@ -72,7 +74,7 @@ void MyGraphics::drawPlane( const Vector2D& p1,const Vector2D& p2,const Vector2D
 void MyGraphics::drawSquare(const Vector2D& p1,const Vector2D& p2) {
 	drawPlane(p1,Vector2D(p1.getX(),p2.getY()),p2,Vector2D(p2.getX(),p1.getY()));
 }
-void MyGraphics::textInABox(Core::RGB backCol, Core::RGB textCol, char* text, int x, int y, int width, int height) {
+void MyGraphics::textInABox(Core::RGB backCol, Core::RGB textCol, const char* text, int x, int y, int width, int height) {
 	setBackgroundColor(backCol);
 	setColor(backCol);
 	drawSquare(Vector2D((float)x,(float)y),Vector2D((float)x,(float)y) + Vector2D((float)width,(float)height));

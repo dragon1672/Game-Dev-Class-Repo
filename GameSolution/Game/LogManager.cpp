@@ -50,7 +50,7 @@ void LogManager::shutDown() {
 }
 void LogManager::WriteFile() {
 	std::ofstream myFile;
-	myFile.open("../output.html");
+	myFile.open("../LogOutput.html");
 	
 	myFile << "<!DOCTYPE html>" << std::endl << "<html>" 
 		<< std::endl << "<head>" << std::endl << "<title>Log File</title>" << std::endl << "</head>"
