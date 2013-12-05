@@ -2,12 +2,12 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "Core.h"
+class MyGraphics;
 
 class View {
 public:
 	virtual bool update(float dt)=0;//true mean it is complete
-	virtual void draw(Core::Graphics& graphics)=0;
+	virtual void draw(MyGraphics& graphics)=0;
 };
 
 #endif

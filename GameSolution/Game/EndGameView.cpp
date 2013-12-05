@@ -1,11 +1,12 @@
 #include "EndGameView.h"
+#include "MyGraphics.h"
 
 void EndGameView::init(int width, int height) {
 
 }
 bool EndGameView::update(float dt) {
-	return false;
+	return returnButton.isPressed();
 }
-void EndGameView::draw(Core::Graphics& graphics) {
-
+void EndGameView::draw(MyGraphics& graphics) {
+	returnButton.draw(graphics);
 }

@@ -50,7 +50,7 @@ class GameInstance : public View {
 public:
 	GameInstance (int width, int height);
 	bool update(float dt);
-	void draw(Core::Graphics& graphics);
+	void draw(MyGraphics& graphics);
 	DynamicPosition *getMouse();
 	DynamicPosition *getWorldMouse();
 };

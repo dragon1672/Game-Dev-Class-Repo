@@ -15,6 +15,7 @@ protected:
 	Core::Graphics *masterGraphic;
 public:
 	void setGraphic(Core::Graphics *toSet);
+	void setGraphic(MyGraphics *toSet);
 	//void setGlobalTrans(const Matrix3D& toSet);
 	void setColor(Core::RGB toSet);
 	void setBackgroundColor(Core::RGB toSet);

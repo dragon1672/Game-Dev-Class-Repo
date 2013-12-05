@@ -125,7 +125,7 @@ Core::RGB GameInstance::getWorldColor() {
 	if(currentBounds == &simpleBounds)  return RGB(0,0,10); 
 	return RGB(0,255,0);//GREEN, it should never been this
 }
-void GameInstance::draw(Core::Graphics& graphics) {
+void GameInstance::draw(MyGraphics& graphics) {
 	//update graphic pointers
 	myGraphic.setGraphic(&graphics);
 	gameSpaceGraphic.setGraphic(&graphics);

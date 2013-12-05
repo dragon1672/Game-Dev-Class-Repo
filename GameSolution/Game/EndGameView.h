@@ -13,7 +13,7 @@ private:
 public:
 	void init(int width, int height);
 	bool update(float dt);
-	void draw(Core::Graphics& graphics);
+	void draw(MyGraphics& graphics);
 };
 
 #endif
