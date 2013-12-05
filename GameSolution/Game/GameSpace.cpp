@@ -80,9 +80,6 @@ bool       GameSpace::update(float dt) {
 void       GameSpace::draw(MyGraphics& graphics) {
 	gameStyle.draw(graphics);
 	boundary->draw(graphics);
-	PROFILE("draw score");
-	scoreBoard->draw(graphics,getMin(),2,RGB(255,255,0));
-	END_PROFILE;
 	PROFILE("draw bullets");
 	myBullets.draw(graphics);
 	END_PROFILE;

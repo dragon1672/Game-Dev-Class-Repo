@@ -99,6 +99,7 @@
     <ClCompile Include="AutoProfilerManager.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
+    <ClCompile Include="BoxedOffGraphic.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="AutoProfiler.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
+    <ClInclude Include="BoxedOffGraphic.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Button.h" />

@@ -25,7 +25,7 @@ void generateRandomPolygon(Vector2D *points, int sides, float wallLength) {
 
 GameInstance::GameInstance (int width, int height) : width(width), 
 												 height(height), 
-												 hud(width,height) {
+												 hud(width,height,&scoreKeeper) {
 	LOG(Info,"GameInstance Init Start",0);
 	isPaused = false;
 	gameOver = false;
@@ -98,12 +98,13 @@ void GameInstance::setDynamicBounds() {
 
 }
 void GameInstance::updateCurrentBounds() {
-	if(SimpleBoundsKey.hasBeenClicked()) currentBounds = &simpleBounds;
+	if(SimpleBoundsKey.hasBeenClicked())  currentBounds = &simpleBounds;
 	if(ComplexBoundsKey.hasBeenClicked()) currentBounds = &complexBounds;
 }
 bool GameInstance::update(float dt) {
 	if(Core::Input::IsPressed( Core::Input::KEY_ESCAPE   )) return true;
 	if(!gameOver) {
+		hud.update(dt);
 		PauseButton.update(dt);
 		if(PauseButton.hasBeenClicked()) isPaused = !isPaused; //toggle pause
 		if(!isPaused) {
@@ -111,8 +112,8 @@ bool GameInstance::update(float dt) {
 			ComplexBoundsKey.update(dt);
 			updateCurrentBounds();
 			PROFILE("World update");
-			myWorld.registerBoundary(currentBounds);
-			gameOver = myWorld.update(dt);
+				myWorld.registerBoundary(currentBounds);
+				gameOver = myWorld.update(dt);
 			END_PROFILE;
 			if(gameOver) {//game over called for first time
 				gameOverScreen.setScore(scoreKeeper.getTotalPoints());

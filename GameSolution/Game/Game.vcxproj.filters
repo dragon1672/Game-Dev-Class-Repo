@@ -229,6 +229,9 @@
     <ClCompile Include="StartScreen.cpp">
       <Filter>GameManagment</Filter>
     </ClCompile>
+    <ClCompile Include="BoxedOffGraphic.cpp">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -455,6 +458,9 @@
     </ClInclude>
     <ClInclude Include="StartScreen.h">
       <Filter>GameManagment</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxedOffGraphic.h">
+      <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
