@@ -15,6 +15,7 @@ const int MAX_CATEGORIES = 20;
 class AutoProfile;
 
 class AutoProfileManager {
+#ifdef ENABLE_PROFILING
 private:
 	static int numberOfProfiles;
 	static ProfileCategory categories[MAX_CATEGORIES];
@@ -28,6 +29,20 @@ public:
 	//will create a new profile if needed
 	static void addEntry(const char* description, float time);
 	static void writeToFile();
+#else 
+	private:
+	static int numberOfProfiles;
+	static ProfileCategory categories[MAX_CATEGORIES];
+		
+	static void addNewProfile(const char* description, float time) {}
+	static int  indexOfProfile(const char* description) {}
+	static void addToProfile(int i, float time) {}
+public:
+	static void startup() {}
+	static void shutdown() {}
+	static void addEntry(const char* description, float time) {}
+	static void writeToFile() {}
+#endif
 };
 
 #include "AutoProfiler.h"

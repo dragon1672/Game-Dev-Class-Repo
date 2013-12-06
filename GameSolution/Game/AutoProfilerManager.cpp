@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 
+#ifdef ENABLE_PROFILING
 #define SIZE_OF_ARRAY(a) (sizeof(a) / sizeof(*a))
 
 int AutoProfileManager::numberOfProfiles = 0;
@@ -61,3 +62,4 @@ void AutoProfileManager::addNewProfile(const char* description, float time) {
 	categories[numberOfProfiles++].name = description;
 	addToProfile(numberOfProfiles-1,time);
 }
+#endif
