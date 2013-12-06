@@ -6,6 +6,6 @@
 
 #include "LogManager.h"
 
-#define ASSERT(x,...) do { if (!(x)) { LOG( MAX_SEVERITY, #x##__VA_ARGS__, 0); END_LOG; exit(-1); } } while(0);
+#define ASSERT(x,...) do { if (!(x)) { LOG( MAX_SEVERITY, "assert("#x##") failed message: "##__VA_ARGS__, 0); END_LOG; exit(-1); } } while(0);
 
 #endif

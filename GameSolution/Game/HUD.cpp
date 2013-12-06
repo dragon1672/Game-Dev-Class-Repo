@@ -30,7 +30,7 @@ HUD::HUD(int screenWidth, int screenHeight, ScoreManager * scoreBoard) : screenW
 	ticker_percent  = 1;
 	ticker_speed    = .25f;
 	ticker_textPad  = 20;
-	int particalSize = (ticker_height-2*ticker_textPad) / Letter::LETTER_HEIGHT;
+	int particalSize = (int)((ticker_height-2*ticker_textPad) / Letter::LETTER_HEIGHT);
 	ticker_style.init(particalSize,1,defaultTextColor,10);
 	ticker_graphics.init(ticker_pos,ticker_width,ticker_height);
 }
@@ -45,7 +45,8 @@ void      HUD::draw(MyGraphics& graphics) {
 	//ticker
 	std::stringstream ss;
 	ss << ticker_preText << scoreBoard->getTotalPoints();
-	FontRender::draw(ticker_graphics,ticker_pos+Vector2D(ticker_width*ticker_percent,ticker_textPad),&Font::defaultFont,&ticker_style,ss.str().c_str());
+	Vector2D translatedPos = ticker_pos+Vector2D(ticker_width*ticker_percent,ticker_textPad);
+	FontRender::draw(ticker_graphics,translatedPos ,&Font::defaultFont,&ticker_style,ss.str().c_str());
 
 	graphics.setColor(defaultTextColor);
 	graphics.drawString(10,10,"Welcome to");

@@ -7,6 +7,7 @@
 
 const int SCREEN_WIDTH  = 1500;
 const int SCREEN_HEIGHT = 800;
+
 Controller myGame(SCREEN_WIDTH,SCREEN_HEIGHT);
 
 bool update( float dt ) {
@@ -27,15 +28,56 @@ void startCoreEngine() {
 	Core::GameLoop();
 }
 
+void logTest() {
+	LOG(Info,"---------------------------------LOGGING FUNCTION TEST---------------------------------",0);
+	LOG_SEVERITY(0);
+
+	LOG(Info,"---Should display [level] test 1 level:0",0);
+
+	LOG(Info,"Info Test 1 level:0",0);
+	LOG(Info,"Info Test 1 level:1",1);
+	LOG(Warning,"Warning Test 1 level:0",0);
+	LOG(Warning,"Warning Test 1 level:1",1);
+	LOG(Error,"Error Test 1 level:0",0);
+	LOG(Error,"Error Test 1 level:1",1);
+	LOG(Severe,"Severe Test 1 level:0",0);
+	LOG(Severe,"Severe Test 1 level:1",1);
+
+	LOG_SEVERITY(2);
+	
+	LOG(Info,"---Should display [level] test 1 level:(0 and 1)",0);
+
+	LOG(Info,"Info Test 2 level:0",0);
+	LOG(Info,"Info Test 2 level:1",1);
+	LOG(Warning,"Warning Test 2 level:0",0);
+	LOG(Warning,"Warning Test 2 level:1",1);
+	LOG(Error,"Error Test 2 level:0",0);
+	LOG(Error,"Error Test 2 level:1",1);
+	LOG(Severe,"Severe Test 2 level:0",0);
+	LOG(Severe,"Severe Test 2 level:1",1);
+
+	LOG_SEVERITY(0);
+
+	LOG(Info,"----------------------------------------END TEST----------------------------------------",0);
+}
+
 int main() {
+	logTest();
+	//ASSERT(false,"testing");
+
+
 	LOG(Info,"Program Start",0);
 	//* actual game
 	START_PROFILING;
 	Random::init();
 	START_GLOBAL_TIMER;
 	startCoreEngine();
+
+	LOG(Info,"Program Has Ended",0);
+
 	LOG_CURRENT_PROFILE;
 	STOP_PROFILING;
-	END_LOG
+	END_LOG;
 	//*/
+	return 0;
 }
