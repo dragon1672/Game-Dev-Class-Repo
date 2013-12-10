@@ -65,14 +65,23 @@ void logTest() {
 int main() {
 	logTest();
 	//ASSERT(false,"testing");
-
-	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
+#ifdef _DEBUG
+	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
+#endif
+	/* basic memory stomp
+	int * myStomp = new int[500];
+	myLeak[-1] = 0X0a00EDFE;
+	myLeak[ 0] = 0X00F0CADE;
+	myLeak[ 1] = 0X0000CEFA;
+	//*/
+	/*basic memory leak
 	int * myLeak = new int[500];
 	myLeak[0] = 0X0a00EDFE;
 	myLeak[1] = 0X00F0CADE;
 	myLeak[2] = 0X0000CEFA;
 	myLeak[3] = 0XCE0AFECA;
+	//*/
+
 
 	myGame = new Controller(SCREEN_WIDTH,SCREEN_HEIGHT);
 

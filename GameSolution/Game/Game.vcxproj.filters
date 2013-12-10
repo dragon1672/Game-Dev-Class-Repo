@@ -232,7 +232,9 @@
     <ClCompile Include="BoxedOffGraphic.cpp">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="LivingGameEntity.cpp" />
+    <ClCompile Include="LivingGameEntity.cpp">
+      <Filter>General Interfaces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -463,9 +465,11 @@
     <ClInclude Include="BoxedOffGraphic.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="VelocityBasedLivingEntity.h" />
     <ClInclude Include="DebugMemHeader.h">
       <Filter>ToPlaceInEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="VelocityBasedLivingEntity.h">
+      <Filter>General Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
