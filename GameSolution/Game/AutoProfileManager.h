@@ -7,10 +7,9 @@
 const int MAX_CATEGORIES = 20;
 #define PROFILE_FILE_NAME "../Profile.csv"
 
-
-//ENABLE PROFILING?????
-#define ENABLE_PROFILING
-
+#ifdef _DEBUG
+	#define ENABLE_PROFILING
+#endif
 
 class AutoProfile;
 
@@ -34,13 +33,13 @@ public:
 	static int numberOfProfiles;
 	static ProfileCategory categories[MAX_CATEGORIES];
 		
-	static void addNewProfile(const char* description, float time) {}
-	static int  indexOfProfile(const char* description) {}
-	static void addToProfile(int i, float time) {}
+	static void addNewProfile(const char* description, float time) {description; time;}
+	static int  indexOfProfile(const char* description) {description;}
+	static void addToProfile(int i, float time) {i; time;}
 public:
 	static void startup() {}
 	static void shutdown() {}
-	static void addEntry(const char* description, float time) {}
+	static void addEntry(const char* description, float time) {description; time;}
 	static void writeToFile() {}
 #endif
 };

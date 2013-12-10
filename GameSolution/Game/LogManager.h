@@ -5,7 +5,9 @@
 #include <vector>//used to store logs
 #include "LogData.h"
 
+#ifdef _DEBUG
 #define LOG_ON
+#endif
 
 #pragma warning(disable:4127)//conditional with constent (aka the while(0))
 
@@ -25,7 +27,6 @@ public:
 #ifdef LOG_ON
 	LogManager(void);
 	~LogManager(void);
-	static void StringReplace(std::string& str, const std::string& from, const std::string& to);
 	static void Log( Severity severity, const char* message, const char * logFile, int logLine, int verbosity);
 	static void shutDown();
 	static int  verbosityLevel;
@@ -33,14 +34,15 @@ public:
 #else
 	LogManager(void){}
 	~LogManager(void){}
-	static void StringReplace(std::string& str, const std::string& from, const std::string& to) {}
-	static void Log( Severity severity, const char* message, const char * logFile, int logLine, int verbosity) {}
+	static void Log( Severity severity, const char* message, const char * logFile, int logLine, int verbosity) {severity; message;logFile;logLine;verbosity;}
 	static void shutDown() {}
 	static int verbosityLevel;
+	static void changeverbosityLevel(int toSet) {toSet;}
 #endif
 
 private:
 #ifdef LOG_ON
+	static void StringReplace(std::string& str, const std::string& from, const std::string& to);
 	static std::vector <LogData> logList;
 	static void WriteFile();
 	static std::string Sanitize(std::string str);

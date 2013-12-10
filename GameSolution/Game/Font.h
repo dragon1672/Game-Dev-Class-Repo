@@ -2,6 +2,8 @@
 
 #include "Letter.h"
 
+#include "DebugMemHeader.h"
+
 const int MAX_LETTERS = 200;
 
 class Font {//transforms char* to letters and inits

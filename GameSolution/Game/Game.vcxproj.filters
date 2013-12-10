@@ -25,9 +25,6 @@
     <Filter Include="ToPlaceInEngine\Graphics\Particle Effects">
       <UniqueIdentifier>{de9874e7-1fbe-4dc7-b990-8fb5d5368086}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ToPlaceInEngine\DEBUG">
-      <UniqueIdentifier>{611cdf84-37ee-4674-9c33-daa2d0c3673f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ToPlaceInEngine\LOGGING">
       <UniqueIdentifier>{8f20907c-8aa5-4f42-82f9-369342571a67}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="GameManagment\View">
       <UniqueIdentifier>{9718c3b2-4317-480b-b164-482044cf9ed7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToPlaceInEngine\Profiler">
+      <UniqueIdentifier>{611cdf84-37ee-4674-9c33-daa2d0c3673f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +173,7 @@
       <Filter>General Interfaces\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="AutoProfilerManager.cpp">
-      <Filter>ToPlaceInEngine\DEBUG</Filter>
+      <Filter>ToPlaceInEngine\Profiler</Filter>
     </ClCompile>
     <ClCompile Include="LogManager.cpp">
       <Filter>ToPlaceInEngine\LOGGING</Filter>
@@ -232,6 +232,7 @@
     <ClCompile Include="BoxedOffGraphic.cpp">
       <Filter>ToPlaceInEngine\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="LivingGameEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -367,16 +368,16 @@
       <Filter>General Interfaces\DroppedItem</Filter>
     </ClInclude>
     <ClInclude Include="AutoProfileManager.h">
-      <Filter>ToPlaceInEngine\DEBUG</Filter>
+      <Filter>ToPlaceInEngine\Profiler</Filter>
     </ClInclude>
     <ClInclude Include="AutoProfiler.h">
-      <Filter>ToPlaceInEngine\DEBUG</Filter>
+      <Filter>ToPlaceInEngine\Profiler</Filter>
     </ClInclude>
     <ClInclude Include="AutoProfileManagerMacros.h">
-      <Filter>ToPlaceInEngine\DEBUG</Filter>
+      <Filter>ToPlaceInEngine\Profiler</Filter>
     </ClInclude>
     <ClInclude Include="ProfileCategory.h">
-      <Filter>ToPlaceInEngine\DEBUG</Filter>
+      <Filter>ToPlaceInEngine\Profiler</Filter>
     </ClInclude>
     <ClInclude Include="LogManager.h">
       <Filter>ToPlaceInEngine\LOGGING</Filter>
@@ -461,6 +462,10 @@
     </ClInclude>
     <ClInclude Include="BoxedOffGraphic.h">
       <Filter>ToPlaceInEngine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="VelocityBasedLivingEntity.h" />
+    <ClInclude Include="DebugMemHeader.h">
+      <Filter>ToPlaceInEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

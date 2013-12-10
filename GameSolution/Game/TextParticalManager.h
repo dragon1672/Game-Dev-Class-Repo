@@ -15,6 +15,7 @@ private:
 public:
 	TextParticalManager() {
 		paddingBetweenCharacters = 3;
+		numOfParticals = 0;
 	}
 	Core::RGB textColor;
 	void initText(Vector2D& pos, const char* text, Font *style, ParticalTextFormat * format);

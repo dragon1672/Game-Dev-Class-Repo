@@ -13,7 +13,7 @@ void Button::init(DynamicPosition * cursor, Vector2D& pos, const char* text, int
 	this->defaultColor = setDefaultColor;
 }
 void Button::draw(MyGraphics& graphics) {
-	graphics.textInABox(currentColor(),RGB(255,255,0),text,pos.getX(),pos.getY(),width,height);
+	graphics.textInABox(currentColor(),RGB(255,255,0),text,(int)pos.getX(),(int)pos.getY(),width,height);
 }
 
 bool Button::mouseWithinBounds() {

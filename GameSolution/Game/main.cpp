@@ -4,20 +4,21 @@
 #include "LogManager.h"
 #include "DebugTimer.h"
 #include "AutoProfileManager.h"
+#include "DebugMemHeader.h"
 
 const int SCREEN_WIDTH  = 1500;
 const int SCREEN_HEIGHT = 800;
 
-Controller myGame(SCREEN_WIDTH,SCREEN_HEIGHT);
+Controller * myGame;
 
 bool update( float dt ) {
 	PROFILE("Game Update");
-	return myGame.update(dt);
+	return myGame->update(dt);
 	END_PROFILE;
 }
 void draw( Core::Graphics& graphics ) {
 	PROFILE("Game Draw");
-	myGame.draw(graphics);
+	myGame->draw(graphics);
 	END_PROFILE;
 }
 void startCoreEngine() {
@@ -65,6 +66,15 @@ int main() {
 	logTest();
 	//ASSERT(false,"testing");
 
+	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+	int * myLeak = new int[500];
+	myLeak[0] = 0X0a00EDFE;
+	myLeak[1] = 0X00F0CADE;
+	myLeak[2] = 0X0000CEFA;
+	myLeak[3] = 0XCE0AFECA;
+
+	myGame = new Controller(SCREEN_WIDTH,SCREEN_HEIGHT);
 
 	LOG(Info,"Program Start",0);
 	//* actual game
@@ -73,11 +83,14 @@ int main() {
 	START_GLOBAL_TIMER;
 	startCoreEngine();
 
+	delete myGame;
+
 	LOG(Info,"Program Has Ended",0);
 
 	LOG_CURRENT_PROFILE;
 	STOP_PROFILING;
 	END_LOG;
+
 	//*/
 	return 0;
 }

@@ -76,5 +76,6 @@ void    Font::init(const char* fileName) {
 
 }
 void    Font::init(std::istream& input) {
+	numOfLetters = 0;
 	constructFontFromStream(input);
 }

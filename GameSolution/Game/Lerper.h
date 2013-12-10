@@ -7,6 +7,7 @@
 #include "Core.h"
 #include "SolarSystem.h"
 #include "LivingGameEntity.h"
+#include "OffsetGraphic.h"
 
 #define MAX_PATH_LENGTH 100
 

@@ -7,6 +7,7 @@ void UserMoveLogic::init(GameEntity *parent, float rotationAcc, float thrustAcc)
 	this->rotationAcc = rotationAcc;
 	this->thrustAcc   = thrustAcc;
 	this->parent      = parent;
+	angle = 0;
 }
 Vector2D UserMoveLogic::getAcc(float dt) {
 	Vector2D ret;

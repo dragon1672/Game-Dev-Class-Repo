@@ -6,41 +6,19 @@
 
 class LivingGameEntity : public GameEntity {
 private:
-	inline void checkLifeCap() {
-		life = (life>maxLife)? maxLife : life;
-		life = (life<0)? 0 : life;
-	}
+	void checkLifeCap();
 	float life;
 	float maxLife;
 public:
-	inline void initFullHealth(float amount) {
-		ASSERT(amount>0,"Initilizing health below 0");
-		maxLife = amount;
-		life = maxLife;
-	}
-	inline void addHP(float amount) {
-		ASSERT(amount>0,"Adding negitive health 0");
-		life+=amount;
-		checkLifeCap();
-	}
-	inline void removeHP(float amount) {
-		ASSERT(amount>0,"trying to removing negitive 0");
-		life-=amount;
-		checkLifeCap();
-	}
-	inline float getHealthPercent() {
-		return life/maxLife;
-	}
-	inline float getHealth() { return life; }
-	inline float getMaxHeath() { return maxLife; }
-	inline void  setMaxHealth(float amount) {
-		ASSERT(amount>0,"Max health must be above 0");
-		maxLife = amount;
-		checkLifeCap();
-	}
-	inline bool isAlive() {
-		return (life > 0);
-	}
+	void  initFullHealth(float amount);
+	void  addHP(float amount);
+	void  removeHP(float amount);
+	float getHealthPercent();
+	float getHealth();
+	float getMaxHeath();
+	void  setMaxHealth(float amount);
+	bool  isAlive();
+	void  collisionDamage(LivingGameEntity * collidedWith);
 };
 
 #endif

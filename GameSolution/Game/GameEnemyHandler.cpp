@@ -16,7 +16,7 @@ void GameEnemyHandler::init(GameSpace *space, GameEntity *player) {
 	isEmpty = false;
 }
 void GameEnemyHandler::resetArray() {
-	for(uint i=0;i<SIZE_OF_ARRAY(activeEnemies) && i < numberOfEntitiesSpawned;i++)
+	for(int i=0;i<SIZE_OF_ARRAY(activeEnemies) && i < numberOfEntitiesSpawned;i++)
 		activeEnemies[i]->setMaxHealth(activeEnemies[i]->getMaxHeath());//resetting health
 }
 int  GameEnemyHandler::getFreeArraySpot() {

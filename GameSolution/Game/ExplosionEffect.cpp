@@ -37,7 +37,6 @@ void ExplosionEffect::initPartical(Partical *toInit) {
 	toInit->color = ExtendedGraphics::varyColor(seedColor,20);
 }
 void ExplosionEffect::update(float dt,Partical *toUpdate) {
-	LOG(Severe,"Partical are updateing OMG",0);
 	toUpdate->pos = toUpdate->pos + dt * toUpdate->vel;
 	toUpdate->lifetime -= dt;
 	if(toUpdate->lifetime<1) toUpdate->color = ExtendedGraphics::brightness(toUpdate->color,toUpdate->lifetime+.2f);

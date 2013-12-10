@@ -124,6 +124,7 @@
     <ClCompile Include="KamikazeEnemy.cpp" />
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="Letter.cpp" />
+    <ClCompile Include="LivingGameEntity.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLogic.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DebugMemHeader.h" />
     <ClInclude Include="DebugTimer.h" />
     <ClInclude Include="DroppedItem.h" />
     <ClInclude Include="DynamicPosition.h" />
@@ -227,6 +229,7 @@
     <ClInclude Include="TurretMark4.h" />
     <ClInclude Include="TurretMark5.h" />
     <ClInclude Include="UserMoveLogic.h" />
+    <ClInclude Include="VelocityBasedLivingEntity.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>

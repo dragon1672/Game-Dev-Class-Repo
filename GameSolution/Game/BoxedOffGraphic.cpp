@@ -11,6 +11,6 @@ void BoxedOffGraphic::init(const Vector2D& pos, float width, float height) {
 	this->height = height;
 }
 void BoxedOffGraphic::drawLine(Vector2D p1, Vector2D p2) {
-	if(isInBox(p1,pos,width,height) && isInBox(p2,pos,width,height))//only draw if in bounds
+	if(isInBox(p1,pos,(int)width,(int)height) && isInBox(p2,pos,(int)width,(int)height))//only draw if in bounds
 		masterGraphic->DrawLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
 }

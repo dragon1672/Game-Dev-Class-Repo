@@ -28,12 +28,14 @@ void Lerper::init() {
 	currentLine    = 0;
 	numOfWayPoints = 0;
 	alpha=10;
+	angle = 0;
 	bodyGuards.startup(2,3);
 	initFullHealth(FULL_STARTING_HEALTH);
 }
 void Lerper::addPoint(const Vector2D& toAdd) {
 	ASSERT(numOfWayPoints!=MAX_PATH_LENGTH,"Array length for lerper exceeded");
 	path[numOfWayPoints++] = toAdd;
+	nextLine();
 }
 int  Lerper::nextIndex() {
 	return (currentLine+1)%numOfWayPoints;
