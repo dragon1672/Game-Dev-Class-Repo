@@ -46,5 +46,11 @@
     <ClInclude Include="TempGlobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CreditObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

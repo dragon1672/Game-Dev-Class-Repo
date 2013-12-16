@@ -93,6 +93,8 @@
     <ClCompile Include="TextParticalManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CreditObject.h" />
+    <ClInclude Include="CreditScreen.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Letter.h" />
     <ClInclude Include="ParticalWithDestination.h" />
