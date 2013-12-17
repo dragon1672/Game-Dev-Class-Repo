@@ -1,6 +1,31 @@
 #include <stdlib.h>
 
+//for printing to console
+#include <iostream>
+#include <windows.h>
+#include <string>
+#include <sstream>
+
 #define byte char
+
+const char* const HEX_CODES[] = {
+	"00",	"01",	"02",	"03",	"04",	"05",	"06",	"07",	"08",	"09",	"0A",	"0B",	"0C",	"0D",	"0E",	"0F",
+	"10",	"11",	"12",	"13",	"14",	"15",	"16",	"17",	"18",	"19",	"1A",	"1B",	"1C",	"1D",	"1E",	"1F",
+	"20",	"21",	"22",	"23",	"24",	"25",	"26",	"27",	"28",	"29",	"2A",	"2B",	"2C",	"2D",	"2E",	"2F",
+	"30",	"31",	"32",	"33",	"34",	"35",	"36",	"37",	"38",	"39",	"3A",	"3B",	"3C",	"3D",	"3E",	"3F",
+	"40",	"41",	"42",	"43",	"44",	"45",	"46",	"47",	"48",	"49",	"4A",	"4B",	"4C",	"4D",	"4E",	"4F",
+	"50",	"51",	"52",	"53",	"54",	"55",	"56",	"57",	"58",	"59",	"5A",	"5B",	"5C",	"5D",	"5E",	"5F",
+	"60",	"61",	"62",	"63",	"64",	"65",	"66",	"67",	"68",	"69",	"6A",	"6B",	"6C",	"6D",	"6E",	"6F",
+	"70",	"71",	"72",	"73",	"74",	"75",	"76",	"77",	"78",	"79",	"7A",	"7B",	"7C",	"7D",	"7E",	"7F",
+	"80",	"81",	"82",	"83",	"84",	"85",	"86",	"87",	"88",	"89",	"8A",	"8B",	"8C",	"8D",	"8E",	"8F",
+	"90",	"91",	"92",	"93",	"94",	"95",	"96",	"97",	"98",	"99",	"9A",	"9B",	"9C",	"9D",	"9E",	"9F",
+	"A0",	"A1",	"A2",	"A3",	"A4",	"A5",	"A6",	"A7",	"A8",	"A9",	"AA",	"AB",	"AC",	"AD",	"AE",	"AF",
+	"B0",	"B1",	"B2",	"B3",	"B4",	"B5",	"B6",	"B7",	"B8",	"B9",	"BA",	"BB",	"BC",	"BD",	"BE",	"BF",
+	"C0",	"C1",	"C2",	"C3",	"C4",	"C5",	"C6",	"C7",	"C8",	"C9",	"CA",	"CB",	"CC",	"CD",	"CE",	"CF",
+	"D0",	"D1",	"D2",	"D3",	"D4",	"D5",	"D6",	"D7",	"D8",	"D9",	"DA",	"DB",	"DC",	"DD",	"DE",	"DF",
+	"E0",	"E1",	"E2",	"E3",	"E4",	"E5",	"E6",	"E7",	"E8",	"E9",	"EA",	"EB",	"EC",	"ED",	"EE",	"EF",
+	"F0",	"F1",	"F2",	"F3",	"F4",	"F5",	"F6",	"F7",	"F8",	"F9",	"FA",	"FB",	"FC",	"FD",	"FE",	"FF"
+};
 
 class meHeap {
 	static const int sizeOfDataSize = sizeof(size_t); // stored before every dataBit
@@ -27,6 +52,14 @@ public:
 			}
 		}
 	}
+	void consolidateBlock(MemBlock * start) {
+		MemBlock * target = (MemBlock *)((char *)start + start->size); // offset by start's size
+		while(start->nextIndex == target) {
+			start->size += target->size;
+			start->nextIndex = target->nextIndex;
+			target = (MemBlock *)((char *)start + start->size); // offset by start's size
+		}
+	}
 	//should be called after delete
 	void insertionSort() {
 		if(header>header->nextIndex) {
@@ -50,12 +83,13 @@ public:
 		header->size = sizeOfRam;
 		header->nextIndex = nullptr;
 	}
-	void shutdown() {
+	void shutdown() { 
 		free(theData);
 	}
 	void * newIt(size_t size) {
 		//collapse adj blocks
-		consolidate();
+		//consolidate();
+		//removing to not walk mem blocks every new
 
 		size = (size<sizeof(MemBlock))? sizeof(MemBlock) : size + sizeOfDataSize; // upgrade the size to mem block or to account for size_t
 
@@ -63,6 +97,9 @@ public:
 		MemBlock * previousBlock = nullptr; // make into a doublely linkedList?
 		MemBlock * nextMemBlock  = nullptr; // holds the next memblock
 		while(currentBlock) {
+			// will collapse any adj blocks to this one
+			consolidateBlock(currentBlock);
+
 			if(currentBlock->size >= size) {
 				// size remaining in current block
 				int leftOverSize = currentBlock->size-size;
@@ -104,6 +141,102 @@ public:
 		//size is still the same and doens't need to be updated
 		insertionSort();
 	}
+	
+private: // functions to change console colors, these are for printing memory to console
+	void SetColor(const int foreground) {
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, foreground);
+		return;
+	}
+	void printMemory(void * start, void * end) {
+		for(void * i=start; i < end; i = (char *)i+1) {
+			unsigned char temp = *((unsigned char *)i);
+			if((unsigned int)temp<16) std::cout << "0";
+			std::cout << std::hex << (unsigned int)temp << ' ';
+			int iteration = ((char *)end-(char *)start) - ((char *)end-(char *)i);
+			if(iteration%4==3) std::cout << std::endl;
+		}
+	}
+public:
+	void printMemoryToConsole(const char* message = "Printing Ram") {
+		SetColor(10);
+		std::cout << "+";
+		for(unsigned int i=0;i<strlen(message)+2;i++) std::cout << "-";
+		std::cout << "+" << std::endl << "| " << message << " |" <<  std::endl << "+";
+		for(unsigned int i=0;i<strlen(message)+2;i++) std::cout << "-";
+		std::cout << "+" << std::endl;
+		const int allocatedSizeCol = 78;
+		const int allocatedDataCol = 79;
+		const int memBlockSizeCol  = 62;
+		const int memBlockPointCol = 63;
+		const int memBlockDataCol  = 59;
+		const int memBlockBarCol   = 56;
+		MemBlock * nextMemBlock = header;
+		void * runner = theData;
+		while(runner != nullptr) {
+			if(runner==nextMemBlock) {
+				//print line
+				SetColor(memBlockBarCol);
+				for(int i=0;i<12;i++) std::cout << (char)223;
+				std::cout << std::endl;
+				int size = *((size_t *)runner);
+				int offset = 0;
+
+				//print size
+				SetColor(memBlockSizeCol);
+				void * start = (char *)runner + offset;
+				void * end   = (char *)start  + sizeof(size_t);
+				printMemory(start,end);
+
+				offset += sizeof(size_t);
+
+				//print pointer
+				SetColor(memBlockPointCol);
+				start = (char *)runner + offset;
+				end   = (char *)start  + sizeof(size_t);
+				printMemory(start,end);
+				
+				offset += sizeof(size_t);
+
+				//print data
+				SetColor(memBlockDataCol);
+				start = (char *)runner + offset;
+				end   = (char *)start  + size - offset;
+				printMemory(start,end);
+
+				//print line
+				SetColor(memBlockBarCol);
+				for(int i=0;i<12;i++) std::cout << (char)220;
+				std::cout << std::endl;
+
+				//printing complete
+				nextMemBlock = (MemBlock *)nextMemBlock->nextIndex;
+				
+				if(nextMemBlock==nullptr) runner = nullptr;
+				else runner = (char *)runner + size;
+			} else {
+				int size = *((size_t *)runner);
+				int offset = 0;
+
+				//print size
+				SetColor(allocatedSizeCol);
+				void * start = (char *)runner + offset;
+				void * end   = (char *)start  + sizeof(size_t);
+				printMemory(start,end);
+				offset += sizeof(size_t);
+
+				//print data
+				SetColor(allocatedDataCol);
+				start = (char *)runner + offset;
+				end   = (char *)start  + size - offset;
+				printMemory(start,end);
+
+				runner = (char *)runner + size;
+			}
+		}
+		SetColor(10);
+	}
+
 } myHeap;
 
 void * operator new(size_t size) {
@@ -124,6 +257,8 @@ void test1() {
 	delete p2;
 	delete p1;
 	delete p3;
+	// if these are in the same order then consolidation is working
+	// if these are in the following order: P2, P3, P1
 	p1  = new int;
 	*p1 = 0x11111111;
 	p2  = new int;
@@ -137,7 +272,7 @@ void test1() {
 
 //new of different sizes
 void test2() {
-	int * p1    = new int;		*p1 = 0x11111111;
+	bool * p1    = new bool;	*p1 = true;
 	__int64 * p2 = new __int64;	*p2 = 0x2222222222222222;
 	int * p3    = new int;		*p3 = 0x33333333;
 	delete p2;
@@ -250,7 +385,7 @@ void test6() {
 	int  * pA = new int;	*pA = 0xAAAAAAAA;
 	int  * pB = new int;	*pB = 0xBBBBBBBB;
 	int  * pC = new int;	*pC = 0xCCCCCCCC;
-	//ram check
+	myHeap.printMemoryToConsole(); // -------------------------------------------- ram check
 	delete p2;
 	delete p3;
 	delete p5;
@@ -258,9 +393,10 @@ void test6() {
 	delete p9;
 	delete pB;
 	delete pC;
-	//ram check
+	myHeap.printMemoryToConsole(); // -------------------------------------------- ram check
 	bInt * pD = new bInt;	*pD = 0xDDDDDDDD;
-	//ram check for consolidation
+	//ram expected to still be fragmented, but the first section to be allocated (because consoliation has been optimized to not walk entire memBlocks)
+	myHeap.printMemoryToConsole(); // -------------------------------------------- ram check
 	Vec  * pE = new Vec;	 pE->x = 0xEEEEEEEE;
 							 pE->y = 0xEEEEEEEE;
 							 pE->z = 0xEEEEEEEE;
@@ -269,30 +405,31 @@ void test6() {
 	monster->x = 0xFEEDDECAFFACE;
 	monster->y = 0xFEEDDECAFFACE;
 	monster->z = 0xFEEDDECAFFACE;
+	myHeap.printMemoryToConsole(); // -------------------------------------------- ram check
 }
 
 int main() {
-	/* basic
+	//* basic
 	myHeap.init();
 	test1();
 	myHeap.shutdown();
 	//*/
-	/* basic
+	//* basic
 	myHeap.init();
 	test2();
 	myHeap.shutdown();
 	//*/
-	/* basic
+	//* basic
 	myHeap.init();
 	test3();
 	myHeap.shutdown();
 	//*/
-	/* different sizes and gap filling
+	//* different sizes and gap filling
 	myHeap.init();
 	test4();
 	myHeap.shutdown();
 	//*/
-	/* consolidateion easy mode
+	//* consolidateion easy mode
 	myHeap.init();
 	test5();
 	myHeap.shutdown();
