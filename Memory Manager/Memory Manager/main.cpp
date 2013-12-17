@@ -14,34 +14,33 @@ public:
 	meHeap() {
 		//
 	}
+	//can be called when ever to degrag contigious memory
 	void consolidate() {
-		consolidate1();
-	}
-	void consolidate1() {
-		//grabbing the first block in memory
-		MemBlock * currentBlock = nextMemBlockInMemory(nullptr);//grabs the first in memory
-		while(currentBlock) {
-			combineWithNextContiguousBlockIfValid(currentBlock);
-			currentBlock = nextMemBlockInMemory(currentBlock); // find the nextBlock
-		}
-	}
-	MemBlock * nextMemBlockInMemory(void * minBounds) {
-		MemBlock * firstMemBlock = nullptr;
 		MemBlock * runner = (MemBlock *)header;
 		while(runner) {
-			if(runner>minBounds && (runner<firstMemBlock || firstMemBlock==nullptr)) firstMemBlock = runner;
-		}
-		return firstMemBlock;
-	}
-	void * combineWithNextContiguousBlockIfValid(void * start) {
-		MemBlock * runner = (MemBlock *)start;
-		void * target = (char *)start+runner->size;
-		while(runner) {
-			if(runner==target) {
-				((MemBlock *)start)->size += runner->size;
-				((MemBlock *)start)->nextIndex = runner->nextIndex;
-				combineWithNextContiguousBlockIfValid(start);//do it again!
+			MemBlock * target = (MemBlock *)((char *)runner + runner->size); // offset by runner's size
+			if(runner->nextIndex == target) {
+				runner->size += target->size;
+				runner->nextIndex = target->nextIndex;
+			} else {
+				runner = (MemBlock *)runner->nextIndex;
 			}
+		}
+	}
+	//should be called after delete
+	void insertionSort() {
+		if(header>header->nextIndex) {
+			//if double linked list wouldn't have to walk to find pervious
+			//finding previous block
+			MemBlock * logicalPrevious = (MemBlock *)header;
+			do {
+				logicalPrevious = (MemBlock *)logicalPrevious->nextIndex;
+			} while(logicalPrevious->nextIndex < header);
+			//previous block has been found
+			MemBlock * newHeader = (MemBlock *)header->nextIndex; // store header so pointer isn't lost
+			header->nextIndex = logicalPrevious->nextIndex; // updating pointer to next logical element
+			logicalPrevious->nextIndex = header; // inserting into linked list at correct position
+			header = newHeader; // setting the header at the top of the list
 		}
 	}
 	void init() {
@@ -55,6 +54,7 @@ public:
 		free(theData);
 	}
 	void * newIt(size_t size) {
+		consolidate();
 		size += sizeOfDataSize;//adds on memory for storing the size;
 		size = (size < sizeof(MemBlock))? sizeof(MemBlock) : size; // upgrades the size to always allow for memory block
 		MemBlock * currentBlock  = (MemBlock *)header;
@@ -98,15 +98,7 @@ public:
 		MemBlock * currentHeader = (MemBlock *)header;
 		currentHeader->nextIndex = lastHeader;
 		//size is still the same and doens't need to be updated
-	}
-	void debugFill(void * start, size_t bytes) {
-		const char first  = 'N';
-		const char second = 'O';
-		char temp = first;
-		for(void * i=start;i<(char *)start+bytes;i=(char *)i+1) {
-			*(char *)start = temp;
-			temp = (temp==second)? first : second;
-		}
+		insertionSort();
 	}
 } myHeap;
 
@@ -120,7 +112,6 @@ void operator delete(void * toDel) {
 
 
 
-struct Vector { int x,y,z; };
 //basic new and delete
 void test1() {
 	int * p1 = new int;		*p1 = 0x11111111;
@@ -162,6 +153,9 @@ void test3() {
 
 //creating and filling gaps
 void test4() {
+	/* consolidation notice
+		this assert still works if consolidation is called on new and not on delete
+	//*/
 	int * p0     = new int;
 	*p0 = 0xFFFFFFFF;
 	delete p0;
@@ -216,25 +210,92 @@ void test4() {
 	if( *(p1+17) != 0x00000000 ) throw("Anthony Should Learn How to Code");
 }
 
+//testing consolidation
+void test5() {
+	int * p1 = new int;	*p1 = 0x11111111;
+	int * p2 = new int;	*p2 = 0x22222222;
+	int * p3 = new int;	*p3 = 0x33333333;
+	delete p2;
+	delete p1;
+	delete p3;
+	__int64 * p4 = new __int64; *p4 = 0x4444444444444444;
+	if((void *)p4 != (void *)p1) throw("Anthony should learn how to consolidate");
+}
+
+
+struct Vec { int x,y,z; };
+struct BVec { __int64 x,y,z; };
+
+typedef __int64 bInt;
+
+//complexConsolidation
+void test6() {
+	int  * p1 = new int;	*p1 = 0x11111111;
+	int  * p2 = new int;	*p2 = 0x22222222;
+	int  * p3 = new int;	*p3 = 0x33333333;
+	bInt * p4 = new bInt;	*p4 = 0x4444444444444444;
+	bInt * p5 = new bInt;	*p5 = 0x5555555555555555;
+	bInt * p6 = new bInt;	*p6 = 0x6666666666666666;
+	int  * p7 = new int;	*p7 = 0x77777777;
+	Vec  * p8 = new Vec;	 p8->x = 0x88888888;
+							 p8->y = 0x88888888;
+							 p8->z = 0x88888888;
+	Vec  * p9 = new Vec;	 p9->x = 0x99999999;
+							 p9->y = 0x99999999;
+							 p9->z = 0x99999999;
+	int  * pA = new int;	*pA = 0xAAAAAAAA;
+	int  * pB = new int;	*pB = 0xBBBBBBBB;
+	int  * pC = new int;	*pC = 0xCCCCCCCC;
+	//ram check
+	delete p2;
+	delete p3;
+	delete p5;
+	delete p6;
+	delete p9;
+	delete pB;
+	delete pC;
+	//ram check
+	bInt * pD = new bInt;	*pD = 0xDDDDDDDD;
+	//ram check for consolidation
+	Vec  * pE = new Vec;	 pE->x = 0xEEEEEEEE;
+							 pE->y = 0xEEEEEEEE;
+							 pE->z = 0xEEEEEEEE;
+	int  * pF = new int;	*pF = 0xFFFFFFFF;
+	BVec * monster = new BVec;
+	monster->x = 0xFEEDDECAFFACE;
+	monster->y = 0xFEEDDECAFFACE;
+	monster->z = 0xFEEDDECAFFACE;
+}
+
 int main() {
-	/*
+	/* basic
 	myHeap.init();
 	test1();
 	myHeap.shutdown();
 	//*/
-	/*
+	/* basic
 	myHeap.init();
 	test2();
 	myHeap.shutdown();
 	//*/
-	/*
+	/* basic
 	myHeap.init();
 	test3();
 	myHeap.shutdown();
 	//*/
-	//*
+	/* different sizes and gap filling
 	myHeap.init();
 	test4();
+	myHeap.shutdown();
+	//*/
+	/* consolidateion easy mode
+	myHeap.init();
+	test5();
+	myHeap.shutdown();
+	//*/
+	//* consolidateion pro mode
+	myHeap.init();
+	test6();
 	myHeap.shutdown();
 	//*/
 	return 0;
