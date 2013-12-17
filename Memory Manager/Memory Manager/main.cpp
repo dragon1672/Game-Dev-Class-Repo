@@ -54,12 +54,14 @@ public:
 		free(theData);
 	}
 	void * newIt(size_t size) {
+		//collapse adj blocks
 		consolidate();
-		size += sizeOfDataSize;//adds on memory for storing the size;
-		size = (size < sizeof(MemBlock))? sizeof(MemBlock) : size; // upgrades the size to always allow for memory block
-		MemBlock * currentBlock  = (MemBlock *)header;
-		MemBlock * previousBlock = nullptr;
-		MemBlock * nextMemBlock  = nullptr; //holds the next memblock
+
+		size = (size<sizeof(MemBlock))? sizeof(MemBlock) : size + sizeOfDataSize; // upgrade the size to mem block or to account for size_t
+
+		MemBlock * currentBlock  = (MemBlock *)header; // will hold the dataSegment that is returned
+		MemBlock * previousBlock = nullptr; // make into a doublely linkedList?
+		MemBlock * nextMemBlock  = nullptr; // holds the next memblock
 		while(currentBlock) {
 			if(currentBlock->size >= size) {
 				// size remaining in current block
@@ -80,6 +82,7 @@ public:
 			currentBlock  = (MemBlock *)currentBlock->nextIndex;
 		} // end while
 		if(currentBlock==nullptr || nextMemBlock==nullptr) { // out of memory
+			//if nextMemBlock is null then mem block doesn't fit in the remaining spot and currentBlock was at the footer (aka didn't have a next block)
 			return nullptr;
 		}
 
@@ -89,7 +92,8 @@ public:
 			header = nextMemBlock;
 		}
 
-		currentBlock->size = size;
+		currentBlock->size = size; // update the size for returning (finally)
+
 		return (byte *)currentBlock+sizeOfDataSize;
 	}
 	void deleteIt(void * toDel) {
