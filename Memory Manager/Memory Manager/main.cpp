@@ -343,8 +343,8 @@ void test5() {
 }
 
 
-struct Vec { int x,y,z; };
-struct BVec { __int64 x,y,z; };
+struct Vec { int x,y,z; }; // 12
+struct BVec { __int64 x,y,z; }; // 24
 
 typedef __int64 bInt;
 
