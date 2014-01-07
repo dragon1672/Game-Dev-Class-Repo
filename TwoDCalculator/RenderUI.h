@@ -113,6 +113,11 @@ public:
 			const float* matrices,
 			const float* currentTransform,
 			MatrixTransformCallback2D uiChangedCallback);
+	void set3DMatrixCallback(
+		const float* matrices,
+		const float* fulltransform,
+		const char* fbxFileName,
+		MatrixTransformCallback3D matrixTransformData3DCallback);
 	bool initialize(int argc, char* argv[]);
 	bool shutdown();
 	int run();
