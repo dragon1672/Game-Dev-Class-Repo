@@ -70,7 +70,8 @@ namespace tab_four {
 namespace tab_five {
 	Vector2D result;
 	void LinearTransformationCallback(const LinearTransformationData& info) {
-		Matrix2D input(info.m00,info.m10,info.m01, info.m11);
+		Matrix2D input(info.m00,info.m10,
+					   info.m01, info.m11);
 		result = input * Vector2D(info.v0,info.v1);
 	}
 }
@@ -144,7 +145,7 @@ namespace tab_eight {
 	const char* fbxFileName = "DatBrittanyChair.fbx";
 
 	int maxMatrixId = 0;
-	Matrix4D matrices[5];
+	Matrix4D matrices[10];
 	Matrix4D currentTransform;
 	void mySet3DMatrixCallback(const MatrixTransformData3D& info) {
 		int id = info.selectedMatrix;
