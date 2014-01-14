@@ -26,48 +26,63 @@ char * fragShaderCode = "#version 400\r\n"
 	"}"
 	"";
 
+
+
 void MeGLWindow::initializeGL()
 {
 	glewInit();
 	createTriange();
 	initShaders();
+	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
+	myTimer.start(0);
 }
+///returns programID
+int MeGLWindow::buildProgram(int numOfFiles, codeBlock * arrayOfBlocks, bool debug) {
+	for(int i=0;i<numOfFiles;i++) {
+		loadShader(arrayOfBlocks[i].code,arrayOfBlocks[i].id,debug);
+	}
+	
+	GLuint programID = glCreateProgram();
+	
+	for(int i=0;i<numOfFiles;i++) {
+		glAttachShader(programID,arrayOfBlocks[i].id);
+	}
 
-void MeGLWindow::loadShader(char * code, GLuint id) {
+	glLinkProgram(programID);
+
+	return programID;
+}
+void MeGLWindow::loadShader(char * code, GLuint id, bool debug) {
 	const char * codeAdapt[1];
 	codeAdapt[0] = code;
 	glShaderSource(id,1,codeAdapt,0);
 
 	glCompileShader(id);
 	
-	GLint compileStatus;
-	glGetShaderiv(id,GL_COMPILE_STATUS, &compileStatus);
-	if(compileStatus!= GL_TRUE) {
-		GLint logLength;
-		glGetShaderiv(id,GL_INFO_LOG_LENGTH,&logLength);
-		char * buffer = new char[logLength];
-		GLsizei someRandom;
-		glGetShaderInfoLog(id,logLength,&someRandom,buffer);
-		qDebug() << buffer;
-		delete [] buffer;
+	if(debug) {
+		GLint compileStatus;
+		glGetShaderiv(id,GL_COMPILE_STATUS, &compileStatus);
+		if(compileStatus!= GL_TRUE) {
+			GLint logLength;
+			glGetShaderiv(id,GL_INFO_LOG_LENGTH,&logLength);
+			char * buffer = new char[logLength];
+			GLsizei someRandom;
+			glGetShaderInfoLog(id,logLength,&someRandom,buffer);
+			qDebug() << buffer;
+			delete [] buffer;
+		}
 	}
 }
-
 void MeGLWindow::initShaders() {
-	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-	GLuint fragShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+	codeBlock blocks[2];
+	blocks[0].id = glCreateShader(GL_VERTEX_SHADER);
+	blocks[1].id = glCreateShader(GL_FRAGMENT_SHADER);
+	blocks[0].code = vertexShaderCode;
+	blocks[1].code = fragShaderCode;
 
-	loadShader(vertexShaderCode,vertexShaderID);
-	loadShader(fragShaderCode,fragShaderID);
-
-	GLuint programID = glCreateProgram();
-	glAttachShader(programID, vertexShaderID);
-	glAttachShader(programID, fragShaderID);
-
-	glLinkProgram(programID);
-
-	glUseProgram(programID);
+	glUseProgram(buildProgram(2,blocks,true));
 }
+
 void MeGLWindow::createTriange() {
 	GLfloat vertices[] = 
 	{
@@ -94,7 +109,9 @@ void MeGLWindow::createTriange() {
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*) (2 * sizeof(GLfloat)));
 }
-void MeGLWindow::paintGL()
-{
+void MeGLWindow::myUpdate() {
+
+}
+void MeGLWindow::paintGL() {
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
