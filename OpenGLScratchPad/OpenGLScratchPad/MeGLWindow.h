@@ -2,6 +2,7 @@
 
 #include <QtOpenGL\qglwidget>
 #include <Qt\qtimer.h>
+#include "Player.h"
 
 class MeGLWindow : public QGLWidget
 {
@@ -14,11 +15,17 @@ private:
 		char * code;
 	};
 
+	QTimer myTimer;
+	GLuint programID;
+
+	Player players[3];
+	int numOfPlayers;
+
 	void createTriange();
 	void initShaders();
+	void initPlayers();
 	void loadShader(char * code, GLuint id, bool debug=false);
 	int buildProgram(int numOfFiles, codeBlock * arrayOfBlocks, bool debug=false);
-	QTimer myTimer;
 protected:
 	void initializeGL();
 	void paintGL();
