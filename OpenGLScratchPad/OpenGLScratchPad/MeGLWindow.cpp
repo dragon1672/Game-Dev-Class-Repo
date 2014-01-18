@@ -7,107 +7,70 @@
 using glm::vec3;
 using glm::mat4x4;
 
-char * vertexShaderCode = "#version 400\r\n"
-	""
-	"in layout(location=0) vec2 pos;"
-	""
-	"out vec3 outColor;"
-	""
-	"uniform mat4x4 transformation;"
-	"uniform vec3 dominatingColor;"
-	""
-	"void main() {"
-		"gl_Position = transformation * vec4(pos.x,pos.y,1,1);"
-		"outColor = dominatingColor;"
-	"}"
-	"";
+namespace ForReder {
+	void * playerOffset = 0;
+	void * hillOffset;
+	int playerLength;
+	int hillLength;
+}
 
-char * fragShaderCode = "#version 400\r\n"
-	""
-	"in vec3 outColor;"//name must match
-	"out vec3 finalColor;"
-	""
-	"void main() {"
-	"	finalColor = outColor;"
-	"}"
-	"";
+vec3 hillPos;
+float hillScale = .1f;
+int numOfFramesForHillJump = 60*5;
+
+int maxPoints = 0;
 
 void MeGLWindow::initializeGL()
 {
 	glewInit();
+
+	glEnable(GL_DEPTH_TEST);
+
 	createTriange();
-	initShaders();
-	initPlayers();
+	
+	initShaders(); // NOW THIS IS PURDY!!
+	initPlayers(); // not as purdy...but still nice
+
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
 }
-///returns programID
-int MeGLWindow::buildProgram(int numOfFiles, codeBlock * arrayOfBlocks, bool debug) {
-	for(int i=0;i<numOfFiles;i++) {
-		loadShader(arrayOfBlocks[i].code,arrayOfBlocks[i].id,debug);
-	}
-	
-	GLuint programID = glCreateProgram();
-	
-	for(int i=0;i<numOfFiles;i++) {
-		glAttachShader(programID,arrayOfBlocks[i].id);
-	}
-
-	glLinkProgram(programID);
-
-	return programID;
-}
-void MeGLWindow::loadShader(char * code, GLuint id, bool debug) {
-	const char * codeAdapt[1];
-	codeAdapt[0] = code;
-	glShaderSource(id,1,codeAdapt,0);
-
-	glCompileShader(id);
-	
-	if(debug) {
-		GLint compileStatus;
-		glGetShaderiv(id,GL_COMPILE_STATUS, &compileStatus);
-		if(compileStatus!= GL_TRUE) {
-			GLint logLength;
-			glGetShaderiv(id,GL_INFO_LOG_LENGTH,&logLength);
-			char * buffer = new char[logLength];
-			GLsizei someRandom;
-			glGetShaderInfoLog(id,logLength,&someRandom,buffer);
-			qDebug() << buffer;
-			delete [] buffer;
-		}
-	}
-}
-void MeGLWindow::initShaders() {
-	codeBlock blocks[2];
-	blocks[0].id = glCreateShader(GL_VERTEX_SHADER);
-	blocks[1].id = glCreateShader(GL_FRAGMENT_SHADER);
-	blocks[0].code = vertexShaderCode;
-	blocks[1].code = fragShaderCode;
-	programID = buildProgram(2,blocks,true);
-	glUseProgram(programID);
-}
 void MeGLWindow::initPlayers() {
 	numOfPlayers=0;
-	players[numOfPlayers++].initPlayer(vec3(1,0,0),vec3(-.3,0,0),'W','S','A','D');
-	players[numOfPlayers++].initPlayer(vec3(0,1,0),vec3(+.3,0,0),VK_UP,VK_DOWN,VK_LEFT,VK_RIGHT);
+	players[numOfPlayers++].initPlayer(vec3(1,0,0),vec3(-.5,0,0),'W','S','A','D');
+	players[numOfPlayers++].initPlayer(vec3(0,1,0),vec3(+.5,0,0),VK_UP,VK_DOWN,VK_LEFT,VK_RIGHT);
 }
-
+void MeGLWindow::initShaders() {
+	myShadyShaders.startup();
+	myShadyShaders.addProgram("VertexShader.glsl",GL_VERTEX_SHADER);
+	myShadyShaders.addProgram("FragShader.glsl",GL_FRAGMENT_SHADER);
+	myShadyShaders.compileAndRun();
+}
 void MeGLWindow::createTriange() {
 	GLfloat vertices[] = 
 	{
-		-0.5,+0.0, // 0
-		+0.5,+0.0, // 1
-		-0.5,-0.5, // 2
-		+0.5,-0.5, // 3
-		+.25,+0.5, // 4
-		-.25,+0.5, // 5
-		+.25,+0.0, // 6
-		-.25,+0.0, // 7
-
-		+.1,0, //8
-		-.1,0, //9
-		+0,1, //10
+		-0.5f, +0.0f, // 0
+		+0.5f, +0.0f, // 1
+		-0.5f, -0.5f, // 2
+		+0.5f, -0.5f, // 3
+		+.25f, +0.5f, // 4
+		-.25f, +0.5f, // 5
+		+.25f, +0.0f, // 6
+		-.25f, +0.0f, // 7
+		+0.1f, +0.0f, //8
+		-0.1f, +0.0f, //9
+		+0.0,  +1.0f, //10
+		//the hill
+		+0.0f,  +1.0f, //11
+		+1.0f,  +.25f, //12
+		-1.0f,  +.25f, //13
+		+0.0f,  -1.0f, //14
+		+1.0f,  -.25f, //15
+		-1.0f,  -.25f, //16
+		
+		+.25f,  +.25f, //17
+		+0.0f,  +.25f, //18
+		+.25f,  +0.0f, //19
+		-.25f,  -.25f, //20
 	};
 
 	GLuint bufferID;
@@ -119,8 +82,17 @@ void MeGLWindow::createTriange() {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
 
-	GLushort indices[] = {0,1,2, 1,2,3,	0,4,6, 1,5,7, 8,9,10};
-	//GLushort indices[] = {8,9,10};
+
+	ForReder::playerLength = 5*3;
+	ForReder::hillLength = 4*3;
+	
+	ForReder::hillOffset = (void *)ForReder::playerLength;
+
+	GLushort indices[] = { //ship (5)
+							0,1,2, 1,2,3,	0,4,6, 1,5,7, 8,9,10,
+							//hill(4)
+							11,12,13, 14,15,16, 17,18,19, 18,19,20,
+							};
 	GLuint indexBufferID;
 	glGenBuffers(1,&indexBufferID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID);
@@ -128,20 +100,47 @@ void MeGLWindow::createTriange() {
 
 }
 void MeGLWindow::myUpdate() {
-	/*static int frames = 0;
-	static const int frameUpdateRate = 1000;
+	//*
+	static int frames = 0;
 	frames++;
-	if(frames%frameUpdateRate==0)
-		qDebug() << "frame: " << frames;
 	//*/
+	maxPoints = 1;
 	for(int i=0;i<numOfPlayers;i++) {
 		players[i].update();
+		maxPoints = (players[i].getPoints() > maxPoints)? players[i].getPoints() : maxPoints;
 	}
-	glClear(GL_COLOR_BUFFER_BIT);
+
+	maxPoints++;
+
+	for(int i=0;i<numOfPlayers;i++) {
+
+		players[i].setDepth(-(float)players[i].getPoints()/maxPoints);
+
+		for(int j=i+1;j<numOfPlayers;j++) {
+			if(i != j && players[i].isColliding2D(players[j])) {
+				qDebug() << "Collide between " << i << " and " << j;
+			}
+		}
+		if(players[i].isColliding2D(hillPos,hillScale)) {
+			qDebug() << "Collide between " << i << " and hill (" << players[i].getPoints() << ")";
+			players[i].addPoint();
+		}
+	}
+
+	if(frames%numOfFramesForHillJump==0) {
+		float x = (rand()%2==0)? (float)rand()/RAND_MAX : -(float)rand()/RAND_MAX;
+		float y = (rand()%2==0)? (float)rand()/RAND_MAX : -(float)rand()/RAND_MAX;
+		
+		qDebug() << "hillMove (" << x << "," << y << ")";
+		hillPos = vec3(x,y,0);
+	}
 	repaint();
 }
 void MeGLWindow::paintGL() {
 	glViewport(0,0,width(),height());
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
 
 	float aspectRatioFix = (float)height()/(float)width();
 	mat4x4 aspectRatio = glm::scale(vec3(aspectRatioFix,1,1));
@@ -149,8 +148,8 @@ void MeGLWindow::paintGL() {
 	mat4x4 transform;
 	vec3 color;
 
-	GLint transformationUniformLocation = glGetUniformLocation(programID,"transformation");
-	GLint colorUniformLocation = glGetUniformLocation(programID,"dominatingColor");
+	GLint transformationUniformLocation = glGetUniformLocation(myShadyShaders.getProgramID(),"transformation");
+	GLint colorUniformLocation = glGetUniformLocation(myShadyShaders.getProgramID(),"dominatingColor");
 
 
 	for(int i=0;i<numOfPlayers;i++) {
@@ -162,6 +161,17 @@ void MeGLWindow::paintGL() {
 		glUniform3fv(colorUniformLocation,1,&color[0]);
 		glUniformMatrix4fv(transformationUniformLocation,1,false,&transform[0][0]);
 		
-		glDrawElements(GL_TRIANGLES,3 * 5,GL_UNSIGNED_SHORT,0);
+		glDrawElements(GL_TRIANGLES,ForReder::playerLength,GL_UNSIGNED_SHORT,ForReder::playerOffset);
 	}
+
+	//* daw dat hil
+	transform = aspectRatio;
+	transform *= glm::translate(hillPos) * glm::scale(vec3(hillScale,hillScale,1));
+	color = vec3(1,0,1);
+
+	glUniform3fv(colorUniformLocation,1,&color[0]);
+	glUniformMatrix4fv(transformationUniformLocation,1,false,&transform[0][0]);
+		
+	glDrawElements(GL_TRIANGLES,ForReder::hillLength,GL_UNSIGNED_SHORT,ForReder::hillOffset);
+	//*/
 }

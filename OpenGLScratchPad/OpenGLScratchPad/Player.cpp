@@ -17,7 +17,9 @@ void Player::initPlayer(glm::vec3 color, glm::vec3 pos, int accelerate, int decc
 	rotLKey = rotateLeft;
 	rotRKey = rotateRight;
 	translation = pos;
-	angle = 0;//getRandomSpawnAngle();
+	angle = 0;
+
+	points = 0;
 }
 
 
@@ -44,22 +46,34 @@ glm::vec3 Player::getColor() {
 	return col;
 }
 
-#include <random>
-#include <ctime>
-bool init = false;
-
-float getRandomFloat() {
-	if(!init) {
-		srand((unsigned)time(0));
-		init = true;
-	}
-	if(rand()%2==0) {
-		return (float)rand()/(float)RAND_MAX;
-	} else {
-		return -(float)rand()/(float)RAND_MAX;
-	}
+bool Player::isColliding2D(vec3 pos, float theirRad) {
+	vec3 diff = pos - translation;
+	diff.z = 0;
+	float length = glm::length(diff);
+	float radLen = theirRad+SCALE;
+	return length < radLen;
 }
-
-float Player::getRandomSpawnAngle() {
-	return getRandomFloat() * 360;
+bool Player::isColliding2D(Player& that) {
+	vec3 diff = that.translation - translation;
+	diff.z = 0;
+	float length = glm::length(diff);
+	float radLen = that.SCALE+SCALE;
+	return length < radLen;
+}
+bool Player::isColliding3D(vec3 pos, float theirRad) {
+	vec3 diff = pos - translation;
+	return diff.length()<(theirRad+SCALE);
+}
+bool Player::isColliding3D(Player& that) {
+	vec3 diff = that.translation - translation;
+	return diff.length()<(that.SCALE+SCALE);
+}
+void Player::addPoint() {
+	points++;
+}
+int  Player::getPoints() {
+	return points;
+}
+void Player::setDepth(float pos) {
+	translation.z = pos;
 }
