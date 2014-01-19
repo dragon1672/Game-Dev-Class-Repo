@@ -38,6 +38,7 @@ void MeGLWindow::initPlayers() {
 	numOfPlayers=0;
 	players[numOfPlayers++].initPlayer(vec3(1,0,0),vec3(-.5,0,0),'W','S','A','D');
 	players[numOfPlayers++].initPlayer(vec3(0,1,0),vec3(+.5,0,0),VK_UP,VK_DOWN,VK_LEFT,VK_RIGHT);
+	players[numOfPlayers++].initPlayer(vec3(0,0,1),vec3(0,.5,0),'Y','H','G','J');
 }
 void MeGLWindow::initShaders() {
 	myShadyShaders.startup();

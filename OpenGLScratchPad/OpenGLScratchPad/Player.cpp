@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include <Qt/qdebug.h>
 
 glm::vec4 Player::acc(0,1,0,0);
 float Player::SPEED = .02f;
@@ -20,6 +21,7 @@ void Player::initPlayer(glm::vec3 color, glm::vec3 pos, int accelerate, int decc
 	angle = 0;
 
 	points = 0;
+	qDebug() << "Init Player: acc(" << (char)accKey << ") dec(" << (char)decKey << ") left(" << (char)rotLKey << ") right(" << (char)rotRKey << "))";
 }
 
 

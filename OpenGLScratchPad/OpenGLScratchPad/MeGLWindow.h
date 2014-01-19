@@ -15,7 +15,7 @@ private:
 
 	QTimer myTimer;
 
-	Player players[3];
+	Player players[4];
 	int numOfPlayers;
 
 	void createTriange();
