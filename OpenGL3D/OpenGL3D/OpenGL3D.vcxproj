@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F5FC5909-030D-449B-BA73-3A23B2BC8552}</ProjectGuid>
+    <ProjectGuid>{137B0F52-AEE9-4714-84B4-045528417257}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OpenGLScratchPad</RootNamespace>
+    <RootNamespace>OpenGL3D</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -52,13 +52,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../MiddleWare/glew/include;$(ProjectDir)../../MiddleWare/glm;$(ProjectDir)../../MiddleWare/Qt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)../../MiddleWare/Qt/lib;$(ProjectDir)../../MiddleWare/glew/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;QtCored4.lib;QtGuid4.lib;QtOpenGLd4.lib;glew32s.lib;glew32.lib;glew32d.lib;glew32sd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,20 +76,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MeGLWindow.cpp" />
-    <ClCompile Include="MeGLWindow_mock.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MeGLWindow.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="ShaderProgram.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FragShader.glsl" />
-    <None Include="VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
