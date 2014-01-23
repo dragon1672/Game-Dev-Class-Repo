@@ -13,7 +13,7 @@ using glm::mat4x4;
 namespace ForReder {
 	int vertsToDraw;
 	vec3 worldTrans(0,0,-4);
-	int depth = 2;
+	int depth = 3;
 	int children = 3;
 	float scale = .13f;
 }
@@ -164,7 +164,8 @@ void MeGLWindow::paintGL() {
 	GLint transformationUniformLocation = glGetUniformLocation(myShadyShaders.getProgramID(),"transformation");
 
 	transform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
-	transform *= glm::translate(ForReder::worldTrans);
+	transform *= glm::lookAt(vec3(0,-3,3),vec3(0,0,0),vec3(0,1,0));
+	//transform *= glm::translate(ForReder::worldTrans);
 	transform *= glm::scale(vec3(ForReder::scale,ForReder::scale,ForReder::scale));
 
 	//draw the center cube
