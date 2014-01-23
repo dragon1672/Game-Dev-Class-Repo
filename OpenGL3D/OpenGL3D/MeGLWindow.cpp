@@ -15,7 +15,7 @@ namespace ForReder {
 	vec3 worldTrans(0,0,-4);
 	int depth = 2;
 	int children = 3;
-	float scale = .1;
+	float scale = .13f;
 }
 
 void MeGLWindow::initializeGL()
@@ -168,10 +168,7 @@ void MeGLWindow::paintGL() {
 	transform *= glm::scale(vec3(ForReder::scale,ForReder::scale,ForReder::scale));
 
 	//draw all the other ones
-	for (int i = 1; i < numOfCubes; i++)
-	{
-		cubeData[i].draw(transformationUniformLocation,transform,ForReder::vertsToDraw,0,1,ForReder::depth,ForReder::children);
-	}
+	cubeData[0].draw(&cubeData[0], transformationUniformLocation,transform,ForReder::vertsToDraw,0,1,ForReder::depth,ForReder::children);
 
 	//draw the center cube
 	transform *= cubeData[0].getTransform();

@@ -6,9 +6,9 @@
 #include "CubeSolarSystem.h"
 #include "Randomness.h"
 
-glm::vec3 CubeSolarSystem::orbitLength(0,0,0);
-glm::vec3 CubeSolarSystem::orbitAxis(100,100,100);
-float CubeSolarSystem::orbitAcc = 3;
+glm::vec3 CubeSolarSystem::orbitLength(0,10,0);
+glm::vec3 CubeSolarSystem::orbitAxis(-1,0,1);
+float CubeSolarSystem::orbitAcc = .5;
 
 void CubeSolarSystem::randomAcc() {
 	xAngleAcc = Random::randomFloat(-2,2);
@@ -35,23 +35,24 @@ glm::mat4x4 CubeSolarSystem::getTransform() {
 	return transform;
 }
 
-void CubeSolarSystem::draw(int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children) {
+void CubeSolarSystem::draw(CubeSolarSystem * blockData, int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children) {
 	if(depth>=0) {
 		float averageAngle = 360.0f/children;
 		for (int i = 0; i < children; i++)
 		{
 			//glm::vec4 previousTranslation = lastTransform * glm::vec4(0,0,0,0);
 			//glm::mat4x4 transform = glm::translate(glm::vec3(previousTranslation));
-			glm::mat4x4 transform =lastTransform;
-			transform *= glm::rotate(orbitAngle + i*averageAngle,orbitAxis);
-			transform *= glm::translate(scale * orbitLength);
-			transform *= getTransform();
+			glm::mat4x4 transform = glm::rotate(orbitAngle + i*averageAngle,orbitAxis)
+									* glm::translate(scale * orbitLength)
+									* glm::scale(glm::vec3(scale,scale,scale));
 
-			glm::mat4x4 toDraw = transform *= scale * glm::scale(orbitAxis);
+			transform = lastTransform * transform;
+
+			glm::mat4x4 toDraw = transform * blockData->getTransform();
 			glUniformMatrix4fv(transformLocation,1,false,&toDraw[0][0]);
 			glDrawElements(GL_TRIANGLES,vertCount,GL_UNSIGNED_SHORT,offset);
 
-			draw(transformLocation,transform,vertCount,offset,.6f * scale,depth-1,children);
+			draw(blockData+1, transformLocation,transform,vertCount,offset,.6f * scale,depth-1,children);
 		}
 	}
 }

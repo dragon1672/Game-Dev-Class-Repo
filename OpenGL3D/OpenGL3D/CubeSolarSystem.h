@@ -19,10 +19,13 @@ struct CubeSolarSystem {
 		xAngle = 0;
 		yAngle = 0;
 		zAngle = 0;
+
+		orbitAngle = 0;
+
 		randomAcc();
 	}
 	void randomAcc();
 	void update(int frames);
 	glm::mat4x4 getTransform();
-	void draw(int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children);
+	void draw(CubeSolarSystem * blockData, int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children);
 };
