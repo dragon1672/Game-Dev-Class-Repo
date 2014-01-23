@@ -27,5 +27,5 @@ struct CubeSolarSystem {
 	void randomAcc();
 	void update(int frames);
 	glm::mat4x4 getTransform();
-	void draw(CubeSolarSystem * blockData, int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children);
+	void draw(CubeSolarSystem * blockData, int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children, glm::vec3 orbitLength = CubeSolarSystem::orbitLength, glm::vec3 orbitAxis = CubeSolarSystem::orbitAxis);
 };

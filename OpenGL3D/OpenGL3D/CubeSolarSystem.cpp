@@ -6,8 +6,8 @@
 #include "CubeSolarSystem.h"
 #include "Randomness.h"
 
+glm::vec3 CubeSolarSystem::orbitAxis(0,0,1);
 glm::vec3 CubeSolarSystem::orbitLength(0,10,0);
-glm::vec3 CubeSolarSystem::orbitAxis(-1,0,1);
 float CubeSolarSystem::orbitAcc = .5;
 
 void CubeSolarSystem::randomAcc() {
@@ -35,7 +35,7 @@ glm::mat4x4 CubeSolarSystem::getTransform() {
 	return transform;
 }
 
-void CubeSolarSystem::draw(CubeSolarSystem * blockData, int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children) {
+void CubeSolarSystem::draw(CubeSolarSystem * blockData, int transformLocation,glm::mat4x4 lastTransform,int vertCount, void * offset, float scale, int depth, int children, glm::vec3 orbitLength, glm::vec3 orbitAxis) {
 	if(depth>=0) {
 		float averageAngle = 360.0f/children;
 		for (int i = 0; i < children; i++)
@@ -46,6 +46,7 @@ void CubeSolarSystem::draw(CubeSolarSystem * blockData, int transformLocation,gl
 									* glm::translate(scale * orbitLength)
 									* glm::scale(glm::vec3(scale,scale,scale));
 
+			//transform = glm::translate(glm::vec3(previousTranslation)) * transform;
 			transform = lastTransform * transform;
 
 			glm::mat4x4 toDraw = transform * blockData->getTransform();

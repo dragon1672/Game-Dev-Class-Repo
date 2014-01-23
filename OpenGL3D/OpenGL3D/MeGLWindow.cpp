@@ -167,12 +167,16 @@ void MeGLWindow::paintGL() {
 	transform *= glm::translate(ForReder::worldTrans);
 	transform *= glm::scale(vec3(ForReder::scale,ForReder::scale,ForReder::scale));
 
+	//draw the center cube
+	cubeData[0].draw(&cubeData[0], transformationUniformLocation,transform,ForReder::vertsToDraw,0,1,ForReder::depth-2,ForReder::children, 10.f * CubeSolarSystem::orbitAxis);
+	
 	//draw all the other ones
 	cubeData[0].draw(&cubeData[0], transformationUniformLocation,transform,ForReder::vertsToDraw,0,1,ForReder::depth,ForReder::children);
 
-	//draw the center cube
+	/* draw center cube (boring)
 	transform *= cubeData[0].getTransform();
 	glUniformMatrix4fv(transformationUniformLocation,1,false,&transform[0][0]);
 	glDrawElements(GL_TRIANGLES,ForReder::vertsToDraw,GL_UNSIGNED_SHORT,0);
+	//*/
 
 }
