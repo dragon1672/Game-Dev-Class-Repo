@@ -1,0 +1,1 @@
+C:\ProgrammingSandBox\c++\moc48 MyWindow.h > MyWindow_mock.cpp

@@ -11,9 +11,10 @@ glm::vec3 CubeSolarSystem::orbitLength(0,10,0);
 float CubeSolarSystem::orbitAcc = .5;
 
 void CubeSolarSystem::randomAcc() {
-	xAngleAcc = Random::randomFloat(-2,2);
-	yAngleAcc = Random::randomFloat(-2,2);
-	zAngleAcc = Random::randomFloat(-2,2);
+	float range = 3;
+	xAngleAcc = Random::randomFloat(-range,range);
+	yAngleAcc = Random::randomFloat(-range,range);
+	zAngleAcc = Random::randomFloat(-range,range);
 }
 void CubeSolarSystem::update(int frames) {
 	orbitAngle += orbitAcc;
