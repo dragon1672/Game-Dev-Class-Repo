@@ -33,8 +33,6 @@ void MyWindow::initShaders() {
 
 //returns the required size
 int initShapeData(int &counter, DrawnObj * theArray) {
-	GLuint requiredBufferSize = 0;
-
 	Neumont::ShapeData models[5];
 	
 	models[0] = Neumont::ShapeGenerator::makeCube();
@@ -50,12 +48,11 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 	for (int i = 0; i < sizeof(models)/sizeof(*models); i++)
 	{
 		theArray[counter].init(models[i], currentOffset);
-		requiredBufferSize += theArray[counter].totalBufferSize();
-		currentOffset += theArray[counter].endOffset();
+		currentOffset = theArray[counter].endOffset();
 		
 		counter++;
 	}
-	return requiredBufferSize;
+	return currentOffset;
 }
 
 void MyWindow::sendDataToHardWare() {

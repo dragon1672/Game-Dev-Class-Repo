@@ -10,7 +10,7 @@ uint DrawnObj::indicesOffset() {
 	return startOffset + vertexBufferSize();
 }
 uint DrawnObj::endOffset() {
-	return vertexBufferSize() + indexBufferSize();
+	return startOffset + totalBufferSize();
 }
 uint DrawnObj::totalBufferSize() {
 	return indexBufferSize() + vertexBufferSize();
