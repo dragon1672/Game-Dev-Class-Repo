@@ -29,6 +29,12 @@ void DrawnObj::init(ShapeData toCopy, uint previousOffset) {
 void DrawnObj::sendToBuffer(uint bufferID) {
 
 	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
+
+	uint dOff = dataOffset();
+	uint iOff = indicesOffset();
+
+	uint dSize = vertexBufferSize();
+	uint iSize = indexBufferSize();
 	
 	glBufferSubData(GL_ARRAY_BUFFER,dataOffset(),vertexBufferSize(),verts);
 	glBufferSubData(GL_ARRAY_BUFFER,indicesOffset(),indexBufferSize(),indices);

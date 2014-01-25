@@ -41,7 +41,8 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 	models[1] = Neumont::ShapeGenerator::makeSphere(10);
 	models[2] = Neumont::ShapeGenerator::makeTorus(10);
 	models[3] = Neumont::ShapeGenerator::makeArrow();
-	models[4] = Neumont::ShapeGenerator::makeTeapot(10,glm::mat4());
+	models[4] = Neumont::ShapeGenerator::makeArrow();
+	//models[4] = Neumont::ShapeGenerator::makeTeapot(10,glm::mat4());
 
 	counter = 0;
 	uint currentOffset = 0;
@@ -60,7 +61,7 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 void MyWindow::sendDataToHardWare() {
 	GLuint bufferID;
 	glGenBuffers(1, &bufferID);
-
+	numOfGameObjs = 0;
 	GLuint requiredBufferSize = initShapeData(numOfShapes,myShapes);
 
 	glBufferData(GL_ARRAY_BUFFER, requiredBufferSize, 0, GL_STATIC_DRAW);
@@ -76,6 +77,7 @@ void MyWindow::sendDataToHardWare() {
 		myGameObjs[i].myShape = myShapes[i%numOfShapes];
 		float range = .5;
 		myGameObjs[i].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
+		numOfGameObjs++;
 	}
 }
 
@@ -108,12 +110,13 @@ void MyWindow::paintGL() {
 
 	for (int i = 0; i < numOfGameObjs; i++)
 	{
+		DrawnObj toDraw = myGameObjs[i].getShape();
 		glm::mat4x4 finalTrans = transform;
 		transform * myGameObjs[i].getTransform();
 
 		glUniformMatrix4fv(transformationUniformLocation,1,false,&transform[0][0]);
 
-		myGameObjs[i].getShape().printPrep();
-		glDrawElements(GL_TRIANGLES,myGameObjs[i].getShape().numIndices,GL_UNSIGNED_SHORT,(void*)myGameObjs[i].getShape().indicesOffset());
+		toDraw.printPrep();
+		glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
 	}
 }
