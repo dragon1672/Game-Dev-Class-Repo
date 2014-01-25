@@ -79,12 +79,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DrawnObj.cpp" />
+    <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MyRandom.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow_mock.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawnObj.h" />
+    <ClInclude Include="GameObj.h" />
+    <ClInclude Include="MyRandom.h" />
     <ClInclude Include="MyWindow.h" />
     <ClInclude Include="ShaderProgram.h" />
   </ItemGroup>

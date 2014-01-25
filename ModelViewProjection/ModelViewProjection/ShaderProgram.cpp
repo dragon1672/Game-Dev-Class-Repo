@@ -36,6 +36,18 @@ bool ShaderProgram::addProgram(const char * filePath, unsigned short shaderType)
 	return isValid;
 }
 
+int ShaderProgram::generateUniform(char* title) {
+	return glGetUniformLocation(getProgramID(),title);
+}
+int ShaderProgram::getUniform(char* title) {
+	int ret = -1;
+
+	if(uniforms.count(title)==0) ret = generateUniform(title);
+	else ret = uniforms[title];
+	
+	return ret;
+}
+
 void ShaderProgram::complileShader(const char * code, GLuint id, bool debug) {
 	const char * codeAdapt[1];
 	codeAdapt[0] = code;
