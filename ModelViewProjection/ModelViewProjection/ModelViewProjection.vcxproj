@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawnObj.cpp" />
     <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawnObj.h" />
     <ClInclude Include="GameObj.h" />
     <ClInclude Include="MyRandom.h" />

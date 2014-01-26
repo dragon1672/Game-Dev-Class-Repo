@@ -4,6 +4,9 @@
 #include "glm/gtx/transform.hpp"
 #include "MyRandom.h"
 
+#include <QtGui\qmouseevent>
+#include <QtGui\qkeyevent>
+
 #include <ShapeGenerator.h>
 
 
@@ -23,6 +26,8 @@ void MyWindow::initializeGL() {
 
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
+
+	myCam.setPos(vec3(1,-3,3),vec3(-1,3,-3));
 }
 void MyWindow::initShaders() {
 	myShadyShader.startup();
@@ -97,6 +102,21 @@ void MyWindow::myUpdate() {
 
 	repaint();
 }
+void MyWindow::mouseMoveEvent(QMouseEvent* e) {
+	glm::vec2 newPos(e->x(),e->y());
+	myCam.updateMousePos(newPos);
+}
+void MyWindow::keyPressEvent(QKeyEvent* e) {
+	if(e->key() == Qt::Key::Key_W) {
+		myCam.moveForward();
+	} else if(e->key() == Qt::Key::Key_S) {
+		myCam.moveBackward();
+	} else if(e->key() == Qt::Key::Key_A) {
+		myCam.moveLeft();
+	} else if(e->key() == Qt::Key::Key_D) {
+		myCam.moveRight();
+	}
+}
 
 void MyWindow::paintGL() {
 	glViewport(0,0,width(),height());
@@ -109,7 +129,7 @@ void MyWindow::paintGL() {
 
 	mat4x4 transform;
 	transform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
-	transform *= glm::lookAt(vec3(1,-3,3),vec3(0,0,0),vec3(0,1,0));
+	transform *= myCam.getWorld2View();
 
 	for (int i = 0; i < numOfGameObjs; i++)
 	{

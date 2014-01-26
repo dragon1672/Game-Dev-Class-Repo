@@ -6,6 +6,7 @@
 #include "ShaderProgram.h"
 #include "DrawnObj.h"
 #include "GameObj.h"
+#include "Camera.h"
 
 class MyWindow : public QGLWidget {
 	
@@ -13,6 +14,7 @@ class MyWindow : public QGLWidget {
 
 	ShaderProgram myShadyShader;
 	QTimer myTimer;
+	Camera myCam;
 
 	DrawnObj myShapes[10];
 	int numOfShapes;
@@ -26,6 +28,8 @@ class MyWindow : public QGLWidget {
 protected:
 	void initializeGL();
 	void paintGL();
+	void mouseMoveEvent(QMouseEvent* e);
+	void keyPressEvent(QKeyEvent* e);
 private slots:
 	void myUpdate();
 };
