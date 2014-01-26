@@ -35,12 +35,12 @@ void MyWindow::initShaders() {
 int initShapeData(int &counter, DrawnObj * theArray) {
 	Neumont::ShapeData models[5];
 	
-	models[0] = Neumont::ShapeGenerator::makeCube();
-	models[1] = Neumont::ShapeGenerator::makeSphere(10);
-	models[2] = Neumont::ShapeGenerator::makeTorus(10);
-	models[3] = Neumont::ShapeGenerator::makeArrow();
-	models[4] = Neumont::ShapeGenerator::makeArrow();
-	//models[4] = Neumont::ShapeGenerator::makeTeapot(10,glm::mat4());
+	models[0] = Neumont::ShapeGenerator::makeTeapot(10,glm::mat4());
+	models[1] = Neumont::ShapeGenerator::makeTorus(10);
+	models[2] = Neumont::ShapeGenerator::makeArrow();
+	models[3] = Neumont::ShapeGenerator::makeCube();
+	models[4] = Neumont::ShapeGenerator::makeSphere(10);
+	models[0] = Neumont::ShapeGenerator::makeArrow();
 
 	counter = 0;
 	uint currentOffset = 0;
@@ -60,20 +60,26 @@ void MyWindow::sendDataToHardWare() {
 	glGenBuffers(1, &bufferID);
 	numOfGameObjs = 0;
 	GLuint requiredBufferSize = initShapeData(numOfShapes,myShapes);
-
-	glBufferData(GL_ARRAY_BUFFER, requiredBufferSize, 0, GL_STATIC_DRAW);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
+	glBufferData(GL_ARRAY_BUFFER, requiredBufferSize, NULL, GL_STATIC_DRAW);
 
 	for (int i = 0; i < numOfShapes; i++)
 	{
 		myShapes[i].sendToBuffer(bufferID);
 		//myShapes[i].cleanUp();
 	}
+	for (int i = 0; i < numOfShapes; i++)
+	{
+		myShapes[i].setVertexAttrib(bufferID);
+	}
 
 	for (int i = 0; i < 10; i++)
 	{
-		myGameObjs[i].myShape = myShapes[i%numOfShapes];
-		float range = .5;
-		myGameObjs[i].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
+		myGameObjs[numOfGameObjs].myShape = myShapes[i%numOfShapes];
+		float range = 2;
+		myGameObjs[numOfGameObjs].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
+		myGameObjs[numOfGameObjs].scale = .2f;
 		numOfGameObjs++;
 	}
 }
@@ -107,11 +113,11 @@ void MyWindow::paintGL() {
 
 	for (int i = 0; i < numOfGameObjs; i++)
 	{
-		DrawnObj toDraw = myGameObjs[i].getShape();
+		DrawnObj& toDraw = myGameObjs[i].getShape();
 		glm::mat4x4 finalTrans = transform;
-		transform * myGameObjs[i].getTransform();
+		finalTrans *= myGameObjs[i].getTransform();
 
-		glUniformMatrix4fv(transformationUniformLocation,1,false,&transform[0][0]);
+		glUniformMatrix4fv(transformationUniformLocation,1,false,&finalTrans[0][0]);
 
 		toDraw.printPrep();
 		glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
