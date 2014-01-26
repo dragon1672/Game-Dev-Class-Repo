@@ -6,6 +6,7 @@
 
 #include <QtGui\qmouseevent>
 #include <QtGui\qkeyevent>
+#include <Qt/qdebug.h>
 
 #include <ShapeGenerator.h>
 
@@ -14,6 +15,9 @@ using glm::vec3;
 using glm::mat4x4;
 
 Neumont::ShapeData singleShape;
+
+float orbitAngle;
+float orbitAcc = .2f;
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -27,7 +31,7 @@ void MyWindow::initializeGL() {
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
 
-	myCam.setPos(vec3(1,-3,3),vec3(-1,3,-3));
+	myCam.setPos(vec3(17,-3.7f,-15),vec3(-50,-13,85));
 }
 void MyWindow::initShaders() {
 	myShadyShader.startup();
@@ -79,12 +83,12 @@ void MyWindow::sendDataToHardWare() {
 		myShapes[i].setVertexAttrib(bufferID);
 	}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		myGameObjs[numOfGameObjs].myShape = myShapes[i%numOfShapes];
 		float range = 2;
-		myGameObjs[numOfGameObjs].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
-		myGameObjs[numOfGameObjs].scale = .2f;
+		//myGameObjs[numOfGameObjs].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
+		myGameObjs[numOfGameObjs].scale = 1;
 		numOfGameObjs++;
 	}
 }
@@ -95,10 +99,17 @@ void MyWindow::myUpdate() {
 	frames++;
 	//*/
 
+	if(frames%100==0) {
+		qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
+		qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
+	}
+
 	for (int i = 0; i < numOfGameObjs; i++)
 	{
 		myGameObjs[i].update(frames);
 	}
+
+	orbitAngle += orbitAcc;
 
 	repaint();
 }
@@ -115,6 +126,10 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 		myCam.moveLeft();
 	} else if(e->key() == Qt::Key::Key_D) {
 		myCam.moveRight();
+	} else if(e->key() == Qt::Key::Key_R) {
+		myCam.moveUp();
+	} else if(e->key() == Qt::Key::Key_F) {
+		myCam.moveDown();
 	}
 }
 
@@ -125,21 +140,53 @@ void MyWindow::paintGL() {
 
 	const float aspectRatio = (float)width()/(float)height();
 
-	GLint transformationUniformLocation = myShadyShader.getUniform("transformation");
-
 	mat4x4 transform;
 	transform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
 	transform *= myCam.getWorld2View();
 
+	draw(&myGameObjs[0],transform,1,2,5,glm::vec3(9,0,0),glm::vec3(0,1,0));
+
+	transform *= glm::translate(vec3(0,-10,0));
+
+	draw(&myGameObjs[0],transform,1,4,3,glm::vec3(9,0,0),glm::vec3(0,1,0));
+	
+	/*
 	for (int i = 0; i < numOfGameObjs; i++)
 	{
 		DrawnObj& toDraw = myGameObjs[i].getShape();
 		glm::mat4x4 finalTrans = transform;
 		finalTrans *= myGameObjs[i].getTransform();
 
-		glUniformMatrix4fv(transformationUniformLocation,1,false,&finalTrans[0][0]);
+		glUniformMatrix4fv(myShadyShader.getUniform("transformation"),1,false,&finalTrans[0][0]);
 
 		toDraw.printPrep();
 		glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
+	}
+	//*/
+}
+
+void MyWindow::draw(GameObj * blockData, glm::mat4x4 lastTransform, float scale, int depth, int children, glm::vec3 orbitLength, glm::vec3 orbitAxis) {
+	if(depth>=0) {
+		float averageAngle = 360.0f/children;
+		for (int i = 0; i < children; i++)
+		{
+			DrawnObj& toDraw = myGameObjs[i].getShape();
+			//glm::vec4 previousTranslation = lastTransform * glm::vec4(0,0,0,0);
+			//glm::mat4x4 transform = glm::translate(glm::vec3(previousTranslation));
+			glm::mat4x4 transform = glm::rotate(orbitAngle + i*averageAngle,orbitAxis)
+									* glm::translate(scale * orbitLength)
+									* glm::scale(glm::vec3(scale,scale,scale));
+
+			//transform = glm::translate(glm::vec3(previousTranslation)) * transform;
+			transform = lastTransform * transform;
+
+			glm::mat4x4 finalTrans = transform * blockData->getTransform();
+			glUniformMatrix4fv(myShadyShader.getUniform("transformation"),1,false,&finalTrans[0][0]);
+
+			toDraw.printPrep();
+			glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
+
+			draw(blockData+1, transform,.6f * scale,depth-1,children, orbitLength, orbitAxis);
+		}
 	}
 }

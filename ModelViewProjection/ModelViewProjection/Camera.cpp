@@ -6,7 +6,7 @@ using glm::mat4x4;
 
 const float LARGEST_MOUSE_CHANGE = 50;
 const float MOUSE_SPEED_SCALE = .5f;
-const float MOVEMENT_SPEED = .1f;
+const float MOVEMENT_SPEED = 1;
 
 vec3 Camera::UP(0,1,0);
 
@@ -30,12 +30,17 @@ void Camera::moveLeft() {
 void Camera::moveRight() {
 	pos += MOVEMENT_SPEED * strafeDir;
 }
+void Camera::moveUp() {
+	pos += MOVEMENT_SPEED * UP;
+}
+void Camera::moveDown() {
+	pos -= MOVEMENT_SPEED * UP;
+}
 void Camera::rotate(glm::vec2& change) {
 	strafeDir= glm::cross(viewDir, UP);
-	glm::mat4 mouseRotation = glm::rotate(-change.x, UP)*
-		glm::rotate(-change.y, strafeDir);
-
-	viewDir= glm::mat3(mouseRotation)*viewDir;
+	glm::mat4 mouseRot =  glm::rotate(-change.x, UP)
+						* glm::rotate(-change.y, strafeDir);
+	viewDir = glm::vec3(mouseRot * glm::vec4(viewDir,1));
 }
 
 void Camera::updateMousePos(const glm::vec2& newMousePos) {

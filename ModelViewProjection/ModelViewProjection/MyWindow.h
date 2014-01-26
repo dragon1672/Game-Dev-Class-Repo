@@ -16,10 +16,10 @@ class MyWindow : public QGLWidget {
 	QTimer myTimer;
 	Camera myCam;
 
-	DrawnObj myShapes[10];
+	DrawnObj myShapes[6];
 	int numOfShapes;
 
-	GameObj myGameObjs[50];
+	GameObj myGameObjs[200];
 	int numOfGameObjs;
 
 	void sendDataToHardWare();
@@ -32,4 +32,5 @@ protected:
 	void keyPressEvent(QKeyEvent* e);
 private slots:
 	void myUpdate();
+	void draw(GameObj * blockData, glm::mat4x4 lastTransform, float scale, int depth, int children, glm::vec3 orbitLength, glm::vec3 orbitAxis);
 };

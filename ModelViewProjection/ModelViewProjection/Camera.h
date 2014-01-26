@@ -24,8 +24,13 @@ public:
 	void moveBackward();
 	void moveLeft();
 	void moveRight();
+	void moveUp();
+	void moveDown();
 	void rotate(glm::vec2& change);
 	void updateMousePos(const glm::vec2& newMousePos);
+
+	inline glm::vec3 getPos() { return pos; }
+	inline glm::vec3 getViewDir() { return viewDir; }
 
 	glm::mat4x4 getWorld2View();
 };
