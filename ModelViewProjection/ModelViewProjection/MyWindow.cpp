@@ -85,7 +85,8 @@ void MyWindow::sendDataToHardWare() {
 
 	for (int i = 0; i < 100; i++)
 	{
-		myGameObjs[numOfGameObjs].myShape = myShapes[i%numOfShapes];
+		int index = RANDOM::randomInt(0,numOfShapes);
+		myGameObjs[numOfGameObjs].myShape = myShapes[index];
 		float range = 2;
 		//myGameObjs[numOfGameObjs].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
 		myGameObjs[numOfGameObjs].scale = 1;
