@@ -18,5 +18,6 @@ private:
 protected:
 	void initializeGL();
 	void sendDataToHardware();
+public:
 	void paint();
 };
