@@ -35,20 +35,6 @@ void MyWindow::initShaders() {
 	glShaderSource(vertexID,1,adapt,0);
 	glCompileShader(vertexID);
 
-	int id = vertexID;
-
-	GLint compileStatus;
-	glGetShaderiv(id,GL_COMPILE_STATUS, &compileStatus);
-	if(compileStatus!= GL_TRUE) {
-		GLint logLength;
-		glGetShaderiv(id,GL_INFO_LOG_LENGTH,&logLength);
-		char * buffer = new char[logLength];
-		GLsizei someRandom;
-		glGetShaderInfoLog(id,logLength,&someRandom,buffer);
-		qDebug() << buffer;
-		delete [] buffer;
-	}
-
 	adapt[0] = FragCode.c_str();
 	glShaderSource(fragID,1,adapt,0);
 	glCompileShader(fragID);
