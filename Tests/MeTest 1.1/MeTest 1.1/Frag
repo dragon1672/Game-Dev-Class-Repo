@@ -1,0 +1,10 @@
+#version 400
+
+in vec4 outColor;
+in vec4 outPos;
+
+out vec4 finalColor;
+
+void main() {
+	finalColor = outPos;
+}

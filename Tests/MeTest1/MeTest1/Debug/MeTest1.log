@@ -1,0 +1,40 @@
+﻿Build started 1/28/2014 3:53:05 PM.
+     1>Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MeTest1\MeTest1\MeTest1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MeTest1\MeTest1\../../Middleware/QT/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MeTest1\MeTest1\../../Middleware/glm/ /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MeTest1\MeTest1\../../Middleware/glew/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MeTest1\MeTest1\../../Middleware/NeumontTools/include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp MyWindow.cpp SingleBufferShape.cpp
+         SingleBufferShape.cpp
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\neumonttools\include\vertex.h(12): warning C4251: 'Neumont::Vertex::position' : struct 'glm::detail::tvec3<T>' needs to have dll-interface to be used by clients of struct 'Neumont::Vertex'
+                 with
+                 [
+                     T=glm::mediump_float
+                 ]
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\neumonttools\include\vertex.h(13): warning C4251: 'Neumont::Vertex::color' : struct 'glm::detail::tvec4<T>' needs to have dll-interface to be used by clients of struct 'Neumont::Vertex'
+                 with
+                 [
+                     T=glm::mediump_float
+                 ]
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\neumonttools\include\vertex.h(14): warning C4251: 'Neumont::Vertex::normal' : struct 'glm::detail::tvec3<T>' needs to have dll-interface to be used by clients of struct 'Neumont::Vertex'
+                 with
+                 [
+                     T=glm::mediump_float
+                 ]
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\neumonttools\include\vertex.h(15): warning C4251: 'Neumont::Vertex::uv' : struct 'glm::detail::tvec2<T>' needs to have dll-interface to be used by clients of struct 'Neumont::Vertex'
+                 with
+                 [
+                     T=glm::mediump_float
+                 ]
+         Main.cpp
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\metest1\metest1\main.cpp(7): error C2248: 'QWidget::QWidget' : cannot access private member declared in class 'QWidget'
+                 c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\qt\include\qt\qwidget.h(806) : see declaration of 'QWidget::QWidget'
+                 c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\qt\include\qt\qwidget.h(147) : see declaration of 'QWidget'
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\metest1\metest1\main.cpp(9): error C2039: 'execute' : is not a member of 'QWidget'
+                 c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\middleware\qt\include\qt\qwidget.h(147) : see declaration of 'QWidget'
+         Generating Code...
+         Compiling...
+         MyWindow.cpp
+         Generating Code...
+     1>Done Building Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MeTest1\MeTest1\MeTest1.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:03.97
