@@ -78,10 +78,6 @@ void MyWindow::sendDataToHardWare() {
 		myShapes[i].sendToBuffer(bufferID);
 		//myShapes[i].cleanUp();
 	}
-	for (int i = 0; i < numOfShapes; i++)
-	{
-		myShapes[i].setVertexAttrib(bufferID);
-	}
 
 	for (int i = 0; i < 100; i++)
 	{

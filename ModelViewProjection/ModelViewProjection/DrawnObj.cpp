@@ -39,8 +39,7 @@ void DrawnObj::sendToBuffer(uint bufferID) {
 	
 	glBufferSubData(GL_ARRAY_BUFFER,dataOffset(),vertexBufferSize(),verts);
 	glBufferSubData(GL_ARRAY_BUFFER,indicesOffset(),indexBufferSize(),indices);
-}
-void DrawnObj::setVertexAttrib(uint bufferID) {
+
 	//glBindBuffer(GL_ARRAY_BUFFER, bufferID);
 	glGenVertexArrays(1,&vertexArrayObjectID);
 	glBindVertexArray(vertexArrayObjectID);

@@ -12,7 +12,6 @@ struct DrawnObj : public Neumont::ShapeData {
 	void copyFromShape(ShapeData toCopy);
 	void init(ShapeData toCopy, uint previousOffset=0);
 	void sendToBuffer(uint bufferID);
-	void setVertexAttrib(uint bufferID);
 	void printPrep();
 	//override
 	void cleanUp();
