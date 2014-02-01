@@ -22,6 +22,8 @@ class MyWindow : public QGLWidget {
 	GameObj myGameObjs[200];
 	int numOfGameObjs;
 
+	GameObj camEntity;
+
 	void sendDataToHardWare();
 	void initShaders();
 
@@ -32,5 +34,6 @@ protected:
 	void keyPressEvent(QKeyEvent* e);
 private slots:
 	void myUpdate();
+	void draw(GameObj& entity);
 	void draw(GameObj * blockData, glm::mat4x4 lastTransform, float scale, int depth, int children, glm::vec3 orbitLength, glm::vec3 orbitAxis);
 };

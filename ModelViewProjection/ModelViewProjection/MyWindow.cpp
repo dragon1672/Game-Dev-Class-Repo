@@ -49,7 +49,7 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 	models[2] = Neumont::ShapeGenerator::makeArrow();
 	models[3] = Neumont::ShapeGenerator::makeCube();
 	models[4] = Neumont::ShapeGenerator::makeSphere(10);
-	models[0] = Neumont::ShapeGenerator::makeArrow();
+	//models[0] = Neumont::ShapeGenerator::makeArrow();
 
 	counter = 0;
 	uint currentOffset = 0;
@@ -83,11 +83,21 @@ void MyWindow::sendDataToHardWare() {
 	{
 		int index = RANDOM::randomInt(0,numOfShapes);
 		myGameObjs[numOfGameObjs].myShape = myShapes[index];
-		float range = 2;
-		//myGameObjs[numOfGameObjs].translation = glm::vec3(RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range),RANDOM::randomFloat(-range,range));
-		myGameObjs[numOfGameObjs].scale = 1;
+
+		float range = 100;
+		float x = RANDOM::randomFloat(-range,range);
+		float y = 0;//RANDOM::randomFloat(-range,range);
+		float z = RANDOM::randomFloat(-range,range);
+		float scale = 1;//RANDOM::randomFloat(.1f,10);
+
+		myGameObjs[numOfGameObjs].translation = glm::vec3(x,y,z);
+		myGameObjs[numOfGameObjs].scale = scale;
 		numOfGameObjs++;
 	}
+
+	camEntity.myShape = myShapes[RANDOM::randomInt(0,numOfShapes)];
+	camEntity.scale = .1f;
+	camEntity.accRange = 2;
 }
 
 void MyWindow::myUpdate() {
@@ -106,7 +116,7 @@ void MyWindow::myUpdate() {
 		myGameObjs[i].update(frames);
 	}
 
-	orbitAngle += orbitAcc;
+	camEntity.update(frames);
 
 	repaint();
 }
@@ -137,29 +147,48 @@ void MyWindow::paintGL() {
 
 	const float aspectRatio = (float)width()/(float)height();
 
-	mat4x4 transform;
-	transform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
-	transform *= myCam.getWorld2View();
+	mat4x4 viewTransform;
+	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
+	viewTransform *= myCam.getWorld2View();
+	glUniformMatrix4fv(myShadyShader.getUniform("viewTransform"),1,false,&viewTransform[0][0]);
 
-	draw(&myGameObjs[0],transform,1,2,5,glm::vec3(9,0,0),glm::vec3(0,1,0));
 
-	transform *= glm::translate(vec3(0,-10,0));
+	vec3 ambientLight = vec3(.1,.1,.1);
+	glUniform3fv(myShadyShader.getUniform("ambientLight"),1,&ambientLight[0]);
 
-	draw(&myGameObjs[0],transform,1,4,3,glm::vec3(9,0,0),glm::vec3(0,1,0));
-	
-	/*
+	vec3 diffuseLight = vec3(1,1,1);
+	glUniform3fv(myShadyShader.getUniform("diffuseLight"),1,&diffuseLight[0]);
+
+	vec3 diffusePos = myCam.getPos()+myCam.getViewDir()*3.0f;//vec3(0,10,0);
+	glUniform3fv(myShadyShader.getUniform("diffusePos"),1,&diffusePos[0]);
+
+	bool diffuseInFrag = true;
+	glUniform1i(myShadyShader.getUniform("diffuseInFrag"),diffuseInFrag);
+
+	bool passThrough = false;
+	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
+
+
 	for (int i = 0; i < numOfGameObjs; i++)
 	{
-		DrawnObj& toDraw = myGameObjs[i].getShape();
-		glm::mat4x4 finalTrans = transform;
-		finalTrans *= myGameObjs[i].getTransform();
-
-		glUniformMatrix4fv(myShadyShader.getUniform("transformation"),1,false,&finalTrans[0][0]);
-
-		toDraw.printPrep();
-		glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
+		draw(myGameObjs[i]);
 	}
-	//*/
+	passThrough = true;
+	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
+	camEntity.translation = diffusePos;
+	draw(camEntity);
+}
+
+void MyWindow::draw(GameObj& entity) {
+	DrawnObj toDraw = entity.getShape();
+	mat4x4 finalTransform;
+
+	finalTransform *= entity.getTransform();
+
+	glUniformMatrix4fv(myShadyShader.getUniform("model2WorldTransform"),1,false,&finalTransform[0][0]);
+
+	toDraw.printPrep();
+	glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
 }
 
 void MyWindow::draw(GameObj * blockData, glm::mat4x4 lastTransform, float scale, int depth, int children, glm::vec3 orbitLength, glm::vec3 orbitAxis) {

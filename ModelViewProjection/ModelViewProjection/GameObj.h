@@ -5,8 +5,8 @@
 
 class GameObj {
 public:
-	static const int accRange = 10;
-	static const int rateToChageAngleACC = 1000;
+	int accRange;
+	int rateToChageAngleACC;
 	DrawnObj myShape;
 	glm::vec3 translation;
 	float scale;
@@ -22,6 +22,10 @@ public:
 		xRot = 0;
 		yRot = 0;
 		zRot = 0;
+
+		accRange = 10;
+		rateToChageAngleACC = 1000;
+
 		randomizeAngleAcc();
 	}
 

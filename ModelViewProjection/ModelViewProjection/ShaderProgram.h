@@ -31,7 +31,7 @@ public:
 	int generateUniform(char* title);
 	int getUniform(char* title);
 
-	void complileShader(const char * code, GLuint id, bool debug);
+	bool complileShader(const char * code, GLuint id, bool debug);
 	void compileAndLink();
 
 	GLuint getProgramID();
