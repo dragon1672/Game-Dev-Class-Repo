@@ -51,6 +51,14 @@ void MyWindow::initShaders() {
 }
 
 //returns the required size
+
+void setColor(glm::vec4& toSet, DrawnObj& obj) {
+	for (uint i = 0; i < obj.numVerts; i++)
+	{
+		obj.verts[i].color = toSet;
+	}
+}
+
 int initShapeData(int &counter, DrawnObj * theArray) {
 	Neumont::ShapeData models[6];
 	
@@ -114,6 +122,8 @@ void MyWindow::sendDataToHardWare() {
 	floor.myShape = myShapes[numOfShapes-1];
 	floor.scale = 10;
 	floor.translation = vec3(0,-floor.scale,0);
+	setColor(glm::vec4(1,1,1,1),floor.myShape); // setting floor to white
+	floor.myShape.sendToBuffer(bufferID);
 }
 
 void MyWindow::myUpdate() {
