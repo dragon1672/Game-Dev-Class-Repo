@@ -29,7 +29,10 @@ vec3 diffuseLightAmount(vec4 vertPos) {
 }
 
 vec3 combineLight(vec3 diffuse, vec3 amb) {
-	return diffuse + amb;
+	float x = (diffuse.x > amb.x)? diffuse.x : amb.x;
+	float y = (diffuse.y > amb.y)? diffuse.x : amb.y;
+	float z = (diffuse.z > amb.z)? diffuse.x : amb.z;
+	return vec3(x,y,z);
 }
 
 void main() {

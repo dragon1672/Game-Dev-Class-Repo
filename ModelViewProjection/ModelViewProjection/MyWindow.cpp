@@ -103,6 +103,7 @@ void MyWindow::sendDataToHardWare() {
 		myGameObjs[numOfGameObjs].translation = glm::vec3(x,y,z);
 		myGameObjs[numOfGameObjs].scale = scale;
 		myGameObjs[numOfGameObjs].accRange = 2;
+		myGameObjs[numOfGameObjs].rateToChageAngleACC = 100;
 		numOfGameObjs++;
 	}
 

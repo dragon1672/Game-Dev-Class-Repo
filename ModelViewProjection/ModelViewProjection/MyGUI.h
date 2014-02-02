@@ -123,6 +123,7 @@ public:
 		meScene.init();
 
 		updateFromScene();
+		this->resize(1200,800);
 	}
 	glm::vec3 getOverrideColor();
 	glm::vec3 getDiffPos();
