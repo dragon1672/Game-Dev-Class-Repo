@@ -30,8 +30,18 @@ void MyWindow::initializeGL() {
 
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
+}
 
-	myCam.setPos(vec3(17,-3.7f,-15),vec3(-50,-13,85));
+void MyWindow::init() {
+	//setting defaults
+	enableOverrideColor = true;
+	displayLightEntity = true;
+	myCam.setPos(vec3(17,3.7f,-15),vec3(-50,-13,85));
+	overrideColor = vec3(1,1,1);
+	ambientLight = vec3(.1,.1,.1);
+	diffuseLight = vec3(1,1,1);
+	diffusePos = vec3(0,10,0);
+	diffuseInFrag = true;
 }
 void MyWindow::initShaders() {
 	myShadyShader.startup();
@@ -42,14 +52,14 @@ void MyWindow::initShaders() {
 
 //returns the required size
 int initShapeData(int &counter, DrawnObj * theArray) {
-	Neumont::ShapeData models[5];
+	Neumont::ShapeData models[6];
 	
 	models[0] = Neumont::ShapeGenerator::makeTeapot(10,glm::mat4());
 	models[1] = Neumont::ShapeGenerator::makeTorus(10);
 	models[2] = Neumont::ShapeGenerator::makeArrow();
-	models[3] = Neumont::ShapeGenerator::makeCube();
-	models[4] = Neumont::ShapeGenerator::makeSphere(10);
-	//models[0] = Neumont::ShapeGenerator::makeArrow();
+	models[3] = Neumont::ShapeGenerator::makeSphere(10);
+	models[4] = Neumont::ShapeGenerator::makeCube();
+	models[5] = Neumont::ShapeGenerator::makePlane(10);
 
 	counter = 0;
 	uint currentOffset = 0;
@@ -61,6 +71,7 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 		
 		counter++;
 	}
+
 	return currentOffset;
 }
 
@@ -79,25 +90,29 @@ void MyWindow::sendDataToHardWare() {
 		//myShapes[i].cleanUp();
 	}
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		int index = RANDOM::randomInt(0,numOfShapes);
+		int index = RANDOM::randomInt(0,numOfShapes-2);
 		myGameObjs[numOfGameObjs].myShape = myShapes[index];
 
-		float range = 100;
 		float x = RANDOM::randomFloat(-range,range);
-		float y = 0;//RANDOM::randomFloat(-range,range);
+		float y = 2;//RANDOM::randomFloat(-range,range);
 		float z = RANDOM::randomFloat(-range,range);
 		float scale = 1;//RANDOM::randomFloat(.1f,10);
 
 		myGameObjs[numOfGameObjs].translation = glm::vec3(x,y,z);
 		myGameObjs[numOfGameObjs].scale = scale;
+		myGameObjs[numOfGameObjs].accRange = 2;
 		numOfGameObjs++;
 	}
 
 	camEntity.myShape = myShapes[RANDOM::randomInt(0,numOfShapes)];
-	camEntity.scale = .1f;
+	camEntity.scale = 1;
 	camEntity.accRange = 2;
+
+	floor.myShape = myShapes[numOfShapes-1];
+	floor.scale = 10;
+	floor.translation = vec3(0,-floor.scale,0);
 }
 
 void MyWindow::myUpdate() {
@@ -107,8 +122,8 @@ void MyWindow::myUpdate() {
 	//*/
 
 	if(frames%100==0) {
-		qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
-		qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
+		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
+		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
 	}
 
 	for (int i = 0; i < numOfGameObjs; i++)
@@ -152,17 +167,11 @@ void MyWindow::paintGL() {
 	viewTransform *= myCam.getWorld2View();
 	glUniformMatrix4fv(myShadyShader.getUniform("viewTransform"),1,false,&viewTransform[0][0]);
 
-
-	vec3 ambientLight = vec3(.1,.1,.1);
+	glUniform1i(myShadyShader.getUniform("enableOverrideColor"),enableOverrideColor);
+	glUniform3fv(myShadyShader.getUniform("overrideColor"),1,&overrideColor[0]);
 	glUniform3fv(myShadyShader.getUniform("ambientLight"),1,&ambientLight[0]);
-
-	vec3 diffuseLight = vec3(1,1,1);
 	glUniform3fv(myShadyShader.getUniform("diffuseLight"),1,&diffuseLight[0]);
-
-	vec3 diffusePos = myCam.getPos()+myCam.getViewDir()*3.0f;//vec3(0,10,0);
 	glUniform3fv(myShadyShader.getUniform("diffusePos"),1,&diffusePos[0]);
-
-	bool diffuseInFrag = true;
 	glUniform1i(myShadyShader.getUniform("diffuseInFrag"),diffuseInFrag);
 
 	bool passThrough = false;
@@ -173,10 +182,17 @@ void MyWindow::paintGL() {
 	{
 		draw(myGameObjs[i]);
 	}
+
+	draw(floor);
+
 	passThrough = true;
 	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
-	camEntity.translation = diffusePos;
-	draw(camEntity);
+
+	if(displayLightEntity) {
+		camEntity.translation = diffusePos;
+		draw(camEntity);
+	}
+
 }
 
 void MyWindow::draw(GameObj& entity) {

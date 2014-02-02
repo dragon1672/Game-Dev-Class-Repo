@@ -86,6 +86,7 @@
     <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyGUI.cpp" />
+    <ClCompile Include="MyGUI_mock.cpp" />
     <ClCompile Include="MyRandom.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow_mock.cpp" />

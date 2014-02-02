@@ -16,6 +16,9 @@ uniform vec3 ambientLight;
 uniform vec3 diffuseLight;
 uniform vec3 diffusePos;
 
+uniform bool enableOverrideColor;
+uniform vec3 overrideColor;
+
 vec3 diffuseLightAmount(vec4 vertPos) {
 	vec3 diff = diffusePos - vec3(vertPos);
 	diff = normalize(diff);
@@ -32,12 +35,16 @@ void main() {
 	gl_Position =  viewTransform * transformedPos;
 	
 	vec3 finalCol = vec3(col);
+	if(enableOverrideColor && !passThrough) {
+		finalCol = overrideColor;
+	}
+	
 	if(!passThrough) {
 		vec3 lightV;
 		//if(!diffuseInFrag) // not currently supported
 			lightV = diffuseLightAmount(transformedPos);
 		lightV = combineLight(lightV,ambientLight);
-		finalCol = vec3(col) * lightV;
+		finalCol = finalCol * lightV;
 	}
 	outColor = vec4(finalCol,1);
 }

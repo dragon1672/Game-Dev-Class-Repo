@@ -35,5 +35,7 @@ public:
 
 	DrawnObj getShape();
 
+	glm::vec3 getTranslate();
 	glm::mat4x4 getTransform();
+	glm::mat3x3 getRotationMat();
 };

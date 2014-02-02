@@ -9,7 +9,10 @@
 #include "Camera.h"
 
 class MyWindow : public QGLWidget {
-	
+public:
+	static const int range = 10;
+private:
+
 	Q_OBJECT
 
 	ShaderProgram myShadyShader;
@@ -23,13 +26,23 @@ class MyWindow : public QGLWidget {
 	int numOfGameObjs;
 
 	GameObj camEntity;
+	GameObj floor;
 
 	void sendDataToHardWare();
 	void initShaders();
-
-protected:
-	void initializeGL();
+public: // interface to editVals
+	bool enableOverrideColor;
+	bool displayLightEntity;
+	glm::vec3 overrideColor;
+	glm::vec3 ambientLight;
+	glm::vec3 diffuseLight;
+	glm::vec3 diffusePos;
+	bool diffuseInFrag;
 	void paintGL();
+	void init();
+
+public:
+	void initializeGL();
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 private slots:

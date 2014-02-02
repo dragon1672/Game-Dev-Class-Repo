@@ -25,10 +25,19 @@ DrawnObj GameObj::getShape() {
 	return myShape;
 }
 
+glm::vec3 GameObj::getTranslate() {
+	return translation;
+}
+
 glm::mat4x4 GameObj::getTransform() {
 	return glm::translate(translation)
-			* glm::rotate(xRot,glm::vec3(1,0,0))
-			* glm::rotate(yRot,glm::vec3(0,1,0))
-			* glm::rotate(zRot,glm::vec3(0,0,1))
+			* glm::mat4x4(getRotationMat())
 			* glm::scale(glm::vec3(scale,scale,scale));
+}
+glm::mat3x3 GameObj::getRotationMat() {
+	return glm::mat3x3(
+				  glm::rotate(xRot,glm::vec3(1,0,0))
+				* glm::rotate(yRot,glm::vec3(0,1,0))
+				* glm::rotate(zRot,glm::vec3(0,0,1))
+			);
 }
