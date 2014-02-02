@@ -106,7 +106,7 @@ void MyWindow::sendDataToHardWare() {
 		numOfGameObjs++;
 	}
 
-	camEntity.myShape = myShapes[RANDOM::randomInt(0,numOfShapes)];
+	camEntity.myShape = myShapes[RANDOM::randomInt(1,numOfShapes-1)];
 	camEntity.scale = 1;
 	camEntity.accRange = 2;
 

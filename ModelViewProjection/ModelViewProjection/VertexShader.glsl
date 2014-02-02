@@ -5,6 +5,8 @@ in layout(location=1) vec4 col;
 in layout(location=2) vec3 norm;
 
 out vec4 outColor;
+out vec3 outPos;
+out vec3 outNorm;
 
 uniform mat4x4 viewTransform;
 uniform mat4x4 model2WorldTransform;
@@ -34,17 +36,23 @@ void main() {
 	vec4 transformedPos =  model2WorldTransform * vec4(pos.x,pos.y,pos.z,1);
 	gl_Position =  viewTransform * transformedPos;
 	
+	outPos = vec3(transformedPos);
+	outNorm = norm;
+	
 	vec3 finalCol = vec3(col);
 	if(enableOverrideColor && !passThrough) {
 		finalCol = overrideColor;
 	}
-	
-	if(!passThrough) {
-		vec3 lightV;
-		//if(!diffuseInFrag) // not currently supported
-			lightV = diffuseLightAmount(transformedPos);
-		lightV = combineLight(lightV,ambientLight);
-		finalCol = finalCol * lightV;
+	if(!diffuseInFrag) {
+		
+		
+		if(!passThrough) {
+			vec3 lightV;
+			//if(!diffuseInFrag) // not currently supported
+				lightV = diffuseLightAmount(transformedPos);
+			lightV = combineLight(lightV,ambientLight);
+			finalCol = finalCol * lightV;
+		}
 	}
 	outColor = vec4(finalCol,1);
 }
