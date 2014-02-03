@@ -11,6 +11,8 @@ uniform mat4x4 transformation;
 void main() {
 	vec4 transformed = transformation * vec4(pos.x,pos.y,pos.z,1);
 	gl_Position = transformed;
-	outPos = vec3(2/transformed.z,2/transformed.z,2/transformed.z);
-	outColor = col;
+	outPos = vec3(transformed);
+	outColor = vec4(pos,1);
+	//outColor = vec4(1,1,1,1);
+	//outColor = col;
 }
