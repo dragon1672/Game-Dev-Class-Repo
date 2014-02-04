@@ -96,7 +96,6 @@ public:
 		mainLayout->addWidget(&overrideColor_R,0,1);
 		mainLayout->addWidget(&overrideColor_G,0,2);
 		mainLayout->addWidget(&overrideColor_B,0,3);
-		mainLayout->addWidget(&overrideColorEnabled_checkBox,0,4);
 
 		mainLayout->addWidget(&diffPos_LBL,1,0);
 		mainLayout->addWidget(&diffPos_X,1,1);
@@ -113,8 +112,19 @@ public:
 		mainLayout->addWidget(&ambCol_G,3,2);
 		mainLayout->addWidget(&ambCol_B,3,3);
 
-		mainLayout->addWidget(&inFragmentShaderLighting_checkBox,4,0);
-		mainLayout->addWidget(&showLightSource_checkBox,4,1);
+		QLabel * temp = new QLabel("Options");
+
+		mainLayout->addWidget(temp,4,0);
+
+		QHBoxLayout * checkBoxes = new QHBoxLayout();
+
+		mainLayout->addLayout(checkBoxes,4,1);
+
+		checkBoxes->addWidget(&inFragmentShaderLighting_checkBox);
+		checkBoxes->addWidget(&showLightSource_checkBox);
+		checkBoxes->addWidget(&overrideColorEnabled_checkBox);
+
+		meScene.setMinimumHeight(800);
 
 		mainLayout->addWidget(&meScene,5,0,mainLayout->rowCount(),mainLayout->columnCount());
 		

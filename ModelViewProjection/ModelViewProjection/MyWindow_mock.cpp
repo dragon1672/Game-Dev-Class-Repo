@@ -22,7 +22,7 @@ static const uint qt_meta_data_MyWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,15 +32,12 @@ static const uint qt_meta_data_MyWindow[] = {
  // slots: signature, parameters, type, tag, flags
       10,    9,    9,    9, 0x08,
       28,   21,    9,    9, 0x08,
-     110,   43,    9,    9, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MyWindow[] = {
     "MyWindow\0\0myUpdate()\0entity\0draw(GameObj&)\0"
-    "blockData,lastTransform,scale,depth,children,orbitLength,orbitAxis\0"
-    "draw(GameObj*,glm::mat4x4,float,int,int,glm::vec3,glm::vec3)\0"
 };
 
 void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -51,7 +48,6 @@ void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         switch (_id) {
         case 0: _t->myUpdate(); break;
         case 1: _t->draw((*reinterpret_cast< GameObj(*)>(_a[1]))); break;
-        case 2: _t->draw((*reinterpret_cast< GameObj*(*)>(_a[1])),(*reinterpret_cast< glm::mat4x4(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5])),(*reinterpret_cast< glm::vec3(*)>(_a[6])),(*reinterpret_cast< glm::vec3(*)>(_a[7]))); break;
         default: ;
         }
     }
@@ -89,9 +85,9 @@ int MyWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 2;
     }
     return _id;
 }

@@ -5,40 +5,65 @@ in vec3 outPos;
 in vec3 outNorm;
 out vec4 finalColorForOutput;
 
+//mats
+uniform mat3x3 model2RotationTransform;
 
-uniform mat4x4 viewTransform;
-uniform mat4x4 model2WorldTransform;
-uniform bool diffuseInFrag;
+//options
+uniform bool  diffuseInFrag;
+uniform bool  passThrough;
 
-uniform bool passThrough;
+//lighting data
+uniform vec3  ambientLight;
+uniform vec3  diffuseLight;
+uniform vec3  diffusePos;
 
-uniform vec3 ambientLight;
-uniform vec3 diffuseLight;
-uniform vec3 diffusePos;
+uniform float specPower;
+uniform vec3  specColor;
+uniform vec3  camPos;
 
-uniform bool enableOverrideColor;
-uniform vec3 overrideColor;
 
-vec3 diffuseLightAmount() {
-	vec3 diff = diffusePos - vec3(outPos);
-	diff = normalize(diff);
-	vec3 rotatedNorm = normalize(mat3(model2WorldTransform) * normalize(outNorm));
-	return dot(rotatedNorm,diff) * diffuseLight;
+
+//repeated calculations
+vec3 rotatedNormal; // the 'real' normal
+vec3 diffuseVector; // vector between point and light
+vec3 eyeVector;     // vector between point and camera
+vec3 specVector;    // vector of Spec Reflection (aka diffuse reflection)
+
+float greatestNum(float a, float b) {
+	return (a > b)? a : b;
 }
 
-vec3 combineLight(vec3 diffuse, vec3 amb) {
-	float x = (diffuse.x > amb.x)? diffuse.x : amb.x;
-	float y = (diffuse.y > amb.y)? diffuse.x : amb.y;
-	float z = (diffuse.z > amb.z)? diffuse.x : amb.z;
+void calculateVectors(vec3 vertPos) {
+	rotatedNormal = model2RotationTransform * normalize(outNorm);
+	diffuseVector = normalize(diffusePos - vertPos);
+	eyeVector = normalize(camPos - vertPos);
+	specVector = -reflect(diffuseVector,rotatedNormal);
+}
+vec3 diffuseLightAmount() {
+	return dot(rotatedNormal,diffuseVector) * diffuseLight;
+}
+vec3 specLight() {
+	float cosAngle = greatestNum(0,dot(eyeVector,specVector));
+	float specCoeff = pow(cosAngle,specPower);
+	return specCoeff * specColor;
+}
+
+vec3 combineLight(vec3 one, vec3 two) {
+	//return one + two;
+	float x = greatestNum(one.x , two.x);
+	float y = greatestNum(one.y , two.y);
+	float z = greatestNum(one.z , two.z);
 	return vec3(x,y,z);
 }
 
 void main() {
 	vec3 finalCol = vec3(outColor);
 	if(diffuseInFrag && !passThrough) {
-		vec3 lightV = diffuseLightAmount();
+		vec3 lightV;
+		calculateVectors(vec3(outPos));
+		lightV = diffuseLightAmount();
 		lightV = combineLight(lightV,ambientLight);
-		finalCol = finalCol * lightV;
+		finalCol = finalCol * lightV + specLight();
 	}
 	finalColorForOutput = vec4(finalCol,1);
 }

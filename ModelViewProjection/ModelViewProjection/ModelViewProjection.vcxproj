@@ -97,6 +97,7 @@
     <ClInclude Include="DebugSlider.h" />
     <ClInclude Include="DrawnObj.h" />
     <ClInclude Include="GameObj.h" />
+    <ClInclude Include="LinkedSlider.h" />
     <ClInclude Include="MyGUI.h" />
     <ClInclude Include="MyRandom.h" />
     <ClInclude Include="MyWindow.h" />

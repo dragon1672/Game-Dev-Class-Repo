@@ -41,7 +41,10 @@ void MyWindow::init() {
 	ambientLight = vec3(.1,.1,.1);
 	diffuseLight = vec3(1,1,1);
 	diffusePos = vec3(0,10,0);
-	diffuseInFrag = true;
+	diffuseInFrag = false;
+
+	specColor = vec3(1,0,1);
+	specPower = 50;
 }
 void MyWindow::initShaders() {
 	myShadyShader.startup();
@@ -62,10 +65,10 @@ void setColor(glm::vec4& toSet, DrawnObj& obj) {
 int initShapeData(int &counter, DrawnObj * theArray) {
 	Neumont::ShapeData models[6];
 	
-	models[0] = Neumont::ShapeGenerator::makeTeapot(10,glm::mat4());
-	models[1] = Neumont::ShapeGenerator::makeTorus(10);
+	models[0] = Neumont::ShapeGenerator::makeTeapot(30,glm::mat4());
+	models[1] = Neumont::ShapeGenerator::makeTorus(30);
 	models[2] = Neumont::ShapeGenerator::makeArrow();
-	models[3] = Neumont::ShapeGenerator::makeSphere(10);
+	models[3] = Neumont::ShapeGenerator::makeSphere(30);
 	models[4] = Neumont::ShapeGenerator::makeCube();
 	models[5] = Neumont::ShapeGenerator::makePlane(10);
 
@@ -84,6 +87,10 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 }
 
 void MyWindow::sendDataToHardWare() {
+	//declared here because they are copied into gameObjs
+	DrawnObj myShapes[6];
+	int numOfShapes;
+
 	GLuint bufferID;
 	glGenBuffers(1, &bufferID);
 	numOfGameObjs = 0;
@@ -98,13 +105,13 @@ void MyWindow::sendDataToHardWare() {
 		//myShapes[i].cleanUp();
 	}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		int index = RANDOM::randomInt(0,numOfShapes-2);
 		myGameObjs[numOfGameObjs].myShape = myShapes[index];
 
 		float x = RANDOM::randomFloat(-range,range);
-		float y = 2;//RANDOM::randomFloat(-range,range);
+		float y = RANDOM::randomFloat(0,2);
 		float z = RANDOM::randomFloat(-range,range);
 		float scale = 1;//RANDOM::randomFloat(.1f,10);
 
@@ -112,16 +119,17 @@ void MyWindow::sendDataToHardWare() {
 		myGameObjs[numOfGameObjs].scale = scale;
 		myGameObjs[numOfGameObjs].accRange = 2;
 		myGameObjs[numOfGameObjs].rateToChageAngleACC = 100;
+		myGameObjs[numOfGameObjs].randomizeAngleAcc();
 		numOfGameObjs++;
 	}
 
-	camEntity.myShape = myShapes[RANDOM::randomInt(1,numOfShapes-1)];
+	camEntity.myShape = myShapes[RANDOM::randomInt(1,numOfShapes-2)];
 	camEntity.scale = 1;
 	camEntity.accRange = 2;
 
 	floor.myShape = myShapes[numOfShapes-1];
 	floor.scale = 10;
-	floor.translation = vec3(0,-floor.scale,0);
+	floor.translation = vec3(0,-5,0);
 	setColor(glm::vec4(1,1,1,1),floor.myShape); // setting floor to white
 	floor.myShape.sendToBuffer(bufferID);
 }
@@ -185,6 +193,10 @@ void MyWindow::paintGL() {
 	glUniform3fv(myShadyShader.getUniform("diffusePos"),1,&diffusePos[0]);
 	glUniform1i(myShadyShader.getUniform("diffuseInFrag"),diffuseInFrag);
 
+	glUniform1f(myShadyShader.getUniform("specPower"),specPower);
+	glUniform3fv(myShadyShader.getUniform("specColor"),1,&specColor[0]);
+	glUniform3fv(myShadyShader.getUniform("camPos"),1,&myCam.getPos()[0]);
+
 	bool passThrough = false;
 	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
 
@@ -208,38 +220,10 @@ void MyWindow::paintGL() {
 
 void MyWindow::draw(GameObj& entity) {
 	DrawnObj toDraw = entity.getShape();
-	mat4x4 finalTransform;
 
-	finalTransform *= entity.getTransform();
-
-	glUniformMatrix4fv(myShadyShader.getUniform("model2WorldTransform"),1,false,&finalTransform[0][0]);
+	glUniformMatrix4fv(myShadyShader.getUniform("model2WorldTransform"),1,false,&entity.getTransform()[0][0]);
+	glUniformMatrix3fv(myShadyShader.getUniform("model2RotationTransform"),1,false,&entity.getRotationMat()[0][0]);
 
 	toDraw.printPrep();
 	glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
-}
-
-void MyWindow::draw(GameObj * blockData, glm::mat4x4 lastTransform, float scale, int depth, int children, glm::vec3 orbitLength, glm::vec3 orbitAxis) {
-	if(depth>=0) {
-		float averageAngle = 360.0f/children;
-		for (int i = 0; i < children; i++)
-		{
-			DrawnObj& toDraw = myGameObjs[i].getShape();
-			//glm::vec4 previousTranslation = lastTransform * glm::vec4(0,0,0,0);
-			//glm::mat4x4 transform = glm::translate(glm::vec3(previousTranslation));
-			glm::mat4x4 transform = glm::rotate(orbitAngle + i*averageAngle,orbitAxis)
-									* glm::translate(scale * orbitLength)
-									* glm::scale(glm::vec3(scale,scale,scale));
-
-			//transform = glm::translate(glm::vec3(previousTranslation)) * transform;
-			transform = lastTransform * transform;
-
-			glm::mat4x4 finalTrans = transform * blockData->getTransform();
-			glUniformMatrix4fv(myShadyShader.getUniform("transformation"),1,false,&finalTrans[0][0]);
-
-			toDraw.printPrep();
-			glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
-
-			draw(blockData+1, transform,.6f * scale,depth-1,children, orbitLength, orbitAxis);
-		}
-	}
 }
