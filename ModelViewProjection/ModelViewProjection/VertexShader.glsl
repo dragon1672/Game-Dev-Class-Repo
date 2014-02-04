@@ -34,10 +34,6 @@ vec3 diffuseVector; // vector between point and light
 vec3 eyeVector;     // vector between point and camera
 vec3 specVector;    // vector of Spec Reflection (aka diffuse reflection)
 
-float greatestNum(float a, float b) {
-	return (a > b)? a : b;
-}
-
 void calculateVectors(vec3 vertPos) {
 	rotatedNormal = model2RotationTransform * norm;
 	diffuseVector = normalize(diffusePos - vertPos);
@@ -48,16 +44,16 @@ vec3 diffuseLightAmount() {
 	return dot(rotatedNormal,diffuseVector) * diffuseLight;
 }
 vec3 specLight() {
-	float cosAngle = greatestNum(0,dot(eyeVector,specVector));
+	float cosAngle = clamp(dot(eyeVector,specVector),0,1);
 	float specCoeff = pow(cosAngle,specPower);
 	return specCoeff * specColor;
 }
 
 vec3 combineLight(vec3 one, vec3 two) {
 	//return one + two;
-	float x = greatestNum(one.x , two.x);
-	float y = greatestNum(one.y , two.y);
-	float z = greatestNum(one.z , two.z);
+	float x = max(one.x , two.x);
+	float y = max(one.y , two.y);
+	float z = max(one.z , two.z);
 	return vec3(x,y,z);
 }
 

@@ -38,8 +38,8 @@ void MyWindow::init() {
 	displayLightEntity = true;
 	myCam.setPos(vec3(17,3.7f,-15),vec3(-50,-13,85));
 	overrideColor = vec3(1,1,1);
-	ambientLight = vec3(.1,.1,.1);
-	diffuseLight = vec3(1,1,1);
+	ambientLight = vec3(0,0,0);
+	diffuseLight = vec3(.025,.025,.1);
 	diffusePos = vec3(0,10,0);
 	diffuseInFrag = false;
 	specColor = vec3(1,0,1);
