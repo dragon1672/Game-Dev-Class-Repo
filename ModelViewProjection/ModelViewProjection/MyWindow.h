@@ -28,15 +28,21 @@ private:
 	void sendDataToHardWare();
 	void initShaders();
 public: // interface to editVals
+	//shader info
 	bool enableOverrideColor;
-	bool displayLightEntity;
 	glm::vec3 overrideColor;
 	glm::vec3 ambientLight;
 	glm::vec3 diffuseLight;
 	glm::vec3 diffusePos;
 	glm::vec3 specColor;
 	float specPower;
+	//preforms calculations in fragment shader
 	bool diffuseInFrag;
+	
+	//changes display and update
+	bool displayLightEntity;
+	bool objectsMoving;
+
 	void paintGL();
 	void init();
 

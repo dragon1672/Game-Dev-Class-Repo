@@ -18,16 +18,16 @@ void MyGUI::updateFromScene() {
 	setAmbCol(meScene.ambientLight);
 	setDiffCol(meScene.diffuseLight);
 	setDiffPos(meScene.diffusePos);
+	setSpecCol(meScene.specColor);
+	setSpecPower(meScene.specPower);
+	moveObjects_checkBox.setChecked(meScene.objectsMoving);
 	inFragmentShaderLighting(meScene.diffuseInFrag);
 }
 void MyGUI::updateScene() {
 	//qDebug() << "updating scene";
 	meScene.enableOverrideColor = overrideColorEnabled();
 	meScene.displayLightEntity = showLightSource();
-	meScene.overrideColor = getOverrideColor();
-	meScene.ambientLight = getAmbCol();
-	meScene.diffuseLight = getDiffCol();
-	meScene.diffusePos = getDiffPos();
+	meScene.objectsMoving = moveObjects_checkBox.isChecked();
 	meScene.diffuseInFrag = inFragmentShaderLighting();
 }
 
@@ -85,6 +85,14 @@ void MyGUI::setAmbCol(glm::vec3 toSet) {
 	ambCol_R.setValue(toSet.r);
 	ambCol_G.setValue(toSet.g);
 	ambCol_B.setValue(toSet.b);
+}
+void MyGUI::setSpecCol(glm::vec3 toSet) {
+	specCol_R.setValue(toSet.r);
+	specCol_G.setValue(toSet.g);
+	specCol_B.setValue(toSet.b);
+}
+void MyGUI::setSpecPower(float toSet) {
+	specPower.setValue(toSet);
 }
 
 void MyGUI::overrideColorEnabled(bool toSet) {

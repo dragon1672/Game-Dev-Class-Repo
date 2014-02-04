@@ -84,6 +84,7 @@
     <ClCompile Include="DebugSlider_mock.cpp" />
     <ClCompile Include="DrawnObj.cpp" />
     <ClCompile Include="GameObj.cpp" />
+    <ClCompile Include="LinkedSlider.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyGUI.cpp" />
     <ClCompile Include="MyGUI_mock.cpp" />

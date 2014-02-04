@@ -9,6 +9,7 @@
 #include <QtGui\qcheckbox.h>
 #include <QtGui\qlabel.h>
 #include "DebugSlider.h"
+#include "LinkedSlider.h"
 #include "MyWindow.h"
 
 
@@ -23,26 +24,36 @@ private:
 	QCheckBox overrideColorEnabled_checkBox;
 	QCheckBox inFragmentShaderLighting_checkBox;
 	QCheckBox showLightSource_checkBox;
+	QCheckBox moveObjects_checkBox;
 
 	QLabel overrideColor_LBL;
-	DebugSlider overrideColor_R;
-	DebugSlider overrideColor_G;
-	DebugSlider overrideColor_B;
+	LinkedSlider overrideColor_R;
+	LinkedSlider overrideColor_G;
+	LinkedSlider overrideColor_B;
 
 	QLabel diffPos_LBL;
-	DebugSlider diffPos_X;
-	DebugSlider diffPos_Y;
-	DebugSlider diffPos_Z;
+	LinkedSlider diffPos_X;
+	LinkedSlider diffPos_Y;
+	LinkedSlider diffPos_Z;
 
 	QLabel diffCol_LBL;
-	DebugSlider diffCol_R;
-	DebugSlider diffCol_G;
-	DebugSlider diffCol_B;
+	LinkedSlider diffCol_R;
+	LinkedSlider diffCol_G;
+	LinkedSlider diffCol_B;
 
 	QLabel ambCol_LBL;
-	DebugSlider ambCol_R;
-	DebugSlider ambCol_G;
-	DebugSlider ambCol_B;
+	LinkedSlider ambCol_R;
+	LinkedSlider ambCol_G;
+	LinkedSlider ambCol_B;
+
+	QLabel specCol_LBL;
+	LinkedSlider specCol_R;
+	LinkedSlider specCol_G;
+	LinkedSlider specCol_B;
+	
+	QLabel specPower_LBL;
+	LinkedSlider specPower;
+	
 
 
 protected:
@@ -56,6 +67,9 @@ protected:
 	void setDiffPos(glm::vec3 toSet);
 	void setDiffCol(glm::vec3 toSet);
 	void setAmbCol(glm::vec3 toSet);
+	void setSpecCol(glm::vec3 toSet);
+	void setSpecPower(float toSet);
+
 	void overrideColorEnabled(bool toSet);
 	void inFragmentShaderLighting(bool toSet);
 	void showLightSource(bool toSet);
@@ -64,26 +78,35 @@ public:
 	MyGUI()
 	: showLightSource_checkBox("Display Light Source"),
 	overrideColor_LBL("Overriding Color"),
-	overrideColor_R(0,1,true),
-	overrideColor_G(0,1,true),
-	overrideColor_B(0,1,true),
+	overrideColor_R(&meScene.overrideColor.r, 0,1,true),
+	overrideColor_G(&meScene.overrideColor.g, 0,1,true),
+	overrideColor_B(&meScene.overrideColor.b, 0,1,true),
 
 	diffPos_LBL("Diffuse Position"),
-	diffPos_X(-1.5*meScene.range,1.5*meScene.range,true),
-	diffPos_Y(-1.5*meScene.range,1.5*meScene.range,true),
-	diffPos_Z(-1.5*meScene.range,1.5*meScene.range,true),
+	diffPos_X(&meScene.diffusePos.x,-1.5*meScene.range,1.5*meScene.range,true),
+	diffPos_Y(&meScene.diffusePos.y,-1.5*meScene.range,1.5*meScene.range,true),
+	diffPos_Z(&meScene.diffusePos.z,-1.5*meScene.range,1.5*meScene.range,true),
 
 	diffCol_LBL("Diffuse Color"),
-	diffCol_R(0,1,true),
-	diffCol_G(0,1,true),
-	diffCol_B(0,1,true),
+	diffCol_R(&meScene.diffuseLight.r,0,1,true),
+	diffCol_G(&meScene.diffuseLight.g,0,1,true),
+	diffCol_B(&meScene.diffuseLight.b,0,1,true),
 
 	ambCol_LBL("Ambient Color"),
-	ambCol_R(0,1,true),
-	ambCol_G(0,1,true),
-	ambCol_B(0,1,true),
+	ambCol_R(&meScene.ambientLight.r,0,1,true),
+	ambCol_G(&meScene.ambientLight.g,0,1,true),
+	ambCol_B(&meScene.ambientLight.b,0,1,true),
+
+	specCol_LBL("Spec Color"),
+	specCol_R(&meScene.specColor.r,0,1,true),
+	specCol_G(&meScene.specColor.g,0,1,true),
+	specCol_B(&meScene.specColor.b,0,1,true),
+	
+	specPower_LBL("Spec Power"),
+	specPower(&meScene.specPower,25,1000,true),
 
 	overrideColorEnabled_checkBox("Override Default Colors"),
+	moveObjects_checkBox("Allow Objects To Move"),
 	inFragmentShaderLighting_checkBox("Lighting in Fragment Shader")
 	{
 		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
@@ -92,41 +115,66 @@ public:
 		QGridLayout * mainLayout = new QGridLayout();
 		setLayout(mainLayout);
 		
-		mainLayout->addWidget(&overrideColor_LBL,0,0);
-		mainLayout->addWidget(&overrideColor_R,0,1);
-		mainLayout->addWidget(&overrideColor_G,0,2);
-		mainLayout->addWidget(&overrideColor_B,0,3);
+		int row = 0;
 
-		mainLayout->addWidget(&diffPos_LBL,1,0);
-		mainLayout->addWidget(&diffPos_X,1,1);
-		mainLayout->addWidget(&diffPos_Y,1,2);
-		mainLayout->addWidget(&diffPos_Z,1,3);
+		mainLayout->addWidget(&overrideColor_LBL,row,0);
+		mainLayout->addWidget(&overrideColor_R,row,1);
+		mainLayout->addWidget(&overrideColor_G,row,2);
+		mainLayout->addWidget(&overrideColor_B,row,3);
 
-		mainLayout->addWidget(&diffCol_LBL,2,0);
-		mainLayout->addWidget(&diffCol_R,2,1);
-		mainLayout->addWidget(&diffCol_G,2,2);
-		mainLayout->addWidget(&diffCol_B,2,3);
+		row++;
 
-		mainLayout->addWidget(&ambCol_LBL,3,0);
-		mainLayout->addWidget(&ambCol_R,3,1);
-		mainLayout->addWidget(&ambCol_G,3,2);
-		mainLayout->addWidget(&ambCol_B,3,3);
+		mainLayout->addWidget(&diffPos_LBL,row,0);
+		mainLayout->addWidget(&diffPos_X,row,1);
+		mainLayout->addWidget(&diffPos_Y,row,2);
+		mainLayout->addWidget(&diffPos_Z,row,3);
+
+		row++;
+
+		mainLayout->addWidget(&diffCol_LBL,row,0);
+		mainLayout->addWidget(&diffCol_R,row,1);
+		mainLayout->addWidget(&diffCol_G,row,2);
+		mainLayout->addWidget(&diffCol_B,row,3);
+
+		row++;
+
+		mainLayout->addWidget(&ambCol_LBL,row,0);
+		mainLayout->addWidget(&ambCol_R,row,1);
+		mainLayout->addWidget(&ambCol_G,row,2);
+		mainLayout->addWidget(&ambCol_B,row,3);
+
+		row++;
+
+		mainLayout->addWidget(&specCol_LBL,row,0);
+		mainLayout->addWidget(&specCol_R,row,1);
+		mainLayout->addWidget(&specCol_G,row,2);
+		mainLayout->addWidget(&specCol_B,row,3);
+
+		row++;
+
+		mainLayout->addWidget(&specPower_LBL,row,0);
+		mainLayout->addWidget(&specPower,row,1);
+
+		row++;
 
 		QLabel * temp = new QLabel("Options");
 
-		mainLayout->addWidget(temp,4,0);
+		mainLayout->addWidget(temp,row,0);
 
 		QHBoxLayout * checkBoxes = new QHBoxLayout();
 
-		mainLayout->addLayout(checkBoxes,4,1);
+		mainLayout->addLayout(checkBoxes,row,1);
 
 		checkBoxes->addWidget(&inFragmentShaderLighting_checkBox);
 		checkBoxes->addWidget(&showLightSource_checkBox);
 		checkBoxes->addWidget(&overrideColorEnabled_checkBox);
+		checkBoxes->addWidget(&moveObjects_checkBox);
 
 		meScene.setMinimumHeight(800);
 
-		mainLayout->addWidget(&meScene,5,0,mainLayout->rowCount(),mainLayout->columnCount());
+		row++;
+
+		mainLayout->addWidget(&meScene,row,0,mainLayout->rowCount(),mainLayout->columnCount());
 		
 		mainLayout->setRowMinimumHeight(100,10);
 

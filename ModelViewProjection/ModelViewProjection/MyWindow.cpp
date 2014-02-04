@@ -42,9 +42,10 @@ void MyWindow::init() {
 	diffuseLight = vec3(1,1,1);
 	diffusePos = vec3(0,10,0);
 	diffuseInFrag = false;
-
 	specColor = vec3(1,0,1);
 	specPower = 50;
+
+	objectsMoving = true;
 }
 void MyWindow::initShaders() {
 	myShadyShader.startup();
@@ -64,11 +65,12 @@ void setColor(glm::vec4& toSet, DrawnObj& obj) {
 
 int initShapeData(int &counter, DrawnObj * theArray) {
 	Neumont::ShapeData models[6];
-	
-	models[0] = Neumont::ShapeGenerator::makeTeapot(30,glm::mat4());
-	models[1] = Neumont::ShapeGenerator::makeTorus(30);
+	int teaPotQuality = RANDOM::randomInt(2,5);
+	int randomQuality = RANDOM::randomInt(2,15);
+	models[0] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
+	models[1] = Neumont::ShapeGenerator::makeTorus(randomQuality);
 	models[2] = Neumont::ShapeGenerator::makeArrow();
-	models[3] = Neumont::ShapeGenerator::makeSphere(30);
+	models[3] = Neumont::ShapeGenerator::makeSphere(randomQuality);
 	models[4] = Neumont::ShapeGenerator::makeCube();
 	models[5] = Neumont::ShapeGenerator::makePlane(10);
 
@@ -145,11 +147,13 @@ void MyWindow::myUpdate() {
 		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
 	}
 
-	for (int i = 0; i < numOfGameObjs; i++)
-	{
-		myGameObjs[i].update(frames);
+	if(objectsMoving) {
+		for (int i = 0; i < numOfGameObjs; i++)
+		{
+			myGameObjs[i].update(frames);
+		}
 	}
-
+	
 	camEntity.update(frames);
 
 	repaint();
