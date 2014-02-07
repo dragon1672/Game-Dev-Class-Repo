@@ -85,7 +85,7 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 	int randomQuality = RANDOM::randomInt(2,15);
 	models[0] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
 	models[1] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
-	models[2] = Neumont::ShapeGenerator::makeArrow();
+	models[2] = initUVData(Neumont::ShapeGenerator::makeArrow());
 	models[3] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
 	models[4] = Neumont::ShapeGenerator::makeCube();
 	models[5] = Neumont::ShapeGenerator::makePlane(10);
@@ -107,9 +107,21 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 void MyWindow::sendDataToHardWare() {
 	//setting up textures
 	int numOfTextures = 0;
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\jamie Avatar.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\075.jpg.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\1231342137298gl5.jpg.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\1234540124849gd7.jpg.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\18_abstract.jpg.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\6283823024_2d4d28c580_o.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\782_hd_matrix_wallpaper_by_andre_w.jpg.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\blue-screen-of-death1.jpg.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Funny-Humor-21.png","PNG");
 	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\inObamaWeTrust_bill_crop_5.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Metal_Hole_08.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\jamie Avatar.png","PNG");
+	//myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Metal_Hole_08.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Smile.png","PNG");
+	//myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\windows_coding.jpg.png","PNG");
+
+
 
 	//declared here because they are copied into gameObjs
 	DrawnObj myShapes[6];
