@@ -6,7 +6,7 @@ using glm::mat4x4;
 
 const float LARGEST_MOUSE_CHANGE = 50;
 const float MOUSE_SPEED_SCALE = .5f;
-const float MOVEMENT_SPEED = .3;
+const float MOVEMENT_SPEED = .3f;
 
 vec3 Camera::UP(0,1,0);
 
