@@ -3,6 +3,7 @@
 in vec4 outColor;
 in vec3 outPos;
 in vec3 outNorm;
+in vec2 outUv;
 out vec4 finalColorForOutput;
 
 //mats
@@ -11,6 +12,8 @@ uniform mat3x3 model2RotationTransform;
 //options
 uniform bool  diffuseInFrag;
 uniform bool  passThrough;
+uniform bool  enableTexture;
+uniform bool  enableLighting;
 
 //lighting data
 uniform vec3  ambientLight;
@@ -20,6 +23,9 @@ uniform vec3  diffusePos;
 uniform float specPower;
 uniform vec3  specColor;
 uniform vec3  camPos;
+
+//texture
+uniform sampler2D myTexture;
 
 
 
@@ -54,12 +60,17 @@ vec3 combineLight(vec3 one, vec3 two) {
 
 void main() {
 	vec3 finalCol = vec3(outColor);
-	if(diffuseInFrag && !passThrough) {
-		vec3 lightV;
-		calculateVectors(vec3(outPos));
-		lightV = diffuseLightAmount();
-		lightV = combineLight(lightV,ambientLight);
-		finalCol = finalCol * lightV + specLight();
+	if(!passThrough) {
+		if(diffuseInFrag && enableLighting) {
+			vec3 lightV;
+			calculateVectors(vec3(outPos));
+			lightV = diffuseLightAmount();
+			lightV = combineLight(lightV,ambientLight);
+			finalCol = finalCol * lightV + specLight();
+		}
+		if(enableTexture) {
+			finalCol = finalCol * vec3(texture(myTexture, outUv));
+		}
 	}
 	finalColorForOutput = vec4(finalCol,1);
 }

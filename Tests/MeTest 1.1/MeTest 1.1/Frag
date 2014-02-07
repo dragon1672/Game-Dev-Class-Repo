@@ -6,7 +6,7 @@ in vec4 outPos;
 out vec4 finalColor;
 
 void main() {
-	//float depthScale = 2/outPos.z;
-	float depthScale = 1;
+	float depthScale = 2/outPos.z;
+	//float depthScale = 1;
 	finalColor = depthScale * outColor;
 }

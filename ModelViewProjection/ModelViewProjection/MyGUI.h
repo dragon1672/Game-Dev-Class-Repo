@@ -25,6 +25,8 @@ private:
 	QCheckBox inFragmentShaderLighting_checkBox;
 	QCheckBox showLightSource_checkBox;
 	QCheckBox moveObjects_checkBox;
+	QCheckBox enableTexture_checkBox;
+	QCheckBox enableLighting_checkBox;
 
 	QLabel overrideColor_LBL;
 	LinkedSlider overrideColor_R;
@@ -107,6 +109,8 @@ public:
 
 	overrideColorEnabled_checkBox("Override Default Colors"),
 	moveObjects_checkBox("Allow Objects To Move"),
+	enableTexture_checkBox("Enable Textures"),
+	enableLighting_checkBox("Enable Lighting"),
 	inFragmentShaderLighting_checkBox("Lighting in Fragment Shader")
 	{
 		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
@@ -169,6 +173,8 @@ public:
 		checkBoxes->addWidget(&showLightSource_checkBox);
 		checkBoxes->addWidget(&overrideColorEnabled_checkBox);
 		checkBoxes->addWidget(&moveObjects_checkBox);
+		checkBoxes->addWidget(&enableTexture_checkBox);
+		checkBoxes->addWidget(&enableLighting_checkBox);
 
 		meScene.setMinimumHeight(800);
 

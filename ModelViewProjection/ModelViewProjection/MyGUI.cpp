@@ -22,6 +22,9 @@ void MyGUI::updateFromScene() {
 	setSpecPower(meScene.specPower);
 	moveObjects_checkBox.setChecked(meScene.objectsMoving);
 	inFragmentShaderLighting(meScene.diffuseInFrag);
+	
+	enableTexture_checkBox.setChecked(meScene.enableTexture);
+	enableLighting_checkBox.setChecked(meScene.enableLighting);
 }
 void MyGUI::updateScene() {
 	//qDebug() << "updating scene";
@@ -29,6 +32,9 @@ void MyGUI::updateScene() {
 	meScene.displayLightEntity = showLightSource();
 	meScene.objectsMoving = moveObjects_checkBox.isChecked();
 	meScene.diffuseInFrag = inFragmentShaderLighting();
+
+	meScene.enableTexture  = enableTexture_checkBox.isChecked();
+	meScene.enableLighting = enableLighting_checkBox.isChecked();
 }
 
 glm::vec3 MyGUI::getOverrideColor() {

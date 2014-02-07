@@ -2,6 +2,8 @@
 #include "ShaderProgram.h"
 #include <fstream>
 #include <Qt/qdebug.h>
+#include <Qt/qcoreapplication.h>
+#include <Qt/qimage.h>
 
  std::string ShaderProgram::file2str(const char * filePath) {
 	std::ifstream file(filePath);
@@ -106,4 +108,37 @@ GLuint ShaderProgram::compileAndRun() {
 	compileAndLink();
 	useProgram();
 	return programID;
+}
+
+
+QImage ShaderProgram::getImageFromFile(QString filePath, std::string fileExtension) {
+	QString fileName = QCoreApplication::applicationDirPath() + filePath;
+	QImage myTexture = QGLWidget::convertToGLFormat(QImage(fileName, fileExtension.c_str()));
+
+	if(myTexture.isNull()) {
+		qDebug() << "attempt to load " << fileName << " failed";
+	}
+	return myTexture;
+}
+
+//returns the bufferID
+GLuint ShaderProgram::load2DTexture(int id, QString filePath, std::string fileExtension) {
+		
+	GLuint bufferID;
+
+	QImage data = getImageFromFile(filePath,fileExtension);
+
+	glActiveTexture(GL_TEXTURE0+id);
+
+	glEnable(GL_TEXTURE_2D);
+
+	glGenTextures(1,&bufferID);
+
+	glBindTexture(GL_TEXTURE_2D, bufferID);
+
+	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, data.width(), data.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data.bits());
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	return bufferID;
 }

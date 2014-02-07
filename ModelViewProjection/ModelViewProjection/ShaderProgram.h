@@ -38,6 +38,11 @@ public:
 	void useProgram();
 
 	GLuint compileAndRun();
+
+	QImage getImageFromFile(QString filePath, std::string fileExtension="PNG");
+
+	//returns the bufferID
+	GLuint load2DTexture(int id, QString filePath, std::string fileExtension="PNG");
 };
 
 #endif

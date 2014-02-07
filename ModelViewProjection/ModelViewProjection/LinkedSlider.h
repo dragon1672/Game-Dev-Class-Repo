@@ -8,6 +8,8 @@ class LinkedSlider : public DebugSlider {
 	//override
 	void valueChanged(float newValue);
 public:
+
+
 	LinkedSlider(
 		float * boundFloat,
 		float min = 0.0f, float max = 1.0f, 

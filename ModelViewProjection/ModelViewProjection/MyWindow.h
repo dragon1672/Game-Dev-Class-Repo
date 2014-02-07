@@ -38,6 +38,9 @@ public: // interface to editVals
 	float specPower;
 	//preforms calculations in fragment shader
 	bool diffuseInFrag;
+
+	bool  enableTexture;
+	bool  enableLighting;
 	
 	//changes display and update
 	bool displayLightEntity;

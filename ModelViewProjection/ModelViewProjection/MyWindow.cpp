@@ -8,6 +8,9 @@
 #include <QtGui\qkeyevent>
 #include <Qt/qdebug.h>
 
+#include <Qt/qcoreapplication.h>
+#include <Qt/qimage.h>
+
 #include <ShapeGenerator.h>
 
 
@@ -38,14 +41,16 @@ void MyWindow::init() {
 	displayLightEntity = true;
 	myCam.setPos(vec3(17,3.7f,-15),vec3(-50,-13,85));
 	overrideColor = vec3(1,1,1);
-	ambientLight = vec3(0,0,0);
-	diffuseLight = vec3(.025,.025,.1);
+	ambientLight = vec3(.1,.1,.1);
+	diffuseLight = vec3(1,1,1);
 	diffusePos = vec3(0,10,0);
-	diffuseInFrag = false;
+	diffuseInFrag = true;
 	specColor = vec3(1,0,1);
 	specPower = 50;
 
 	objectsMoving = true;
+	enableTexture = true;
+	enableLighting = true;
 }
 void MyWindow::initShaders() {
 	myShadyShader.startup();
@@ -62,15 +67,26 @@ void setColor(glm::vec4& toSet, DrawnObj& obj) {
 		obj.verts[i].color = toSet;
 	}
 }
+Neumont::ShapeData initUVData(Neumont::ShapeData& obj) {
+	int size = sqrt(obj.numVerts);
+	float divisor = size-1;
+	for(unsigned int i = 0; i<obj.numVerts; i++)
+	{
+		int row = (i/size);
+		int column = (i%size);
+		obj.verts[i].uv = glm::vec2(row/divisor, column/divisor);
+	}
+	return obj;
+}
 
 int initShapeData(int &counter, DrawnObj * theArray) {
 	Neumont::ShapeData models[6];
 	int teaPotQuality = RANDOM::randomInt(2,5);
 	int randomQuality = RANDOM::randomInt(2,15);
 	models[0] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
-	models[1] = Neumont::ShapeGenerator::makeTorus(randomQuality);
+	models[1] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
 	models[2] = Neumont::ShapeGenerator::makeArrow();
-	models[3] = Neumont::ShapeGenerator::makeSphere(randomQuality);
+	models[3] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
 	models[4] = Neumont::ShapeGenerator::makeCube();
 	models[5] = Neumont::ShapeGenerator::makePlane(10);
 
@@ -89,6 +105,12 @@ int initShapeData(int &counter, DrawnObj * theArray) {
 }
 
 void MyWindow::sendDataToHardWare() {
+	//setting up textures
+	int numOfTextures = 0;
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\jamie Avatar.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\inObamaWeTrust_bill_crop_5.png","PNG");
+	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Metal_Hole_08.png","PNG");
+
 	//declared here because they are copied into gameObjs
 	DrawnObj myShapes[6];
 	int numOfShapes;
@@ -107,7 +129,7 @@ void MyWindow::sendDataToHardWare() {
 		//myShapes[i].cleanUp();
 	}
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		int index = RANDOM::randomInt(0,numOfShapes-2);
 		myGameObjs[numOfGameObjs].myShape = myShapes[index];
@@ -122,6 +144,8 @@ void MyWindow::sendDataToHardWare() {
 		myGameObjs[numOfGameObjs].accRange = 2;
 		myGameObjs[numOfGameObjs].rateToChageAngleACC = 100;
 		myGameObjs[numOfGameObjs].randomizeAngleAcc();
+		myGameObjs[numOfGameObjs].textureID = RANDOM::randomInt(0,numOfTextures-1);
+
 		numOfGameObjs++;
 	}
 
@@ -201,6 +225,9 @@ void MyWindow::paintGL() {
 	glUniform3fv(myShadyShader.getUniform("specColor"),1,&specColor[0]);
 	glUniform3fv(myShadyShader.getUniform("camPos"),1,&myCam.getPos()[0]);
 
+	glUniform1i(myShadyShader.getUniform("enableTexture"),enableTexture);
+	glUniform1i(myShadyShader.getUniform("enableLighting"),enableLighting);
+
 	bool passThrough = false;
 	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
 
@@ -223,10 +250,11 @@ void MyWindow::paintGL() {
 }
 
 void MyWindow::draw(GameObj& entity) {
-	DrawnObj toDraw = entity.getShape();
-
 	glUniformMatrix4fv(myShadyShader.getUniform("model2WorldTransform"),1,false,&entity.getTransform()[0][0]);
 	glUniformMatrix3fv(myShadyShader.getUniform("model2RotationTransform"),1,false,&entity.getRotationMat()[0][0]);
+	glUniform1i(myShadyShader.getUniform("myTexture"), entity.textureID);
+
+	DrawnObj toDraw = entity.getShape();
 
 	toDraw.printPrep();
 	glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());

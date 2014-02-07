@@ -29,6 +29,8 @@ public:
 		randomizeAngleAcc();
 	}
 
+	int textureID;
+
 	void randomizeAngleAcc();
 
 	void update(uint frames);

@@ -3,10 +3,12 @@
 in layout(location=0) vec3 pos;
 in layout(location=1) vec4 col;
 in layout(location=2) vec3 norm;
+in layout(location=3) vec2 uv;
 
 out vec4 outColor;
 out vec3 outPos;
 out vec3 outNorm;
+out vec2 outUv;
 
 //mats
 uniform mat4x4 viewTransform;
@@ -17,6 +19,8 @@ uniform mat3x3 model2RotationTransform;
 uniform bool  diffuseInFrag;
 uniform bool  passThrough;
 uniform bool  enableOverrideColor;
+uniform bool  enableTexture;
+uniform bool  enableLighting;
 
 //lighting data
 uniform vec3  ambientLight;
@@ -63,12 +67,13 @@ void main() {
 	
 	outPos = vec3(transformedPos);
 	outNorm = norm;
+	outUv = uv;
 	
 	vec3 finalCol = vec3(col);
 	if(enableOverrideColor && !passThrough) {
 		finalCol = overrideColor;
 	}
-	if(!diffuseInFrag && !passThrough) {
+	if(!diffuseInFrag && !passThrough && enableLighting) {
 		vec3 lightV;
 		calculateVectors(vec3(transformedPos));
 		lightV = diffuseLightAmount();
