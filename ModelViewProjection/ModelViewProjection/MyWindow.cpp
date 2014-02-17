@@ -105,16 +105,17 @@ void MyWindow::sendDataToHardWare() {
 	uint randomModelCount = 0;
 	Neumont::ShapeData models[6];
 	uint modelCount = 0;
-	int teaPotQuality = RANDOM::randomInt(2,5);
-	int randomQuality = RANDOM::randomInt(2,15);
-	models[modelCount++] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
-	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
+	int teaPotQuality = RANDOM::randomInt(5,10);
+	int randomQuality = RANDOM::randomInt(5,15);
+	//models[modelCount++] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
+	//models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
 	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeArrow());
-	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
+	//models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
 	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
 	
 	floorGeoID = modelCount;//setting floor to plane;
-	models[modelCount++] = setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
+	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
+	//models[modelCount++] = setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
 
 	for(uint i=0;i<modelCount;i++) {
 		GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
