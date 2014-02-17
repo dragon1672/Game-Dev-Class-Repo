@@ -4,45 +4,47 @@
 
 #include <QtOpenGL\qglwidget>
 #include <string>
-#include <unordered_map>
+#include "ParameterType.h"
 
 class ShaderProgram {
 private:
 	static const int MAX_POSSIBLE_PROGRAM_FILES = 10;
+	static GLuint currentProgram;
 	struct CodeBlock { // used to store shader code
 		GLuint id;
 		std::string code;
 	};
-
-	std::unordered_map<char*, int> uniforms;
-
-	CodeBlock blocks[MAX_POSSIBLE_PROGRAM_FILES];
-	int numOfFiles;
 	
 	GLuint programID;
 
-	std::string file2str(const char * filePath);
-	bool validFile(const char * filePath);
+	static std::string file2str(const char * filePath);
+	static bool validFile(const char * filePath);
 public:
 	void startup();
 	void shutdown();
+
+	//restarts, compiles, link and uses this program
+	void buildBasicProgram(const char * vertexShaderFilePath, const char * fragmentShaderFilePath);
 	bool addProgram(const char * filePath, unsigned short shaderType);
 
-	int generateUniform(char* title);
-	int getUniform(char* title);
+	int getUniform(const char* title);
+	void passUniform(const char* name, ParameterType parameterType, const float * value);
+	void passUniform(const char* name, ParameterType parameterType, const int value);
 
 	bool complileShader(const char * code, GLuint id, bool debug);
-	void compileAndLink();
+	void link();
 
 	GLuint getProgramID();
+	GLuint getCurrentlyUsedProgram();
+	bool isCurrentProgram();
 	void useProgram();
 
-	GLuint compileAndRun();
+	GLuint linkAndRun();
 
-	QImage getImageFromFile(QString filePath, std::string fileExtension="PNG");
+	static QImage getImageFromFile(QString filePath);
 
 	//returns the bufferID
-	GLuint load2DTexture(int id, QString filePath, std::string fileExtension="PNG");
+	static GLuint load2DTexture(QString filePath);
 };
 
 #endif

@@ -167,7 +167,8 @@ public:
 
 		QHBoxLayout * checkBoxes = new QHBoxLayout();
 
-		mainLayout->addLayout(checkBoxes,row,1);
+		mainLayout->addLayout(checkBoxes,row,1,1,mainLayout->columnCount()-1);
+		//mainLayout->addLayout(checkBoxes,row,1);
 
 		checkBoxes->addWidget(&inFragmentShaderLighting_checkBox);
 		checkBoxes->addWidget(&showLightSource_checkBox);
@@ -176,13 +177,13 @@ public:
 		checkBoxes->addWidget(&enableTexture_checkBox);
 		checkBoxes->addWidget(&enableLighting_checkBox);
 
-		meScene.setMinimumHeight(800);
+		meScene.setMinimumHeight(900);
 
 		row++;
 
 		mainLayout->addWidget(&meScene,row,0,mainLayout->rowCount(),mainLayout->columnCount());
 		
-		mainLayout->setRowMinimumHeight(100,10);
+		mainLayout->setRowMinimumHeight(row,100);
 
 		meScene.init();
 

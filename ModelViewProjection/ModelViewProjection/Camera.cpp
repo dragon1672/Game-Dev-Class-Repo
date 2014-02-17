@@ -23,7 +23,7 @@ void Camera::moveForward() {
 }
 void Camera::moveBackward() {
 	pos -= MOVEMENT_SPEED * viewDir;
-} 
+}
 void Camera::moveLeft() {
 	pos -= MOVEMENT_SPEED * strafeDir;
 }

@@ -31,13 +31,14 @@ static const uint qt_meta_data_MyWindow[] = {
 
  // slots: signature, parameters, type, tag, flags
       10,    9,    9,    9, 0x08,
-      28,   21,    9,    9, 0x08,
+      40,   21,    9,    9, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MyWindow[] = {
-    "MyWindow\0\0myUpdate()\0entity\0draw(GameObj&)\0"
+    "MyWindow\0\0myUpdate()\0entity,passthrough\0"
+    "draw(Renderable&,bool)\0"
 };
 
 void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -47,7 +48,7 @@ void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         MyWindow *_t = static_cast<MyWindow *>(_o);
         switch (_id) {
         case 0: _t->myUpdate(); break;
-        case 1: _t->draw((*reinterpret_cast< GameObj(*)>(_a[1]))); break;
+        case 1: _t->draw((*reinterpret_cast< Renderable(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
         }
     }

@@ -7,26 +7,27 @@
 #include "DrawnObj.h"
 #include "GameObj.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 class MyWindow : public QGLWidget {
 public:
 	static const int range = 25;
 private:
 
-	Q_OBJECT
+	Q_OBJECT;
 
-	ShaderProgram myShadyShader;
+	Renderer myRender;
+
 	QTimer myTimer;
 	Camera myCam;
 
-	GameObj myGameObjs[200];
-	int numOfGameObjs;
+	Renderable * gameObjs[1000];
+	uint numOfGameObjs;
 
-	GameObj camEntity;
-	GameObj floor;
+	Renderable floor;
+	Renderable lightSource;
 
 	void sendDataToHardWare();
-	void initShaders();
 public: // interface to editVals
 	//shader info
 	bool enableOverrideColor;
@@ -48,12 +49,13 @@ public: // interface to editVals
 
 	void paintGL();
 	void init();
-
+private:
+	void passDataDownToShader(ShaderProgram& prog, bool passthrough);
 public:
 	void initializeGL();
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 private slots:
 	void myUpdate();
-	void draw(GameObj& entity);
+	void draw(Renderable& entity,bool passthrough);
 };

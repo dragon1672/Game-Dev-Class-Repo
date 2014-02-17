@@ -1,15 +1,13 @@
 #include <GL\glew.h>
 #include "MyWindow.h"
+#include "MyRandom.h"
+
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtx/transform.hpp"
-#include "MyRandom.h"
 
 #include <QtGui\qmouseevent>
 #include <QtGui\qkeyevent>
 #include <Qt/qdebug.h>
-
-#include <Qt/qcoreapplication.h>
-#include <Qt/qimage.h>
 
 #include <ShapeGenerator.h>
 
@@ -24,12 +22,15 @@ float orbitAcc = .2f;
 
 void MyWindow::initializeGL() {
 	glewInit();
+	myRender.init();
 
 	glEnable(GL_DEPTH_TEST);
 
+	myRender.mainShader->buildBasicProgram("VertexShader.glsl","FragShader.glsl");
+
 	sendDataToHardWare();
 	
-	initShaders();
+	//myRender.mainShader->buildBasicProgram("VertexShader.glsl","FragShader.glsl");
 
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
@@ -52,20 +53,15 @@ void MyWindow::init() {
 	enableTexture = true;
 	enableLighting = true;
 }
-void MyWindow::initShaders() {
-	myShadyShader.startup();
-	myShadyShader.addProgram("VertexShader.glsl",GL_VERTEX_SHADER);
-	myShadyShader.addProgram("FragShader.glsl",GL_FRAGMENT_SHADER);
-	myShadyShader.compileAndRun();
-}
 
 //returns the required size
 
-void setColor(glm::vec4& toSet, DrawnObj& obj) {
+Neumont::ShapeData setColor(glm::vec4& toSet, Neumont::ShapeData& obj) {
 	for (uint i = 0; i < obj.numVerts; i++)
 	{
 		obj.verts[i].color = toSet;
 	}
+	return obj;
 }
 Neumont::ShapeData initUVData(Neumont::ShapeData& obj) {
 	int size = sqrt(obj.numVerts);
@@ -79,97 +75,88 @@ Neumont::ShapeData initUVData(Neumont::ShapeData& obj) {
 	return obj;
 }
 
-int initShapeData(int &counter, DrawnObj * theArray) {
-	Neumont::ShapeData models[6];
-	int teaPotQuality = RANDOM::randomInt(2,5);
-	int randomQuality = RANDOM::randomInt(2,15);
-	models[0] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
-	models[1] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
-	models[2] = initUVData(Neumont::ShapeGenerator::makeArrow());
-	models[3] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
-	models[4] = Neumont::ShapeGenerator::makeCube();
-	models[5] = Neumont::ShapeGenerator::makePlane(10);
-
-	counter = 0;
-	uint currentOffset = 0;
-
-	for (int i = 0; i < sizeof(models)/sizeof(*models); i++)
-	{
-		theArray[counter].init(models[i], currentOffset);
-		currentOffset = theArray[counter].endOffset();
-		
-		counter++;
-	}
-
-	return currentOffset;
+int sendTextures(Renderer& myRender) {
+	int numOfTextures;
+	numOfTextures = myRender.addTexture("\\Textures\\075.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\1231342137298gl5.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\1234540124849gd7.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\18_abstract.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\6283823024_2d4d28c580_o.png");
+	numOfTextures = myRender.addTexture("\\Textures\\782_hd_matrix_wallpaper_by_andre_w.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\blue-screen-of-death1.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\Funny-Humor-21.png");
+	numOfTextures = myRender.addTexture("\\Textures\\inObamaWeTrust_bill_crop_5.png");
+	numOfTextures = myRender.addTexture("\\Textures\\jamie Avatar.png");
+	//numOfTextures = myRender.addTexture("\\Textures\\Metal_Hole_08.png");
+	numOfTextures = myRender.addTexture("\\Textures\\Smile.png");
+	//numOfTextures = myRender.addTexture("\\Textures\\windows_coding.jpg.png");
+	return numOfTextures;
 }
 
 void MyWindow::sendDataToHardWare() {
 	//setting up textures
-	int numOfTextures = 0;
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\075.jpg.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\1231342137298gl5.jpg.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\1234540124849gd7.jpg.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\18_abstract.jpg.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\6283823024_2d4d28c580_o.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\782_hd_matrix_wallpaper_by_andre_w.jpg.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\blue-screen-of-death1.jpg.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Funny-Humor-21.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\inObamaWeTrust_bill_crop_5.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\jamie Avatar.png","PNG");
-	//myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Metal_Hole_08.png","PNG");
-	myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\Smile.png","PNG");
-	//myShadyShader.load2DTexture(numOfTextures++,"\\Textures\\windows_coding.jpg.png","PNG");
+	int numOfTextures = sendTextures(myRender);
 
-
-
-	//declared here because they are copied into gameObjs
-	DrawnObj myShapes[6];
-	int numOfShapes;
-
-	GLuint bufferID;
-	glGenBuffers(1, &bufferID);
 	numOfGameObjs = 0;
-	GLuint requiredBufferSize = initShapeData(numOfShapes,myShapes);
+
+	uint floorGeoID;
+
+	GeometryInfo * randomModels[6];
+	uint randomModelCount = 0;
+	Neumont::ShapeData models[6];
+	uint modelCount = 0;
+	int teaPotQuality = RANDOM::randomInt(2,5);
+	int randomQuality = RANDOM::randomInt(2,15);
+	models[modelCount++] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
+	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
+	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeArrow());
+	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
+	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
 	
-	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-	glBufferData(GL_ARRAY_BUFFER, requiredBufferSize, NULL, GL_STATIC_DRAW);
+	floorGeoID = modelCount;//setting floor to plane;
+	models[modelCount++] = setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
 
-	for (int i = 0; i < numOfShapes; i++)
-	{
-		myShapes[i].sendToBuffer(bufferID);
-		//myShapes[i].cleanUp();
+	for(uint i=0;i<modelCount;i++) {
+		GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
+		justAdded->streamedPosition(0);
+		justAdded->streamedColor(1);
+		justAdded->streamedNormal(2);
+		justAdded->streamedUv(3);
+		if(i==floorGeoID) {
+			floor.whatGeo = justAdded;
+		} else {
+			randomModels[randomModelCount++] = justAdded;
+		}
 	}
 
-	for (int i = 0; i < 20; i++)
-	{
-		int index = RANDOM::randomInt(0,numOfShapes-2);
-		myGameObjs[numOfGameObjs].myShape = myShapes[index];
 
-		float x = RANDOM::randomFloat(-range,range);
-		float y = RANDOM::randomFloat(0,2);
-		float z = RANDOM::randomFloat(-range,range);
-		float scale = 1;//RANDOM::randomFloat(.1f,10);
+	for (int i = 0; i < 20; i++) {
+		int index = RANDOM::randomInt(0,randomModelCount-1);
+		Renderable * justAdded = myRender.addRenderable(randomModels[index],myRender.mainShader,RANDOM::randomInt(0,numOfTextures-1));
+		
+		
+		const float LOW = -range;
+		const float HIGH = range;
+		float x = RANDOM::randomFloat(LOW,HIGH);
+		float y = RANDOM::randomFloat(0,  HIGH);
+		float z = RANDOM::randomFloat(LOW,HIGH);
+		justAdded->addTranslate(glm::vec3(x,y,z));
 
-		myGameObjs[numOfGameObjs].translation = glm::vec3(x,y,z);
-		myGameObjs[numOfGameObjs].scale = scale;
-		myGameObjs[numOfGameObjs].accRange = 2;
-		myGameObjs[numOfGameObjs].rateToChageAngleACC = 100;
-		myGameObjs[numOfGameObjs].randomizeAngleAcc();
-		myGameObjs[numOfGameObjs].textureID = RANDOM::randomInt(0,numOfTextures-1);
+		justAdded->saveVisable("isShown");
+		justAdded->saveRotationMat("model2RotationTransform");
+		justAdded->saveWhereMat("model2WorldTransform");
+		justAdded->saveTexture("myTexture");
 
-		numOfGameObjs++;
+		gameObjs[numOfGameObjs++] = justAdded;
 	}
-
-	camEntity.myShape = myShapes[RANDOM::randomInt(1,numOfShapes-2)];
-	camEntity.scale = 1;
-	camEntity.accRange = 2;
-
-	floor.myShape = myShapes[numOfShapes-1];
-	floor.scale = 10;
-	floor.translation = vec3(0,-5,0);
-	setColor(glm::vec4(1,1,1,1),floor.myShape); // setting floor to white
-	floor.myShape.sendToBuffer(bufferID);
+	int index = RANDOM::randomInt(0,randomModelCount-1);
+	lightSource.init(randomModels[index],myRender.mainShader,true,RANDOM::randomInt(0,numOfTextures-1));
+	lightSource.setScale(.75);
+	lightSource.randomRange = 2;
+	
+	floor.init(floor.whatGeo,myRender.mainShader,true,RANDOM::randomInt(0,numOfTextures-1));
+	floor.setScale(10);
+	floor.addTranslate(vec3(0,-5,0));
 }
 
 void MyWindow::myUpdate() {
@@ -184,15 +171,18 @@ void MyWindow::myUpdate() {
 	}
 
 	if(objectsMoving) {
-		for (int i = 0; i < numOfGameObjs; i++)
+		for (uint i = 0; i < myRender.getNumOfRenderables(); i++)
 		{
-			myGameObjs[i].update(frames);
+			//if(frames%1000==0) myRender.getRenderable(i)->randomACC();
+			myRender.getRenderable(i)->rotate();
 		}
-	}
-	
-	camEntity.update(frames);
 
+		//if(frames%1000==0) lightSource.randomACC();
+		lightSource.rotate();
+	}
 	repaint();
+	if(frames>10000)
+		paintGL();
 }
 void MyWindow::mouseMoveEvent(QMouseEvent* e) {
 	glm::vec2 newPos(e->x(),e->y());
@@ -214,60 +204,64 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 	}
 }
 
-void MyWindow::paintGL() {
-	glViewport(0,0,width(),height());
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+void MyWindow::passDataDownToShader(ShaderProgram& prog, bool passthrough) {
 	const float aspectRatio = (float)width()/(float)height();
 
 	mat4x4 viewTransform;
 	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
 	viewTransform *= myCam.getWorld2View();
-	glUniformMatrix4fv(myShadyShader.getUniform("viewTransform"),1,false,&viewTransform[0][0]);
 
-	glUniform1i(myShadyShader.getUniform("enableOverrideColor"),enableOverrideColor);
-	glUniform3fv(myShadyShader.getUniform("overrideColor"),1,&overrideColor[0]);
-	glUniform3fv(myShadyShader.getUniform("ambientLight"),1,&ambientLight[0]);
-	glUniform3fv(myShadyShader.getUniform("diffuseLight"),1,&diffuseLight[0]);
-	glUniform3fv(myShadyShader.getUniform("diffusePos"),1,&diffusePos[0]);
-	glUniform1i(myShadyShader.getUniform("diffuseInFrag"),diffuseInFrag);
+	prog.passUniform("viewTransform",ParameterType::PT_MAT4,&viewTransform[0][0]);
+	
+	prog.passUniform("enableOverrideColor",ParameterType::PT_BOOLEAN,  enableOverrideColor);
+	prog.passUniform("overrideColor",      ParameterType::PT_VEC3, &overrideColor[0]   );
+	prog.passUniform("ambientLight",       ParameterType::PT_VEC3, &ambientLight[0]    );
+	prog.passUniform("diffuseLight",       ParameterType::PT_VEC3, &diffuseLight[0]    );
+	prog.passUniform("diffusePos",         ParameterType::PT_VEC3, &diffusePos[0]      );
+	prog.passUniform("diffuseInFrag",      ParameterType::PT_BOOLEAN,  diffuseInFrag      );
+	
+	prog.passUniform("specPower", ParameterType::PT_FLOAT,&specPower);
+	prog.passUniform("specColor", ParameterType::PT_VEC3, &specColor[0]);
+	prog.passUniform("camPos",    ParameterType::PT_VEC3, &myCam.getPos()[0]);
+	
+	prog.passUniform("enableTexture",  ParameterType::PT_BOOLEAN, enableTexture);
+	prog.passUniform("enableLighting", ParameterType::PT_BOOLEAN, enableLighting);
+	prog.passUniform("passThrough", ParameterType::PT_BOOLEAN, passthrough);
 
-	glUniform1f(myShadyShader.getUniform("specPower"),specPower);
-	glUniform3fv(myShadyShader.getUniform("specColor"),1,&specColor[0]);
-	glUniform3fv(myShadyShader.getUniform("camPos"),1,&myCam.getPos()[0]);
+}
 
-	glUniform1i(myShadyShader.getUniform("enableTexture"),enableTexture);
-	glUniform1i(myShadyShader.getUniform("enableLighting"),enableLighting);
+void MyWindow::paintGL() {
+	glViewport(0,0,width(),height());
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	bool passThrough = false;
-	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
 
-
-	for (int i = 0; i < numOfGameObjs; i++)
+	myRender.mainShader->useProgram();
+	passDataDownToShader(*myRender.mainShader,passThrough);
+	
+	for (uint i = 0; i < numOfGameObjs; i++)
 	{
-		draw(myGameObjs[i]);
+		draw(*gameObjs[i],passThrough);
 	}
 
-	draw(floor);
+	draw(floor,passThrough);
 
 	passThrough = true;
-	glUniform1i(myShadyShader.getUniform("passThrough"),passThrough);
+
+	myRender.mainShader->passUniform("passThrough", ParameterType::PT_BOOLEAN, passThrough);
 
 	if(displayLightEntity) {
-		camEntity.translation = diffusePos;
-		draw(camEntity);
+		lightSource.setTranslate(diffusePos);
+		draw(lightSource,passThrough);
 	}
 
 }
 
-void MyWindow::draw(GameObj& entity) {
-	glUniformMatrix4fv(myShadyShader.getUniform("model2WorldTransform"),1,false,&entity.getTransform()[0][0]);
-	glUniformMatrix3fv(myShadyShader.getUniform("model2RotationTransform"),1,false,&entity.getRotationMat()[0][0]);
-	glUniform1i(myShadyShader.getUniform("myTexture"), entity.textureID);
-
-	DrawnObj toDraw = entity.getShape();
-
-	toDraw.printPrep();
-	glDrawElements(GL_TRIANGLES,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
+void MyWindow::draw(Renderable& entity, bool passthrough) {
+	if(!entity.howShader->isCurrentProgram()) {
+		passDataDownToShader(*entity.howShader,passthrough);
+	}
+	entity.passUniformsDownDown();
+	myRender.draw(*entity.whatGeo);
 }
