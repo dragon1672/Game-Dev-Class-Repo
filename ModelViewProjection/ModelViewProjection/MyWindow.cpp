@@ -56,10 +56,25 @@ void MyWindow::init() {
 
 //returns the required size
 
-Neumont::ShapeData setColor(glm::vec4& toSet, Neumont::ShapeData& obj) {
+Neumont::ShapeData setModColor(Neumont::ShapeData& obj, int mod=1) {
 	for (uint i = 0; i < obj.numVerts; i++)
 	{
-		obj.verts[i].color = toSet;
+		if(i % mod == 0) {
+			int r = RANDOM::randomFloat(0,1);
+			int g = RANDOM::randomFloat(0,1);
+			int b = RANDOM::randomFloat(0,1);
+			int a = RANDOM::randomFloat(0,1);
+			obj.verts[i].color = glm::vec4(r,g,b,1);
+		}
+	}
+	return obj;
+}
+Neumont::ShapeData setColor(glm::vec4& toSet, Neumont::ShapeData& obj, int mod = 1) {
+	for (uint i = 0; i < obj.numVerts; i++)
+	{
+		if(i % mod == 0) {
+			obj.verts[i].color = toSet;
+		}
 	}
 	return obj;
 }
@@ -107,15 +122,14 @@ void MyWindow::sendDataToHardWare() {
 	uint modelCount = 0;
 	int teaPotQuality = RANDOM::randomInt(5,10);
 	int randomQuality = RANDOM::randomInt(5,15);
-	//models[modelCount++] = Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4());
-	//models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
+	models[modelCount++] = setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4);
+	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
 	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeArrow());
-	//models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
+	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
 	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
 	
 	floorGeoID = modelCount;//setting floor to plane;
-	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
-	//models[modelCount++] = setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
+	models[modelCount++] = setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
 
 	for(uint i=0;i<modelCount;i++) {
 		GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
@@ -136,14 +150,11 @@ void MyWindow::sendDataToHardWare() {
 		Renderable * justAdded = myRender.addRenderable(randomModels[index],myRender.mainShader,RANDOM::randomInt(0,numOfTextures-1));
 		
 		
-		const float LOW = -range;
-		const float HIGH = range;
-		float x = RANDOM::randomFloat(LOW,HIGH);
-		float y = RANDOM::randomFloat(0,  HIGH);
-		float z = RANDOM::randomFloat(LOW,HIGH);
+		float x = RANDOM::randomFloat(-range,range);
+		float y = RANDOM::randomFloat(range/2,  range);
+		float z = RANDOM::randomFloat(-range,range);
 		justAdded->addTranslate(glm::vec3(x,y,z));
 
-		justAdded->saveVisable("isShown");
 		justAdded->saveRotationMat("model2RotationTransform");
 		justAdded->saveWhereMat("model2WorldTransform");
 		justAdded->saveTexture("myTexture");
@@ -154,10 +165,15 @@ void MyWindow::sendDataToHardWare() {
 	lightSource.init(randomModels[index],myRender.mainShader,true,RANDOM::randomInt(0,numOfTextures-1));
 	lightSource.setScale(.75);
 	lightSource.randomRange = 2;
+	lightSource.saveRotationMat("model2RotationTransform");
+	lightSource.saveWhereMat("model2WorldTransform");
 	
 	floor.init(floor.whatGeo,myRender.mainShader,true,RANDOM::randomInt(0,numOfTextures-1));
 	floor.setScale(10);
 	floor.addTranslate(vec3(0,-5,0));
+	floor.saveRotationMat("model2RotationTransform");
+	floor.saveWhereMat("model2WorldTransform");
+	floor.saveTexture("myTexture");
 }
 
 void MyWindow::myUpdate() {
@@ -172,15 +188,13 @@ void MyWindow::myUpdate() {
 	}
 
 	if(objectsMoving) {
-		for (uint i = 0; i < myRender.getNumOfRenderables(); i++)
-		{
-			//if(frames%1000==0) myRender.getRenderable(i)->randomACC();
-			myRender.getRenderable(i)->rotate();
+		for (uint i = 0; i < myRender.getNumOfRenderables(); i++) {
+			if(frames%1000==0) myRender.getRenderable(i)->randomACC();
+				myRender.getRenderable(i)->rotate();
 		}
-
-		//if(frames%1000==0) lightSource.randomACC();
-		lightSource.rotate();
 	}
+	if(frames%1000==0) lightSource.randomACC();
+		lightSource.rotate();
 	repaint();
 	if(frames>10000)
 		paintGL();
@@ -260,9 +274,11 @@ void MyWindow::paintGL() {
 }
 
 void MyWindow::draw(Renderable& entity, bool passthrough) {
-	if(!entity.howShader->isCurrentProgram()) {
-		passDataDownToShader(*entity.howShader,passthrough);
+	if(entity.visible) {
+		if(!entity.howShader->isCurrentProgram()) {
+			passDataDownToShader(*entity.howShader,passthrough);
+		}
+		entity.passUniformsDownDown();
+		myRender.draw(*entity.whatGeo);
 	}
-	entity.passUniformsDownDown();
-	myRender.draw(*entity.whatGeo);
 }

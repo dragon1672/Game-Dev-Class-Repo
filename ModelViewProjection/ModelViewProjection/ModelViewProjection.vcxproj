@@ -89,8 +89,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugSlider.cpp" />
     <ClCompile Include="DebugSlider_mock.cpp" />
-    <ClCompile Include="DrawnObj.cpp" />
-    <ClCompile Include="GameObj.cpp" />
     <ClCompile Include="GeometryInfo.cpp" />
     <ClCompile Include="LinkedSlider.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -108,8 +106,6 @@
     <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugSlider.h" />
-    <ClInclude Include="DrawnObj.h" />
-    <ClInclude Include="GameObj.h" />
     <ClInclude Include="GeometryInfo.h" />
     <ClInclude Include="LinkedSlider.h" />
     <ClInclude Include="MyGUI.h" />

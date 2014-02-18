@@ -5,11 +5,11 @@
 std::random_device eng;
 
 //std::mt19937 eng(seq);  // a core engine class 
-std::uniform_real_distribution<float> randF(0, 1);
 
 namespace RANDOM {
 
 	float randomFloat() {
+		std::uniform_real_distribution<float> randF(0, 1);
 		return randF(eng);
 	}
 

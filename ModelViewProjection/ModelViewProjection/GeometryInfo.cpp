@@ -21,6 +21,6 @@ void GeometryInfo::addStreamedParameter(uint layoutLocation, ParameterType param
 	glEnableVertexAttribArray(layoutLocation); // pos
 
 	glBindBuffer(GL_ARRAY_BUFFER, bufferInformation.bufferID);
-	glVertexAttribPointer(layoutLocation, numOfFloats, GL_FLOAT, GL_FALSE, bufferStride, (void*)bufferOffset);
+	glVertexAttribPointer(layoutLocation, numOfFloats, GL_FLOAT, GL_FALSE, bufferStride, (void*)(bufferOffset+bufferInformation.offset));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferInformation.bufferID);
 }

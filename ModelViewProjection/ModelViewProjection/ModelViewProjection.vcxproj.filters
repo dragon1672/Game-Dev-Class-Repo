@@ -34,12 +34,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Data</Filter>
     </ClCompile>
-    <ClCompile Include="GameObj.cpp">
-      <Filter>Data</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawnObj.cpp">
-      <Filter>Data</Filter>
-    </ClCompile>
     <ClCompile Include="MyRandom.cpp">
       <Filter>Data</Filter>
     </ClCompile>
@@ -66,12 +60,6 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="MyRandom.h">
-      <Filter>Data</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObj.h">
-      <Filter>Data</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawnObj.h">
       <Filter>Data</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">

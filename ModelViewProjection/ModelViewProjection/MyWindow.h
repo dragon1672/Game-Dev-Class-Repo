@@ -4,8 +4,6 @@
 #include <Qt\qtimer.h>
 
 #include "ShaderProgram.h"
-#include "DrawnObj.h"
-#include "GameObj.h"
 #include "Camera.h"
 #include "Renderer.h"
 
