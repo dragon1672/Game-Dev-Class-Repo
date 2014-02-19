@@ -7,6 +7,11 @@
 
 GLuint ShaderProgram::currentProgram;
 
+struct CodeBlock { // used to store shader code
+	GLuint id;
+	std::string code;
+};
+
  std::string ShaderProgram::file2str(const char * filePath) {
 	std::ifstream file(filePath);
 	return std::string(
@@ -149,7 +154,17 @@ QImage ShaderProgram::getImageFromFile(QString filePath) {
 
 	if(myTexture.isNull()) {
 		qDebug() << "attempt to load " << fileName << " failed";
+	} else {
+		QString formatedName = fileName.replace(QRegExp("[_]")," ");
+		formatedName = formatedName.remove(".jpg",Qt::CaseInsensitive);
+		formatedName = formatedName.remove(".png",Qt::CaseInsensitive);
+		int lastSlash = formatedName.lastIndexOf('/');
+		formatedName = formatedName.mid(lastSlash,formatedName.size()-lastSlash);
+		lastSlash = formatedName.lastIndexOf('\\');
+		formatedName = formatedName.mid(lastSlash,formatedName.size()-lastSlash);
+		qDebug() << "Texture Loaded ( " << myTexture.width() << "x" << myTexture.width() << " ): " << formatedName;
 	}
+
 	return myTexture;
 }
 //returns the bufferID

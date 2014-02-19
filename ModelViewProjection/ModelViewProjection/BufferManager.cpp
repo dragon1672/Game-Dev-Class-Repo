@@ -1,5 +1,6 @@
 #include <GL\glew.h>
 #include "BufferManager.h"
+#include <Qt/qdebug.h>
 #include <cassert>
 BufferManager::BufferInfo BufferManager::addData(uint size1, const void * data1, uint size2, const void * data2) {
 	bool stored = false;
@@ -50,9 +51,15 @@ BufferManager::BufferInfo * BufferManager::addBuffer(int size) {
 
 	ret->remainingSpace = size;
 	ret->offset = 0;
+
+	qDebug() << "Created new Buffer( ID: " << ret->bufferID << ", Size: " << ret->remainingSpace << " )";
+
 	return ret;
 }
 BufferManager::BufferInfo BufferManager::storeData(BufferInfo * buff, uint size, const void * data) {
+
+	qDebug() << "Storing in Buffer ( " << buff->bufferID << " ) " << size << " bytes of data";
+
 	glBindBuffer(GL_ARRAY_BUFFER, buff->bufferID);
 	
 	glBufferSubData(GL_ARRAY_BUFFER,buff->offset,size,data);

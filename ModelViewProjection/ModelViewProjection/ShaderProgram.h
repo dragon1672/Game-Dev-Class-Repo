@@ -10,10 +10,6 @@ class ShaderProgram {
 private:
 	static const int MAX_POSSIBLE_PROGRAM_FILES = 10;
 	static GLuint currentProgram;
-	struct CodeBlock { // used to store shader code
-		GLuint id;
-		std::string code;
-	};
 	
 	GLuint programID;
 

@@ -56,9 +56,26 @@ void MyWindow::init() {
 
 //returns the required size
 
+bool isAllVal(glm::vec3 vec, float val=0) {
+	return vec.x == val
+			&& vec.y == val
+			&& vec.z == val;
+}
+
+Neumont::ShapeData fixTeaPotNormals(Neumont::ShapeData& obj) {
+	obj.verts[obj.numVerts-1].normal = glm::vec3(0,1,0);
+	/*
+	for (uint i = 0; i < obj.numVerts; i++) {
+		float len = glm::length(obj.verts[i].normal);
+		if(isAllVal(obj.verts[i].normal,0)) {
+			obj.verts[i].normal = obj.verts[i-1].normal;
+		}
+	}
+	//*/
+	return obj;
+}
 Neumont::ShapeData setModColor(Neumont::ShapeData& obj, int mod=1) {
-	for (uint i = 0; i < obj.numVerts; i++)
-	{
+	for (uint i = 0; i < obj.numVerts; i++) {
 		if(i % mod == 0) {
 			int r = RANDOM::randomFloat(0,1);
 			int g = RANDOM::randomFloat(0,1);
@@ -70,8 +87,7 @@ Neumont::ShapeData setModColor(Neumont::ShapeData& obj, int mod=1) {
 	return obj;
 }
 Neumont::ShapeData setColor(glm::vec4& toSet, Neumont::ShapeData& obj, int mod = 1) {
-	for (uint i = 0; i < obj.numVerts; i++)
-	{
+	for (uint i = 0; i < obj.numVerts; i++) {
 		if(i % mod == 0) {
 			obj.verts[i].color = toSet;
 		}
@@ -120,9 +136,9 @@ void MyWindow::sendDataToHardWare() {
 	uint randomModelCount = 0;
 	Neumont::ShapeData models[6];
 	uint modelCount = 0;
-	int teaPotQuality = RANDOM::randomInt(5,10);
-	int randomQuality = RANDOM::randomInt(5,15);
-	models[modelCount++] = setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4);
+	int teaPotQuality = RANDOM::randomInt(5,30);
+	int randomQuality = 50;//RANDOM::randomInt(5,15);
+	models[modelCount++] = fixTeaPotNormals(setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4));
 	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
 	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeArrow());
 	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
