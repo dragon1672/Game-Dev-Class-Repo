@@ -158,7 +158,7 @@ void MyWindow::sendDataToHardWare() {
 		} else {
 			randomModels[randomModelCount++] = justAdded;
 		}
-	}
+	} 
 
 
 	for (int i = 0; i < 20; i++) {
@@ -167,7 +167,7 @@ void MyWindow::sendDataToHardWare() {
 		
 		
 		float x = RANDOM::randomFloat(-range,range);
-		float y = RANDOM::randomFloat(range/2,  range);
+		float y = RANDOM::randomFloat(0, range/2);
 		float z = RANDOM::randomFloat(-range,range);
 		justAdded->addTranslate(glm::vec3(x,y,z));
 
