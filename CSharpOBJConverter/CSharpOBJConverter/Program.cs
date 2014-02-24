@@ -180,8 +180,8 @@ namespace CSharpOBJConverter
 		{
 			Program myProg = new Program();
 			string inFile = "OBJ_FILES/Cube.obj";
+			//string inFile = "OBJ_FILES/GhoulOBJ.obj";
 			string outFile = "pie.bin";
-			//string file = "OBJ_FILES/GhoulOBJ.obj";
 			myProg.LoadFile(inFile);
 			myProg.WriteBinFile(outFile);
 			myProg.PrintBinFile(outFile);
