@@ -54,13 +54,13 @@ namespace CSharpOBJConverter
 		{
 			foreach(var item in _allVerts)
 			{
-				item.Position = _posParser.ParsedData[item.NPosition];
-				item.Uv = _uvsParser.ParsedData[item.NUv];
-				item.Normal = _normParser.ParsedData[item.NNormal];
+				item.Position = (item.NPosition < 0) ? new Vec3(0, 0, 0) : _posParser.ParsedData[item.NPosition];
+				item.Uv = (item.NUv < 0) ? new Vec2(0, 0) : _uvsParser.ParsedData[item.NUv];
+				item.Normal = (item.NNormal < 0) ? new Vec3(0, 0, 0) : _normParser.ParsedData[item.NNormal];
 			}
 		}
 
-		public void LoadFile(string filepath)
+		public void LoadFile(string filepath, int veboseLevel=0)
 		{
 			StreamReader fileReader = new StreamReader(filepath);
 			string line;
@@ -80,8 +80,9 @@ namespace CSharpOBJConverter
 					currParse.AddData(line);
 					break;
 				}
-				if (!added) Console.WriteLine("Discarding: " + line);
+				if(veboseLevel>1) if (!added) Console.WriteLine("Discarding: " + line);
 			}
+			if(veboseLevel>0) Console.WriteLine("File Parsed");
 			PopulateVertexs();
 			fileReader.Close();
 		}
@@ -162,7 +163,7 @@ namespace CSharpOBJConverter
 				toPrint.Position = new Vec3(file.ReadSingle(), file.ReadSingle(), file.ReadSingle());
 				toPrint.Uv = new Vec2(file.ReadSingle(), file.ReadSingle());
 				toPrint.Normal = new Vec3(file.ReadSingle(), file.ReadSingle(), file.ReadSingle());
-				Console.WriteLine(toPrint);
+				Console.WriteLine(i+": "+toPrint);
 			}
 			for (int i = 0; i < numOfindices; i++)
 			{
@@ -176,13 +177,33 @@ namespace CSharpOBJConverter
 
 		static void Main(string[] args)
 		{
+			/* release
+			if (args.Length > 0)
+			{
+				int verbose = (args.Length > 1) ? int.Parse(args[1]) : 0;
+				Program myProg = new Program();
+				string inFile = args[0];
+				string outFile = inFile.Substring(0, inFile.Length - 4) + ".bin";
+				myProg.LoadFile(inFile, verbose);
+				myProg.WriteBinFile(outFile);
+			}
+			else
+			{
+				Console.WriteLine("Please pass a file to load");
+			}
+			//*/
+			//* testing
 			Program myProg = new Program();
-			string inFile = "OBJ_FILES/Cube.obj";
+			//string inFile = "OBJ_FILES/Cube.obj";
 			//string inFile = "OBJ_FILES/GhoulOBJ.obj";
-			string outFile = "pie.bin";
-			myProg.LoadFile(inFile);
+			//string inFile = "OBJ_FILES/Plane_BW.obj";
+			string inFile = "OBJ_FILES/gun.big";
+			string outFile = inFile.Substring(0, inFile.Length - 4) + ".bin";
+			myProg.LoadFile(inFile,2);
 			myProg.WriteBinFile(outFile);
 			myProg.PrintBinFile(outFile);
+			//*/
+
 		}
 	}
 }

@@ -20,6 +20,7 @@ namespace CSharpOBJConverter
 
 		public void Parse(string data)
 		{
+			data = data.TrimEnd(' ');
 			string[] split = data.Split();
 			X = float.Parse(split[1]);
 			Y = float.Parse(split[2]);

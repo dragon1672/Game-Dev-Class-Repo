@@ -22,6 +22,7 @@ namespace CSharpOBJConverter
 
 		public void Parse(string data)
 		{
+			data = data.TrimEnd(' ');
 			string[] split = data.Split();
 			int offset = split.Length - 3;
 			X = float.Parse(split[offset+0]);

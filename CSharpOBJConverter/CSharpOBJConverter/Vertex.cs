@@ -8,25 +8,14 @@ namespace CSharpOBJConverter
 {
 	class Vertex
 	{
-		private static Random rand = new Random();
-		int? _id = null;
-		private int ProgramId {
-			get {
-				if (_id == null)
-				{
-					_id = rand.Next();
-				}
-				return (int)_id;
-			}
-		}
-
 		public static Vertex ParseVert(string data)
 		{
 			string[] elements = data.Split('/');
 			int offset = elements.Length - 3;
-			int pos = int.Parse(elements[offset + 0]) - 1;
-			int uvs = int.Parse(elements[offset + 1]) - 1;
-			int nor = int.Parse(elements[offset + 2]) - 1;
+			int toSave;
+			toSave = 0;		int.TryParse((elements[offset + 0]), out toSave);	int pos = toSave - 1;
+			toSave = 0;		int.TryParse((elements[offset + 1]), out toSave);	int uvs = toSave - 1;
+			toSave = 0;		int.TryParse((elements[offset + 2]), out toSave);	int nor = toSave - 1;
 			return new Vertex(pos, uvs, nor);
 		}
 
@@ -66,9 +55,9 @@ namespace CSharpOBJConverter
 		}
 		public override string ToString()
 		{
-			return "{ Position: " + Position + ", "
+			return "{Position: " + Position + ", "
 			       + "UV: " + Uv + ", "
-			       + "Normal: " + Normal+" }";
+			       + "Normal: " + Normal+"}";
 		}
 	}
 }

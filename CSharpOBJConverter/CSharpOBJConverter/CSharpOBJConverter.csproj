@@ -71,12 +71,16 @@
     <Content Include="OBJ_FILES\Skeleton.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OBJ_FILES\thompson.obj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="OBJ_FILES\cube.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="OBJ_FILES\CartoonTree.obj" />
+    <Content Include="OBJ_FILES\gun.big">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="OBJ_FILES\myChair.obj" />
+    <None Include="OBJ_FILES\plane.obj" />
+    <None Include="OBJ_FILES\TeddyBear.obj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
