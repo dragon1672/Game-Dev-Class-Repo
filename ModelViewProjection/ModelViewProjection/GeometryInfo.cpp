@@ -3,13 +3,19 @@
 
 BufferManager GeometryInfo::manager;
 
-void GeometryInfo::init(const Neumont::Vertex * verts, uint numVerts, ushort* indices, uint numIndices, GLuint indexingMode) {
-	sizeOfVerts = sizeof(Neumont::Vertex);
+void GeometryInfo::init(uint vertSize, const void * verts, uint numVerts, ushort* indices, uint numIndices, GLuint indexingMode) {
+	sizeOfVerts = vertSize;
 	glGenVertexArrays(1,&vertexArrayObjectID);
 	this->numVerts = numVerts;
 	this->numIndices = numIndices;
 	this->indexingMode = indexingMode;
 	bufferInformation = manager.addData(vertexBufferSize(),verts,indexBufferSize(),indices);
+}
+void GeometryInfo::init(const Neumont::Vertex * verts, uint numVerts, ushort* indices, uint numIndices, GLuint indexingMode) {
+	init(sizeof(Neumont::Vertex),verts,numVerts,indices,numIndices,indexingMode);
+}
+void GeometryInfo::init(const BinaryVert * verts, uint numVerts, ushort* indices, uint numIndices, GLuint indexingMode) {
+	init(sizeof(BinaryVert),verts,numVerts,indices,numIndices,indexingMode);
 }
 
 void GeometryInfo::addStreamedParameter(uint layoutLocation, ParameterType parameterType,  uint bufferOffset, uint bufferStride) {

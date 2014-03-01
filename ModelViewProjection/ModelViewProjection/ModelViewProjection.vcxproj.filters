@@ -64,6 +64,9 @@
     <ClCompile Include="BufferManager.cpp">
       <Filter>Renderer\Geo</Filter>
     </ClCompile>
+    <ClCompile Include="BinaryVertShapeData.cpp" />
+    <ClCompile Include="BinaryToShapeLoader.cpp" />
+    <ClCompile Include="NUShapeEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugSlider.h">
@@ -103,6 +106,16 @@
     <ClInclude Include="ParameterType.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="BinaryVert.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryVertShapeData.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryToShapeLoader.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="NUShapeEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FragShader.glsl">

@@ -10,6 +10,8 @@
 #include <Qt/qdebug.h>
 
 #include <ShapeGenerator.h>
+#include "BinaryToShapeLoader.h"
+#include "NUShapeEditor.h"
 
 
 using glm::vec3;
@@ -54,73 +56,22 @@ void MyWindow::init() {
 	enableLighting = true;
 }
 
-//returns the required size
-
-bool isAllVal(glm::vec3 vec, float val=0) {
-	return vec.x == val
-			&& vec.y == val
-			&& vec.z == val;
-}
-
-Neumont::ShapeData fixTeaPotNormals(Neumont::ShapeData& obj) {
-	obj.verts[obj.numVerts-1].normal = glm::vec3(0,1,0);
-	/*
-	for (uint i = 0; i < obj.numVerts; i++) {
-		float len = glm::length(obj.verts[i].normal);
-		if(isAllVal(obj.verts[i].normal,0)) {
-			obj.verts[i].normal = obj.verts[i-1].normal;
-		}
-	}
-	//*/
-	return obj;
-}
-Neumont::ShapeData setModColor(Neumont::ShapeData& obj, int mod=1) {
-	for (uint i = 0; i < obj.numVerts; i++) {
-		if(i % mod == 0) {
-			int r = RANDOM::randomFloat(0,1);
-			int g = RANDOM::randomFloat(0,1);
-			int b = RANDOM::randomFloat(0,1);
-			int a = RANDOM::randomFloat(0,1);
-			obj.verts[i].color = glm::vec4(r,g,b,1);
-		}
-	}
-	return obj;
-}
-Neumont::ShapeData setColor(glm::vec4& toSet, Neumont::ShapeData& obj, int mod = 1) {
-	for (uint i = 0; i < obj.numVerts; i++) {
-		if(i % mod == 0) {
-			obj.verts[i].color = toSet;
-		}
-	}
-	return obj;
-}
-Neumont::ShapeData initUVData(Neumont::ShapeData& obj) {
-	int size = sqrt(obj.numVerts);
-	float divisor = size-1;
-	for(unsigned int i = 0; i<obj.numVerts; i++)
-	{
-		int row = (i/size);
-		int column = (i%size);
-		obj.verts[i].uv = glm::vec2(row/divisor, column/divisor);
-	}
-	return obj;
-}
-
 int sendTextures(Renderer& myRender) {
 	int numOfTextures;
-	numOfTextures = myRender.addTexture("\\Textures\\075.jpg.png");
-	numOfTextures = myRender.addTexture("\\Textures\\1231342137298gl5.jpg.png");
-	numOfTextures = myRender.addTexture("\\Textures\\1234540124849gd7.jpg.png");
-	numOfTextures = myRender.addTexture("\\Textures\\18_abstract.jpg.png");
-	numOfTextures = myRender.addTexture("\\Textures\\6283823024_2d4d28c580_o.png");
-	numOfTextures = myRender.addTexture("\\Textures\\782_hd_matrix_wallpaper_by_andre_w.jpg.png");
-	numOfTextures = myRender.addTexture("\\Textures\\blue-screen-of-death1.jpg.png");
-	numOfTextures = myRender.addTexture("\\Textures\\Funny-Humor-21.png");
-	numOfTextures = myRender.addTexture("\\Textures\\inObamaWeTrust_bill_crop_5.png");
+	numOfTextures = myRender.addTexture("\\Textures\\black eyes.png");
+	numOfTextures = myRender.addTexture("\\Textures\\blueLInes.png");
+	numOfTextures = myRender.addTexture("\\Textures\\bsod.png");
+	numOfTextures = myRender.addTexture("\\Textures\\color bands.png");
+	numOfTextures = myRender.addTexture("\\Textures\\ComfyChair_Diffuse2.png");
+	numOfTextures = myRender.addTexture("\\Textures\\face hands.png");
+	numOfTextures = myRender.addTexture("\\Textures\\green matrix.png");
 	numOfTextures = myRender.addTexture("\\Textures\\jamie Avatar.png");
-	//numOfTextures = myRender.addTexture("\\Textures\\Metal_Hole_08.png");
+	numOfTextures = myRender.addTexture("\\Textures\\obama bill.png");
+	numOfTextures = myRender.addTexture("\\Textures\\Rust.png");
+	numOfTextures = myRender.addTexture("\\Textures\\slaceRocks.png");
 	numOfTextures = myRender.addTexture("\\Textures\\Smile.png");
-	//numOfTextures = myRender.addTexture("\\Textures\\windows_coding.jpg.png");
+	numOfTextures = myRender.addTexture("\\Textures\\ToonTeddyBear.png");
+	numOfTextures = myRender.addTexture("\\Textures\\wood2.png");
 	return numOfTextures;
 }
 
@@ -132,27 +83,43 @@ void MyWindow::sendDataToHardWare() {
 
 	uint floorGeoID;
 
-	GeometryInfo * randomModels[6];
+	//NU shapes
+	GeometryInfo * randomModels[20];
 	uint randomModelCount = 0;
-	Neumont::ShapeData models[6];
+	Neumont::ShapeData models[20];
 	uint modelCount = 0;
 	int teaPotQuality = RANDOM::randomInt(5,30);
 	int randomQuality = 50;//RANDOM::randomInt(5,15);
-	models[modelCount++] = fixTeaPotNormals(setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4));
-	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
-	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeArrow());
-	models[modelCount++] = initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
-	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
+	models[modelCount++] = NUShapeEditor::fixTeaPotNormals(NUShapeEditor::setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4));
+	models[modelCount++] = NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
+	//models[modelCount++] = NUShapeEditor::NUShapeEditorinitUVData(Neumont::ShapeGenerator::makeArrow());
+	models[modelCount++] = NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
+	//models[modelCount++] = Neumont::ShapeGenerator::makeCube();
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/cube.bin");
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/plane.bin");
+	
+	models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/CartoonTree.bin"),10);
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/GhoulOBJ.bin");
+	models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/gun.bin"),4);
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/myChair.bin");
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/phone.bin");
+	models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/TeddyBear.bin"),50);
+
+
+	//dont show up
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Kitana.bin");
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Fan.bin");
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Skeleton.bin");
 	
 	floorGeoID = modelCount;//setting floor to plane;
-	models[modelCount++] = setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
+	models[modelCount++] = NUShapeEditor::setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
 
 	for(uint i=0;i<modelCount;i++) {
 		GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
-		justAdded->streamedPosition(0);
-		justAdded->streamedColor(1);
-		justAdded->streamedNormal(2);
-		justAdded->streamedUv(3);
+		justAdded->NU_VertexStreamedPosition(0);
+		justAdded->NU_VertexStreamedColor(1);
+		justAdded->NU_VertexStreamedNormal(2);
+		justAdded->NU_VertexStreamedUv(3);
 		if(i==floorGeoID) {
 			floor.whatGeo = justAdded;
 		} else {
@@ -161,7 +128,7 @@ void MyWindow::sendDataToHardWare() {
 	} 
 
 
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 50; i++) {
 		int index = RANDOM::randomInt(0,randomModelCount-1);
 		Renderable * justAdded = myRender.addRenderable(randomModels[index],myRender.mainShader,RANDOM::randomInt(0,numOfTextures-1));
 		

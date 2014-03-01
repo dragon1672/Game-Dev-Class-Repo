@@ -9,7 +9,7 @@
 
 class MyWindow : public QGLWidget {
 public:
-	static const int range = 25;
+	static const int range = 50;
 private:
 
 	Q_OBJECT;

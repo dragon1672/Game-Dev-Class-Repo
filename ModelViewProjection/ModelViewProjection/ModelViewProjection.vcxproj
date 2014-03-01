@@ -86,6 +86,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryToShapeLoader.cpp" />
+    <ClCompile Include="BinaryVertShapeData.cpp" />
     <ClCompile Include="BufferManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugSlider.cpp" />
@@ -98,12 +100,16 @@
     <ClCompile Include="MyRandom.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow_mock.cpp" />
+    <ClCompile Include="NUShapeEditor.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ShaderUniformPram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryToShapeLoader.h" />
+    <ClInclude Include="BinaryVert.h" />
+    <ClInclude Include="BinaryVertShapeData.h" />
     <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugSlider.h" />
@@ -112,6 +118,7 @@
     <ClInclude Include="MyGUI.h" />
     <ClInclude Include="MyRandom.h" />
     <ClInclude Include="MyWindow.h" />
+    <ClInclude Include="NUShapeEditor.h" />
     <ClInclude Include="ParameterType.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
