@@ -2,9 +2,11 @@
 #ifndef PROFILE_CATEGORY_H
 #define PROFILE_CATEGORY_H
 
+#include "ExportHeader.h"
+
 const int MAX_FRAMES_TO_MESURE = 50;
 
-struct ProfileCategory {
+struct ENGINE_SHARED ProfileCategory {
 	ProfileCategory() {
 		this->name = "";
 		timesCalled = 0;

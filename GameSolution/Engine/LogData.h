@@ -14,8 +14,8 @@ enum Severity { Info, Warning, Error, Severe };
  * second instance will automatically increment the passed verbosity level
 //*/
 struct LogData {
-	LogData (Severity severity,  std::string location, int lineNumber,         std::string message, int verbosity)
-		:    severity(severity), location(location),   lineNumber(lineNumber), message(message),    verbosity(verbosity)
+	LogData (Severity severity=Severity::Error,  std::string location="", int lineNumber=-1,         std::string message="", int verbosity=0)
+		:    severity(severity),                 location(location),      lineNumber(lineNumber),    message(message),       verbosity(verbosity)
 	{
 		timestamp = GET_GLOBAL_TIME * 1000;//convert to miliseconds
 	}

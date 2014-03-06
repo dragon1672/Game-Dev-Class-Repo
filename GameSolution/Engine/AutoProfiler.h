@@ -4,8 +4,9 @@
 
 #include "Timer.h"
 #include "AutoProfileManager.h"
+#include "ExportHeader.h"
 
-class AutoProfile {
+class ENGINE_SHARED AutoProfile {
 private:
 	const char* profileName;
 	Timer myTimer;

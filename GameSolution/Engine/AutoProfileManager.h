@@ -3,6 +3,7 @@
 #define AUTO_PROFILE_MANAGER_H
 
 #include "ProfileCategory.h"
+#include "ExportHeader.h"
 
 const int MAX_CATEGORIES = 20;
 #define PROFILE_FILE_NAME "../Profile.csv"
@@ -11,9 +12,9 @@ const int MAX_CATEGORIES = 20;
 	#define ENABLE_PROFILING
 #endif
 
-class AutoProfile;
+class ENGINE_SHARED AutoProfile;
 
-class AutoProfileManager {
+class ENGINE_SHARED AutoProfileManager {
 #ifdef ENABLE_PROFILING
 private:
 	static int numberOfProfiles;
@@ -34,7 +35,7 @@ public:
 	static ProfileCategory categories[MAX_CATEGORIES];
 		
 	static void addNewProfile(const char* description, float time) {description; time;}
-	static int  indexOfProfile(const char* description) {description;}
+	static int  indexOfProfile(const char* description) {description;return -1;}
 	static void addToProfile(int i, float time) {i; time;}
 public:
 	static void startup() {}

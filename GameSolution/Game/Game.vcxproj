@@ -96,8 +96,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Engine\ExtendedGraphics.cpp" />
-    <ClCompile Include="AutoProfilerManager.cpp" />
     <ClCompile Include="BasicTurret.cpp" />
     <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="BoxedOffGraphic.cpp" />
@@ -106,7 +104,6 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ComplexBoundary.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="DynamicPositionOfEntity.cpp" />
     <ClCompile Include="DynamicPosRandom.cpp" />
     <ClCompile Include="EndGameView.cpp" />
@@ -114,6 +111,7 @@
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="ExhaustEffect.cpp" />
     <ClCompile Include="ExplosionEffect.cpp" />
+    <ClCompile Include="ExtendedGraphics.cpp" />
     <ClCompile Include="FireOnClick.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRender.cpp" />
@@ -126,7 +124,6 @@
     <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="Letter.cpp" />
     <ClCompile Include="LivingGameEntity.cpp" />
-    <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveLogic.cpp" />
     <ClCompile Include="MyGraphics.cpp" />
@@ -145,7 +142,6 @@
     <ClCompile Include="TargetShipMoveLogic.cpp" />
     <ClCompile Include="TextFormatting.cpp" />
     <ClCompile Include="TextParticalManager.cpp" />
-    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Turret.cpp" />
     <ClCompile Include="TurretMark2.cpp" />
     <ClCompile Include="TurretMark3.cpp" />
@@ -155,13 +151,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Engine\ExtendedGraphics.h" />
-    <ClInclude Include="..\Engine\Partical.h" />
-    <ClInclude Include="..\Engine\ParticalEffect.h" />
     <ClInclude Include="AlwaysFire.h" />
-    <ClInclude Include="AutoProfileManager.h" />
-    <ClInclude Include="AutoProfileManagerMacros.h" />
-    <ClInclude Include="AutoProfiler.h" />
     <ClInclude Include="BasicTurret.h" />
     <ClInclude Include="Boundary.h" />
     <ClInclude Include="BoxedOffGraphic.h" />
@@ -170,9 +160,6 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ComplexBoundary.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="DebugMemHeader.h" />
-    <ClInclude Include="DebugTimer.h" />
-    <ClInclude Include="DroppedItem.h" />
     <ClInclude Include="DynamicPosition.h" />
     <ClInclude Include="DynamicPositionOfEntity.h" />
     <ClInclude Include="DynamicPosRandom.h" />
@@ -181,6 +168,7 @@
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="ExhaustEffect.h" />
     <ClInclude Include="ExplosionEffect.h" />
+    <ClInclude Include="ExtendedGraphics.h" />
     <ClInclude Include="FireAtInterval.h" />
     <ClInclude Include="FireLogic.h" />
     <ClInclude Include="FireOnClick.h" />
@@ -198,20 +186,15 @@
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="Letter.h" />
     <ClInclude Include="LivingGameEntity.h" />
-    <ClInclude Include="LogData.h" />
-    <ClInclude Include="LogManager.h" />
     <ClInclude Include="MoveLogic.h" />
-    <ClInclude Include="myAssert.h" />
     <ClInclude Include="MyGraphics.h" />
     <ClInclude Include="OffsetGraphic.h" />
     <ClInclude Include="ParticalManager.h" />
     <ClInclude Include="ParticalTextFormat.h" />
     <ClInclude Include="ParticalWithDestination.h" />
     <ClInclude Include="PlayerControls.h" />
-    <ClInclude Include="ProfileCategory.h" />
     <ClInclude Include="RandomFire.h" />
     <ClInclude Include="ScoreManager.h" />
-    <ClInclude Include="SingleKeyManager.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SimpleBounary.h" />
     <ClInclude Include="SolarSystem.h" />
@@ -223,12 +206,12 @@
     <ClInclude Include="TeamInfo.h" />
     <ClInclude Include="TextFormatting.h" />
     <ClInclude Include="TextParticalManager.h" />
-    <ClInclude Include="Timer.h" />
     <ClInclude Include="Turret.h" />
     <ClInclude Include="TurretMark2.h" />
     <ClInclude Include="TurretMark3.h" />
     <ClInclude Include="TurretMark4.h" />
     <ClInclude Include="TurretMark5.h" />
+    <ClInclude Include="TurretTargetLogic.h" />
     <ClInclude Include="UserMoveLogic.h" />
     <ClInclude Include="VelocityBasedLivingEntity.h" />
     <ClInclude Include="View.h" />

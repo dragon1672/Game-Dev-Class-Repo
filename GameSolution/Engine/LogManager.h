@@ -4,6 +4,7 @@
 
 #include <vector>//used to store logs
 #include "LogData.h"
+#include "ExportHeader.h"
 
 #ifdef _DEBUG
 #define LOG_ON
@@ -22,7 +23,12 @@
 
 #pragma warning ( disable : 4100)
 
-class LogManager {
+#ifdef LOG_ON
+//template class ENGINE_SHARED std::allocator<LogData>;
+template class ENGINE_SHARED std::vector<LogData>;
+#endif
+
+class ENGINE_SHARED LogManager {
 public:
 #ifdef LOG_ON
 	LogManager(void);

@@ -3,8 +3,9 @@
 #define TIMER_H
 
 #include <windows.h>
+#include "ExportHeader.h"
 
-class Timer {
+class ENGINE_SHARED Timer {
 private:
 	LARGE_INTEGER _start;
 	LARGE_INTEGER _stop;
