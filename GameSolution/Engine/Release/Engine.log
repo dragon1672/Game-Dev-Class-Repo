@@ -1,15 +1,636 @@
-﻿Build started 3/6/2014 12:16:58 PM.
+﻿Build started 3/6/2014 1:31:07 PM.
      1>Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\Engine.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\\Core\include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/NeumontTools/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/Qt/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glm /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glew/include /Zi /nologo /W4 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ENGINE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\\Core\include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/NeumontTools/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/Qt/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glm /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glew/include /Zi /nologo /W4 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ENGINE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt AutoProfilerManager.cpp BinaryToShapeLoader.cpp BufferManager.cpp Camera.cpp DebugTimer.cpp dllmain.cpp GeometryInfo.cpp LogManager.cpp MyRandom.cpp NUShapeEditor.cpp Renderable.cpp Renderer.cpp ShaderProgram.cpp ShaderUniformPram.cpp Timer.cpp
+         AutoProfilerManager.cpp
+         BinaryToShapeLoader.cpp
+         BufferManager.cpp
          Camera.cpp
+         DebugTimer.cpp
+         dllmain.cpp
+         GeometryInfo.cpp
+         LogManager.cpp
+         MyRandom.cpp
+         NUShapeEditor.cpp
+         Renderable.cpp
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(518): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(508) : while compiling class template member function 'void QList<T>::append(const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(70) : see reference to function template instantiation 'void QList<T>::append(const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(67) : see reference to class template instantiation 'QList<T>' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(372): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(371) : while compiling class template member function 'void QList<T>::node_construct(QList<T>::Node *,const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(512) : see reference to function template instantiation 'void QList<T>::node_construct(QList<T>::Node *,const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(730) : while compiling class template member function 'QList<T>::~QList(void)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(69) : see reference to function template instantiation 'QList<T>::~QList(void)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(373): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(388): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(387) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(532) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(389): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(396): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(394) : while compiling class template member function 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(829) : see reference to function template instantiation 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(409): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(480): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(351) : while compiling class template member function 'const QPainterPath::Element &QVector<T>::at(int) const'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(406) : see reference to function template instantiation 'const QPainterPath::Element &QVector<T>::at(int) const' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(254) : see reference to class template instantiation 'QVector<T>' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(493): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(495): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(499): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(500): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(510): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(525): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(430): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(429) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(693) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(438) : while compiling class template member function 'QList<T> &QList<T>::operator =(const QList<T> &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(822) : see reference to function template instantiation 'QList<T> &QList<T>::operator =(const QList<T> &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(432): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(406): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(404) : while compiling class template member function 'QVectorData *QVector<T>::malloc(int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(494) : see reference to function template instantiation 'QVectorData *QVector<T>::malloc(int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(460): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(459) : while compiling class template member function 'void QVector<T>::free(QVectorTypedData<T> *)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(541) : see reference to function template instantiation 'void QVector<T>::free(QVectorTypedData<T> *)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+         Renderer.cpp
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(518): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(508) : while compiling class template member function 'void QList<T>::append(const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(70) : see reference to function template instantiation 'void QList<T>::append(const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(67) : see reference to class template instantiation 'QList<T>' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(372): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(371) : while compiling class template member function 'void QList<T>::node_construct(QList<T>::Node *,const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(512) : see reference to function template instantiation 'void QList<T>::node_construct(QList<T>::Node *,const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(730) : while compiling class template member function 'QList<T>::~QList(void)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(69) : see reference to function template instantiation 'QList<T>::~QList(void)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(373): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(388): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(387) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(532) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(389): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(396): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(394) : while compiling class template member function 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(829) : see reference to function template instantiation 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(409): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(480): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(351) : while compiling class template member function 'const QPainterPath::Element &QVector<T>::at(int) const'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(406) : see reference to function template instantiation 'const QPainterPath::Element &QVector<T>::at(int) const' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(254) : see reference to class template instantiation 'QVector<T>' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(493): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(495): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(499): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(500): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(510): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(525): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(430): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(429) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(693) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(438) : while compiling class template member function 'QList<T> &QList<T>::operator =(const QList<T> &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(822) : see reference to function template instantiation 'QList<T> &QList<T>::operator =(const QList<T> &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(432): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(406): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(404) : while compiling class template member function 'QVectorData *QVector<T>::malloc(int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(494) : see reference to function template instantiation 'QVectorData *QVector<T>::malloc(int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(460): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(459) : while compiling class template member function 'void QVector<T>::free(QVectorTypedData<T> *)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(541) : see reference to function template instantiation 'void QVector<T>::free(QVectorTypedData<T> *)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+         ShaderProgram.cpp
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvariant.h(417): warning C4251: 'QVariant::d' : struct 'QVariant::Private' needs to have dll-interface to be used by clients of class 'QVariant'
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvariant.h(352) : see declaration of 'QVariant::Private'
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qtextstream.h(261): warning C4251: 'QTextStream::d_ptr' : class 'QScopedPointer<T>' needs to have dll-interface to be used by clients of class 'QTextStream'
+                 with
+                 [
+                     T=QTextStreamPrivate
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(518): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(508) : while compiling class template member function 'void QList<T>::append(const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(70) : see reference to function template instantiation 'void QList<T>::append(const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(67) : see reference to class template instantiation 'QList<T>' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(372): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(371) : while compiling class template member function 'void QList<T>::node_construct(QList<T>::Node *,const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(512) : see reference to function template instantiation 'void QList<T>::node_construct(QList<T>::Node *,const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(730) : while compiling class template member function 'QList<T>::~QList(void)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(69) : see reference to function template instantiation 'QList<T>::~QList(void)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(373): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(388): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(387) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(532) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(389): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(396): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(394) : while compiling class template member function 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(829) : see reference to function template instantiation 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(409): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(480): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(351) : while compiling class template member function 'const QPainterPath::Element &QVector<T>::at(int) const'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(406) : see reference to function template instantiation 'const QPainterPath::Element &QVector<T>::at(int) const' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(254) : see reference to class template instantiation 'QVector<T>' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(493): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(495): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(499): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(500): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(510): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(525): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(430): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(429) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(693) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(438) : while compiling class template member function 'QList<T> &QList<T>::operator =(const QList<T> &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(822) : see reference to function template instantiation 'QList<T> &QList<T>::operator =(const QList<T> &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(432): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(406): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(404) : while compiling class template member function 'QVectorData *QVector<T>::malloc(int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(494) : see reference to function template instantiation 'QVectorData *QVector<T>::malloc(int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(460): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(459) : while compiling class template member function 'void QVector<T>::free(QVectorTypedData<T> *)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(541) : see reference to function template instantiation 'void QVector<T>::free(QVectorTypedData<T> *)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+         ShaderUniformPram.cpp
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(518): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(508) : while compiling class template member function 'void QList<T>::append(const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(70) : see reference to function template instantiation 'void QList<T>::append(const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(67) : see reference to class template instantiation 'QList<T>' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(372): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(371) : while compiling class template member function 'void QList<T>::node_construct(QList<T>::Node *,const T &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(512) : see reference to function template instantiation 'void QList<T>::node_construct(QList<T>::Node *,const T &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(730) : while compiling class template member function 'QList<T>::~QList(void)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qstringlist.h(69) : see reference to function template instantiation 'QList<T>::~QList(void)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(373): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(388): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(387) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(532) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(389): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(396): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(394) : while compiling class template member function 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(829) : see reference to function template instantiation 'void QList<T>::node_copy(QList<T>::Node *,QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(409): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(480): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(351) : while compiling class template member function 'const QPainterPath::Element &QVector<T>::at(int) const'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(406) : see reference to function template instantiation 'const QPainterPath::Element &QVector<T>::at(int) const' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtGui/qpainterpath.h(254) : see reference to class template instantiation 'QVector<T>' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(493): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(495): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(499): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(500): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(510): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(525): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(430): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(429) : while compiling class template member function 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(693) : see reference to function template instantiation 'void QList<T>::node_destruct(QList<T>::Node *,QList<T>::Node *)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(438) : while compiling class template member function 'QList<T> &QList<T>::operator =(const QList<T> &)'
+                 with
+                 [
+                     T=QString
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(822) : see reference to function template instantiation 'QList<T> &QList<T>::operator =(const QList<T> &)' being compiled
+                 with
+                 [
+                     T=QString
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(432): warning C4127: conditional expression is constant
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(406): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(404) : while compiling class template member function 'QVectorData *QVector<T>::malloc(int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(494) : see reference to function template instantiation 'QVectorData *QVector<T>::malloc(int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(473) : while compiling class template member function 'void QVector<T>::realloc(int,int)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(337) : see reference to function template instantiation 'void QVector<T>::realloc(int,int)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+     1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(460): warning C4127: conditional expression is constant
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(459) : while compiling class template member function 'void QVector<T>::free(QVectorTypedData<T> *)'
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+                 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qvector.h(541) : see reference to function template instantiation 'void QVector<T>::free(QVectorTypedData<T> *)' being compiled
+                 with
+                 [
+                     T=QPainterPath::Element
+                 ]
+         Timer.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Release\Engine.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/NeumontTools/lib /LIBPATH:C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/Qt/lib /LIBPATH:C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glew/lib NeumontTools.lib opengl32.lib QtOpenGLd4.lib QtGuid4.lib QtCored4.lib glew32.lib glew32d.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Release\Engine.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Release\Engine.lib" /MACHINE:X86 /SAFESEH /DLL Release\AutoProfilerManager.obj
+         Release\BinaryToShapeLoader.obj
+         Release\BufferManager.obj
          Release\Camera.obj
          Release\DebugTimer.obj
          Release\dllmain.obj
+         Release\GeometryInfo.obj
          Release\LogManager.obj
          Release\MyRandom.obj
+         Release\NUShapeEditor.obj
+         Release\Renderable.obj
+         Release\Renderer.obj
+         Release\ShaderProgram.obj
+         Release\ShaderUniformPram.obj
          Release\Timer.obj
             Creating library C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Release\Engine.lib and object C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Release\Engine.exp
          Generating code
@@ -19,4 +640,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.06
+Time Elapsed 00:00:09.92
