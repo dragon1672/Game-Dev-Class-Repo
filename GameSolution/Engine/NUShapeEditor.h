@@ -4,9 +4,10 @@
 #pragma warning(push)
 #include <ShapeData.h>
 #pragma warning(pop)
+#include "ExportHeader.h"
 
 
-class NUShapeEditor {
+class ENGINE_SHARED NUShapeEditor {
 public:
 	static Neumont::ShapeData fixTeaPotNormals(Neumont::ShapeData& obj);
 	static Neumont::ShapeData setModColor(Neumont::ShapeData& obj, int mod=1);

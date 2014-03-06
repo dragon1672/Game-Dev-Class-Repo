@@ -6,8 +6,10 @@
 #include "ShaderUniformPram.h"
 #include "ParameterType.h"
 
+#include "ExportHeader.h"
 
-class Renderer {
+
+class ENGINE_SHARED Renderer {
 private:
 	Renderable myRenderables[200];
 	uint numOfRenderables;

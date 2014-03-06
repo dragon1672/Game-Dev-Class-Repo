@@ -2,9 +2,11 @@
 
 typedef unsigned int uint;
 
-class BufferManager {
+#include "ExportHeader.h"
+
+class ENGINE_SHARED BufferManager {
 public:
-	struct BufferInfo {
+	struct ENGINE_SHARED BufferInfo {
 		uint bufferID;
 		uint offset;
 	private:

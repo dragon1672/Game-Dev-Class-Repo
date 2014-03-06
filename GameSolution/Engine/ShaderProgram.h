@@ -8,8 +8,9 @@
 #pragma warning(pop)
 #include <string>
 #include "ParameterType.h"
+#include "ExportHeader.h"
 
-class ShaderProgram {
+class ENGINE_SHARED ShaderProgram {
 private:
 	static const int MAX_POSSIBLE_PROGRAM_FILES = 10;
 	static GLuint currentProgram;

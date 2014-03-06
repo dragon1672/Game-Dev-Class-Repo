@@ -2,6 +2,7 @@
 
 #include "ShaderUniformPram.h"
 #include "GeometryInfo.h"
+#include "ExportHeader.h"
 
 #pragma warning(disable: 4201)
 #pragma warning(push)
@@ -10,9 +11,12 @@
 
 #include "ParameterType.h"
 
+//template struct DLL_SHARED glm::detail::tmat3x3<float>;
+//template struct DLL_SHARED glm::detail::tmat4x4<float>;
+
 typedef unsigned int uint;
 
-class Renderable {
+class ENGINE_SHARED Renderable {
 public:
 	static const int DEFAULT_RANGE = 5;
 	float randomRange;

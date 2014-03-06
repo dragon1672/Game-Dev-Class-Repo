@@ -3,9 +3,9 @@
 #pragma warning(push)
 #include <ShapeData.h>
 #pragma warning(pop)
+#include "ExportHeader.h"
 
-
-class BinaryToShapeLoader {
+class ENGINE_SHARED BinaryToShapeLoader {
 public:
 	static Neumont::ShapeData loadFromFile(const char * filePath);
 };

@@ -6,8 +6,9 @@
 #include <Vertex.h>
 #pragma warning(pop)
 #include "ParameterType.h"
+#include "ExportHeader.h"
 
-struct GeometryInfo {
+struct ENGINE_SHARED GeometryInfo {
 private:
 	static BufferManager manager;
 public:

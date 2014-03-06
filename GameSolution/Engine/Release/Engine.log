@@ -1,5 +1,5 @@
-﻿Build started 3/6/2014 1:31:07 PM.
-     1>Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\Engine.vcxproj" on node 2 (Build target(s)).
+﻿Build started 3/6/2014 3:52:22 PM.
+     1>Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\Engine.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\\Core\include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/NeumontTools/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/Qt/include /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glm /IC:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\../../MiddleWare/glew/include /Zi /nologo /W4 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D ENGINE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt AutoProfilerManager.cpp BinaryToShapeLoader.cpp BufferManager.cpp Camera.cpp DebugTimer.cpp dllmain.cpp GeometryInfo.cpp LogManager.cpp MyRandom.cpp NUShapeEditor.cpp Renderable.cpp Renderer.cpp ShaderProgram.cpp ShaderUniformPram.cpp Timer.cpp
          AutoProfilerManager.cpp
@@ -13,6 +13,16 @@
          MyRandom.cpp
          NUShapeEditor.cpp
          Renderable.cpp
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\gamesolution\engine\Renderable.h(33): warning C4251: 'Renderable::whereMat' : struct 'glm::detail::tmat4x4<T>' needs to have dll-interface to be used by clients of class 'Renderable'
+                 with
+                 [
+                     T=glm::lowp_float
+                 ]
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\gamesolution\engine\Renderable.h(34): warning C4251: 'Renderable::rotation' : struct 'glm::detail::tmat3x3<T>' needs to have dll-interface to be used by clients of class 'Renderable'
+                 with
+                 [
+                     T=glm::lowp_float
+                 ]
      1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(518): warning C4127: conditional expression is constant
                  C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(508) : while compiling class template member function 'void QList<T>::append(const T &)'
                  with
@@ -162,6 +172,16 @@
                      T=QPainterPath::Element
                  ]
          Renderer.cpp
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\gamesolution\engine\Renderable.h(33): warning C4251: 'Renderable::whereMat' : struct 'glm::detail::tmat4x4<T>' needs to have dll-interface to be used by clients of class 'Renderable'
+                 with
+                 [
+                     T=glm::lowp_float
+                 ]
+     1>c:\users\anthony\dropbox\programming\c++\neumont\gameskeleton\gamesolution\engine\Renderable.h(34): warning C4251: 'Renderable::rotation' : struct 'glm::detail::tmat3x3<T>' needs to have dll-interface to be used by clients of class 'Renderable'
+                 with
+                 [
+                     T=glm::lowp_float
+                 ]
      1>C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(518): warning C4127: conditional expression is constant
                  C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\MiddleWare\Qt\include\QtCore/qlist.h(508) : while compiling class template member function 'void QList<T>::append(const T &)'
                  with
@@ -636,8 +656,8 @@
          Generating code
          Finished generating code
          Engine.vcxproj -> C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Release\Engine.dll
-     1>Done Building Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\Engine.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameSkeleton\GameSolution\Engine\Engine.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:09.92
+Time Elapsed 00:00:10.01

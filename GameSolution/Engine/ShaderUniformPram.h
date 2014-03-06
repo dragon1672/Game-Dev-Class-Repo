@@ -3,10 +3,11 @@
 #include "ShaderProgram.h"
 #include "ParameterType.h"
 #include <string>
+#include "ExportHeader.h"
 
 typedef unsigned int uint;
 
-class ShaderUniformPram {
+class ENGINE_SHARED ShaderUniformPram {
 private:
 	ParameterType type;
 	const char * title;

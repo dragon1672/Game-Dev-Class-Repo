@@ -1,6 +1,7 @@
 #pragma once
+#include "ExportHeader.h"
 
-enum ParameterType {
+enum ENGINE_SHARED ParameterType {
 	// These values matter:
 	PT_FLOAT = sizeof(float) *  1,
 	PT_VEC2  = sizeof(float) *  2,
