@@ -14,9 +14,6 @@ void GeometryInfo::init(uint vertSize, const void * verts, uint numVerts, ushort
 void GeometryInfo::init(const Neumont::Vertex * verts, uint numVerts, ushort* indices, uint numIndices, GLuint indexingMode) {
 	init(sizeof(Neumont::Vertex),verts,numVerts,indices,numIndices,indexingMode);
 }
-void GeometryInfo::init(const BinaryVert * verts, uint numVerts, ushort* indices, uint numIndices, GLuint indexingMode) {
-	init(sizeof(BinaryVert),verts,numVerts,indices,numIndices,indexingMode);
-}
 
 void GeometryInfo::addStreamedParameter(uint layoutLocation, ParameterType parameterType,  uint bufferOffset, uint bufferStride) {
 	glBindBuffer(GL_ARRAY_BUFFER, bufferInformation.bufferID);

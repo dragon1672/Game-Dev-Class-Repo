@@ -11,14 +11,14 @@
     <Filter Include="Data">
       <UniqueIdentifier>{f80515ee-71d5-4fa6-8146-4c97f9237451}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{c2ed68b7-0c7f-4f26-a633-88bf1cc3a97f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{9d71a46d-ab5c-4685-b3f6-bb546a4ef519}</UniqueIdentifier>
     </Filter>
     <Filter Include="Renderer\Geo">
       <UniqueIdentifier>{2756dc90-9fc6-48f2-9b55-bec673fa534e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Shader">
+      <UniqueIdentifier>{c2ed68b7-0c7f-4f26-a633-88bf1cc3a97f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -44,13 +44,13 @@
       <Filter>Data</Filter>
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
-      <Filter>Shader</Filter>
+      <Filter>Renderer\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow_mock.cpp" />
     <ClCompile Include="ShaderUniformPram.cpp">
-      <Filter>Shader</Filter>
+      <Filter>Renderer\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Renderable.cpp">
       <Filter>Renderer</Filter>
@@ -64,9 +64,12 @@
     <ClCompile Include="BufferManager.cpp">
       <Filter>Renderer\Geo</Filter>
     </ClCompile>
-    <ClCompile Include="BinaryVertShapeData.cpp" />
-    <ClCompile Include="BinaryToShapeLoader.cpp" />
-    <ClCompile Include="NUShapeEditor.cpp" />
+    <ClCompile Include="BinaryToShapeLoader.cpp">
+      <Filter>Renderer\Geo</Filter>
+    </ClCompile>
+    <ClCompile Include="NUShapeEditor.cpp">
+      <Filter>Renderer\Geo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugSlider.h">
@@ -85,11 +88,11 @@
       <Filter>Data</Filter>
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
-      <Filter>Shader</Filter>
+      <Filter>Renderer\Shader</Filter>
     </ClInclude>
     <ClInclude Include="MyWindow.h" />
     <ClInclude Include="ShaderUniformPram.h">
-      <Filter>Shader</Filter>
+      <Filter>Renderer\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Renderable.h">
       <Filter>Renderer</Filter>
@@ -106,23 +109,19 @@
     <ClInclude Include="ParameterType.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="BinaryVert.h">
-      <Filter>Data</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryVertShapeData.h">
-      <Filter>Data</Filter>
+    <ClInclude Include="NUShapeEditor.h">
+      <Filter>Renderer\Geo</Filter>
     </ClInclude>
     <ClInclude Include="BinaryToShapeLoader.h">
-      <Filter>Data</Filter>
+      <Filter>Renderer\Geo</Filter>
     </ClInclude>
-    <ClInclude Include="NUShapeEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FragShader.glsl">
-      <Filter>Shader</Filter>
+      <Filter>Renderer\Shader</Filter>
     </None>
     <None Include="VertexShader.glsl">
-      <Filter>Shader</Filter>
+      <Filter>Renderer\Shader</Filter>
     </None>
   </ItemGroup>
 </Project>

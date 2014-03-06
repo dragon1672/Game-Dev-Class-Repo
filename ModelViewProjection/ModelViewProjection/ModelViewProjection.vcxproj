@@ -87,7 +87,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BinaryToShapeLoader.cpp" />
-    <ClCompile Include="BinaryVertShapeData.cpp" />
     <ClCompile Include="BufferManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugSlider.cpp" />
@@ -108,8 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryToShapeLoader.h" />
-    <ClInclude Include="BinaryVert.h" />
-    <ClInclude Include="BinaryVertShapeData.h" />
     <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugSlider.h" />
