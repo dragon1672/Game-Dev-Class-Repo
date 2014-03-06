@@ -5,7 +5,7 @@
 #include "Core.h"
 #include "ExportHeader.h"
 //adds additional ultities to make checking key presses simpler
-class ENGINE_SHARED SingleKeyManager {
+class SingleKeyManager {
 	int   toCheck;
 	int   framesClicked;
 	float secondsClicked;

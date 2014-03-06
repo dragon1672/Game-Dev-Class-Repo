@@ -24,7 +24,6 @@
 #pragma warning ( disable : 4100)
 
 #ifdef LOG_ON
-//template class ENGINE_SHARED std::allocator<LogData>;
 template class ENGINE_SHARED std::vector<LogData>;
 #endif
 
