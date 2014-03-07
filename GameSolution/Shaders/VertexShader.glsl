@@ -64,7 +64,6 @@ vec3 combineLight(vec3 one, vec3 two) {
 void main() {
 	vec4 transformedPos =  model2WorldTransform * vec4(pos.x,pos.y,pos.z,1);
 	gl_Position =  viewTransform * transformedPos;
-	
 	outPos = vec3(transformedPos);
 	outNorm = norm;
 	outUv = uv;

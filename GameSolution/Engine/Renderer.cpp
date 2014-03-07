@@ -44,6 +44,13 @@ void            Renderer::addRenderableUniformParameter(Renderable* renderable, 
 uint            Renderer::addTexture(const char* fileName) {
 	return ShaderProgram::load2DTexture(fileName);
 }
+void            Renderer::draw(Renderable& toDraw) {
+	if(toDraw.visible) {
+		toDraw.howShader->isCurrentProgram();
+		toDraw.passUniformsDownDown();
+		draw(*toDraw.whatGeo);
+	}
+}
 void            Renderer::draw(GeometryInfo& toDraw) {
 	glBindVertexArray(toDraw.vertexArrayObjectID);
 	glBindBuffer(toDraw.bufferInformation.bufferID,GL_ARRAY_BUFFER);

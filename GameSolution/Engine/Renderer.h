@@ -48,10 +48,9 @@ public:
 
 	uint addTexture(const char* fileName);
 	void draw(GeometryInfo& toDraw);
-
-	inline void drawPrep(int width, int height)
-	{
-		glClearColor(1,0,0,1);
+	void draw(Renderable& toDraw);
+	inline void drawPrep(int width, int height) {
+		glClearColor(.1f,.1f,.1f,1);
 		glViewport(0,0,width,height);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}

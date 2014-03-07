@@ -119,8 +119,8 @@ public:
 		point->NU_VertexStreamedColor(1);
 
 		//reg shaders
-		lineShader = theRenderer->addShader("DebugLineVertexShader.glsl","PassThroughFragShader.glsl");
-		sphereShader = theRenderer->addShader("PassThroughVertexShader.glsl","PassThroughFragShader.glsl");
+		lineShader = theRenderer->addShader("../Shaders/DebugLineVertexShader.glsl","../Shaders/PassThroughFragShader.glsl");
+		sphereShader = theRenderer->addShader("../Shaders/PassThroughVertexShader.glsl","../Shaders/PassThroughFragShader.glsl");
 		cubeShader =  sphereShader;
 		pointShader = sphereShader;
 	}

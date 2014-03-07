@@ -25,10 +25,11 @@ float orbitAcc = .2f;
 void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
+	myDebugShapes.init(&myRender);
 
 	glEnable(GL_DEPTH_TEST);
 
-	myRender.mainShader->buildBasicProgram("../VertexShader.glsl","../FragShader.glsl");
+	myRender.mainShader->buildBasicProgram("../Shaders/VertexShader.glsl","../Shaders/FragShader.glsl");
 
 	sendDataToHardWare();
 	
@@ -92,24 +93,27 @@ void MyWindow::sendDataToHardWare() {
 	int randomQuality = 50;//Random::randomInt(5,15);
 	models[modelCount++] = NUShapeEditor::fixTeaPotNormals(NUShapeEditor::setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4));
 	models[modelCount++] = NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
-	//models[modelCount++] = NUShapeEditor::NUShapeEditorinitUVData(Neumont::ShapeGenerator::makeArrow());
 	models[modelCount++] = NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
-	//models[modelCount++] = Neumont::ShapeGenerator::makeCube();
-	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/cube.bin");
-	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/plane.bin");
-	
-	models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/CartoonTree.bin"),10);
-	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/GhoulOBJ.bin");
-	models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/gun.bin"),4);
-	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/myChair.bin");
-	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/phone.bin");
-	models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/TeddyBear.bin"),50);
+	/* boring models
+	models[modelCount++] = NUShapeEditor::NUShapeEditorinitUVData(Neumont::ShapeGenerator::makeArrow());
+	models[modelCount++] = Neumont::ShapeGenerator::makeCube();
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/cube.bin");
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/plane.bin");
+	//*/
+
+	//models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/CartoonTree.bin"),10);
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/GhoulOBJ.bin");
+	//models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/gun.bin"),4);
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/myChair.bin");
+	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/phone.bin");
+	//models[modelCount++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/TeddyBear.bin"),50);
 
 
-	//dont show up
-	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Kitana.bin");
-	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Fan.bin");
-	//models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Skeleton.bin");
+	/*dont show up
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Kitana.bin");
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Fan.bin");
+	models[modelCount++] = BinaryToShapeLoader::loadFromFile("binaryModels/Skeleton.bin");
+	//*/
 	
 	floorGeoID = modelCount;//setting floor to plane;
 	models[modelCount++] = NUShapeEditor::setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
@@ -167,9 +171,13 @@ void MyWindow::myUpdate() {
 	//*/
 
 	if(frames%100==0) {
+		myDebugShapes.addPoint(myCam.getPos()+myCam.getViewDir());
+		myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1));
 		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
 		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
 	}
+
+	myDebugShapes.update(.1f);
 
 	if(objectsMoving) {
 		for (uint i = 0; i < myRender.getNumOfRenderables(); i++) {
@@ -235,11 +243,18 @@ void MyWindow::paintGL() {
 	myRender.drawPrep(width(),height());
 	
 	//* comment to disable all draw calls
+
+	const float aspectRatio = (float)width()/(float)height();
+	mat4x4 viewTransform;
+	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
+	viewTransform *= myCam.getWorld2View();
+	myDebugShapes.draw(viewTransform);
+
 	bool passThrough = false;
 
 	myRender.mainShader->useProgram();
 	passDataDownToShader(*myRender.mainShader,passThrough);
-	
+
 	for (uint i = 0; i < numOfGameObjs; i++)
 	{
 		draw(*gameObjs[i],passThrough);
@@ -256,7 +271,6 @@ void MyWindow::paintGL() {
 		draw(lightSource,passThrough);
 	}
 	//*/
-
 }
 
 void MyWindow::draw(Renderable& entity, bool passthrough) {
