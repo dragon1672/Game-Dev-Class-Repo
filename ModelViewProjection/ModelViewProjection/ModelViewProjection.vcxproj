@@ -124,7 +124,10 @@
     <ClInclude Include="ShaderUniformPram.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DebugLineVertexShader.glsl" />
     <None Include="FragShader.glsl" />
+    <None Include="PassThroughFragShader.glsl" />
+    <None Include="PassThroughVertexShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

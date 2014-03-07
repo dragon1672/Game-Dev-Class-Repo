@@ -129,5 +129,14 @@
     <None Include="VertexShader.glsl">
       <Filter>Renderer\Shader</Filter>
     </None>
+    <None Include="PassThroughFragShader.glsl">
+      <Filter>DebugShapes</Filter>
+    </None>
+    <None Include="PassThroughVertexShader.glsl">
+      <Filter>DebugShapes</Filter>
+    </None>
+    <None Include="DebugLineVertexShader.glsl">
+      <Filter>DebugShapes</Filter>
+    </None>
   </ItemGroup>
 </Project>

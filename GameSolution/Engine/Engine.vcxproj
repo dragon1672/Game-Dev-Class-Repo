@@ -110,6 +110,7 @@
     <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugMemHeader.h" />
+    <ClInclude Include="DebugShapeManager.h" />
     <ClInclude Include="DebugTimer.h" />
     <ClInclude Include="ExportHeader.h" />
     <ClInclude Include="GeometryInfo.h" />

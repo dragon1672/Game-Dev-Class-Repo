@@ -9,6 +9,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{1A4FE7E9-979F-484B-98C4-B439581F8157}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLTester", "OpenGLTester\OpenGLTester.vcxproj", "{7B95C5CF-508A-43F8-B905-F9B5569E777A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A4FE7E9-979F-484B-98C4-B439581F8157} = {1A4FE7E9-979F-484B-98C4-B439581F8157}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

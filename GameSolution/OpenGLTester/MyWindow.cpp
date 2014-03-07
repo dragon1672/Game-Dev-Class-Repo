@@ -28,7 +28,7 @@ void MyWindow::initializeGL() {
 
 	glEnable(GL_DEPTH_TEST);
 
-	myRender.mainShader->buildBasicProgram("VertexShader.glsl","FragShader.glsl");
+	myRender.mainShader->buildBasicProgram("../VertexShader.glsl","../FragShader.glsl");
 
 	sendDataToHardWare();
 	
@@ -115,7 +115,8 @@ void MyWindow::sendDataToHardWare() {
 	models[modelCount++] = NUShapeEditor::setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
 
 	for(uint i=0;i<modelCount;i++) {
-		GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
+		GeometryInfo * justAdded = myRender.addGeometry(models[i],GL_TRIANGLES);
+		//GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
 		justAdded->NU_VertexStreamedPosition(0);
 		justAdded->NU_VertexStreamedColor(1);
 		justAdded->NU_VertexStreamedNormal(2);
@@ -229,10 +230,11 @@ void MyWindow::passDataDownToShader(ShaderProgram& prog, bool passthrough) {
 }
 
 void MyWindow::paintGL() {
-	glViewport(0,0,width(),height());
+	//glViewport(0,0,width(),height());
 
-	myRender.drawPrep();
+	myRender.drawPrep(width(),height());
 	
+	//* comment to disable all draw calls
 	bool passThrough = false;
 
 	myRender.mainShader->useProgram();
@@ -253,6 +255,7 @@ void MyWindow::paintGL() {
 		lightSource.setTranslate(diffusePos);
 		draw(lightSource,passThrough);
 	}
+	//*/
 
 }
 

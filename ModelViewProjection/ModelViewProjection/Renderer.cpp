@@ -3,6 +3,7 @@
 #include "Renderer.h"
 
 void            Renderer::init() {
+	glEnable(GL_DEPTH_TEST);
 	numOfRenderables = 0;
 	numOfShaders = 0;
 	numOfGeoInfo = 0;

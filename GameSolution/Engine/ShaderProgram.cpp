@@ -38,9 +38,10 @@ void ShaderProgram::shutdown() {
 }
 void ShaderProgram::buildBasicProgram(const char * vertexShaderFilePath, const char * fragmentShaderFilePath) {
 	startup();
-	addProgram(vertexShaderFilePath,GL_VERTEX_SHADER);
-	addProgram(fragmentShaderFilePath,GL_FRAGMENT_SHADER);
-	linkAndRun();
+	bool win = false;
+	win = addProgram(vertexShaderFilePath,GL_VERTEX_SHADER);
+	if(win) win = addProgram(fragmentShaderFilePath,GL_FRAGMENT_SHADER);
+	if(win) linkAndRun();
 }
 bool ShaderProgram::addProgram(const char * filePath, unsigned short shaderType) {
 	qDebug() << "\nAttempting to load file: " << filePath;
@@ -59,6 +60,8 @@ bool ShaderProgram::addProgram(const char * filePath, unsigned short shaderType)
 		} else {
 			qDebug() << "File(" << shaderInfo.id << ") Failed to Complile - NOT ADDED TO PROGRAM\n";
 		}
+	} else {
+		qDebug() << "File(" << filePath << ") was not found\n";
 	}
 	return isValid;
 }

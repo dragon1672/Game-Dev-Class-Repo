@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "ShaderUniformPram.h"
 #include "ParameterType.h"
+#include <ShapeData.h>
 
 #include "ExportHeader.h"
 
@@ -24,6 +25,7 @@ private:
 public:
 	void init();
 
+	GeometryInfo * addGeometry( Neumont::ShapeData& toAdd, GLuint indexingMode);
 	GeometryInfo * addGeometry( const Neumont::Vertex* verts, uint numVerts,  ushort* indices, uint numIndices, GLuint indexingMode);
 
 	Renderable* addRenderable(GeometryInfo * whatGeometry, ShaderProgram * howShaders, GLuint textureID);
@@ -47,5 +49,10 @@ public:
 	uint addTexture(const char* fileName);
 	void draw(GeometryInfo& toDraw);
 
-	void drawPrep();
+	inline void drawPrep(int width, int height)
+	{
+		glClearColor(1,0,0,1);
+		glViewport(0,0,width,height);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 };

@@ -8,12 +8,15 @@ void            Renderer::init() {
 	numOfGeoInfo = 0;
 	mainShader = addShader();
 }
-GeometryInfo *  Renderer::addGeometry( const Neumont::Vertex* verts, uint numVerts,  ushort* indices, uint numIndices, GLuint indexingMode) {
+GeometryInfo  * Renderer::addGeometry( const Neumont::Vertex* verts, uint numVerts,  ushort* indices, uint numIndices, GLuint indexingMode) {
 	int id = numOfGeoInfo++;
 	geoInfo[id].init(verts,numVerts,indices,numIndices,indexingMode);
 	return &geoInfo[id];
 }
-Renderable*     Renderer::addRenderable(GeometryInfo * whatGeometry, ShaderProgram * howShaders, GLuint textureID) {
+GeometryInfo  * Renderer::addGeometry( Neumont::ShapeData& toAdd, GLuint indexingMode) {
+	return addGeometry(toAdd.verts,toAdd.numVerts,toAdd.indices,toAdd.numIndices,indexingMode);
+}
+Renderable    * Renderer::addRenderable(GeometryInfo * whatGeometry, ShaderProgram * howShaders, GLuint textureID) {
 	int id = numOfRenderables++;
 	myRenderables[id].init(whatGeometry,howShaders,true,textureID);
 	return &myRenderables[id];
@@ -30,8 +33,8 @@ uint            Renderer::getNumOfShaders()      { return numOfShaders;     }
 uint            Renderer::getNumOfRenderables()  { return numOfRenderables; }
 uint            Renderer::getNumOfGeo()          { return numOfGeoInfo;     }
 ShaderProgram * Renderer::getShader(uint index) { return &allShaderProgs[index]; }
-Renderable*     Renderer::getRenderable(uint index) { return &myRenderables[index];  }
-GeometryInfo*   Renderer::getGeometry(uint index) { return &geoInfo[index];        }
+Renderable    * Renderer::getRenderable(uint index) { return &myRenderables[index];  }
+GeometryInfo  * Renderer::getGeometry(uint index) { return &geoInfo[index];        }
 void            Renderer::addStreamedParameter(GeometryInfo * geoID, uint layoutLocation, ParameterType parameterType, uint bufferOffset, uint bufferStride) {
 	geoID->addStreamedParameter(layoutLocation,parameterType,bufferOffset,bufferStride);
 }
@@ -46,8 +49,4 @@ void            Renderer::draw(GeometryInfo& toDraw) {
 	glBindBuffer(toDraw.bufferInformation.bufferID,GL_ARRAY_BUFFER);
 	glBindBuffer(toDraw.bufferInformation.bufferID,GL_ELEMENT_ARRAY_BUFFER);
 	glDrawElements(toDraw.indexingMode,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
-}
-void            Renderer::drawPrep() {
-	glClearColor(1,0,0,1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
