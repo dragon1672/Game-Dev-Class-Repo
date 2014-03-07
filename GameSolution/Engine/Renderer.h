@@ -46,4 +46,6 @@ public:
 
 	uint addTexture(const char* fileName);
 	void draw(GeometryInfo& toDraw);
+
+	void drawPrep();
 };

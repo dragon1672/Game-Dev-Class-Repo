@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "ShaderUniformPram.h"
 #include "ParameterType.h"
+#include <ShapeData.h>
 
 
 class Renderer {
@@ -22,6 +23,7 @@ private:
 public:
 	void init();
 
+	GeometryInfo * addGeometry( Neumont::ShapeData& toAdd, GLuint indexingMode);
 	GeometryInfo * addGeometry( const Neumont::Vertex* verts, uint numVerts,  ushort* indices, uint numIndices, GLuint indexingMode);
 
 	Renderable* addRenderable(GeometryInfo * whatGeometry, ShaderProgram * howShaders, GLuint textureID);

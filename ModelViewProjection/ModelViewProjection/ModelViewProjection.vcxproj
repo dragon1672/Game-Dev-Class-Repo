@@ -109,6 +109,7 @@
     <ClInclude Include="BinaryToShapeLoader.h" />
     <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DebugShapeManager.h" />
     <ClInclude Include="DebugSlider.h" />
     <ClInclude Include="GeometryInfo.h" />
     <ClInclude Include="LinkedSlider.h" />

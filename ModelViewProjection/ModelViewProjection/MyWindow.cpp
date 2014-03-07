@@ -12,6 +12,7 @@
 #include <ShapeGenerator.h>
 #include "BinaryToShapeLoader.h"
 #include "NUShapeEditor.h"
+#include "DebugShapeManager.h"
 
 
 using glm::vec3;
@@ -25,6 +26,7 @@ float orbitAcc = .2f;
 void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
+	myDebugShapes.init(&myRender);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -126,7 +128,7 @@ void MyWindow::sendDataToHardWare() {
 			randomModels[randomModelCount++] = justAdded;
 		}
 	} 
-
+	
 
 	for (int i = 0; i < 50; i++) {
 		int index = RANDOM::randomInt(0,randomModelCount-1);
@@ -165,7 +167,11 @@ void MyWindow::myUpdate() {
 	frames++;
 	//*/
 
+	myDebugShapes.update(.1f);
+
 	if(frames%100==0) {
+		myDebugShapes.addPoint(myCam.getPos()+myCam.getViewDir());
+		myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1));
 		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
 		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
 	}
@@ -179,8 +185,6 @@ void MyWindow::myUpdate() {
 	if(frames%1000==0) lightSource.randomACC();
 		lightSource.rotate();
 	repaint();
-	if(frames>10000)
-		paintGL();
 }
 void MyWindow::mouseMoveEvent(QMouseEvent* e) {
 	glm::vec2 newPos(e->x(),e->y());
@@ -253,7 +257,11 @@ void MyWindow::paintGL() {
 		lightSource.setTranslate(diffusePos);
 		draw(lightSource,passThrough);
 	}
-
+	const float aspectRatio = (float)width()/(float)height();
+	mat4x4 viewTransform;
+	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
+	viewTransform *= myCam.getWorld2View();
+	myDebugShapes.draw(viewTransform);
 }
 
 void MyWindow::draw(Renderable& entity, bool passthrough) {

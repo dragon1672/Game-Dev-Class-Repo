@@ -47,3 +47,7 @@ void            Renderer::draw(GeometryInfo& toDraw) {
 	glBindBuffer(toDraw.bufferInformation.bufferID,GL_ELEMENT_ARRAY_BUFFER);
 	glDrawElements(toDraw.indexingMode,toDraw.numIndices,GL_UNSIGNED_SHORT,(void*)toDraw.indicesOffset());
 }
+void            Renderer::drawPrep() {
+	glClearColor(1,0,0,1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}

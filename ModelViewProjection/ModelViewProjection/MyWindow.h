@@ -6,6 +6,7 @@
 #include "ShaderProgram.h"
 #include "Camera.h"
 #include "Renderer.h"
+#include "DebugShapeManager.h"
 
 class MyWindow : public QGLWidget {
 public:
@@ -15,6 +16,8 @@ private:
 	Q_OBJECT;
 
 	Renderer myRender;
+
+	DebugShapeManager myDebugShapes;
 
 	QTimer myTimer;
 	Camera myCam;

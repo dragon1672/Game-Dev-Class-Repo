@@ -20,6 +20,9 @@
     <Filter Include="Renderer\Shader">
       <UniqueIdentifier>{c2ed68b7-0c7f-4f26-a633-88bf1cc3a97f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DebugShapes">
+      <UniqueIdentifier>{abb7a25c-e202-4e3f-9562-75e247429ab0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LinkedSlider.cpp">
@@ -114,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="BinaryToShapeLoader.h">
       <Filter>Renderer\Geo</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugShapeManager.h">
+      <Filter>DebugShapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
