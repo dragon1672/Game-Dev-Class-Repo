@@ -1,5 +1,6 @@
 #include <GL\glew.h>
 #include "BufferManager.h"
+
 #ifdef _DEBUG
 #pragma warning(disable: 4127)
 #pragma warning(push)
