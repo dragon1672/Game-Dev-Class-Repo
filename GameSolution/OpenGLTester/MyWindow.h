@@ -30,6 +30,7 @@ private:
 	void sendDataToHardWare();
 public: // interface to editVals
 	//shader info
+	glm::mat4 viewTransform;
 	bool enableOverrideColor;
 	glm::vec3 overrideColor;
 	glm::vec3 ambientLight;
@@ -50,7 +51,8 @@ public: // interface to editVals
 	void paintGL();
 	void init();
 private:
-	void passDataDownToShader(ShaderProgram& prog, bool passthrough);
+	void saveDataDownToShader(ShaderProgram& prog);
+	void generateRandomRenderable(uint count, GeometryInfo ** randomModels, uint randomModelCount, uint numOfTextures);
 public:
 	void initializeGL();
 	void mouseMoveEvent(QMouseEvent* e);

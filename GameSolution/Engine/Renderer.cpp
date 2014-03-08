@@ -3,6 +3,8 @@
 #include "Renderer.h"
 
 void            Renderer::init() {
+	glEnable(GL_DEPTH_TEST);
+	//glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA);
 	numOfRenderables = 0;
 	numOfShaders = 0;
 	numOfGeoInfo = 0;
@@ -28,6 +30,12 @@ ShaderProgram * Renderer::addShader(const char * vertexShader, const char * frag
 	ShaderProgram * ret = addShader();
 	ret->buildBasicProgram(vertexShader,fragShader);
 	return ret;
+}
+void            Renderer::passDataDownAllShaders() {
+	for (int i = 0; i < numOfShaders; i++)
+	{
+		allShaderProgs[i].passSavedUniforms();
+	}
 }
 uint            Renderer::getNumOfShaders()      { return numOfShaders;     }
 uint            Renderer::getNumOfRenderables()  { return numOfRenderables; }

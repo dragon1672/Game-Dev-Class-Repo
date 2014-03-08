@@ -9,12 +9,16 @@
 #include <string>
 #include "ParameterType.h"
 #include "ExportHeader.h"
+#include "ShaderUniformPram.h"
 
 class ENGINE_SHARED ShaderProgram {
 private:
 	static const int MAX_POSSIBLE_PROGRAM_FILES = 10;
 	static GLuint currentProgram;
 	
+	ShaderUniformPram prams[30];
+	uint numOfPrams;
+
 	GLuint programID;
 
 	static std::string file2str(const char * filePath);
@@ -30,6 +34,10 @@ public:
 	int getUniform(const char* title);
 	void passUniform(const char* name, ParameterType parameterType, const float * value);
 	void passUniform(const char* name, ParameterType parameterType, const int value);
+	void saveUniform(const char* name, ParameterType parameterType, const float * value);
+	void saveUniform(const char* name, ParameterType parameterType, const int * value);
+
+	void passSavedUniforms();
 
 	bool complileShader(const char * code, GLuint id, bool debug);
 	void link();

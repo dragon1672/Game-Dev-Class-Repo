@@ -30,6 +30,7 @@ bool ShaderProgram::validFile(const char * filePath) {
 }
 
 void ShaderProgram::startup() {
+	numOfPrams = 0;
 	programID = glCreateProgram();
 	qDebug() << "Creating Shader Program ID: " << programID;
 }
@@ -86,6 +87,7 @@ void ShaderProgram::passUniform(const char* name, ParameterType parameterType, c
 		glUniformMatrix4fv(location,1,false,value);
 	} else {
 		//wat?
+		qDebug() << "Uniform " << name << " of type: " << parameterType << " was not passed down correctly, (was passed as float *)";
 	}
 }
 void ShaderProgram::passUniform(const char* name, ParameterType parameterType, const int value) {
@@ -95,6 +97,20 @@ void ShaderProgram::passUniform(const char* name, ParameterType parameterType, c
 		glUniform1i(location,value);
 	} else {
 		//wat?
+		qDebug() << "Uniform " << name << " of type: " << parameterType << " was not passed down correctly, (was passed as int *)";
+	}
+}
+void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const float * value) {
+	prams[numOfPrams++].init(this,name,parameterType,value);
+}
+void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const int * value) {
+	prams[numOfPrams++].init(this,name,parameterType,value);
+}
+
+void ShaderProgram::passSavedUniforms() {
+	for (int i = 0; i < numOfPrams; i++)
+	{
+		prams[i].sendData();
 	}
 }
 
@@ -142,7 +158,7 @@ bool ShaderProgram::isCurrentProgram() {
 }
 void ShaderProgram::useProgram() {
 	if(!isCurrentProgram()) {
-		qDebug() << "Regestering Shader Program " << programID << " into pipeline\n\n";
+		//qDebug() << "Regestering Shader Program  from " << currentProgram << " to " << programID << " into pipeline";
 		currentProgram = programID;
 		glUseProgram(programID);
 	}

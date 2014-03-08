@@ -1,4 +1,5 @@
 #include "ShaderUniformPram.h"
+#include "ShaderProgram.h"
 
 void ShaderUniformPram::init(ShaderProgram * prog, const char * name, ParameterType type) {
 	this->title = name;

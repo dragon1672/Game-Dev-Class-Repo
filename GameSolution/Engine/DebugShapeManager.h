@@ -51,6 +51,7 @@ private:
 	std::vector<DebugLineData *> lineShapes;
 
 	Renderer      * myRenderer;
+	float         * viewMatrix;
 	GeometryInfo  * sphere;
 	ShaderProgram * sphereShader;
 	GeometryInfo  * cube;
@@ -61,8 +62,11 @@ private:
 	ShaderProgram * pointShader;
 
 public:
-	void init(Renderer * theRenderer) {
+	void init(Renderer * theRenderer, float * viewMatrix) {
 		myRenderer = theRenderer;
+		this->viewMatrix = viewMatrix;
+
+		//makin some shapes
 		Neumont::ShapeData NUSphere = NUShapeEditor::setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makeSphere(5));
 		Neumont::ShapeData NUCube   = NUShapeEditor::setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makeCube());
 		Neumont::ShapeData NULine;
@@ -118,14 +122,22 @@ public:
 		point->NU_VertexStreamedPosition(0);
 		point->NU_VertexStreamedColor(1);
 
-		//reg shaders
-		lineShader = theRenderer->addShader("../Shaders/DebugLineVertexShader.glsl","../Shaders/PassThroughFragShader.glsl");
-		sphereShader = theRenderer->addShader("../Shaders/PassThroughVertexShader.glsl","../Shaders/PassThroughFragShader.glsl");
-		cubeShader =  sphereShader;
-		pointShader = sphereShader;
+		initShaders();
 	}
 
-	void addUnitSphere(glm::mat4 transform, glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
+	void initShaders() {
+		ShaderProgram * lineStyle = myRenderer->addShader("../Shaders/DebugLineVertexShader.glsl","../Shaders/PassThroughFragShader.glsl");
+		ShaderProgram * shapeStyle = myRenderer->addShader("../Shaders/PassThroughVertexShader.glsl","../Shaders/PassThroughFragShader.glsl");
+		lineStyle->saveUniform("viewTransform",ParameterType::PT_MAT4,viewMatrix);
+		shapeStyle->saveUniform("viewTransform",ParameterType::PT_MAT4,viewMatrix);
+
+		lineShader   = lineStyle;
+		sphereShader = shapeStyle;
+		cubeShader   = shapeStyle;
+		pointShader  = shapeStyle;
+	}
+
+	void addUnitSphere(glm::mat4 transform,                   glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
 		DebugShapeData * toAdd = new DebugShapeData();
 		toAdd->whatGeo = sphere;
 		toAdd->howShader = sphereShader;
@@ -136,7 +148,7 @@ public:
 		toAdd->init(sphereShader);
 		shapes.push_back(toAdd);
 	}
-	void addUnitCube(glm::mat4 transform, glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
+	void addUnitCube  (glm::mat4 transform,                   glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
 		DebugShapeData * toAdd = new DebugShapeData();
 		toAdd->whatGeo = cube;
 		toAdd->howShader = cubeShader;
@@ -147,7 +159,7 @@ public:
 		toAdd->init(cubeShader);
 		shapes.push_back(toAdd);
 	}
-	void addUnitVector(glm::vec3 tail, glm::vec3 vector, glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
+	void addUnitVector(glm::vec3 tail,      glm::vec3 vector, glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
 		DebugLineData * toAdd = new DebugLineData();
 		toAdd->whatGeo = line;
 		toAdd->howShader = lineShader;
@@ -160,7 +172,7 @@ public:
 		toAdd->init(lineShader);
 		lineShapes.push_back(toAdd);
 	}
-	void addLine(glm::vec3 start, glm::vec3 end, glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
+	void addLine      (glm::vec3 start,     glm::vec3 end,    glm::vec4 color, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
 		DebugLineData * toAdd = new DebugLineData();
 		toAdd->whatGeo = line;
 		toAdd->howShader = lineShader;
@@ -173,7 +185,7 @@ public:
 		toAdd->init(lineShader);
 		lineShapes.push_back(toAdd);
 	}
-	void addPoint(glm::vec3 pos, float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
+	void addPoint     (glm::vec3 pos,                                          float lifetime=std::numeric_limits<float>::infinity(), bool depthTest=true) {
 		DebugShapeData * toAdd = new DebugShapeData();
 		toAdd->whatGeo = point;
 		toAdd->howShader = pointShader;
@@ -205,26 +217,24 @@ public:
 		}
 	}
 
-	void draw(glm::mat4& viewMatrix) {
-		 sphereShader-> passUniform("viewTransform",ParameterType::PT_MAT4,&viewMatrix[0][0]);
-		 cubeShader  -> passUniform("viewTransform",ParameterType::PT_MAT4,&viewMatrix[0][0]);
-		 lineShader  -> passUniform("viewTransform",ParameterType::PT_MAT4,&viewMatrix[0][0]);
-		 pointShader -> passUniform("viewTransform",ParameterType::PT_MAT4,&viewMatrix[0][0]);
-		 for (unsigned int i = 0; i < lineShapes.size(); i++) {
-			 lineShapes[i]->howShader->useProgram();
-			 for (unsigned int j = 0; j < lineShapes[i]->prams.size(); j++)
-			 {
-				 lineShapes[i]->prams[j].sendData();
-			 }
-			 myRenderer->draw(*(lineShapes[i]->whatGeo));
-		 }
-		 for (unsigned int i = 0; i < shapes.size(); i++) {
-			 shapes[i]->howShader->useProgram();
-			 for (unsigned int j = 0; j < shapes[i]->prams.size(); j++)
-			 {
-				 shapes[i]->prams[j].sendData();
-			 }
-			 myRenderer->draw(*(shapes[i]->whatGeo));
-		 }
+	void draw() {
+		sphereShader -> useProgram();	sphereShader -> passSavedUniforms();
+		cubeShader   -> useProgram();	cubeShader   -> passSavedUniforms();
+		lineShader   -> useProgram();	lineShader   -> passSavedUniforms();
+		pointShader  -> useProgram();	pointShader  -> passSavedUniforms();
+		for (unsigned int i = 0; i < lineShapes.size(); i++) {
+			lineShapes[i]->howShader->useProgram();
+			for (unsigned int j = 0; j < lineShapes[i]->prams.size(); j++) {
+				lineShapes[i]->prams[j].sendData();
+			}
+			myRenderer->draw(*(lineShapes[i]->whatGeo));
+		}
+		for (unsigned int i = 0; i < shapes.size(); i++) {
+			shapes[i]->howShader->useProgram();
+			for (unsigned int j = 0; j < shapes[i]->prams.size(); j++) {
+				shapes[i]->prams[j].sendData();
+			}
+			myRenderer->draw(*(shapes[i]->whatGeo));
+		}
 	}
 };
