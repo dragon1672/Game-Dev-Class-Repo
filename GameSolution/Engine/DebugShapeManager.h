@@ -60,7 +60,7 @@ public:
 
 	void draw();
 #else
-public:
+	public:
 	void init(Renderer * theRenderer, float * viewMatrix) {}
 
 	void initShaders();
