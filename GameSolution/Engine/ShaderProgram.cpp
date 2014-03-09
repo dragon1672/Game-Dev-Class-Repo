@@ -6,6 +6,7 @@
 #include <Qt/qdebug.h>
 #include <Qt/qcoreapplication.h>
 #include <Qt/qimage.h>
+#include <Qt/qfile.h>
 #pragma warning(pop)
 
 
@@ -173,9 +174,18 @@ GLuint ShaderProgram::linkAndRun() {
 	return programID;
 }
 
+QString formatFileName(QString fileName) {
+	QString formatedName = fileName.replace(QRegExp("[_]")," ");
+	formatedName = formatedName.remove(".jpg",Qt::CaseInsensitive);
+	formatedName = formatedName.remove(".png",Qt::CaseInsensitive);
+	int lastSlash = formatedName.lastIndexOf('/');
+	formatedName = formatedName.mid(lastSlash,formatedName.size()-lastSlash);
+	lastSlash = formatedName.lastIndexOf('\\');
+	formatedName = formatedName.mid(lastSlash,formatedName.size()-lastSlash);
+	return formatedName;
+}
 
-QImage ShaderProgram::getImageFromFile(QString filePath) {
-	QString fileName = QCoreApplication::applicationDirPath() + filePath;
+QImage ShaderProgram::getImageFromFile(QString fileName) {
 	QImage myTexture = QGLWidget::convertToGLFormat(QImage(fileName));
 
 	if(myTexture.isNull()) {
@@ -188,33 +198,39 @@ QImage ShaderProgram::getImageFromFile(QString filePath) {
 		formatedName = formatedName.mid(lastSlash,formatedName.size()-lastSlash);
 		lastSlash = formatedName.lastIndexOf('\\');
 		formatedName = formatedName.mid(lastSlash,formatedName.size()-lastSlash);
-		qDebug() << "Texture Loaded ( " << myTexture.width() << "x" << myTexture.width() << " ): " << formatedName;
+		qDebug() << "Texture Loaded ( " << myTexture.width() << "x" << myTexture.width() << " ): " << formatFileName(fileName);
 	}
 
 	return myTexture;
 }
 //returns the bufferID
-GLuint ShaderProgram::load2DTexture(QString filePath) {
-	
-	static uint textureID = 0;
+GLuint ShaderProgram::load2DTexture(QString fileName) {
+	QString filePath = /**/QCoreApplication::applicationDirPath() + /**/fileName;
+	QFile tempFile(filePath);
+	if(tempFile.exists()) {
+		static uint textureID = 0;
 
-	uint ID = textureID++;
+		uint ID = textureID++;
 
-	GLuint bufferID;
+		GLuint bufferID;
 
-	QImage data = getImageFromFile(filePath);
+		QImage data = getImageFromFile(filePath);
 
-	glActiveTexture(GL_TEXTURE0+ID);
+		glActiveTexture(GL_TEXTURE0+ID);
 
-	glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_2D);
 
-	glGenTextures(1,&bufferID);
+		glGenTextures(1,&bufferID);
 
-	glBindTexture(GL_TEXTURE_2D, bufferID);
+		glBindTexture(GL_TEXTURE_2D, bufferID);
 
-	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, data.width(), data.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data.bits());
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, data.width(), data.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data.bits());
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	return ID;
+		return ID;
+	} else {
+		qDebug() << "Invalid file path " << formatFileName(filePath) << " Texture not loaded";
+		return -1;
+	}
 }

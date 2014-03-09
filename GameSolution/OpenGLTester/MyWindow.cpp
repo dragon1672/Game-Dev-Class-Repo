@@ -59,20 +59,20 @@ void MyWindow::init() {
 
 int sendTextures(Renderer& myRender) {
 	int numOfTextures;
-	//numOfTextures = myRender.addTexture("\\Textures\\black eyes.png");
-	numOfTextures = myRender.addTexture("\\Textures\\blueLInes.png");
-	numOfTextures = myRender.addTexture("\\Textures\\bsod.png");
-	//numOfTextures = myRender.addTexture("\\Textures\\color bands.png");
-	numOfTextures = myRender.addTexture("\\Textures\\ComfyChair_Diffuse2.png");
-	//numOfTextures = myRender.addTexture("\\Textures\\face hands.png");
-	numOfTextures = myRender.addTexture("\\Textures\\green matrix.png");
-	numOfTextures = myRender.addTexture("\\Textures\\jamie Avatar.png");
-	numOfTextures = myRender.addTexture("\\Textures\\obama bill.png");
-	numOfTextures = myRender.addTexture("\\Textures\\Rust.png");
-	numOfTextures = myRender.addTexture("\\Textures\\slaceRocks.png");
-	numOfTextures = myRender.addTexture("\\Textures\\Smile.png");
-	numOfTextures = myRender.addTexture("\\Textures\\ToonTeddyBear.png");
-	numOfTextures = myRender.addTexture("\\Textures\\wood2.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\black eyes.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\blueLInes.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\bsod.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\color bands.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\ComfyChair_Diffuse2.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\face hands.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\green matrix.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\jamie Avatar.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\obama bill.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\Rust.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\slaceRocks.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\Smile.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\ToonTeddyBear.png");
+	numOfTextures = myRender.addTexture("\\..\\Textures\\wood2.png");
 	return numOfTextures;
 }
 
@@ -106,12 +106,12 @@ uint loadModels(Neumont::ShapeData * models, uint * modelCount) {
 	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/plane.bin");
 	//*/
 
-	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/CartoonTree.bin"),10);
-	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/GhoulOBJ.bin");
-	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/gun.bin"),4);
-	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/myChair.bin");
-	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/phone.bin");
-	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("binaryModels/TeddyBear.bin"),50);
+	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../binaryModels/CartoonTree.bin"),10);
+	models[(*modelCount)++] =					   BinaryToShapeLoader::loadFromFile("../binaryModels/GhoulOBJ.bin"   );
+	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../binaryModels/gun.bin"        ),4);
+	models[(*modelCount)++] =					   BinaryToShapeLoader::loadFromFile("../binaryModels/myChair.bin"    );
+	models[(*modelCount)++] =					   BinaryToShapeLoader::loadFromFile("../binaryModels/phone.bin"      );
+	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../binaryModels/TeddyBear.bin"  ),50);
 
 
 	/*dont show up
