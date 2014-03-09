@@ -21,8 +21,8 @@ using glm::mat4x4;
 
 Neumont::ShapeData singleShape;
 
-float orbitAngle;
-float orbitAcc = .2f;
+const int numOfShapesToMake = 50;
+
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -171,7 +171,7 @@ void MyWindow::sendDataToHardWare() {
 		}
 	} 
 
-	generateRandomRenderable(10,&randomModels[0],randomModelCount,numOfTextures);
+	generateRandomRenderable(numOfShapesToMake,&randomModels[0],randomModelCount,numOfTextures);
 	
 	int index = Random::randomInt(0,randomModelCount-1);
 	lightSource.init(randomModels[index],myRender.mainShader,true,Random::randomInt(0,numOfTextures-1));
