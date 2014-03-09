@@ -194,10 +194,10 @@ namespace CSharpOBJConverter
 			//*/
 			//* testing
 			Program myProg = new Program();
-			//string inFile = "OBJ_FILES/Cube.obj";
+			string inFile = "OBJ_FILES/Cube.obj";
 			//string inFile = "OBJ_FILES/GhoulOBJ.obj";
 			//string inFile = "OBJ_FILES/Plane_BW.obj";
-			string inFile = "OBJ_FILES/gun.big";
+			//string inFile = "OBJ_FILES/gun.big";
 			string outFile = inFile.Substring(0, inFile.Length - 4) + ".bin";
 			myProg.LoadFile(inFile,2);
 			myProg.WriteBinFile(outFile);
