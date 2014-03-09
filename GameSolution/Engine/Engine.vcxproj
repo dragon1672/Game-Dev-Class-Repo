@@ -90,6 +90,7 @@
     <ClCompile Include="BinaryToShapeLoader.cpp" />
     <ClCompile Include="BufferManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DebugShapeManager.cpp" />
     <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GeometryInfo.cpp" />
