@@ -77,18 +77,18 @@ int sendTextures(Renderer& myRender) {
 }
 
 void MyWindow::saveDataDownToShader(ShaderProgram& prog) {
-	prog.saveUniform("viewTransform",       ParameterType::PT_MAT4,            &viewTransform[0][0] );
-	prog.saveUniform("enableOverrideColor", ParameterType::PT_BOOLEAN,  (int*) &enableOverrideColor );
-	prog.saveUniform("overrideColor",       ParameterType::PT_VEC3,            &overrideColor[0]    );
-	prog.saveUniform("ambientLight",        ParameterType::PT_VEC3,            &ambientLight[0]     );
-	prog.saveUniform("diffuseLight",        ParameterType::PT_VEC3,            &diffuseLight[0]     );
-	prog.saveUniform("diffusePos",          ParameterType::PT_VEC3,            &diffusePos[0]       );
-	prog.saveUniform("diffuseInFrag",       ParameterType::PT_BOOLEAN,  (int*) &diffuseInFrag       );
-	prog.saveUniform("specPower",           ParameterType::PT_FLOAT,           &specPower           );
-	prog.saveUniform("specColor",           ParameterType::PT_VEC3,            &specColor[0]        );
-	prog.saveUniform("camPos",              ParameterType::PT_VEC3,            &myCam.getPos()[0]   );
-	prog.saveUniform("enableTexture",       ParameterType::PT_BOOLEAN,  (int*) &enableTexture        );
-	prog.saveUniform("enableLighting",      ParameterType::PT_BOOLEAN,  (int*) &enableLighting       );
+	prog.saveUniform("viewTransform",       ParameterType::PT_MAT4,     &viewTransform[0][0] );
+	prog.saveUniform("enableOverrideColor", ParameterType::PT_BOOLEAN,  &enableOverrideColor );
+	prog.saveUniform("overrideColor",       ParameterType::PT_VEC3,     &overrideColor[0]    );
+	prog.saveUniform("ambientLight",        ParameterType::PT_VEC3,     &ambientLight[0]     );
+	prog.saveUniform("diffuseLight",        ParameterType::PT_VEC3,     &diffuseLight[0]     );
+	prog.saveUniform("diffusePos",          ParameterType::PT_VEC3,     &diffusePos[0]       );
+	prog.saveUniform("diffuseInFrag",       ParameterType::PT_BOOLEAN,  &diffuseInFrag       );
+	prog.saveUniform("specPower",           ParameterType::PT_FLOAT,    &specPower           );
+	prog.saveUniform("specColor",           ParameterType::PT_VEC3,     &specColor[0]        );
+	prog.saveUniform("camPos",              ParameterType::PT_VEC3,     &myCam.getPos()[0]   );
+	prog.saveUniform("enableTexture",       ParameterType::PT_BOOLEAN,  &enableTexture       );
+	prog.saveUniform("enableLighting",      ParameterType::PT_BOOLEAN,  &enableLighting      );
 }
 
 //returns floorID

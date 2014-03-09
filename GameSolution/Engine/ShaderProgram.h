@@ -33,9 +33,10 @@ public:
 
 	int getUniform(const char* title);
 	void passUniform(const char* name, ParameterType parameterType, const float * value);
-	void passUniform(const char* name, ParameterType parameterType, const int value);
+	void passUniform(const char* name, ParameterType parameterType, const int     value);
 	void saveUniform(const char* name, ParameterType parameterType, const float * value);
-	void saveUniform(const char* name, ParameterType parameterType, const int * value);
+	void saveUniform(const char* name, ParameterType parameterType, const int   * value);
+	void saveUniform(const char* name, ParameterType parameterType, const bool  * value);
 
 	void passSavedUniforms();
 

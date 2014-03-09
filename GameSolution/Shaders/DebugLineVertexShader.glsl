@@ -18,6 +18,7 @@ uniform bool  enableOverrideColor;
 void main() {
 	vec3 posToDraw = (pos.x==0) ? start : end;
 	gl_Position =  viewTransform * vec4(posToDraw,1);
-	//gl_Position =  vec4(pos.x,pos.y,pos.z,1);
-	outColor = enableOverrideColor? col : overrideColor * col;
+	gl_Position =  viewTransform* vec4(pos.x,pos.y,pos.z,1);
+	//outColor = enableOverrideColor? col : overrideColor * col;
+	outColor = col;
 }

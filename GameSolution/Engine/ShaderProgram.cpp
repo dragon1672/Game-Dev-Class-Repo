@@ -106,6 +106,9 @@ void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, c
 void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const int * value) {
 	prams[numOfPrams++].init(this,name,parameterType,value);
 }
+void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const bool * value) {
+	prams[numOfPrams++].init(this,name,parameterType,value);
+}
 
 void ShaderProgram::passSavedUniforms() {
 	for (int i = 0; i < numOfPrams; i++)

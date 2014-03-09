@@ -227,7 +227,14 @@ public:
 			for (unsigned int j = 0; j < lineShapes[i]->prams.size(); j++) {
 				lineShapes[i]->prams[j].sendData();
 			}
-			myRenderer->draw(*(lineShapes[i]->whatGeo));
+			//myRenderer->draw(*(lineShapes[i]->whatGeo));
+			glLineWidth(2.5); 
+			
+			glBegin(GL_LINES);
+			glVertex3f(0.0, 0.0, 0.0);
+
+			glVertex3f(1, 1, 0);
+			glEnd();
 		}
 		for (unsigned int i = 0; i < shapes.size(); i++) {
 			shapes[i]->howShader->useProgram();
