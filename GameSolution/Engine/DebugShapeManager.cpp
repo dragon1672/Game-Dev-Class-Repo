@@ -151,22 +151,11 @@ glm::mat4 DebugShapeManager::span2Points(glm::vec3 start, glm::vec3 end) {
 	start = noZeros(start);
 	end = noZeros(end);
 	glm::vec3 tail = start;
-	glm::vec3 up = glm::normalize(end - start);
+	glm::vec3 newUp = glm::normalize(end - start);
 	float scale = glm::length(end - start);
-		
-	glm::vec3 XPerp = glm::cross(up,UP);
-	glm::vec3 ZPerp = glm::normalize(glm::cross(XPerp, up));
 
 	glm::mat4 ret = glm::translate(tail);
-	ret *= glm::orientation(up,UP);
-	/*
-	if(up != UP) {
-		ret[0][0] = XPerp[0];	ret[0][1] = up[0];	ret[0][2] = ZPerp[0];
-		ret[1][0] = XPerp[1];	ret[1][1] = up[1];	ret[1][2] = ZPerp[1];
-		ret[2][0] = XPerp[2];	ret[2][1] = up[2];	ret[2][2] = ZPerp[2];
-	}
-	//*/
-		
+	ret *= glm::orientation(newUp,UP);
 	ret *= glm::scale(glm::vec3(1,scale,1));
 
 

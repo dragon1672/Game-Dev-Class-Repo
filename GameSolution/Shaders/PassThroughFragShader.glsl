@@ -8,9 +8,5 @@ out vec4 finalColor;
 
 void main() {
 	gl_FragColor = outColor;
-	if(ignoreDepthTest) {
-		gl_FragDepth = -1;
-	} else { //  why do I have to be this explicit?
-		gl_FragDepth = gl_FragCoord.z;
-	}
+	gl_FragDepth = ignoreDepthTest ? -1 : gl_FragCoord.z;
 }
