@@ -16,7 +16,7 @@
 
 class ENGINE_SHARED DebugMenuManager {
 	static DebugMenuManager singleTon;
-	//inline DebugMenuManager * getSingleTon() { &singleTon; }
+	//inline DebugMenuManager * getSingleTon() { return &singleTon; }
 #ifdef _DEBUG
 	QHBoxLayout mainLayout;
 	std::vector<DebugMenuControllers::WatchFloatController  *> floatWatchers;	QVBoxLayout floatWatchCol;

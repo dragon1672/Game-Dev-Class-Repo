@@ -28,6 +28,8 @@ private:
 	DebugMenuManager debugMenu;
 	QWidget debugArea;
 
+	QBoxLayout * mainLayout;
+
 protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
@@ -42,7 +44,7 @@ public:
 		myTimer.start(0);
 
 		debugMenu.init(&debugArea);
-		QBoxLayout * mainLayout = new QBoxLayout(QBoxLayout::TopToBottom);
+		mainLayout = new QBoxLayout(QBoxLayout::TopToBottom);
 		setLayout(mainLayout);
 		
 		meScene.setMinimumHeight(900);

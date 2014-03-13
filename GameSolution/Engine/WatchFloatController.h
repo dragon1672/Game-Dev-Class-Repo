@@ -4,6 +4,7 @@
 #include <Qt/qlabel.h>
 #include <Qt/qstring.h>
 #include "ExportHeader.h"
+#include <iomanip>
 
 namespace DebugMenuControllers {
 	struct ENGINE_SHARED WatchFloatController {
@@ -17,7 +18,7 @@ namespace DebugMenuControllers {
 		}
 		inline void update() {
 			std::stringstream ss;
-			ss << title << ": " << *data;
+			ss << title << ": " << std::fixed << std::setprecision( 6 ) << *data;
 			label.setText(QString( ss.str().c_str() ));
 		}
 	};

@@ -18,7 +18,7 @@ namespace DebugMenuControllers {
 		}
 		inline void update() {
 			std::stringstream ss;
-			ss << title << ": {" << data->x << ", " << data->y << ", " << data->z << ", }";
+			ss << std::fixed << std::setprecision( 6 ) << title << ": {" << data->x << ", " << data->y << ", " << data->z << " }";
 			label.setText(QString( ss.str().c_str() ));
 		}
 	};
