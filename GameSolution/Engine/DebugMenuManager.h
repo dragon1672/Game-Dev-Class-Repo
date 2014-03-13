@@ -15,8 +15,9 @@
 #include <vector>
 
 class ENGINE_SHARED DebugMenuManager {
+	static DebugMenuManager singleTon;
+	//inline DebugMenuManager * getSingleTon() { &singleTon; }
 #ifdef _DEBUG
-private:
 	QHBoxLayout mainLayout;
 	std::vector<DebugMenuControllers::WatchFloatController  *> floatWatchers;	QVBoxLayout floatWatchCol;
 	std::vector<DebugMenuControllers::SlideFloatController  *> floatSliders;	QVBoxLayout floatSlideCol;
@@ -26,6 +27,7 @@ private:
 
 	//stuff and things
 public:
+	
 	void init(QLayout * toAdd);
 	void update();
 	void watchFloat (char * name, float& toWatch);
@@ -34,6 +36,7 @@ public:
 	void watchVector(char * name, glm::vec3& toWatch);
 	void slideVector(char * name, glm::vec3& toWatch, float min, float max);
 #else
+public:
 	void init(/*layout pos pointer*/) {}
 	void update() {}
 	void watchFloat (char * name, float& toWatch) {} // watches the value in a text text box

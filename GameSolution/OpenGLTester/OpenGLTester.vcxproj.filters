@@ -21,12 +21,6 @@
     <ClInclude Include="MyWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebugSlider.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedSlider.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="MyGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -40,15 +34,6 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugSlider.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugSlider_mock.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="LinkedSlider.cpp">
-      <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="MyGUI.cpp">
       <Filter>GUI</Filter>

@@ -39,7 +39,8 @@ void MyWindow::initializeGL() {
 	myTimer.start(0);
 }
 
-void MyWindow::init() {
+void MyWindow::init(DebugMenuManager * debugMenu) {
+	this->debugMenu = debugMenu;
 	//setting defaults
 	enableOverrideColor = true;
 	displayLightEntity = true;

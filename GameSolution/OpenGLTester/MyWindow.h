@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Renderer.h"
 #include "DebugShapeManager.h"
+#include "DebugMenuManager.h"
 
 class MyWindow : public QGLWidget {
 public:
@@ -17,6 +18,8 @@ private:
 
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
+	DebugMenuManager * debugMenu;
+
 
 	QTimer myTimer;
 	Camera myCam;
@@ -49,7 +52,7 @@ public: // interface to editVals
 	bool objectsMoving;
 
 	void paintGL();
-	void init();
+	void init(DebugMenuManager * debugMenu);
 private:
 	void saveDataDownToShader(ShaderProgram& prog);
 	void generateRandomRenderable(uint count, GeometryInfo ** randomModels, uint randomModelCount, uint numOfTextures);

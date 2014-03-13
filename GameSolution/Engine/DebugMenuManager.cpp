@@ -1,5 +1,7 @@
 #include "DebugMenuManager.h"
 
+DebugMenuManager DebugMenuManager::singleTon;
+
 void DebugMenuManager::init(QLayout * toAdd) {
 	toAdd->addItem(&mainLayout);
 	mainLayout.addLayout(&floatWatchCol);
