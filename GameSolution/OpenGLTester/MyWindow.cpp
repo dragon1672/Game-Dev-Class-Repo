@@ -56,6 +56,25 @@ void MyWindow::init(DebugMenuManager * debugMenu) {
 	objectsMoving = true;
 	enableTexture = true;
 	enableLighting = true;
+	registerInDebugMenu();
+}
+void MyWindow::registerInDebugMenu() {
+	debugMenu->toggleBool("Display Light Source",displayLightEntity);
+	debugMenu->slideVector("Diffuse Pos", diffusePos,-1.5*range,1.5*range);
+	debugMenu->slideVector("Overriding Color",overrideColor,0,1);
+	debugMenu->slideVector("Spec Color",specColor,0,1);
+	debugMenu->slideFloat("Spec Power",specPower,25,1000);
+
+	debugMenu->toggleBool("Lighting in Fragment Shader",diffuseInFrag);
+	debugMenu->toggleBool("Override Default Colors",enableOverrideColor);
+	debugMenu->toggleBool("Allow Objects To Move",objectsMoving);
+	debugMenu->toggleBool("Enable Textures",enableTexture);
+	debugMenu->toggleBool("Enable Lighting",enableLighting);
+	debugMenu->toggleBool("Display Light Entity",displayLightEntity);
+	debugMenu->watchVector("LightRot[0]",lightSource.rotation[0]);
+	debugMenu->watchVector("LightRot[1]",lightSource.rotation[1]);
+	debugMenu->watchVector("LightRot[2]",lightSource.rotation[2]);
+	debugMenu->watchFloat("Current Spec",specPower);
 }
 
 int sendTextures(Renderer& myRender) {

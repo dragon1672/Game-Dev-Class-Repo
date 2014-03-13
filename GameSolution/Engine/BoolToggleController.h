@@ -1,9 +1,10 @@
 #pragma once
 
 #include <QtGui\qcheckbox.h>
+#include "ExportHeader.h"
 
 namespace DebugMenuControllers {
-	struct BoolToggleController {
+	struct ENGINE_SHARED BoolToggleController {
 		QCheckBox checkBox;
 		bool * dataBound;
 

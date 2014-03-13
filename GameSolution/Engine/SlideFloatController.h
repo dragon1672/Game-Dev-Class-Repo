@@ -2,15 +2,18 @@
 
 #include <Qt/qlabel.h>
 #include "LinkedSlider.h"
+#include "ExportHeader.h"
 
 namespace DebugMenuControllers {
-	struct SlideFloatController {
+	struct ENGINE_SHARED SlideFloatController {
 		QLabel label;
 		float * data;
 		LinkedSlider slider;
-		inline void init(const char * name, float * toWatch) {
+		inline void init(const char * name, float * toWatch, float min, float max) {
 			data = toWatch;
 			label.setText(name);
+			slider.setMin(min);
+			slider.setMax(max);
 			updateModeltoGUI();
 		}
 		inline void updateGUItoModel() {

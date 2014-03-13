@@ -2,8 +2,8 @@
 
 DebugMenuManager DebugMenuManager::singleTon;
 
-void DebugMenuManager::init(QLayout * toAdd) {
-	toAdd->addItem(&mainLayout);
+void DebugMenuManager::init(QBoxLayout * toAdd) {
+	toAdd->addLayout(&mainLayout);
 	mainLayout.addLayout(&floatWatchCol);
 	mainLayout.addLayout(&floatSlideCol);
 	mainLayout.addLayout(&boolCol);
@@ -18,7 +18,7 @@ void DebugMenuManager::update() {
 	for (int i = 0; i < vecSliders.size();    i++) { vecSliders[i]->updateGUItoModel();   }
 }
 void DebugMenuManager::watchFloat (char * name, float& toWatch)	  {
-	DebugMenuControllers::WatchFloatController * toAdd;
+	DebugMenuControllers::WatchFloatController * toAdd = new DebugMenuControllers::WatchFloatController();
 	toAdd->init(name,&toWatch);
 	floatWatchers.push_back(toAdd);
 
@@ -26,9 +26,9 @@ void DebugMenuManager::watchFloat (char * name, float& toWatch)	  {
 	newRow->addWidget(&(toAdd->label));
 	floatWatchCol.addLayout(newRow);
 }
-void DebugMenuManager::slideFloat (char * name, float& toWatch)	  {
-	DebugMenuControllers::SlideFloatController * toAdd;
-	toAdd->init(name,&toWatch);
+void DebugMenuManager::slideFloat (char * name, float& toWatch, float min, float max)	  {
+	DebugMenuControllers::SlideFloatController * toAdd = new DebugMenuControllers::SlideFloatController();
+	toAdd->init(name,&toWatch,min,max);
 	floatSliders.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
@@ -37,7 +37,7 @@ void DebugMenuManager::slideFloat (char * name, float& toWatch)	  {
 	floatWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::toggleBool (char * name, bool& toWatch)	  {
-	DebugMenuControllers::BoolToggleController * toAdd;
+	DebugMenuControllers::BoolToggleController * toAdd = new DebugMenuControllers::BoolToggleController();
 	toAdd->init(name,&toWatch);
 	bools.push_back(toAdd);
 
@@ -46,7 +46,7 @@ void DebugMenuManager::toggleBool (char * name, bool& toWatch)	  {
 	boolCol.addLayout(newRow);
 }
 void DebugMenuManager::watchVector(char * name, glm::vec3& toWatch) {
-	DebugMenuControllers::WatchVectorController * toAdd;
+	DebugMenuControllers::WatchVectorController * toAdd = new DebugMenuControllers::WatchVectorController();
 	toAdd->init(name,&toWatch);
 	vecWatchers.push_back(toAdd);
 
@@ -55,7 +55,7 @@ void DebugMenuManager::watchVector(char * name, glm::vec3& toWatch) {
 	vecWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::slideVector(char * name, glm::vec3& toWatch, float min, float max) {
-	DebugMenuControllers::SlideVectorController * toAdd;
+	DebugMenuControllers::SlideVectorController * toAdd = new DebugMenuControllers::SlideVectorController();
 	toAdd->init(name,&toWatch,min,max);
 	vecSliders.push_back(toAdd);
 

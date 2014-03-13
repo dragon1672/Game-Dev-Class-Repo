@@ -3,9 +3,10 @@
 #include <Qt/qlabel.h>
 #include <sstream>
 #include <glm/glm.hpp>
+#include "ExportHeader.h"
 
 namespace DebugMenuControllers {
-	struct WatchVectorController {
+	struct ENGINE_SHARED WatchVectorController {
 		const char * title;
 		QLabel label;
 		glm::vec3 * data;

@@ -3,9 +3,10 @@
 #include <Qt/qlabel.h>
 #include "LinkedSlider.h"
 #include <glm/glm.hpp>
+#include "ExportHeader.h"
 
 namespace DebugMenuControllers {
-	struct SlideVectorController {
+	struct ENGINE_SHARED SlideVectorController {
 		QLabel label;
 		LinkedSlider xSlider;
 		LinkedSlider ySlider;

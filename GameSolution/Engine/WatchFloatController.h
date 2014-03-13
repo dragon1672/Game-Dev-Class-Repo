@@ -3,9 +3,10 @@
 #include <sstream>
 #include <Qt/qlabel.h>
 #include <Qt/qstring.h>
+#include "ExportHeader.h"
 
 namespace DebugMenuControllers {
-	struct WatchFloatController {
+	struct ENGINE_SHARED WatchFloatController {
 		const char * title;
 		float * data;
 		QLabel label;

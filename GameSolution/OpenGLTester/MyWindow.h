@@ -31,7 +31,7 @@ private:
 	Renderable lightSource;
 
 	void sendDataToHardWare();
-public: // interface to editVals
+
 	//shader info
 	glm::mat4 viewTransform;
 	bool enableOverrideColor;
@@ -52,12 +52,13 @@ public: // interface to editVals
 	bool objectsMoving;
 
 	void paintGL();
-	void init(DebugMenuManager * debugMenu);
-private:
+	
 	void saveDataDownToShader(ShaderProgram& prog);
 	void generateRandomRenderable(uint count, GeometryInfo ** randomModels, uint randomModelCount, uint numOfTextures);
+	void registerInDebugMenu();
 public:
 	void initializeGL();
+	void init(DebugMenuManager * debugMenu);
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 private slots:

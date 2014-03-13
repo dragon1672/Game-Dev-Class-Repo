@@ -10,9 +10,9 @@ class ENGINE_SHARED LinkedSlider : public DebugSlider {
 	void valueChanged(float newValue);
 public:
 
-
+	
 	LinkedSlider(
-		float * boundFloat,
+		float * boundFloat=nullptr,
 		float min = 0.0f, float max = 1.0f, 
 		bool textOnLeft = false,
 		float granularity = 40.0)

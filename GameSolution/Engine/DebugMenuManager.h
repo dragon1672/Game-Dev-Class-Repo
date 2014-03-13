@@ -28,10 +28,10 @@ class ENGINE_SHARED DebugMenuManager {
 	//stuff and things
 public:
 	
-	void init(QLayout * toAdd);
+	void init(QBoxLayout * toAdd);
 	void update();
 	void watchFloat (char * name, float& toWatch);
-	void slideFloat (char * name, float& toWatch);
+	void slideFloat (char * name, float& toWatch, float min, float max);
 	void toggleBool (char * name, bool& toWatch);
 	void watchVector(char * name, glm::vec3& toWatch);
 	void slideVector(char * name, glm::vec3& toWatch, float min, float max);
