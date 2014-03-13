@@ -18,5 +18,12 @@ void MyGUI::updateScene() {
 }
 
 void MyGUI::myUpdate() {
-	updateScene();
+	toggleDebugMenu.update(.1f);
+	if(toggleDebugMenu.hasBeenClicked()) {
+		if(debugArea.isHidden()) debugArea.show();
+		else debugArea.hide();
+	}
+	if(!debugArea.isHidden()) {
+		updateScene();
+	}
 }

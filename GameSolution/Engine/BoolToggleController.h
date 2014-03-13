@@ -5,19 +5,22 @@
 
 namespace DebugMenuControllers {
 	struct ENGINE_SHARED BoolToggleController {
-		QCheckBox checkBox;
+		QCheckBox * checkBox;
 		bool * dataBound;
 
+		BoolToggleController() {
+			checkBox = new QCheckBox();
+		}
 		inline void init(const char * name, bool * toWatch) {
-			checkBox.setText(name);
+			checkBox->setText(name);
 			dataBound = toWatch;
 			updateModeltoGUI();
 		}
 		inline void updateGUItoModel() {
-			*dataBound = checkBox.isChecked();
+			*dataBound = checkBox->isChecked();
 		}
 		inline void updateModeltoGUI() {
-			checkBox.setChecked(*dataBound);
+			checkBox->setChecked(*dataBound);
 		}
 	};
 }

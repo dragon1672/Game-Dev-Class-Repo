@@ -28,7 +28,7 @@ class ENGINE_SHARED DebugMenuManager {
 	//stuff and things
 public:
 	
-	void init(QBoxLayout * toAdd);
+	void init(QWidget * toAdd);
 	void update();
 	void watchFloat (char * name, float& toWatch);
 	void slideFloat (char * name, float& toWatch, float min, float max);

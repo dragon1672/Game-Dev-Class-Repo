@@ -2,8 +2,8 @@
 
 DebugMenuManager DebugMenuManager::singleTon;
 
-void DebugMenuManager::init(QBoxLayout * toAdd) {
-	toAdd->addLayout(&mainLayout);
+void DebugMenuManager::init(QWidget * toAdd) {
+	toAdd->setLayout(&mainLayout);
 	mainLayout.addLayout(&floatWatchCol);
 	mainLayout.addLayout(&floatSlideCol);
 	mainLayout.addLayout(&boolCol);
@@ -11,11 +11,11 @@ void DebugMenuManager::init(QBoxLayout * toAdd) {
 	mainLayout.addLayout(&vecSlideCol);
 }
 void DebugMenuManager::update() {
-	for (int i = 0; i < floatWatchers.size(); i++) { floatWatchers[i]->update();          }
-	for (int i = 0; i < floatSliders.size();  i++) { floatSliders[i]->updateGUItoModel(); }
-	for (int i = 0; i < bools.size();         i++) { bools[i]->updateGUItoModel();        }
-	for (int i = 0; i < vecWatchers.size();   i++) { vecWatchers[i]->update();            }
-	for (int i = 0; i < vecSliders.size();    i++) { vecSliders[i]->updateGUItoModel();   }
+	for (unsigned int i = 0; i < floatWatchers.size(); i++) { floatWatchers[i]->update();          }
+	for (unsigned int i = 0; i < floatSliders.size();  i++) { floatSliders[i]->updateGUItoModel(); }
+	for (unsigned int i = 0; i < bools.size();         i++) { bools[i]->updateGUItoModel();        }
+	for (unsigned int i = 0; i < vecWatchers.size();   i++) { vecWatchers[i]->update();            }
+	for (unsigned int i = 0; i < vecSliders.size();    i++) { vecSliders[i]->updateGUItoModel();   }
 }
 void DebugMenuManager::watchFloat (char * name, float& toWatch)	  {
 	DebugMenuControllers::WatchFloatController * toAdd = new DebugMenuControllers::WatchFloatController();
@@ -23,7 +23,7 @@ void DebugMenuManager::watchFloat (char * name, float& toWatch)	  {
 	floatWatchers.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(&(toAdd->label));
+	newRow->addWidget(toAdd->label);
 	floatWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::slideFloat (char * name, float& toWatch, float min, float max)	  {
@@ -32,8 +32,8 @@ void DebugMenuManager::slideFloat (char * name, float& toWatch, float min, float
 	floatSliders.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(&(toAdd->label));
-	newRow->addWidget(&(toAdd->slider));
+	newRow->addWidget(toAdd->label);
+	newRow->addWidget(toAdd->slider);
 	floatWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::toggleBool (char * name, bool& toWatch)	  {
@@ -42,7 +42,7 @@ void DebugMenuManager::toggleBool (char * name, bool& toWatch)	  {
 	bools.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(&(toAdd->checkBox));
+	newRow->addWidget(toAdd->checkBox);
 	boolCol.addLayout(newRow);
 }
 void DebugMenuManager::watchVector(char * name, glm::vec3& toWatch) {
@@ -51,7 +51,7 @@ void DebugMenuManager::watchVector(char * name, glm::vec3& toWatch) {
 	vecWatchers.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(&(toAdd->label));
+	newRow->addWidget(toAdd->label);
 	vecWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::slideVector(char * name, glm::vec3& toWatch, float min, float max) {
@@ -60,9 +60,9 @@ void DebugMenuManager::slideVector(char * name, glm::vec3& toWatch, float min, f
 	vecSliders.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(&(toAdd->label));
-	newRow->addWidget(&(toAdd->xSlider));
-	newRow->addWidget(&(toAdd->ySlider));
-	newRow->addWidget(&(toAdd->zSlider));
+	newRow->addWidget(toAdd->label);
+	newRow->addWidget(toAdd->xSlider);
+	newRow->addWidget(toAdd->ySlider);
+	newRow->addWidget(toAdd->zSlider);
 	vecSlideCol.addLayout(newRow);
 }

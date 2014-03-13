@@ -12,17 +12,21 @@
 #include "LinkedSlider.h"
 #include "MyWindow.h"
 #include "DebugMenuManager.h"
+#include "SingleKeyManager.h"
 
 
 class MyGUI : public QWidget {
 private:
+	static const int TIDLE_KEY = 192;
 
 	Q_OBJECT;
+
+	SingleKeyManager toggleDebugMenu;
 
 	MyWindow meScene;
 	QTimer myTimer;
 	DebugMenuManager debugMenu;
-	QHBoxLayout debugArea;
+	QWidget debugArea;
 
 protected:
 	void mouseMoveEvent(QMouseEvent* e);
@@ -31,7 +35,9 @@ protected:
 	void updateFromScene();
 
 public:
-	MyGUI() {
+	MyGUI()
+	: toggleDebugMenu(TIDLE_KEY)
+	{
 		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 		myTimer.start(0);
 
@@ -41,7 +47,7 @@ public:
 		
 		meScene.setMinimumHeight(900);
 
-		mainLayout->addLayout(&debugArea);
+		mainLayout->addWidget(&debugArea);
 		
 		mainLayout->addWidget(&meScene);
 		

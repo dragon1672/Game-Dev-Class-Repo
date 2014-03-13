@@ -9,7 +9,10 @@ namespace DebugMenuControllers {
 	struct ENGINE_SHARED WatchFloatController {
 		const char * title;
 		float * data;
-		QLabel label;
+		QLabel * label;
+		WatchFloatController() {
+			label = new QLabel();
+		}
 		inline void init(const char * name, float * toWatch) {
 			title = name;
 			data = toWatch;
@@ -18,7 +21,7 @@ namespace DebugMenuControllers {
 		inline void update() {
 			std::stringstream ss;
 			ss << title << ": " << *data;
-			label.setText(QString( ss.str().c_str() ));
+			label->setText(QString( ss.str().c_str() ));
 		}
 	};
 }
