@@ -90,10 +90,14 @@
     <ClCompile Include="BinaryToShapeLoader.cpp" />
     <ClCompile Include="BufferManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DebugMenuManager.cpp" />
     <ClCompile Include="DebugShapeManager.cpp" />
+    <ClCompile Include="DebugSlider.cpp" />
+    <ClCompile Include="DebugSlider_mock.cpp" />
     <ClCompile Include="DebugTimer.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GeometryInfo.cpp" />
+    <ClCompile Include="LinkedSlider.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="MyRandom.cpp" />
     <ClCompile Include="NUShapeEditor.cpp" />
@@ -108,13 +112,17 @@
     <ClInclude Include="AutoProfileManagerMacros.h" />
     <ClInclude Include="AutoProfiler.h" />
     <ClInclude Include="BinaryToShapeLoader.h" />
+    <ClInclude Include="BoolToggleController.h" />
     <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugMemHeader.h" />
+    <ClInclude Include="DebugMenuManager.h" />
     <ClInclude Include="DebugShapeManager.h" />
+    <ClInclude Include="DebugSlider.h" />
     <ClInclude Include="DebugTimer.h" />
     <ClInclude Include="ExportHeader.h" />
     <ClInclude Include="GeometryInfo.h" />
+    <ClInclude Include="LinkedSlider.h" />
     <ClInclude Include="LogData.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="myAssert.h" />
@@ -127,20 +135,22 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="ShaderUniformPram.h" />
     <ClInclude Include="SingleKeyManager.h" />
+    <ClInclude Include="SlideFloatController.h" />
+    <ClInclude Include="SlideVectorController.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="Matrix2D.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="SquareMatrix.h" />
     <ClInclude Include="Vector 2.h" />
+    <ClInclude Include="WatchFloatController.h" />
+    <ClInclude Include="WatchVectorController.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FragShader.glsl" />
     <None Include="Matrix2D.inl" />
     <None Include="Matrix3D.inl" />
     <None Include="Vector 2.inl" />
     <None Include="Vector3D.inl" />
-    <None Include="VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
