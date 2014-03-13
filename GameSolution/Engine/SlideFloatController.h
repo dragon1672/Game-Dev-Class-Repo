@@ -6,25 +6,21 @@
 
 namespace DebugMenuControllers {
 	struct ENGINE_SHARED SlideFloatController {
-		QLabel * label;
+		QLabel label;
 		float * data;
-		LinkedSlider * slider;
-		SlideFloatController() {
-			label = new QLabel();
-			slider = new LinkedSlider();
-		}
+		LinkedSlider slider;
 		inline void init(const char * name, float * toWatch, float min, float max) {
 			data = toWatch;
-			label->setText(name);
-			slider->setMin(min);
-			slider->setMax(max);
+			label.setText(name);
+			slider.setMin(min);
+			slider.setMax(max);
 			updateModeltoGUI();
 		}
 		inline void updateGUItoModel() {
 			// not required
 		}
 		inline void updateModeltoGUI() {
-			slider->setBoundValue(data);
+			slider.setBoundValue(data);
 		}
 	};
 }

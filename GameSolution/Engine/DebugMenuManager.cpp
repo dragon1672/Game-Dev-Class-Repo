@@ -23,7 +23,7 @@ void DebugMenuManager::watchFloat (char * name, float& toWatch)	  {
 	floatWatchers.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(toAdd->label);
+	newRow->addWidget(&(toAdd->label));
 	floatWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::slideFloat (char * name, float& toWatch, float min, float max)	  {
@@ -32,8 +32,8 @@ void DebugMenuManager::slideFloat (char * name, float& toWatch, float min, float
 	floatSliders.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(toAdd->label);
-	newRow->addWidget(toAdd->slider);
+	newRow->addWidget(&(toAdd->label));
+	newRow->addWidget(&(toAdd->slider));
 	floatWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::toggleBool (char * name, bool& toWatch)	  {
@@ -42,7 +42,7 @@ void DebugMenuManager::toggleBool (char * name, bool& toWatch)	  {
 	bools.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(toAdd->checkBox);
+	newRow->addWidget(&(toAdd->checkBox));
 	boolCol.addLayout(newRow);
 }
 void DebugMenuManager::watchVector(char * name, glm::vec3& toWatch) {
@@ -51,7 +51,7 @@ void DebugMenuManager::watchVector(char * name, glm::vec3& toWatch) {
 	vecWatchers.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(toAdd->label);
+	newRow->addWidget(&(toAdd->label));
 	vecWatchCol.addLayout(newRow);
 }
 void DebugMenuManager::slideVector(char * name, glm::vec3& toWatch, float min, float max) {
@@ -60,9 +60,9 @@ void DebugMenuManager::slideVector(char * name, glm::vec3& toWatch, float min, f
 	vecSliders.push_back(toAdd);
 
 	QHBoxLayout * newRow = new QHBoxLayout();
-	newRow->addWidget(toAdd->label);
-	newRow->addWidget(toAdd->xSlider);
-	newRow->addWidget(toAdd->ySlider);
-	newRow->addWidget(toAdd->zSlider);
+	newRow->addWidget(&(toAdd->label));
+	newRow->addWidget(&(toAdd->xSlider));
+	newRow->addWidget(&(toAdd->ySlider));
+	newRow->addWidget(&(toAdd->zSlider));
 	vecSlideCol.addLayout(newRow);
 }
