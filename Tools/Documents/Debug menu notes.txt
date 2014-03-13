@@ -1,0 +1,19 @@
+menu.watchFLoat("someName", lightmyFloat) // watches the value in a text text box
+menu.slidFloat("name", myFloat);//allows slider to change float
+menu.toggleBool("some name", myBool"; // display a check box
+menu.watch vector
+menu.slide vector 
+:D those last two would be awesome
+
+
+
+for function call
+void method(float& data) {}
+
+
+
+
+init that has a pointer to debug layout
+
+
+DebugMenu
