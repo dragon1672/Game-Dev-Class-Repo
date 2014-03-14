@@ -236,7 +236,7 @@ void MyWindow::myUpdate() {
 	KEY_INF_LIFETIME.update     (.1f);
 
 	float lifetime = (lifetimeInf)? std::numeric_limits<float>::infinity() : currentLifeTime;
-
+	// HIPPO
 	if(KEY_SPHERE.hasBeenClicked()) { myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1),lifetime); }
 	if(KEY_CUBE.hasBeenClicked())   { myDebugShapes.addUnitCube  (glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1),lifetime); }
 	if(KEY_POINT.hasBeenClicked())  { myDebugShapes.addPoint(myCam.getPos()+myCam.getViewDir(),lifetime); }
