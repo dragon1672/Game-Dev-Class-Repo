@@ -2,6 +2,8 @@
 
 DebugMenuManager DebugMenuManager::singleTon;
 
+#ifdef _DEBUG
+
 void DebugMenuManager::init(QWidget * toAdd) {
 	toAdd->setLayout(&mainLayout);
 	mainLayout.addLayout(&floatWatchCol);
@@ -66,3 +68,5 @@ void DebugMenuManager::slideVector(char * name, glm::vec3& toWatch, float min, f
 	newRow->addWidget(&(toAdd->zSlider));
 	vecSlideCol.addLayout(newRow);
 }
+
+#endif

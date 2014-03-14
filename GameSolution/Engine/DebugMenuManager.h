@@ -37,12 +37,12 @@ public:
 	void slideVector(char * name, glm::vec3& toWatch, float min, float max);
 #else
 public:
-	void init(/*layout pos pointer*/) {}
+	void init(QWidget * toAdd) {}
 	void update() {}
 	void watchFloat (char * name, float& toWatch) {} // watches the value in a text text box
-	void slideFloat (char * name, float& toWatch) {}//allows slider to change float
+	void slideFloat (char * name, float& toWatch, float min, float max) {}//allows slider to change float
 	void toggleBool (char * name, bool& toWatch) {} // display a check box
 	void watchVector(char * name, glm::vec3& toWatch) {}
-	void slideVector(char * name, glm::vec3& toWatch) {}
+	void slideVector(char * name, glm::vec3& toWatch, float min, float max) {}
 #endif
 };
