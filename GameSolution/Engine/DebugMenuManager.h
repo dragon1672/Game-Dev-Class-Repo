@@ -14,21 +14,16 @@
 #include "SlideVectorController.h"
 #include <vector>
 
-class ENGINE_SHARED DebugMenuManager {
-	static DebugMenuManager singleTon;
-	//inline DebugMenuManager * getSingleTon() { return &singleTon; }
+class ENGINE_SHARED DebugMenuManager : public QWidget {
 #ifdef _DEBUG
-	QHBoxLayout mainLayout;
-	std::vector<DebugMenuControllers::WatchFloatController  *> floatWatchers;	QVBoxLayout floatWatchCol;
-	std::vector<DebugMenuControllers::SlideFloatController  *> floatSliders;	QVBoxLayout floatSlideCol;
-	std::vector<DebugMenuControllers::BoolToggleController  *> bools;			QVBoxLayout boolCol;
-	std::vector<DebugMenuControllers::WatchVectorController *> vecWatchers;		QVBoxLayout vecWatchCol;
-	std::vector<DebugMenuControllers::SlideVectorController *> vecSliders;		QVBoxLayout vecSlideCol;
-
-	//stuff and things
+	QHBoxLayout * mainLayout;
+	std::vector<DebugMenuControllers::WatchFloatController  *> floatWatchers;	QVBoxLayout * floatWatchCol;
+	std::vector<DebugMenuControllers::SlideFloatController  *> floatSliders;	QVBoxLayout * floatSlideCol;
+	std::vector<DebugMenuControllers::BoolToggleController  *> bools;			QVBoxLayout * boolCol;
+	std::vector<DebugMenuControllers::WatchVectorController *> vecWatchers;		QVBoxLayout * vecWatchCol;
+	std::vector<DebugMenuControllers::SlideVectorController *> vecSliders;		QVBoxLayout * vecSlideCol;
 public:
-	
-	void init(QWidget * toAdd);
+	void init();
 	void update();
 	void watchFloat (char * name, float& toWatch);
 	void slideFloat (char * name, float& toWatch, float min, float max);
@@ -37,7 +32,7 @@ public:
 	void slideVector(char * name, glm::vec3& toWatch, float min, float max);
 #else
 public:
-	void init(QWidget * toAdd) {}
+	void init() {}
 	void update() {}
 	void watchFloat (char * name, float& toWatch) {} // watches the value in a text text box
 	void slideFloat (char * name, float& toWatch, float min, float max) {}//allows slider to change float

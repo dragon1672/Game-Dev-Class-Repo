@@ -14,16 +14,16 @@ void MyGUI::updateFromScene() {
 	//nothing
 }
 void MyGUI::updateScene() {
-	debugMenu.update();
+	debugMenu->update();
 }
 
 void MyGUI::myUpdate() {
 	toggleDebugMenu.update(.1f);
 	if(toggleDebugMenu.hasBeenClicked()) {
-		if(debugArea.isHidden()) debugArea.show();
-		else debugArea.hide();
+		if(debugMenu->isHidden()) debugMenu->show();
+		else debugMenu->hide();
 	}
-	if(!debugArea.isHidden()) {
+	if(!debugMenu->isHidden()) {
 		updateScene();
 	}
 }
