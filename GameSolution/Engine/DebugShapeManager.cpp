@@ -145,11 +145,6 @@ glm::vec3 DebugShapeManager::noZeros(glm::vec3 vec) {
 	return vec;
 }
 glm::mat4 DebugShapeManager::span2Points(glm::vec3 start, glm::vec3 end) {
-	//start = glm::vec3(0,0,0);
-	//end = glm::vec3(5,5,0);
-
-	start = noZeros(start);
-	end = noZeros(end);
 	glm::vec3 tail = start;
 	glm::vec3 newUp = glm::normalize(end - start);
 	float scale = glm::length(end - start);
@@ -157,7 +152,6 @@ glm::mat4 DebugShapeManager::span2Points(glm::vec3 start, glm::vec3 end) {
 	glm::mat4 ret = glm::translate(tail);
 	ret *= glm::orientation(newUp,UP);
 	ret *= glm::scale(glm::vec3(1,scale,1));
-
 
 	return ret;
 }
