@@ -9,11 +9,9 @@ rmdir hackyTempFolder
 cd Engine
 echo Export Log Begin > ../ExportMiddleWareLog.txt
 for %%a in ("*.h") do (
-		if not %%a == ExportHeader.h (
-			::findstr /N ENGINE_SHARED "%%a" > tempLogFile && echo exporting %%a >> ../ExportMiddleWareLog.txt &&robocopy . ../../MiddleWare/Engine/include/ %%a /NFL /NDL /NJH /NJS /nc /ns /np && echo exporting %%a
-			echo exporting %%a >> ../ExportMiddleWareLog.txt
-			robocopy . ../../MiddleWare/Engine/include/ %%a /NFL /NDL /NJH /NJS /nc /ns /np
-		)
+		::findstr /N ENGINE_SHARED "%%a" > tempLogFile && echo exporting %%a >> ../ExportMiddleWareLog.txt &&robocopy . ../../MiddleWare/Engine/include/ %%a /NFL /NDL /NJH /NJS /nc /ns /np && echo exporting %%a
+		echo exporting %%a >> ../ExportMiddleWareLog.txt
+		robocopy . ../../MiddleWare/Engine/include/ %%a /NFL /NDL /NJH /NJS /nc /ns /np
 )
 cd ../Debug
 ::cd ../release
