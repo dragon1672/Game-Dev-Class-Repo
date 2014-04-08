@@ -89,7 +89,7 @@ void MyWindow::paintGL() {
 	viewTransform *= myCam.getWorld2View();
 
 	myRender.resetAllShaderPassDowns();
-	myRender.mainShader->useProgram();
+	//myRender.mainShader->useProgram();
 
 	for (uint i = 0; i < numOfGameObjs; i++)
 	{
