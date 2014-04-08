@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C01600A4-CCAC-4162-8C90-75439D07281B}</ProjectGuid>
+    <ProjectGuid>{654311D5-B547-4D55-A736-3A4754B25B3F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LevelEditor</RootNamespace>
   </PropertyGroup>

@@ -23,6 +23,7 @@ void MyWindow::initializeGL() {
 	myDebugShapes.init(&myRender, &viewTransform[0][0]);
 
 	myRender.mainShader->buildBasicProgram("../Shaders/VertexShader.glsl","../Shaders/FragShader.glsl");
+	myRender.mainShader->saveUniform("viewTransform",ParameterType::PT_MAT4,&viewTransform[0][0]);
 
 	sendDataToHardWare();
 
@@ -40,20 +41,16 @@ void MyWindow::sendDataToHardWare() {
 	//setting up textures
 	numOfGameObjs = 0;
 
-	myDebugShapes.addPoint(myCam.getPos());
-	myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()),glm::vec4(0,0,1,0));
+	Renderable * temp = myRender.addRenderable(myRender.addGeometry(Neumont::ShapeGenerator::makeSphere(20),GL_TRIANGLES),myRender.getShader(1));
+	temp->whereMat = glm::translate(myCam.getPos()+3.0f*myCam.getViewDir());
+	temp->saveWhereMat("model2WorldTransform");
+
+	gameObjs[numOfGameObjs++] = temp;
+
+	myDebugShapes.addPoint(myCam.getPos()+3.0f*myCam.getViewDir());
 }
 
 void MyWindow::myUpdate() {
-	//*
-	static uint frames = 0;
-	frames++;
-	//*/
-	
-	if(frames%100==0) {
-		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
-		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
-	}
 	myDebugShapes.update(.1f);
 
 	repaint();
