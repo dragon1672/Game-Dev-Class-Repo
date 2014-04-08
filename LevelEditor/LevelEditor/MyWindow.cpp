@@ -13,16 +13,9 @@
 #include "BinaryToShapeLoader.h"
 #include "NUShapeEditor.h"
 
-#include "SingleKeyManager.h"
-
 
 using glm::vec3;
 using glm::mat4x4;
-
-Neumont::ShapeData singleShape;
-
-const int numOfShapesToMake = 50;
-
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -48,6 +41,7 @@ void MyWindow::sendDataToHardWare() {
 	numOfGameObjs = 0;
 
 	myDebugShapes.addPoint(myCam.getPos());
+	myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()),glm::vec4(0,0,1,0));
 }
 
 void MyWindow::myUpdate() {
@@ -94,10 +88,8 @@ void MyWindow::paintGL() {
 	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
 	viewTransform *= myCam.getWorld2View();
 
-	bool passThrough = false;
-
+	myRender.resetAllShaderPassDowns();
 	myRender.mainShader->useProgram();
-	myRender.passDataDownAllShaders();
 
 	for (uint i = 0; i < numOfGameObjs; i++)
 	{
