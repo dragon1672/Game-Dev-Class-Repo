@@ -26,6 +26,7 @@ private:
 
 	Renderable * gameObjs[1000];
 	uint numOfGameObjs;
+	Renderable * levelRenderable;
 
 	void sendDataToHardWare();
 
@@ -37,6 +38,7 @@ private:
 public:
 	void initializeGL();
 	void init(DebugMenuManager * debugMenu);
+	void loadGeo(const char * binaryFilePath);
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 private slots:

@@ -42,7 +42,11 @@ void MyWindow::initializeGL() {
 void MyWindow::init(DebugMenuManager * debugMenu) {
 	this->debugMenu = debugMenu;
 	//setting defaults
-	myCam.setPos(vec3(17,3.7f,-15),vec3(-50,-13,85));
+	myCam.setPos(vec3(20,5,20),vec3(-1,-1,-1));
+}
+void MyWindow::loadGeo(const char * binaryFilePath) {
+	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
+	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
 
 void MyWindow::sendDataToHardWare() {
@@ -51,12 +55,12 @@ void MyWindow::sendDataToHardWare() {
 	numOfGameObjs = 0;
 
 	myRender.mainShader -> saveUniform("viewTransform",       ParameterType::PT_MAT4,     &viewTransform[0][0] );
-	Renderable * temp = myRender.addRenderable(myRender.addGeometry(Neumont::ShapeGenerator::makePlane(10),GL_TRIANGLES),myRender.mainShader,mainTextureId);
-	temp->whereMat = glm::translate(glm::vec3(0,-10,0)) * glm::scale(glm::vec3(12,12,12));
-	temp->saveWhereMat("model2WorldTransform");
-	temp->saveTexture("myTexture");
+	levelRenderable = myRender.addRenderable(myRender.addGeometry(Neumont::ShapeGenerator::makePlane(10),GL_TRIANGLES),myRender.mainShader,mainTextureId);
+	levelRenderable->whereMat = glm::scale(glm::vec3(12,12,12));
+	levelRenderable->saveWhereMat("model2WorldTransform");
+	levelRenderable->saveTexture("myTexture");
 
-	gameObjs[numOfGameObjs++] = temp;
+	gameObjs[numOfGameObjs++] = levelRenderable;
 }
 
 SingleKeyManager KEY_SPHERE           ('1'); // sphere
