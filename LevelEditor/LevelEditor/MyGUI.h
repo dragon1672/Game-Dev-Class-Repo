@@ -54,7 +54,7 @@ public:
 		
 		mainLayout->addWidget(&meScene);
 		
-		meScene.init();
+		meScene.init(debugMenu);
 
 		updateFromScene();
 		this->resize(1200,800);

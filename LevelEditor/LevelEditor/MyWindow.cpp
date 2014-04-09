@@ -13,9 +13,16 @@
 #include "BinaryToShapeLoader.h"
 #include "NUShapeEditor.h"
 
+#include "SingleKeyManager.h"
+
 
 using glm::vec3;
 using glm::mat4x4;
+
+Neumont::ShapeData singleShape;
+
+const int numOfShapesToMake = 50;
+
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -23,7 +30,6 @@ void MyWindow::initializeGL() {
 	myDebugShapes.init(&myRender, &viewTransform[0][0]);
 
 	myRender.mainShader->buildBasicProgram("../Shaders/VertexShader.glsl","../Shaders/FragShader.glsl");
-	myRender.mainShader->saveUniform("viewTransform",ParameterType::PT_MAT4,&viewTransform[0][0]);
 
 	sendDataToHardWare();
 
@@ -33,24 +39,160 @@ void MyWindow::initializeGL() {
 	myTimer.start(0);
 }
 
-void MyWindow::init() {
+void MyWindow::init(DebugMenuManager * debugMenu) {
+	this->debugMenu = debugMenu;
+	//setting defaults
 	myCam.setPos(vec3(17,3.7f,-15),vec3(-50,-13,85));
+	registerInDebugMenu();
+}
+void MyWindow::registerInDebugMenu() {
+	debugMenu->watchVector("LightRot[0]",lightSource.rotation[0]);
+	debugMenu->watchVector("LightRot[1]",lightSource.rotation[1]);
+	debugMenu->watchVector("LightRot[2]",lightSource.rotation[2]);
 }
 
+void MyWindow::saveDataDownToShader(ShaderProgram& prog) {
+	prog.saveUniform("viewTransform",       ParameterType::PT_MAT4,     &viewTransform[0][0] );
+}
+
+//returns floorID
+uint loadModels(Neumont::ShapeData * models, uint * modelCount) {
+	uint floorGeoID;
+	int teaPotQuality = Random::randomInt(5,30);
+	int randomQuality = 50;//Random::randomInt(5,15);
+	models[(*modelCount)++] = NUShapeEditor::fixTeaPotNormals(NUShapeEditor::setModColor(Neumont::ShapeGenerator::makeTeapot(teaPotQuality,glm::mat4()),4));
+	models[(*modelCount)++] = NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeTorus(randomQuality));
+	models[(*modelCount)++] = NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeSphere(randomQuality));
+	/* boring models
+	models[(*modelCount)++] = NUShapeEditor::NUShapeEditorinitUVData(Neumont::ShapeGenerator::makeArrow());
+	models[(*modelCount)++] = Neumont::ShapeGenerator::makeCube();
+	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/cube.bin");
+	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/plane.bin");
+	//*/
+
+	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../binaryModels/CartoonTree.bin"),10);
+	models[(*modelCount)++] =					   BinaryToShapeLoader::loadFromFile("../binaryModels/GhoulOBJ.bin"   );
+	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../binaryModels/gun.bin"        ),4);
+	models[(*modelCount)++] =					   BinaryToShapeLoader::loadFromFile("../binaryModels/myChair.bin"    );
+	models[(*modelCount)++] =					   BinaryToShapeLoader::loadFromFile("../binaryModels/phone.bin"      );
+	models[(*modelCount)++] = NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../binaryModels/TeddyBear.bin"  ),50);
+
+
+	/*dont show up
+	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/Kitana.bin");
+	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/Fan.bin");
+	models[(*modelCount)++] = BinaryToShapeLoader::loadFromFile("binaryModels/Skeleton.bin");
+	//*/
+	
+	floorGeoID = *modelCount;//setting floor to plane;
+	models[(*modelCount)++] = NUShapeEditor::setColor(glm::vec4(1,1,1,1),Neumont::ShapeGenerator::makePlane(10));
+	return floorGeoID;
+}
+
+void MyWindow::generateRandomRenderable(uint count, GeometryInfo ** randomModels, uint randomModelCount) {
+	for (uint i = 0; i < count; i++) {
+		int index = Random::randomInt(0,randomModelCount-1);
+		Renderable * justAdded = myRender.addRenderable(randomModels[index],myRender.mainShader,mainTextureId);
+		
+		float x = Random::randomFloat(-range,range);
+		float y = Random::randomFloat(0, range/2);
+		float z = Random::randomFloat(-range,range);
+		justAdded->whereMat = glm::translate(glm::vec3(x,y,z));
+
+		justAdded->saveWhereMat("model2WorldTransform");
+		justAdded->saveTexture("myTexture");
+
+		gameObjs[numOfGameObjs++] = justAdded;
+	}
+}
 void MyWindow::sendDataToHardWare() {
-	//setting up textures
+	mainTextureId = myRender.addTexture("\\..\\Textures\\mainTexture.png");
+
 	numOfGameObjs = 0;
 
-	Renderable * temp = myRender.addRenderable(myRender.addGeometry(Neumont::ShapeGenerator::makeSphere(20),GL_TRIANGLES),myRender.getShader(1));
-	temp->whereMat = glm::translate(myCam.getPos()+3.0f*myCam.getViewDir());
-	temp->saveWhereMat("model2WorldTransform");
+	saveDataDownToShader(*myRender.mainShader);
 
-	gameObjs[numOfGameObjs++] = temp;
+	//NU shapes
+	GeometryInfo * randomModels[20];
+	uint randomModelCount = 0;
+	Neumont::ShapeData models[20];
+	uint modelCount = 0;
+	uint floorGeoID = loadModels(&models[0],&modelCount);
 
-	myDebugShapes.addPoint(myCam.getPos()+3.0f*myCam.getViewDir());
+	for(uint i=0;i<modelCount;i++) {
+		GeometryInfo * justAdded = myRender.addGeometry(models[i],GL_TRIANGLES);
+		//GeometryInfo * justAdded = myRender.addGeometry(models[i].verts,models[i].numVerts,models[i].indices,models[i].numIndices,GL_TRIANGLES);
+		justAdded->NU_VertexStreamedPosition(0);
+		justAdded->NU_VertexStreamedColor(1);
+		justAdded->NU_VertexStreamedNormal(2);
+		justAdded->NU_VertexStreamedUv(3);
+		if(i==floorGeoID) {
+			floor.whatGeo = justAdded;
+		} else {
+			randomModels[randomModelCount++] = justAdded;
+		}
+	} 
+
+	generateRandomRenderable(numOfShapesToMake,&randomModels[0],randomModelCount);
+	
+	int index = Random::randomInt(0,randomModelCount-1);
+	lightSource.init(randomModels[index],myRender.mainShader,true);
+	lightSource.whereMat = glm::scale(glm::vec3(.5f,.5f,.5f));
+	lightSource.saveWhereMat("model2WorldTransform");
+	
+	floor.init(floor.whatGeo,myRender.mainShader,true,mainTextureId);
+	floor.whereMat = glm::translate(vec3(0,-5,0)) * glm::scale(glm::vec3(range/2,range/2,range/2));
+	floor.saveWhereMat("model2WorldTransform");
+	floor.saveTexture("myTexture");
 }
 
+SingleKeyManager KEY_SPHERE           ('1'); // sphere
+SingleKeyManager KEY_CUBE             ('2'); // cube
+SingleKeyManager KEY_POINT            ('3'); // point
+SingleKeyManager KEY_VEC              ('4'); // vector orgin to pos
+SingleKeyManager KEY_LINE             ('5'); // line orgin to pos
+SingleKeyManager KEY_INCREASE_LIFETIME(VK_UP);
+SingleKeyManager KEY_DECREASE_LIFETIME(VK_DOWN);
+SingleKeyManager KEY_INF_LIFETIME     ('0');
+#include <limits>
+uint currentLifeTime = 1;
+bool lifetimeInf = true;
+const uint lifetimeIncrementor = 1;
+
 void MyWindow::myUpdate() {
+	//*
+	static uint frames = 0;
+	frames++;
+	//*/
+	KEY_SPHERE.update(.1f);
+	KEY_CUBE.update  (.1f);
+	KEY_POINT.update (.1f);
+	KEY_VEC.update   (.1f);
+	KEY_LINE.update  (.1f);
+	KEY_INCREASE_LIFETIME.update(.1f);
+	KEY_DECREASE_LIFETIME.update(.1f);
+	KEY_INF_LIFETIME.update     (.1f);
+
+	float lifetime = (lifetimeInf)? std::numeric_limits<float>::infinity() : currentLifeTime;
+	// HIPPO
+	if(KEY_SPHERE.hasBeenClicked()) { myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1),lifetime); }
+	if(KEY_CUBE.hasBeenClicked())   { myDebugShapes.addUnitCube  (glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1),lifetime); }
+	if(KEY_POINT.hasBeenClicked())  { myDebugShapes.addPoint(myCam.getPos()+myCam.getViewDir(),lifetime); }
+	if(KEY_VEC.hasBeenClicked())    { myDebugShapes.addUnitVector(glm::vec3(0,0,0),myCam.getPos()+myCam.getViewDir(),glm::vec4(0,.5f,1,1),lifetime); }
+	if(KEY_LINE.hasBeenClicked())   { myDebugShapes.addLine(glm::vec3(0,0,0),myCam.getPos()+myCam.getViewDir(),glm::vec4(0,.5f,1,1),lifetime); }
+	if(KEY_INCREASE_LIFETIME.hasBeenClicked())  { currentLifeTime += lifetimeIncrementor; }
+	if(KEY_DECREASE_LIFETIME.hasBeenClicked())  { currentLifeTime -= lifetimeIncrementor; }
+	if(KEY_INF_LIFETIME.hasBeenClicked())  { lifetimeInf = !lifetimeInf; }
+	currentLifeTime = currentLifeTime < 1 ? 1 : currentLifeTime;
+	
+	
+	if(frames%100==0) {
+		//myDebugShapes.addPoint(myCam.getPos()+myCam.getViewDir());
+		//myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1));
+		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
+		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
+	}
+
 	myDebugShapes.update(.1f);
 
 	repaint();
@@ -85,12 +227,36 @@ void MyWindow::paintGL() {
 	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
 	viewTransform *= myCam.getWorld2View();
 
-	myRender.resetAllShaderPassDowns();
-	//myRender.mainShader->useProgram();
+	//* comment to disable all draw calls
+
+	//myDebugShapes.draw();
+	
+
+	bool passThrough = false;
+
+	myRender.resetAllShaders_validPush();
+	myRender.mainShader->useProgram();
 
 	for (uint i = 0; i < numOfGameObjs; i++)
 	{
-		myRender.draw(*gameObjs[i]);
+		draw(*gameObjs[i],passThrough);
 	}
+
+	draw(floor,passThrough);
+
+	passThrough = true;
+
+	draw(lightSource,passThrough);
 	myDebugShapes.draw();
+	//*/
+}
+
+void MyWindow::draw(Renderable& entity, bool passthrough) {
+	if(entity.visible) {
+		entity.howShader->useProgram();
+		entity.howShader->passSavedUniforms_try();
+		entity.howShader->passUniform("passThrough", ParameterType::PT_BOOLEAN, passthrough);
+		entity.passUniformsDownDown();
+		myRender.draw(*entity.whatGeo);
+	}
 }
