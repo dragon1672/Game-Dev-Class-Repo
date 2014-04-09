@@ -51,15 +51,10 @@ void MyWindow::sendDataToHardWare() {
 	numOfGameObjs = 0;
 
 	myRender.mainShader -> saveUniform("viewTransform",       ParameterType::PT_MAT4,     &viewTransform[0][0] );
-	//GeometryInfo * geoTemp = myRender.addGeometry(NUShapeEditor::initUVData(Neumont::ShapeGenerator::makeArrow()),GL_TRIANGLES);
-	GeometryInfo * geoTemp = myRender.addGeometry(Neumont::ShapeGenerator::makePlane(10),GL_TRIANGLES);
-	Renderable * temp = myRender.addRenderable(geoTemp,myRender.mainShader,mainTextureId);
-	glm::mat4 theTrans = glm::translate(glm::vec3(0,-10,0)) * glm::scale(glm::vec3(12,12,12));
-	temp->whereMat = theTrans;
+	Renderable * temp = myRender.addRenderable(myRender.addGeometry(Neumont::ShapeGenerator::makePlane(10),GL_TRIANGLES),myRender.mainShader,mainTextureId);
+	temp->whereMat = glm::translate(glm::vec3(0,-10,0)) * glm::scale(glm::vec3(12,12,12));
 	temp->saveWhereMat("model2WorldTransform");
 	temp->saveTexture("myTexture");
-
-	myDebugShapes.addPoint(glm::vec3(0,-10,0));
 
 	gameObjs[numOfGameObjs++] = temp;
 }
