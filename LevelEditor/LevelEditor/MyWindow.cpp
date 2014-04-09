@@ -239,24 +239,13 @@ void MyWindow::paintGL() {
 
 	for (uint i = 0; i < numOfGameObjs; i++)
 	{
-		draw(*gameObjs[i],passThrough);
+		myRender.draw(*gameObjs[i]);
 	}
 
-	draw(floor,passThrough);
+	myRender.draw(floor);
 
-	passThrough = true;
 
-	draw(lightSource,passThrough);
+	myRender.draw(lightSource);
 	myDebugShapes.draw();
 	//*/
-}
-
-void MyWindow::draw(Renderable& entity, bool passthrough) {
-	if(entity.visible) {
-		entity.howShader->useProgram();
-		entity.howShader->passSavedUniforms_try();
-		entity.howShader->passUniform("passThrough", ParameterType::PT_BOOLEAN, passthrough);
-		entity.passUniformsDownDown();
-		myRender.draw(*entity.whatGeo);
-	}
 }

@@ -48,5 +48,4 @@ public:
 	void keyPressEvent(QKeyEvent* e);
 private slots:
 	void myUpdate();
-	void draw(Renderable& entity,bool passthrough);
 };
