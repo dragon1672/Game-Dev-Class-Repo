@@ -167,7 +167,7 @@ void      DebugShapeManager::update(float dt) {
 }
 void      DebugShapeManager::draw() {
 		debugShapeShader -> useProgram();
-		debugShapeShader -> passSavedUniforms();
+		debugShapeShader -> passSavedUniforms_force();
 		for (unsigned int i = 0; i < shapes.size(); i++) {
 			for (unsigned int j = 0; j < shapes[i]->prams.size(); j++) {
 				shapes[i]->prams[j].sendData();

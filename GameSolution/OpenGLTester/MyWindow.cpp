@@ -306,8 +306,8 @@ void MyWindow::paintGL() {
 
 	bool passThrough = false;
 
+	myRender.resetAllShaders_validPush();
 	myRender.mainShader->useProgram();
-	myRender.passDataDownAllShaders();
 
 	for (uint i = 0; i < numOfGameObjs; i++)
 	{
@@ -329,6 +329,7 @@ void MyWindow::paintGL() {
 void MyWindow::draw(Renderable& entity, bool passthrough) {
 	if(entity.visible) {
 		entity.howShader->useProgram();
+		entity.howShader->passSavedUniforms_try();
 		entity.howShader->passUniform("passThrough", ParameterType::PT_BOOLEAN, passthrough);
 		entity.passUniformsDownDown();
 		myRender.draw(*entity.whatGeo);
