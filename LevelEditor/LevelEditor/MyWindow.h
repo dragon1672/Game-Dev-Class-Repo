@@ -27,9 +27,6 @@ private:
 	Renderable * gameObjs[1000];
 	uint numOfGameObjs;
 
-	Renderable floor;
-	Renderable lightSource;
-
 	void sendDataToHardWare();
 
 	//shader info
@@ -37,10 +34,6 @@ private:
 
 	int mainTextureId;
 	void paintGL();
-	
-	void saveDataDownToShader(ShaderProgram& prog);
-	void generateRandomRenderable(uint count, GeometryInfo ** randomModels, uint randomModelCount);
-	void registerInDebugMenu();
 public:
 	void initializeGL();
 	void init(DebugMenuManager * debugMenu);
