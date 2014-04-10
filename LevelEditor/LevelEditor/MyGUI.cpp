@@ -12,7 +12,7 @@ void MyGUI::keyPressEvent(QKeyEvent* e) {
 	meScene.keyPressEvent(e);
 }
 void MyGUI::loadObj() {
-	QString targetObj = QFileDialog::getOpenFileName(this, "Open OBJ", ".", "Object Files (*.obj)");
+	QString targetObj = QFileDialog::getOpenFileName(this, "Open OBJ", "../Levels", "Object Files (*.obj)");
 	if(targetObj == "")
 		return;
 	
