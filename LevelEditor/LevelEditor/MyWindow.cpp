@@ -15,12 +15,15 @@
 #include "NUShapeEditor.h"
 
 #include "SingleKeyManager.h"
+#include "Ray.h"
 
 
 using glm::vec3;
 using glm::vec4;
 using glm::mat4x4;
 
+
+SingleKeyManager KEY_ADD_NODE         (VK_RBUTTON); // add node
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -59,44 +62,37 @@ void MyWindow::sendDataToHardWare() {
 	gameObjs[numOfGameObjs++] = levelRenderable;
 }
 
-SingleKeyManager KEY_ADD_NODE         (' '); // add node
-SingleKeyManager KEY_SPHERE           ('1'); // sphere
-SingleKeyManager KEY_CUBE             ('2'); // cube
-SingleKeyManager KEY_POINT            ('3'); // point
-SingleKeyManager KEY_VEC              ('4'); // vector orgin to pos
-SingleKeyManager KEY_LINE             ('5'); // line orgin to pos
-SingleKeyManager KEY_INCREASE_LIFETIME(VK_UP);
-SingleKeyManager KEY_DECREASE_LIFETIME(VK_DOWN);
-SingleKeyManager KEY_INF_LIFETIME     ('0');
-#include <limits>
-uint currentLifeTime = 1;
-bool lifetimeInf = true;
-const uint lifetimeIncrementor = 1;
 
-void MyWindow::addNode() {
+
+Ray  MyWindow::getMouseRay() {
+	Ray ret;
 	QPoint p = mapFromGlobal(QCursor::pos());
 	float x = (2.0f*p.x())/width() - 1.0f;
 	float y = 1.0f - (2.0f* p.y())/height();
 	float z = -1.0f;
 
 	mat4x4 undoCam = glm::inverse(myCam.getWorld2View());
-
 	vec4 temp = glm::inverse(viewTransform * undoCam) * vec4(x,y,z,0.0);
+	
+	ret.direction = glm::normalize(vec3(undoCam * vec4(temp.x,temp.y,z,0.0)));
+	ret.origin = myCam.getPos();
+	
+	return ret;
+}
 
-	vec3 rayDirection = glm::normalize(vec3(undoCam * vec4(temp.x,temp.y,z,0.0)));
-	
-	vec3 rayOrigin = myCam.getPos();
-	
+void MyWindow::addNode() {
+	Ray mouseRay = getMouseRay();
 
 	vec3 planeNormal = vec3(0,1,0);
-	float denominator = glm::dot(rayDirection,planeNormal);
+
+	float denominator = glm::dot(mouseRay.direction,planeNormal);
 	if(denominator != 0) // 
 	{
-		vec3 planePointToRayOrigin = vec3(0,1,0) - rayOrigin;
+		vec3 planePointToRayOrigin = vec3(0,1,0) - mouseRay.origin;
 		float neumorator = glm::dot(planePointToRayOrigin, planeNormal);
 		float distance = neumorator/denominator;
 		if(distance >= 0) {
-			vec3 positionToPlace = rayOrigin + rayDirection * distance;
+			vec3 positionToPlace = mouseRay.origin + mouseRay.direction * distance;
 			myDebugShapes.addUnitSphere(glm::translate(positionToPlace),vec4(0,0,1,1));
 		}
 	}
@@ -108,26 +104,6 @@ void MyWindow::myUpdate() {
 	frames++;
 	//*/
 	KEY_ADD_NODE.update(.1f);
-	KEY_SPHERE.update(.1f);
-	KEY_CUBE.update  (.1f);
-	KEY_POINT.update (.1f);
-	KEY_VEC.update   (.1f);
-	KEY_LINE.update  (.1f);
-	KEY_INCREASE_LIFETIME.update(.1f);
-	KEY_DECREASE_LIFETIME.update(.1f);
-	KEY_INF_LIFETIME.update     (.1f);
-
-	float lifetime = (lifetimeInf)? std::numeric_limits<float>::infinity() : currentLifeTime;
-	// HIPPO
-	if(KEY_SPHERE.hasBeenClicked()) { myDebugShapes.addUnitSphere(glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1),lifetime); }
-	if(KEY_CUBE.hasBeenClicked())   { myDebugShapes.addUnitCube  (glm::translate(myCam.getPos()+myCam.getViewDir()),glm::vec4(0,.5f,1,1),lifetime); }
-	if(KEY_POINT.hasBeenClicked())  { myDebugShapes.addPoint(myCam.getPos()+myCam.getViewDir(),lifetime); }
-	if(KEY_VEC.hasBeenClicked())    { myDebugShapes.addUnitVector(glm::vec3(0,0,0),myCam.getPos()+myCam.getViewDir(),glm::vec4(0,.5f,1,1),lifetime); }
-	if(KEY_LINE.hasBeenClicked())   { myDebugShapes.addLine(glm::vec3(0,0,0),myCam.getPos()+myCam.getViewDir(),glm::vec4(0,.5f,1,1),lifetime); }
-	if(KEY_INCREASE_LIFETIME.hasBeenClicked())  { currentLifeTime += lifetimeIncrementor; }
-	if(KEY_DECREASE_LIFETIME.hasBeenClicked())  { currentLifeTime -= lifetimeIncrementor; }
-	if(KEY_INF_LIFETIME.hasBeenClicked())  { lifetimeInf = !lifetimeInf; }
-	currentLifeTime = currentLifeTime < 1 ? 1 : currentLifeTime;
 
 	if(KEY_ADD_NODE.hasBeenClicked()) { addNode(); }
 	

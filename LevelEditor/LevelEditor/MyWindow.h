@@ -8,6 +8,7 @@
 #include "Renderer.h"
 #include "DebugShapeManager.h"
 #include "DebugMenuManager.h"
+#include "Ray.h"
 
 class MyWindow : public QGLWidget {
 public:
@@ -32,6 +33,8 @@ private:
 	glm::mat4 viewTransform;
 
 	void addNode();
+
+	Ray getMouseRay();
 
 	int mainTextureId;
 	void paintGL();
