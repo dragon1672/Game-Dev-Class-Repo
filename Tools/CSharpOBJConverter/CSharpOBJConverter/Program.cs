@@ -177,13 +177,26 @@ namespace CSharpOBJConverter
 
 		static void Main(string[] args)
 		{
-			/* release
+			//* release
 			if (args.Length > 0)
 			{
-				int verbose = (args.Length > 1) ? int.Parse(args[1]) : 0;
 				Program myProg = new Program();
 				string inFile = args[0];
+				int verbose = 0;
 				string outFile = inFile.Substring(0, inFile.Length - 4) + ".bin";
+				if (args.Length > 1)
+				{
+					if (args.Length > 2) {
+						verbose = int.Parse(args[2]);
+					} else {
+						try {
+							verbose = int.Parse(args[1]);
+						} catch(Exception e) {
+							verbose = 0;
+							outFile = args[1];
+						}
+					}
+				}
 				myProg.LoadFile(inFile, verbose);
 				myProg.WriteBinFile(outFile);
 			}
@@ -192,7 +205,7 @@ namespace CSharpOBJConverter
 				Console.WriteLine("Please pass a file to load");
 			}
 			//*/
-			//* testing
+			/* testing
 			Program myProg = new Program();
 			string inFile = "OBJ_FILES/Cube.obj";
 			//string inFile = "OBJ_FILES/GhoulOBJ.obj";

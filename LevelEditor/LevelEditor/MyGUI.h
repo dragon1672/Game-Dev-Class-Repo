@@ -13,9 +13,13 @@
 #include "MyWindow.h"
 #include "DebugMenuManager.h"
 #include "SingleKeyManager.h"
+#include "Qt/qaction.h"
+#include "Qt/qmenu.h"
+#include "Qt/qmenubar.h"
+#include "Qt/qmainwindow.h"
 
 
-class MyGUI : public QWidget {
+class MyGUI : public QMainWindow {
 private:
 	static const int TIDLE_KEY = 192;
 
@@ -25,16 +29,13 @@ private:
 
 	MyWindow meScene;
 	QTimer myTimer;
-	DebugMenuManager * debugMenu;
 
 	QBoxLayout * mainLayout;
+	QMenu * fileMenu;
 
 protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
-	void updateScene();
-	void updateFromScene();
-
 public:
 	MyGUI()
 	: toggleDebugMenu(TIDLE_KEY)
@@ -42,23 +43,30 @@ public:
 		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 		myTimer.start(0);
 
-		debugMenu = new DebugMenuManager();
-
-		debugMenu->init();
-		mainLayout = new QBoxLayout(QBoxLayout::TopToBottom);
-		setLayout(mainLayout);
-		
 		meScene.setMinimumHeight(900);
-
-		mainLayout->addWidget(debugMenu);
+		setCentralWidget(&meScene);
 		
-		mainLayout->addWidget(&meScene);
-		
-		meScene.init(debugMenu);
+		meScene.init();
 
-		updateFromScene();
 		this->resize(1200,800);
+
+		fileMenu = menuBar()->addMenu("File");
+
+		QAction* action;
+		fileMenu->addAction(action = new QAction("Load Object File", this));
+		action->setShortcut(QKeySequence::Open);
+		connect(action, SIGNAL(triggered()), this, SLOT(loadObj()));
+
+		fileMenu->addAction(action = new QAction("Save Native File", this));
+		action->setShortcuts(QKeySequence::Save);
+		connect(action, SIGNAL(triggered()), this, SLOT(saveNative()));
+
+		fileMenu->addAction(action = new QAction("Save Native File as...", this));
+		//action->setShortcuts(QKeySequence::Save);
+		connect(action, SIGNAL(triggered()), this, SLOT(saveNativeAs()));
 	}
 private slots:
-	void myUpdate();
+	void loadObj();
+	void saveNative();
+	void saveNativeAs();
 };

@@ -18,8 +18,6 @@ private:
 
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
-	DebugMenuManager * debugMenu;
-
 
 	QTimer myTimer;
 	Camera myCam;
@@ -33,11 +31,13 @@ private:
 	//shader info
 	glm::mat4 viewTransform;
 
+	void addNode();
+
 	int mainTextureId;
 	void paintGL();
 public:
 	void initializeGL();
-	void init(DebugMenuManager * debugMenu);
+	void init();
 	void loadGeo(const char * binaryFilePath);
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
