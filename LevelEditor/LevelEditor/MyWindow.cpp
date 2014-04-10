@@ -80,15 +80,13 @@ Ray  MyWindow::getMouseRay() {
 	return ret;
 }
 
-void MyWindow::addNode() {
-	Ray mouseRay = getMouseRay();
-
+void MyWindow::addNode(Ray& mouseRay) {
 	vec3 planeNormal = vec3(0,1,0);
 
 	float denominator = glm::dot(mouseRay.direction,planeNormal);
 	if(denominator != 0) // 
 	{
-		vec3 planePointToRayOrigin = vec3(0,1,0) - mouseRay.origin;
+		vec3 planePointToRayOrigin = vec3(0,0,0) - mouseRay.origin;
 		float neumorator = glm::dot(planePointToRayOrigin, planeNormal);
 		float distance = neumorator/denominator;
 		if(distance >= 0) {
@@ -98,6 +96,11 @@ void MyWindow::addNode() {
 	}
 }
 
+void MyWindow::nodeOperationClick() {
+	Ray mouseRay = getMouseRay();
+	addNode(mouseRay);
+}
+
 void MyWindow::myUpdate() {
 	//*
 	static uint frames = 0;
@@ -105,7 +108,7 @@ void MyWindow::myUpdate() {
 	//*/
 	KEY_ADD_NODE.update(.1f);
 
-	if(KEY_ADD_NODE.hasBeenClicked()) { addNode(); }
+	if(KEY_ADD_NODE.hasBeenClicked()) { nodeOperationClick(); }
 	
 	
 	if(frames%100==0) {

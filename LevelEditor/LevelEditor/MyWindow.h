@@ -32,7 +32,8 @@ private:
 	//shader info
 	glm::mat4 viewTransform;
 
-	void addNode();
+	void addNode(Ray& mouseRay);
+	void nodeOperationClick();
 
 	Ray getMouseRay();
 
