@@ -4,6 +4,10 @@
 #include "Node.h"
 #include <map>
 
+typedef unsigned int uint;
+
 class NodeManager {
-	std::vector<Node> nodes;
+	Node nodes[100];
+	uint numOfNodes;
+	Node * currentSelectedNode;
 };
