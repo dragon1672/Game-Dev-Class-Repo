@@ -28,7 +28,6 @@ private:
 	SingleKeyManager toggleDebugMenu;
 
 	MyWindow meScene;
-	QTimer myTimer;
 
 	QBoxLayout * mainLayout;
 	QMenu * fileMenu;
@@ -40,9 +39,6 @@ public:
 	MyGUI()
 	: toggleDebugMenu(TIDLE_KEY)
 	{
-		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
-		myTimer.start(0);
-
 		meScene.setMinimumHeight(900);
 		setCentralWidget(&meScene);
 		

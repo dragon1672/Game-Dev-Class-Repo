@@ -78,15 +78,8 @@ bool circleCollide(Ray& ray,glm::vec3 circleOrgin,float circleRad) {
 Ray  MyWindow::getMouseRay() {
 	Ray ret;
 	QPoint p = mapFromGlobal(QCursor::pos());
-	float x = (2.0f*p.x())/width() - 1.0f;
-	float y = 1.0f - (2.0f* p.y())/height();
-	float z = -1.0f;
-
-	mat4x4 undoCam = glm::inverse(myCam.getWorld2View());
-	vec4 temp = glm::inverse(viewTransform * undoCam) * vec4(x,y,z,0.0);
 	
-	ret.direction = glm::normalize(vec3(undoCam * vec4(temp.x,temp.y,z,0.0)));
-	ret.origin = myCam.getPos();
+	ret.init(glm::vec2(p.x(),p.y()),width(),height(),viewTransform,myCam);
 	
 	return ret;
 }
