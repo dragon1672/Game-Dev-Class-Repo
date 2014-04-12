@@ -4,5 +4,6 @@
 #include <GeometryInfo.h>
 
 struct Node {
-	glm::mat4 transform;
+	glm::vec3 pos;
+	bool isActive;
 };

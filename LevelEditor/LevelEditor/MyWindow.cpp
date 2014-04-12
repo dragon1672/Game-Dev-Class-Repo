@@ -29,7 +29,7 @@ SingleKeyManager KEY_ADD_NODE         (VK_RBUTTON); // add node
 void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
-	myDebugShapes.init(&myRender, &viewTransform[0][0]);
+	myDebugShapes.init(&viewTransform[0][0]);
 
 	myRender.mainShader->buildBasicProgram("../Shaders/VertexShader.glsl","../Shaders/FragShader.glsl");
 
