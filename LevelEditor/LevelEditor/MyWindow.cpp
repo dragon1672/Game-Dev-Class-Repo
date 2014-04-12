@@ -63,18 +63,6 @@ void MyWindow::sendDataToHardWare() {
 	gameObjs[numOfGameObjs++] = levelRenderable;
 }
 
-bool circleCollide(Ray& ray,glm::vec3 circleOrgin,float circleRad) {
-	glm::vec3 raytoCircle = circleOrgin - ray.origin;
-	glm::vec3 rayExtended = glm::proj(raytoCircle,ray.direction);
-
-	float raytoCircleLength = glm::dot(circleOrgin,circleOrgin);
-	float rayExtendedLength = glm::dot(rayExtended,rayExtended);
-	float collisionLength = raytoCircleLength - rayExtendedLength;
-
-	return collisionLength < circleRad * circleRad;
-}
-
-
 Ray  MyWindow::getMouseRay() {
 	Ray ret;
 	QPoint p = mapFromGlobal(QCursor::pos());
