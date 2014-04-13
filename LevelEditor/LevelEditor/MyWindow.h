@@ -9,6 +9,7 @@
 #include "DebugShapeManager.h"
 #include "DebugMenuManager.h"
 #include "Ray.h"
+#include "NodeManager.h"
 
 class MyWindow : public QGLWidget {
 public:
@@ -19,6 +20,7 @@ private:
 
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
+	NodeManager myNodeManager;
 
 	QTimer myTimer;
 	Camera myCam;

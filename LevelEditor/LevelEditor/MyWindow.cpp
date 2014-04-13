@@ -30,6 +30,7 @@ void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
 	myDebugShapes.init(&viewTransform[0][0]);
+	myNodeManager.init(&myDebugShapes);
 
 	myRender.mainShader->buildBasicProgram("../Shaders/VertexShader.glsl","../Shaders/FragShader.glsl");
 
@@ -100,7 +101,7 @@ void MyWindow::myUpdate() {
 	//*/
 	KEY_ADD_NODE.update(.1f);
 
-	if(KEY_ADD_NODE.hasBeenClicked()) { nodeOperationClick(); }
+	if(KEY_ADD_NODE.hasBeenClicked()) { myNodeManager.addOrSelectClick(getMouseRay()); }
 	
 	
 	if(frames%100==0) {
