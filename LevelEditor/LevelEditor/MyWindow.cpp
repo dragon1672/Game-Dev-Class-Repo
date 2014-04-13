@@ -24,7 +24,7 @@ using glm::vec4;
 using glm::mat4x4;
 
 
-SingleKeyManager KEY_ADD_NODE         (VK_RBUTTON); // add node
+SingleKeyManager KEY_ADD_NODE         (VK_LBUTTON); // add node
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -113,7 +113,7 @@ void MyWindow::myUpdate() {
 	repaint();
 }
 void MyWindow::mouseMoveEvent(QMouseEvent* e) {
-	if(GetAsyncKeyState(VK_LBUTTON)!=0) {
+	if(GetAsyncKeyState(VK_RBUTTON)!=0) {
 		glm::vec2 newPos(e->x(),e->y());
 		myCam.updateMousePos(newPos);
 	}
