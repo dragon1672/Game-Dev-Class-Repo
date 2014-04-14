@@ -24,7 +24,8 @@ using glm::vec4;
 using glm::mat4x4;
 
 
-SingleKeyManager KEY_ADD_NODE         (VK_LBUTTON); // add node
+SingleKeyManager KEY_ADD_NODE (VK_LBUTTON); // add node
+SingleKeyManager DISPLAY_ALL  ('A'); // shows all connections
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -100,8 +101,25 @@ void MyWindow::myUpdate() {
 	frames++;
 	//*/
 	KEY_ADD_NODE.update(.1f);
+	DISPLAY_ALL.update(.1f);
+	GetAsyncKeyState(VK_LCONTROL);
+	GetAsyncKeyState(VK_DELETE);
+	GetAsyncKeyState(VK_SHIFT);
 
-	if(KEY_ADD_NODE.hasBeenClicked()) { myNodeManager.addOrSelectClick(getMouseRay()); }
+
+	if(KEY_ADD_NODE.hasBeenClicked()) { 
+		if(GetAsyncKeyState(VK_SHIFT)!=0) {
+			myNodeManager.connectClick(getMouseRay());
+		} else {
+			myNodeManager.addOrSelectClick(getMouseRay());
+		}
+	}
+	if(GetAsyncKeyState(VK_DELETE)!=0) {
+		myNodeManager.deleteNodeSelectedNode();
+	}
+	if(DISPLAY_ALL.hasBeenClicked() && GetAsyncKeyState(VK_LCONTROL)) {
+		myNodeManager.activateAllConnections();
+	}
 	
 	
 	if(frames%100==0) {
