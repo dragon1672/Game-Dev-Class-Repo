@@ -16,6 +16,9 @@ namespace Neumont
 		// Makes a line from (-1, 0, 0) to (1, 0, 0)
 		// Must render with GL_LINES
 		static ShapeData makeLine();
+		static ShapeData make2DTriangle();
+		static ShapeData makeCone(uint tesselation = 10);
+		static ShapeData makeCylinder(uint tesselation = 10);
 		// Render GL_TRIANGLES
 		static ShapeData makePlane(uint dimensions);
 		// Render GL_LINES
@@ -24,6 +27,7 @@ namespace Neumont
 		static ShapeData makeSphere(uint tesselation);
 		static ShapeData makeTorus(uint tesselation);
 		static ShapeData makeArrow();
+
 		static ShapeData makeTeapot(uint tesselation, const glm::mat4& lidTransform);
 		// Generates a ShapeData for GL_LINES that will render 
 		// white normals for the given ShapeData. Only the Vertex 
