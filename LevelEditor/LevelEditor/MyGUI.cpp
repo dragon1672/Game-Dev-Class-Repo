@@ -22,11 +22,31 @@ void MyGUI::loadObj() {
 	int result = system(command.toUtf8().constData());
 	if(result!=0) {
 		qDebug() << "File failed to load";
-		assert(false);
 		return;
+	} else {
+		meScene.loadGeo("level.bin");
 	}
-	meScene.loadGeo("level.bin");
 }
+//*
+void MyGUI::loadBin() {
+	QString targetObj = QFileDialog::getOpenFileName(this, "Open Binary", "../Levels", "Object Files (*.bin)");
+	if(targetObj == "")
+		return;
+	targetObj = targetObj.replace('/','\\');
+	
+	QString command("copy ");
+	QString nativeFileName = "level.bin";
+	command += "\""+ targetObj + "\"" + " " + "\"" + nativeFileName + "\"";
+	qDebug() << command;
+	int result = system(command.toUtf8().constData());
+	if(result!=0) {
+		qDebug() << "File failed to load";
+		return;
+	} else {
+		meScene.loadGeo("level.bin");
+	}
+}
+//*/
 void MyGUI::saveNative() {
 
 }

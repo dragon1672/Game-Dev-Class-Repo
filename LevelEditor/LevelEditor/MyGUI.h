@@ -53,16 +53,19 @@ public:
 		action->setShortcut(QKeySequence::Open);
 		connect(action, SIGNAL(triggered()), this, SLOT(loadObj()));
 
+		fileMenu->addAction(action = new QAction("Load Binary File", this));
+		connect(action, SIGNAL(triggered()), this, SLOT(loadBin()));
+
 		fileMenu->addAction(action = new QAction("Save Native File", this));
 		action->setShortcuts(QKeySequence::Save);
 		connect(action, SIGNAL(triggered()), this, SLOT(saveNative()));
 
 		fileMenu->addAction(action = new QAction("Save Native File as...", this));
-		//action->setShortcuts(QKeySequence::Save);
 		connect(action, SIGNAL(triggered()), this, SLOT(saveNativeAs()));
 	}
 private slots:
 	void loadObj();
+	void loadBin();
 	void saveNative();
 	void saveNativeAs();
 };
