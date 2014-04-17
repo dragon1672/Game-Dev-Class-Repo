@@ -4,6 +4,7 @@
 #include <QtGui\qkeyevent>
 #include <qt/qdebug.h>
 #include <Qt/QFileDialog.h>
+#include "LevelSerializer.h"
 
 void MyGUI::mouseMoveEvent(QMouseEvent* e) {
 	meScene.mouseMoveEvent(e);
@@ -48,10 +49,10 @@ void MyGUI::loadBin() {
 }
 
 void MyGUI::loadLevel() {
-
+	
 }
 void MyGUI::saveNative() {
-
+	LevelSerializer::writeFile("level.bin",meScene.myNodeManager,"..\\output.lvl");
 }
 void MyGUI::saveNativeAs() {
 

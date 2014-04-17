@@ -20,7 +20,9 @@ private:
 
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
+public:
 	NodeManager myNodeManager;
+private:
 
 	QTimer myTimer;
 	Camera myCam;
