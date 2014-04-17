@@ -27,7 +27,7 @@ void MyGUI::loadObj() {
 		meScene.loadGeo("level.bin");
 	}
 }
-//*
+
 void MyGUI::loadBin() {
 	QString targetObj = QFileDialog::getOpenFileName(this, "Open Binary", "../Levels", "Object Files (*.bin)");
 	if(targetObj == "")
@@ -46,7 +46,10 @@ void MyGUI::loadBin() {
 		meScene.loadGeo("level.bin");
 	}
 }
-//*/
+
+void MyGUI::loadLevel() {
+
+}
 void MyGUI::saveNative() {
 
 }

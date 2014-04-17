@@ -75,9 +75,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="OBJ_FILES\CartoonTree.obj" />
-    <Content Include="OBJ_FILES\gun.big">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="OBJ_FILES\myChair.obj" />
     <None Include="OBJ_FILES\plane.obj" />
     <None Include="OBJ_FILES\TeddyBear.obj" />

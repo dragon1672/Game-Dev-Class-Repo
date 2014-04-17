@@ -56,6 +56,9 @@ public:
 		fileMenu->addAction(action = new QAction("Load Binary File", this));
 		connect(action, SIGNAL(triggered()), this, SLOT(loadBin()));
 
+		fileMenu->addAction(action = new QAction("Load Level File", this));
+		connect(action, SIGNAL(triggered()), this, SLOT(loadLevel()));
+
 		fileMenu->addAction(action = new QAction("Save Native File", this));
 		action->setShortcuts(QKeySequence::Save);
 		connect(action, SIGNAL(triggered()), this, SLOT(saveNative()));
@@ -66,6 +69,7 @@ public:
 private slots:
 	void loadObj();
 	void loadBin();
+	void loadLevel();
 	void saveNative();
 	void saveNativeAs();
 };

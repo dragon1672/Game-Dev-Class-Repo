@@ -191,7 +191,7 @@ namespace CSharpOBJConverter
 					} else {
 						try {
 							verbose = int.Parse(args[1]);
-						} catch(Exception e) {
+						} catch {
 							verbose = 0;
 							outFile = args[1];
 						}
