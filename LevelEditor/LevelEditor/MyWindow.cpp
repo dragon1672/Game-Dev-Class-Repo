@@ -106,21 +106,21 @@ void MyWindow::myUpdate() {
 	GetAsyncKeyState(VK_DELETE);
 	GetAsyncKeyState(VK_SHIFT);
 
-
-	if(KEY_ADD_NODE.hasBeenClicked()) { 
-		if(GetAsyncKeyState(VK_SHIFT)!=0) {
-			myNodeManager.connectClick(getMouseRay());
-		} else {
-			myNodeManager.addOrSelectClick(getMouseRay());
+	if(isActiveWindow()) { //  fix this
+		if(KEY_ADD_NODE.hasBeenClicked()) { 
+			if(GetAsyncKeyState(VK_SHIFT)!=0) {
+				myNodeManager.connectClick(getMouseRay());
+			} else {
+				myNodeManager.addOrSelectClick(getMouseRay());
+			}
+		}
+		if(GetAsyncKeyState(VK_DELETE)!=0) {
+			myNodeManager.deleteNodeSelectedNode();
+		}
+		if(DISPLAY_ALL.hasBeenClicked() && GetAsyncKeyState(VK_LCONTROL)) {
+			myNodeManager.activateAllConnections();
 		}
 	}
-	if(GetAsyncKeyState(VK_DELETE)!=0) {
-		myNodeManager.deleteNodeSelectedNode();
-	}
-	if(DISPLAY_ALL.hasBeenClicked() && GetAsyncKeyState(VK_LCONTROL)) {
-		myNodeManager.activateAllConnections();
-	}
-	
 	
 	if(frames%100==0) {
 		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
