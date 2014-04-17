@@ -23,6 +23,8 @@ using glm::vec3;
 using glm::vec4;
 using glm::mat4x4;
 
+//TODO: fix every click adding sphere
+//TODO: clear nodes on load
 
 SingleKeyManager KEY_ADD_NODE (VK_LBUTTON); // add node
 SingleKeyManager DISPLAY_ALL  ('A'); // shows all connections
