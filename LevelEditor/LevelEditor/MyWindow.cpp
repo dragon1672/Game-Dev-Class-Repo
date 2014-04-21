@@ -51,6 +51,11 @@ void MyWindow::loadGeo(const char * binaryFilePath) {
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
+void MyWindow::loadGeo(uint offset, char * binaryData) {
+	myNodeManager.deleteAll();
+	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryData, offset);
+	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+}
 
 void MyWindow::sendDataToHardWare() {
 	mainTextureId = myRender.addTexture("\\..\\Textures\\mainTexture.png");
