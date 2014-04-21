@@ -23,11 +23,9 @@ using glm::vec3;
 using glm::vec4;
 using glm::mat4x4;
 
-//TODO: fix every click adding sphere
 //TODO: clear nodes on load
 
-SingleKeyManager KEY_ADD_NODE (VK_LBUTTON); // add node
-SingleKeyManager DISPLAY_ALL  ('A'); // shows all connections
+SingleKeyManager DISPLAY_ALL  ('A'); // shows all connections, used to store key not update
 
 void MyWindow::initializeGL() {
 	glewInit();
@@ -45,8 +43,7 @@ void MyWindow::initializeGL() {
 	myTimer.start(0);
 }
 
-void MyWindow::init() {
-	//setting defaults
+void MyWindow::init() { //setting defaults
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
 }
 void MyWindow::loadGeo(const char * binaryFilePath) {
@@ -76,70 +73,27 @@ Ray  MyWindow::getMouseRay() {
 	return ret;
 }
 
-void MyWindow::addNode(Ray& mouseRay) {
-	vec3 planeNormal = vec3(0,1,0);
-
-	float denominator = glm::dot(mouseRay.direction,planeNormal);
-	if(denominator != 0) // 
-	{
-		vec3 planePointToRayOrigin = vec3(0,0,0) - mouseRay.origin;
-		float neumorator = glm::dot(planePointToRayOrigin, planeNormal);
-		float distance = neumorator/denominator;
-		if(distance >= 0) {
-			vec3 positionToPlace = mouseRay.origin + mouseRay.direction * distance;
-			myDebugShapes.addUnitSphere(glm::translate(positionToPlace),vec4(0,0,1,1));
+void MyWindow::mousePressEvent ( QMouseEvent * e ) {
+	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
+	if(e->button() == Qt::LeftButton) {
+		if(GetAsyncKeyState(VK_SHIFT)!=0) {
+			myNodeManager.connectClick(getMouseRay());
+		} else {
+			myNodeManager.addOrSelectClick(getMouseRay());
 		}
+	} else if(e->button() == Qt::Key_Delete) {
+		qDebug() << "delete on mouse press event";
 	}
 }
 
-void MyWindow::nodeOperationClick() {
-	Ray mouseRay = getMouseRay();
-	addNode(mouseRay);
-}
-
-void MyWindow::myUpdate() {
-	//*
-	static uint frames = 0;
-	frames++;
-	//*/
-	KEY_ADD_NODE.update(.1f);
-	DISPLAY_ALL.update(.1f);
-	GetAsyncKeyState(VK_LCONTROL);
-	GetAsyncKeyState(VK_DELETE);
-	GetAsyncKeyState(VK_SHIFT);
-
-	if(isActiveWindow()) { //  fix this
-		if(KEY_ADD_NODE.hasBeenClicked()) { 
-			if(GetAsyncKeyState(VK_SHIFT)!=0) {
-				myNodeManager.connectClick(getMouseRay());
-			} else {
-				myNodeManager.addOrSelectClick(getMouseRay());
-			}
-		}
-		if(GetAsyncKeyState(VK_DELETE)!=0) {
-			myNodeManager.deleteNodeSelectedNode();
-		}
-		if(DISPLAY_ALL.hasBeenClicked() && GetAsyncKeyState(VK_LCONTROL)) {
-			myNodeManager.activateAllConnections();
-		}
-	}
-	
-	if(frames%100==0) {
-		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
-		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
-	}
-
-	myDebugShapes.update(.1f);
-
-	repaint();
-}
 void MyWindow::mouseMoveEvent(QMouseEvent* e) {
 	if(GetAsyncKeyState(VK_RBUTTON)!=0) {
 		glm::vec2 newPos(e->x(),e->y());
 		myCam.updateMousePos(newPos);
 	}
 }
-void MyWindow::keyPressEvent(QKeyEvent* e) {
+
+void MyWindow::moveCam(QKeyEvent* e) {
 	if(e->key() == Qt::Key::Key_W) {
 		myCam.moveForward();
 	} else if(e->key() == Qt::Key::Key_S) {
@@ -154,6 +108,33 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 		myCam.moveDown();
 	}
 }
+
+void MyWindow::keyPressEvent(QKeyEvent* e) {
+	moveCam(e);
+	GetAsyncKeyState(VK_LCONTROL); // flush required to make it play nice
+	if(e->key() == Qt::Key_Delete) {
+		myNodeManager.deleteNodeSelectedNode();
+	} else if(e->key() == DISPLAY_ALL.getCheckedElement() && GetAsyncKeyState(VK_LCONTROL)) {
+		myNodeManager.activateAllConnections();
+	}
+}
+
+void MyWindow::myUpdate() {
+	//*
+	static uint frames = 0;
+	frames++;
+	//*/
+	
+	if(frames%100==0) {
+		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
+		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
+	}
+
+	myDebugShapes.update(.1f);
+
+	repaint();
+}
+
 
 void MyWindow::paintGL() {
 	myRender.drawPrep(width(),height());

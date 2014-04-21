@@ -36,9 +36,6 @@ private:
 	//shader info
 	glm::mat4 viewTransform;
 
-	void addNode(Ray& mouseRay);
-	void nodeOperationClick();
-
 	Ray getMouseRay();
 
 	int mainTextureId;
@@ -48,7 +45,9 @@ public:
 	void init();
 	void loadGeo(const char * binaryFilePath);
 	void mouseMoveEvent(QMouseEvent* e);
+	void moveCam(QKeyEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 private slots:
+	void mousePressEvent (QMouseEvent * e );
 	void myUpdate();
 };
