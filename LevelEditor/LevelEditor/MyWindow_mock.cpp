@@ -22,7 +22,7 @@ static const uint qt_meta_data_MyWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -30,13 +30,15 @@ static const uint qt_meta_data_MyWindow[] = {
        0,       // signalCount
 
  // slots: signature, parameters, type, tag, flags
-      10,    9,    9,    9, 0x08,
+      12,   10,    9,    9, 0x08,
+      42,    9,    9,    9, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MyWindow[] = {
-    "MyWindow\0\0myUpdate()\0"
+    "MyWindow\0\0e\0mousePressEvent(QMouseEvent*)\0"
+    "myUpdate()\0"
 };
 
 void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -45,11 +47,11 @@ void MyWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         Q_ASSERT(staticMetaObject.cast(_o));
         MyWindow *_t = static_cast<MyWindow *>(_o);
         switch (_id) {
-        case 0: _t->myUpdate(); break;
+        case 0: _t->mousePressEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 1: _t->myUpdate(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData MyWindow::staticMetaObjectExtraData = {
@@ -84,9 +86,9 @@ int MyWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }
