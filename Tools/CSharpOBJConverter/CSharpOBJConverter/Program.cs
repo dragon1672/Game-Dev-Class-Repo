@@ -80,7 +80,7 @@ namespace CSharpOBJConverter
 					currParse.AddData(line);
 					break;
 				}
-				if(veboseLevel>1) if (!added) Console.WriteLine("Discarding: " + line);
+				if(veboseLevel>1 && !added) Console.WriteLine("Discarding: " + line);
 			}
 			if(veboseLevel>0) Console.WriteLine("File Parsed");
 			PopulateVertexs();
