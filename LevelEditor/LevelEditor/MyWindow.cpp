@@ -47,6 +47,7 @@ void MyWindow::init() { //setting defaults
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
 }
 void MyWindow::loadGeo(const char * binaryFilePath) {
+	myNodeManager.deleteAll();
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
@@ -111,9 +112,14 @@ void MyWindow::moveCam(QKeyEvent* e) {
 
 void MyWindow::keyPressEvent(QKeyEvent* e) {
 	moveCam(e);
+	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
 	GetAsyncKeyState(VK_LCONTROL); // flush required to make it play nice
 	if(e->key() == Qt::Key_Delete) {
-		myNodeManager.deleteNodeSelectedNode();
+		if(GetAsyncKeyState(VK_SHIFT)!=0) {
+			myNodeManager.deleteAll();
+		} else {
+			myNodeManager.deleteNodeSelectedNode();
+		}
 	} else if(e->key() == DISPLAY_ALL.getCheckedElement() && GetAsyncKeyState(VK_LCONTROL)) {
 		myNodeManager.activateAllConnections();
 	}
