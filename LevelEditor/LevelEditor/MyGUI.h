@@ -71,5 +71,4 @@ private slots:
 	void loadBin();
 	void loadLevel();
 	void saveNative();
-	void saveNativeAs();
 };

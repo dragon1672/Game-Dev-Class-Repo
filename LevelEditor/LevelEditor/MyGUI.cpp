@@ -49,12 +49,22 @@ void MyGUI::loadBin() {
 }
 
 void MyGUI::loadLevel() {
-	char * levelBinary = LevelSerializer::readFile("..\\output.lvl",meScene.myNodeManager);
+	QString targetBin = QFileDialog::getOpenFileName(this, "Open Level", "..", "Level File (*.lvl)");
+	if(targetBin == "")
+		return;
+	QByteArray byteArray = targetBin.toUtf8();
+
+	const char* loadFileName = byteArray.constData();
+	char * levelBinary = LevelSerializer::readFile(loadFileName,meScene.myNodeManager);
 	meScene.loadGeoFromBinary(levelBinary);
 }
 void MyGUI::saveNative() {
-	LevelSerializer::writeFile("level.bin",meScene.myNodeManager,"..\\output.lvl");
-}
-void MyGUI::saveNativeAs() {
+	QString targetBin = QFileDialog::getSaveFileName(this, "Save Level", "..", "Level File (*.lvl)");
+	if(targetBin == "")
+		return;
+	QByteArray byteArray = targetBin.toUtf8();
 
+	const char* saveFileName = byteArray.constData();
+
+	LevelSerializer::writeFile("level.bin",meScene.myNodeManager,saveFileName);
 }
