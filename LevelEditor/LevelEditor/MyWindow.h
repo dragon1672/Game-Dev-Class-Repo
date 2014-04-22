@@ -21,7 +21,7 @@ private:
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
 public:
-	NodeManager myNodeManager;
+	NodeManager myNodeManager
 private:
 
 	QTimer myTimer;
@@ -45,6 +45,9 @@ public:
 	void init();
 	void loadGeo(const char * binaryFilePath);
 	void loadGeoFromBinary(char * binaryData);
+
+	void prepForLevel();
+
 	void mouseMoveEvent(QMouseEvent* e);
 	void moveCam(QKeyEvent* e);
 	void keyPressEvent(QKeyEvent* e);

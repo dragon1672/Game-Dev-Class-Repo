@@ -47,13 +47,16 @@ void MyWindow::init() { //setting defaults
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
 }
 void MyWindow::loadGeo(const char * binaryFilePath) {
-	myNodeManager.deleteAll();
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+}
+
+void MyWindow::prepForLevel() {
+	myNodeManager.deleteAll();
 }
 
 void MyWindow::sendDataToHardWare() {

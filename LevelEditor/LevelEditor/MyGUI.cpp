@@ -55,6 +55,7 @@ void MyGUI::loadLevel() {
 	QByteArray byteArray = targetBin.toUtf8();
 
 	const char* loadFileName = byteArray.constData();
+	meScene.prepForLevel();
 	char * levelBinary = LevelSerializer::readFile(loadFileName,meScene.myNodeManager);
 	meScene.loadGeoFromBinary(levelBinary);
 }
