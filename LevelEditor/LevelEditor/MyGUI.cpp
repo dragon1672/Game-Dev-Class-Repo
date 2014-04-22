@@ -49,7 +49,8 @@ void MyGUI::loadBin() {
 }
 
 void MyGUI::loadLevel() {
-	
+	char * levelBinary = LevelSerializer::readFile("..\\output.lvl",meScene.myNodeManager);
+	meScene.loadGeoFromBinary(levelBinary);
 }
 void MyGUI::saveNative() {
 	LevelSerializer::writeFile("level.bin",meScene.myNodeManager,"..\\output.lvl");
