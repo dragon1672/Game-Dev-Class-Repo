@@ -21,7 +21,7 @@ private:
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
 public:
-	NodeManager myNodeManager
+	NodeManager myNodeManager;
 private:
 
 	QTimer myTimer;
