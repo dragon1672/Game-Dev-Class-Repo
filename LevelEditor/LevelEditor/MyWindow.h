@@ -44,7 +44,7 @@ public:
 	void initializeGL();
 	void init();
 	void loadGeo(const char * binaryFilePath);
-	void loadGeo(uint offset, char * binaryData);
+	void loadGeoFromBinary(char * binaryData);
 	void mouseMoveEvent(QMouseEvent* e);
 	void moveCam(QKeyEvent* e);
 	void keyPressEvent(QKeyEvent* e);
