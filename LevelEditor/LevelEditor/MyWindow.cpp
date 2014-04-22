@@ -52,7 +52,6 @@ void MyWindow::loadGeo(const char * binaryFilePath) {
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
-	myNodeManager.deleteAll();
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
