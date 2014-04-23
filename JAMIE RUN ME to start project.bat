@@ -11,4 +11,6 @@ echo "| shift+Del         | remove all nodes                          |"
 echo "+-------------------+-------------------------------------------+"
 
 pause
-start "" "LevelEditor\LevelEditor.sln"
+
+LevelEditor\LevelEditor.sln
+::start "" "LevelEditor\LevelEditor.sln"
