@@ -17,3 +17,5 @@ for /D %%d in (*) do (
 )
 ::not compiling
 :eof
+
+::requires moc48 to be in system path...fix this
