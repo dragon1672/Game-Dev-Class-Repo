@@ -7,11 +7,11 @@
 #include "Camera.h"
 #include "Renderer.h"
 #include "DebugShapeManager.h"
-#include "DebugMenuManager.h"
 #include "Ray.h"
-#include "NodeManager.h"
+#include "AStarPathGenerator.h"
 
 class MyWindow : public QGLWidget {
+	static const char * fileName;
 public:
 	static const int range = 50;
 private:
@@ -20,8 +20,6 @@ private:
 
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
-public:
-	NodeManager myNodeManager;
 private:
 
 	QTimer myTimer;
@@ -30,6 +28,9 @@ private:
 	Renderable * gameObjs[1000];
 	uint numOfGameObjs;
 	Renderable * levelRenderable;
+	GameNode * nodes;
+	uint numOfNodes;
+
 
 	void sendDataToHardWare();
 
@@ -42,16 +43,13 @@ private:
 	void paintGL();
 public:
 	void initializeGL();
-	void init();
-	void loadGeo(const char * binaryFilePath);
+	void loadLevel(const char * filePath);
 	void loadGeoFromBinary(char * binaryData);
 
 	void prepForLevel();
 
 	void mouseMoveEvent(QMouseEvent* e);
-	void moveCam(QKeyEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 private slots:
-	void mousePressEvent (QMouseEvent * e );
 	void myUpdate();
 };

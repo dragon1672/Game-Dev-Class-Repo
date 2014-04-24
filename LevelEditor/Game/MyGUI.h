@@ -25,50 +25,19 @@ private:
 
 	Q_OBJECT;
 
-	SingleKeyManager toggleDebugMenu;
-
 	MyWindow meScene;
 
 	QBoxLayout * mainLayout;
-	QMenu * fileMenu;
 
 protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 public:
 	MyGUI()
-	: toggleDebugMenu(TIDLE_KEY)
 	{
 		meScene.setMinimumHeight(900);
 		setCentralWidget(&meScene);
 		
-		meScene.init();
-
 		this->resize(1200,800);
-
-		fileMenu = menuBar()->addMenu("File");
-
-		QAction* action;
-		fileMenu->addAction(action = new QAction("Load Object File", this));
-		action->setShortcut(QKeySequence::Open);
-		connect(action, SIGNAL(triggered()), this, SLOT(loadObj()));
-
-		fileMenu->addAction(action = new QAction("Load Binary File", this));
-		connect(action, SIGNAL(triggered()), this, SLOT(loadBin()));
-
-		fileMenu->addAction(action = new QAction("Load Level File", this));
-		connect(action, SIGNAL(triggered()), this, SLOT(loadLevel()));
-
-		fileMenu->addAction(action = new QAction("Save Native File", this));
-		action->setShortcuts(QKeySequence::Save);
-		connect(action, SIGNAL(triggered()), this, SLOT(saveNative()));
-
-		fileMenu->addAction(action = new QAction("Save Native File as...", this));
-		connect(action, SIGNAL(triggered()), this, SLOT(saveNativeAs()));
 	}
-private slots:
-	void loadObj();
-	void loadBin();
-	void loadLevel();
-	void saveNative();
 };

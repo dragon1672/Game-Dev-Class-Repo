@@ -17,46 +17,41 @@
 
 #include "SingleKeyManager.h"
 #include "Ray.h"
+#include "LevelSerializer.h"
 
 
 using glm::vec3;
 using glm::vec4;
 using glm::mat4x4;
 
-//TODO: clear nodes on load
-
-SingleKeyManager DISPLAY_ALL  ('A'); // shows all connections, used to store key not update
+const char * MyWindow::fileName = "myLevel.lvl";
 
 void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
 	myDebugShapes.init(&viewTransform[0][0]);
-	myNodeManager.init(&myDebugShapes);
 
 	myRender.mainShader->buildBasicProgram("../Shaders/VertexShader.glsl","../Shaders/FragShader.glsl");
 
 	sendDataToHardWare();
 
+	loadLevel(MyWindow::fileName);
+
 	setMouseTracking(true);
 	
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
-}
-
-void MyWindow::init() { //setting defaults
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
 }
-void MyWindow::loadGeo(const char * binaryFilePath) {
-	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
-	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+
+void MyWindow::loadLevel(const char * filePath) {
+	myByte* levelBinary;
+	LevelSerializer::readFile(filePath,levelBinary,nodes,numOfNodes);
+	loadGeoFromBinary(levelBinary);
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
-}
-
-void MyWindow::prepForLevel() {
-	myNodeManager.deleteAll();
 }
 
 void MyWindow::sendDataToHardWare() {
@@ -81,19 +76,6 @@ Ray  MyWindow::getMouseRay() {
 	return ret;
 }
 
-void MyWindow::mousePressEvent ( QMouseEvent * e ) {
-	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
-	if(e->button() == Qt::LeftButton) {
-		if(GetAsyncKeyState(VK_SHIFT)!=0) {
-			myNodeManager.connectClick(getMouseRay());
-		} else {
-			myNodeManager.addOrSelectClick(getMouseRay());
-		}
-	} else if(e->button() == Qt::Key_Delete) {
-		qDebug() << "delete on mouse press event";
-	}
-}
-
 void MyWindow::mouseMoveEvent(QMouseEvent* e) {
 	if(GetAsyncKeyState(VK_RBUTTON)!=0) {
 		glm::vec2 newPos(e->x(),e->y());
@@ -101,7 +83,7 @@ void MyWindow::mouseMoveEvent(QMouseEvent* e) {
 	}
 }
 
-void MyWindow::moveCam(QKeyEvent* e) {
+void MyWindow::keyPressEvent(QKeyEvent* e) {
 	if(e->key() == Qt::Key::Key_W) {
 		myCam.moveForward();
 	} else if(e->key() == Qt::Key::Key_S) {
@@ -117,32 +99,7 @@ void MyWindow::moveCam(QKeyEvent* e) {
 	}
 }
 
-void MyWindow::keyPressEvent(QKeyEvent* e) {
-	moveCam(e);
-	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
-	GetAsyncKeyState(VK_LCONTROL); // flush required to make it play nice
-	if(e->key() == Qt::Key_Delete) {
-		if(GetAsyncKeyState(VK_SHIFT)!=0) {
-			myNodeManager.deleteAll();
-		} else {
-			myNodeManager.deleteNodeSelectedNode();
-		}
-	} else if(e->key() == DISPLAY_ALL.getCheckedElement() && GetAsyncKeyState(VK_LCONTROL)) {
-		myNodeManager.activateAllConnections();
-	}
-}
-
 void MyWindow::myUpdate() {
-	//*
-	static uint frames = 0;
-	frames++;
-	//*/
-	
-	if(frames%100==0) {
-		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
-		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
-	}
-
 	myDebugShapes.update(.1f);
 
 	repaint();
