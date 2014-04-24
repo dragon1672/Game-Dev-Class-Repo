@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "..\Engine\Engine\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpOBJConverter", "..\Tools\CSharpOBJConverter\CSharpOBJConverter\CSharpOBJConverter.csproj", "{9B38E317-E60A-4177-B01B-C0C47E6C6472}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,16 @@ Global
 		{9B38E317-E60A-4177-B01B-C0C47E6C6472}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9B38E317-E60A-4177-B01B-C0C47E6C6472}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9B38E317-E60A-4177-B01B-C0C47E6C6472}.Release|Win32.ActiveCfg = Release|Any CPU
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Debug|Win32.Build.0 = Debug|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Win32.ActiveCfg = Release|Win32
+		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

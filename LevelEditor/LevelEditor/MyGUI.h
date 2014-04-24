@@ -57,14 +57,12 @@ public:
 		connect(action, SIGNAL(triggered()), this, SLOT(loadBin()));
 
 		fileMenu->addAction(action = new QAction("Load Level File", this));
+		action->setShortcuts(QKeySequence::Open);
 		connect(action, SIGNAL(triggered()), this, SLOT(loadLevel()));
 
-		fileMenu->addAction(action = new QAction("Save Native File", this));
+		fileMenu->addAction(action = new QAction("Save Level File", this));
 		action->setShortcuts(QKeySequence::Save);
 		connect(action, SIGNAL(triggered()), this, SLOT(saveNative()));
-
-		fileMenu->addAction(action = new QAction("Save Native File as...", this));
-		connect(action, SIGNAL(triggered()), this, SLOT(saveNativeAs()));
 	}
 private slots:
 	void loadObj();
