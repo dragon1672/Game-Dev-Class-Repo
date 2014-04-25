@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyGUI.cpp" />
     <ClCompile Include="MyGUI_mock.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="MyWindow_mock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
     <ClInclude Include="MyGUI.h" />
     <ClInclude Include="MyWindow.h" />
   </ItemGroup>

@@ -18,6 +18,7 @@
 #include "SingleKeyManager.h"
 #include "Ray.h"
 #include "LevelSerializer.h"
+#include "NUShapeEditor.h"
 
 
 using glm::vec3;
@@ -41,12 +42,22 @@ void MyWindow::initializeGL() {
 	
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
+
+	GeometryInfo * tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
+	Renderable * tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	gameObjs[numOfGameObjs++] = tempRenderable;
+	tempRenderable->saveTexture("myTexture");
+	tempRenderable->saveWhereMat("model2WorldTransform");
+	myCharacter.init(&tempRenderable->whereMat);
+}
+void MyWindow::init() {
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
 }
 
 void MyWindow::loadLevel(const char * filePath) {
 	myByte* levelBinary;
 	LevelSerializer::readFile(filePath,levelBinary,nodes,numOfNodes);
+	pather.init(nodes,numOfNodes);
 	loadGeoFromBinary(levelBinary);
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
@@ -101,7 +112,12 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 
 void MyWindow::myUpdate() {
 	myDebugShapes.update(.1f);
-
+	myCharacter.update(1);
+	if(myCharacter.isComplete()) {
+		GameNode * start = &nodes[Random::randomInt(0,numOfNodes)];
+		GameNode * end   = &nodes[Random::randomInt(0,numOfNodes)];
+		//myCharacter.setPath(pather.getPath(start,end));
+	}
 	repaint();
 }
 

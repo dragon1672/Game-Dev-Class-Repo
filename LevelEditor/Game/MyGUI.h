@@ -38,6 +38,8 @@ public:
 		meScene.setMinimumHeight(900);
 		setCentralWidget(&meScene);
 		
+		meScene.init();
+
 		this->resize(1200,800);
 	}
 };

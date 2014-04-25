@@ -9,6 +9,7 @@
 #include "DebugShapeManager.h"
 #include "Ray.h"
 #include "AStarPathGenerator.h"
+#include "Character.h"
 
 class MyWindow : public QGLWidget {
 	static const char * fileName;
@@ -31,6 +32,9 @@ private:
 	GameNode * nodes;
 	uint numOfNodes;
 
+	Character myCharacter;
+
+	AStar::PathGenerator pather;
 
 	void sendDataToHardWare();
 
@@ -43,6 +47,7 @@ private:
 	void paintGL();
 public:
 	void initializeGL();
+	void init();
 	void loadLevel(const char * filePath);
 	void loadGeoFromBinary(char * binaryData);
 

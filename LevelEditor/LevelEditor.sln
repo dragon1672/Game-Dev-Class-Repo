@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpOBJConverter", "..\Tools\CSharpOBJConverter\CSharpOBJConverter\CSharpOBJConverter.csproj", "{9B38E317-E60A-4177-B01B-C0C47E6C6472}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{92D6CC4F-2388-446B-9BF8-2C02EEF64821} = {92D6CC4F-2388-446B-9BF8-2C02EEF64821}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
