@@ -1,8 +1,8 @@
 #include "Character.h"
 
 void Character::nextNode() {
-	currentPercent = 0;
 	if(!path.isComplete()) {
+		currentPercent = 0;
 		lastPos = path.currentDestination;
 		glm::vec3 newPos = path.popCurrentConnection();
 
@@ -11,6 +11,8 @@ void Character::nextNode() {
 		direction = glm::normalize(direction);
 
 		progressionPercent = .25/length;
+	} else {
+		currentPercent = 1;
 	}
 }
 void Character::init(glm::mat4 * transformMat) {
