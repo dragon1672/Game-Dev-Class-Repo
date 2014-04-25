@@ -6,6 +6,7 @@
 #include <glm/gtx/rotate_vector.hpp>
 
 class Character {
+public:
 	AStar::Path path;
 	glm::mat4 * transformMat;
 	glm::vec3 lastPos;

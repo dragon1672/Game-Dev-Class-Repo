@@ -115,8 +115,17 @@ void MyWindow::myUpdate() {
 	myCharacter.update(1);
 	if(myCharacter.isComplete()) {
 		GameNode * start = &nodes[Random::randomInt(0,numOfNodes)];
+		for (int i = 0; i < numOfNodes; i++)
+		{
+			if(nodes[i].pos == myCharacter.path.currentDestination) {
+				start = &nodes[i];
+				break;
+			}
+		}
 		GameNode * end   = &nodes[Random::randomInt(0,numOfNodes)];
-		myCharacter.setPath(pather.getPath(start,end));
+		AStar::Path temp = pather.getPath(start,end);
+		temp.currentDestination = myCharacter.path.currentDestination;
+		myCharacter.setPath(temp);
 	}
 	repaint();
 }
