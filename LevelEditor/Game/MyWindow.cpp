@@ -116,7 +116,7 @@ void MyWindow::myUpdate() {
 	if(myCharacter.isComplete()) {
 		GameNode * start = &nodes[Random::randomInt(0,numOfNodes)];
 		GameNode * end   = &nodes[Random::randomInt(0,numOfNodes)];
-		//myCharacter.setPath(pather.getPath(start,end));
+		myCharacter.setPath(pather.getPath(start,end));
 	}
 	repaint();
 }

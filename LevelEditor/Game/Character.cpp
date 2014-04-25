@@ -20,10 +20,6 @@ void Character::init(glm::mat4 * transformMat) {
 	currentPercent = -1;
 	path.positions.push_back(glm::vec3(10, 0,20));
 	path.positions.push_back(glm::vec3(15, 0,30));
-	path.positions.push_back(glm::vec3(20,10,10));
-	path.positions.push_back(glm::vec3(25, 0,15));
-	path.positions.push_back(glm::vec3(30, 0,20));
-	path.positions.push_back(glm::vec3(35, 0,10));
 }
 bool Character::isComplete() {
 	return path.isComplete();
