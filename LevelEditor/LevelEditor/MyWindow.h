@@ -56,9 +56,8 @@ private:
 
 	int mainTextureId;
 	void paintGL();
-	void updatePath(glm::vec3 newPos) {
-
-	}
+	void updatePath(glm::vec3 newPos);
+	void updatePath(GameNode* newPos);
 public:
 	void initializeGL();
 	void init();
@@ -68,6 +67,8 @@ public:
 	void loadGeoFromBinary(char * binaryData);
 
 	void prepForLevel();
+
+	bool inEditorState();
 
 	void mouseMoveEvent(QMouseEvent* e);
 	void moveCam(QKeyEvent* e);

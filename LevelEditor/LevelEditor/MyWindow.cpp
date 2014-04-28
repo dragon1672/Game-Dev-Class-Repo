@@ -67,33 +67,27 @@ void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 	datMenu->toggleBool("Put Camera on Character",camOnCharacter);
 	datMenu->toggleBool("Show All Connections",showAllConnections);
 	datMenu->toggleBool("Show Path",showPath);
-	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,3);
+	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,5);
 }
 
 void MyWindow::loadGeo(const char * binaryFilePath) {
-	if(editorMode) {
-		Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
-		levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
-	} else {
-		qDebug() << "Geo Can only be loaded when in editor mode";
-	}
+	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
+	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
-	if(editorMode) {
-		Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
-		levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
-	} else {
-		qDebug() << "Geo Can only be loaded when in editor mode";
-	}
+	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
+	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
 }
 
 void MyWindow::prepForLevel() {
-	if(editorMode) {
-		myNodeManager.deleteAll();
-	} else {
-		qDebug() << "Geo Can only pre level when in editor mode";
-	}
+	myNodeManager.deleteAll();
 }
+
+void MyWindow::updatePath(glm::vec3 newPos) {
+
+}
+
+bool MyWindow::inEditorState() { return editorMode; }
 
 void MyWindow::sendDataToHardWare() {
 	mainTextureId = myRender.addTexture("\\..\\Textures\\mainTexture.png");

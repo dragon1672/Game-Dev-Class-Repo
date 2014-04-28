@@ -13,51 +13,63 @@ void MyGUI::keyPressEvent(QKeyEvent* e) {
 	meScene.keyPressEvent(e);
 }
 void MyGUI::loadObj() {
-	QString targetObj = QFileDialog::getOpenFileName(this, "Open OBJ", "../Levels", "Object Files (*.obj)");
-	if(targetObj == "")
-		return;
+	if(meScene.inEditorState()) {
+		QString targetObj = QFileDialog::getOpenFileName(this, "Open OBJ", "../Levels", "Object Files (*.obj)");
+		if(targetObj == "")
+			return;
 	
-	QString command("CSharpOBJConverter.exe ");
-	const char* nativeFileName = "level.bin";
-	command += "\""+targetObj + "\"" + " " + "\"" + nativeFileName+ "\"";
-	int result = system(command.toUtf8().constData());
-	if(result!=0) {
-		qDebug() << "File failed to load";
-		return;
+		QString command("CSharpOBJConverter.exe ");
+		const char* nativeFileName = "level.bin";
+		command += "\""+targetObj + "\"" + " " + "\"" + nativeFileName+ "\"";
+		int result = system(command.toUtf8().constData());
+		if(result!=0) {
+			qDebug() << "File failed to load";
+			return;
+		} else {
+			meScene.loadGeo("level.bin");
+		}
 	} else {
-		meScene.loadGeo("level.bin");
+		qDebug() << "OBJ files can only be loaded when in editor mode";
 	}
 }
 
 void MyGUI::loadBin() {
-	QString targetObj = QFileDialog::getOpenFileName(this, "Open Binary", "../Levels", "Object Files (*.bin)");
-	if(targetObj == "")
-		return;
-	targetObj = targetObj.replace('/','\\');
+	if(meScene.inEditorState()) {
+		QString targetObj = QFileDialog::getOpenFileName(this, "Open Binary", "../Levels", "Object Files (*.bin)");
+		if(targetObj == "")
+			return;
+		targetObj = targetObj.replace('/','\\');
 	
-	QString command("copy ");
-	QString nativeFileName = "level.bin";
-	command += "\""+ targetObj + "\"" + " " + "\"" + nativeFileName + "\"";
-	qDebug() << command;
-	int result = system(command.toUtf8().constData());
-	if(result!=0) {
-		qDebug() << "File failed to load";
-		return;
+		QString command("copy ");
+		QString nativeFileName = "level.bin";
+		command += "\""+ targetObj + "\"" + " " + "\"" + nativeFileName + "\"";
+		qDebug() << command;
+		int result = system(command.toUtf8().constData());
+		if(result!=0) {
+			qDebug() << "File failed to load";
+			return;
+		} else {
+			meScene.loadGeo("level.bin");
+		}
 	} else {
-		meScene.loadGeo("level.bin");
+		qDebug() << "binary files can only be loaded when in editor mode";
 	}
 }
 
 void MyGUI::loadLevel() {
-	QString targetBin = QFileDialog::getOpenFileName(this, "Open Level", "..", "Level File (*.lvl)");
-	if(targetBin == "")
-		return;
-	QByteArray byteArray = targetBin.toUtf8();
+	if(meScene.inEditorState()) {
+		QString targetBin = QFileDialog::getOpenFileName(this, "Open Level", "..", "Level File (*.lvl)");
+		if(targetBin == "")
+			return;
+		QByteArray byteArray = targetBin.toUtf8();
 
-	const char* loadFileName = byteArray.constData();
-	meScene.prepForLevel();
-	char * levelBinary = LevelSerializer::readFile(loadFileName,meScene.myNodeManager);
-	meScene.loadGeoFromBinary(levelBinary);
+		const char* loadFileName = byteArray.constData();
+		meScene.prepForLevel();
+		char * levelBinary = LevelSerializer::readFile(loadFileName,meScene.myNodeManager);
+		meScene.loadGeoFromBinary(levelBinary);
+	} else {
+		qDebug() << "Level files can only be loaded when in editor mode";
+	}
 }
 void MyGUI::saveNative() {
 	QString targetBin = QFileDialog::getSaveFileName(this, "Save Level", "..", "Level File (*.lvl)");
