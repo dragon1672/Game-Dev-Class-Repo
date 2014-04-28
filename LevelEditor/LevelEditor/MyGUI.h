@@ -28,6 +28,7 @@ private:
 	SingleKeyManager toggleDebugMenu;
 
 	MyWindow meScene;
+	DebugMenuManager * myDebugMenu;
 
 	QBoxLayout * mainLayout;
 	QMenu * fileMenu;
@@ -39,15 +40,31 @@ public:
 	MyGUI()
 	: toggleDebugMenu(TIDLE_KEY)
 	{
+		//setup layout
+		QVBoxLayout *layout = new QVBoxLayout;
+		//setup mainwidget
+		QWidget * window = new QWidget();
+        window->setLayout(layout);
+
+		//set up locals
+		myDebugMenu = new DebugMenuManager();
+		myDebugMenu->init();
+
 		meScene.setMinimumHeight(900);
-		setCentralWidget(&meScene);
-		
 		meScene.init();
+		meScene.addDebugMenu(myDebugMenu);
+
+		//add local widgets
+		layout->addWidget(myDebugMenu);
+		layout->addWidget(&meScene);
+		fileMenu = menuBar()->addMenu("File");
+
+        // Set QWidget as the central layout of the main window
+        setCentralWidget(window);
 
 		this->resize(1200,800);
 
-		fileMenu = menuBar()->addMenu("File");
-
+		//setting up file actions
 		QAction* action;
 		fileMenu->addAction(action = new QAction("Load Object File", this));
 		action->setShortcut(QKeySequence::Open);

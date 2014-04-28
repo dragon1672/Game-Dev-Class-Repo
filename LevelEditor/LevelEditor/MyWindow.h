@@ -43,6 +43,8 @@ private:
 public:
 	void initializeGL();
 	void init();
+	void addDebugMenu(DebugMenuManager * datMenu);
+
 	void loadGeo(const char * binaryFilePath);
 	void loadGeoFromBinary(char * binaryData);
 

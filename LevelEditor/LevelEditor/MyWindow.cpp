@@ -46,6 +46,11 @@ void MyWindow::initializeGL() {
 void MyWindow::init() { //setting defaults
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
 }
+
+void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
+	//datMenu->
+}
+
 void MyWindow::loadGeo(const char * binaryFilePath) {
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
 	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
