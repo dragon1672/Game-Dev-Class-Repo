@@ -24,4 +24,5 @@ public:
 	void setPath(AStar::Path& toSet);
 
 	void update(float dt);
+	glm::mat4x4 getWorld2View();
 };
