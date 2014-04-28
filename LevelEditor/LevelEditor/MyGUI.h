@@ -50,7 +50,8 @@ public:
 		myDebugMenu = new DebugMenuManager();
 		myDebugMenu->init();
 
-		meScene.setMinimumHeight(900);
+		meScene.setMinimumHeight(700);
+		meScene.setMinimumWidth(1200);
 		meScene.init();
 		meScene.addDebugMenu(myDebugMenu);
 
@@ -61,8 +62,6 @@ public:
 
         // Set QWidget as the central layout of the main window
         setCentralWidget(window);
-
-		this->resize(1200,800);
 
 		//setting up file actions
 		QAction* action;
