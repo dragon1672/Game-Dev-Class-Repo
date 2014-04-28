@@ -41,27 +41,58 @@ void MyWindow::initializeGL() {
 	
 	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	myTimer.start(0);
+	gameTimer.start();
+
+	GeometryInfo * tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
+	Renderable * tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	gameObjs[numOfGameObjs++] = tempRenderable;
+	tempRenderable->saveTexture("myTexture");
+	tempRenderable->saveWhereMat("model2WorldTransform");
+	myCharacter.init(&tempRenderable->whereMat);
 }
 
 void MyWindow::init() { //setting defaults
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
+	gameTimer.start();
+	editorMode = true;
+	editorMode_lastState = false;
+	camOnCharacter = false;
+	showAllConnections = false;
+	showPath = true;
+	myCharacter.speed = 1;
 }
 
 void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
-	//datMenu->
+	datMenu->toggleBool("Editor Mode",editorMode);
+	datMenu->toggleBool("Put Camera on Character",camOnCharacter);
+	datMenu->toggleBool("Show All Connections",showAllConnections);
+	datMenu->toggleBool("Show Path",showPath);
+	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,3);
 }
 
 void MyWindow::loadGeo(const char * binaryFilePath) {
-	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
-	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+	if(editorMode) {
+		Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromFile(binaryFilePath);
+		levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+	} else {
+		qDebug() << "Geo Can only be loaded when in editor mode";
+	}
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
-	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
-	levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+	if(editorMode) {
+		Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
+		levelRenderable->whatGeo = myRender.addGeometry(fromFile,GL_TRIANGLES);
+	} else {
+		qDebug() << "Geo Can only be loaded when in editor mode";
+	}
 }
 
 void MyWindow::prepForLevel() {
-	myNodeManager.deleteAll();
+	if(editorMode) {
+		myNodeManager.deleteAll();
+	} else {
+		qDebug() << "Geo Can only pre level when in editor mode";
+	}
 }
 
 void MyWindow::sendDataToHardWare() {
@@ -89,13 +120,15 @@ Ray  MyWindow::getMouseRay() {
 void MyWindow::mousePressEvent ( QMouseEvent * e ) {
 	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
 	if(e->button() == Qt::LeftButton) {
-		if(GetAsyncKeyState(VK_SHIFT)!=0) {
-			myNodeManager.connectClick(getMouseRay());
+		if(editorMode) {
+			if(GetAsyncKeyState(VK_SHIFT)!=0) {
+				myNodeManager.connectClick(getMouseRay());
+			} else {
+				myNodeManager.addOrSelectClick(getMouseRay());
+			}
 		} else {
-			myNodeManager.addOrSelectClick(getMouseRay());
+			//update path
 		}
-	} else if(e->button() == Qt::Key_Delete) {
-		qDebug() << "delete on mouse press event";
 	}
 }
 
@@ -107,18 +140,20 @@ void MyWindow::mouseMoveEvent(QMouseEvent* e) {
 }
 
 void MyWindow::moveCam(QKeyEvent* e) {
-	if(e->key() == Qt::Key::Key_W) {
-		myCam.moveForward();
-	} else if(e->key() == Qt::Key::Key_S) {
-		myCam.moveBackward();
-	} else if(e->key() == Qt::Key::Key_A) {
-		myCam.moveLeft();
-	} else if(e->key() == Qt::Key::Key_D) {
-		myCam.moveRight();
-	} else if(e->key() == Qt::Key::Key_R) {
-		myCam.moveUp();
-	} else if(e->key() == Qt::Key::Key_F) {
-		myCam.moveDown();
+	if(!camOnCharacter) {
+		if(e->key() == Qt::Key::Key_W) {
+			myCam.moveForward();
+		} else if(e->key() == Qt::Key::Key_S) {
+			myCam.moveBackward();
+		} else if(e->key() == Qt::Key::Key_A) {
+			myCam.moveLeft();
+		} else if(e->key() == Qt::Key::Key_D) {
+			myCam.moveRight();
+		} else if(e->key() == Qt::Key::Key_R) {
+			myCam.moveUp();
+		} else if(e->key() == Qt::Key::Key_F) {
+			myCam.moveDown();
+		}
 	}
 }
 
@@ -126,30 +161,49 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 	moveCam(e);
 	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
 	GetAsyncKeyState(VK_LCONTROL); // flush required to make it play nice
-	if(e->key() == Qt::Key_Delete) {
-		if(GetAsyncKeyState(VK_SHIFT)!=0) {
-			myNodeManager.deleteAll();
-		} else {
-			myNodeManager.deleteNodeSelectedNode();
+	if(editorMode) {
+		if(e->key() == Qt::Key_Delete) {
+			if(GetAsyncKeyState(VK_SHIFT)!=0) {
+				myNodeManager.deleteAll();
+			} else {
+				myNodeManager.deleteNodeSelectedNode();
+			}
+		} else if(e->key() == DISPLAY_ALL.getCheckedElement() && GetAsyncKeyState(VK_LCONTROL)) {
+			myNodeManager.activateAllConnections();
 		}
-	} else if(e->key() == DISPLAY_ALL.getCheckedElement() && GetAsyncKeyState(VK_LCONTROL)) {
-		myNodeManager.activateAllConnections();
+	} else {
+		//don't think there should be anything
 	}
 }
 
 void MyWindow::myUpdate() {
-	//*
-	static uint frames = 0;
-	frames++;
-	//*/
-	
-	if(frames%100==0) {
-		//qDebug() << "Cam Pos { " << myCam.getPos().x   <<   ", " << myCam.getPos().y   <<   ", " << myCam.getPos().z   <<   " }";
-		//qDebug() << "Cam View{ " << myCam.getViewDir().x << ", " << myCam.getViewDir().y << ", " << myCam.getViewDir().z << " }";
+	float dt = gameTimer.interval();
+	myDebugShapes.update(dt);
+
+	if(editorMode_lastState != editorMode) {
+		gNodes = myNodeManager.exportToGameNode(numOfGNodes);
+		pather.init(gNodes,numOfGNodes);
+		editorMode_lastState = editorMode;
 	}
 
-	myDebugShapes.update(.1f);
 
+	if(!editorMode) {
+		myCharacter.update(1);
+		if(myCharacter.isComplete()) {
+			GameNode * start = &gNodes[Random::randomInt(0,numOfGNodes)];
+			for (int i = 0; i < numOfGNodes; i++)
+			{
+				if(gNodes[i].pos == myCharacter.path.currentDestination) {
+					start = &gNodes[i];
+					break;
+				}
+			}
+			GameNode * end   = &gNodes[Random::randomInt(0,numOfGNodes)];
+			AStar::Path temp = pather.getPath(start,end);
+			temp.currentDestination = myCharacter.path.currentDestination;
+			myCharacter.setPath(temp);
+		}
+	}
 	repaint();
 }
 
@@ -160,7 +214,11 @@ void MyWindow::paintGL() {
 	const float aspectRatio = (float)width()/(float)height();
 	viewTransform = glm::mat4();
 	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
-	viewTransform *= myCam.getWorld2View();
+	if(camOnCharacter) {
+		viewTransform *= myCharacter.getWorld2View();
+	} else {
+		viewTransform *= myCam.getWorld2View();
+	}
 
 
 	myRender.resetAllShaders_validPush();

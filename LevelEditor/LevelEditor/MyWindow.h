@@ -10,6 +10,9 @@
 #include "DebugMenuManager.h"
 #include "Ray.h"
 #include "NodeManager.h"
+#include "AStarPathGenerator.h"
+#include "Character.h"
+#include "Timer.h"
 
 class MyWindow : public QGLWidget {
 public:
@@ -23,6 +26,7 @@ private:
 public:
 	NodeManager myNodeManager;
 private:
+	Timer gameTimer;
 
 	QTimer myTimer;
 	Camera myCam;
@@ -30,6 +34,18 @@ private:
 	Renderable * gameObjs[1000];
 	uint numOfGameObjs;
 	Renderable * levelRenderable;
+
+	Character myCharacter;
+	AStar::PathGenerator pather;
+
+	GameNode * gNodes;
+	int numOfGNodes;
+
+	bool editorMode;
+	bool editorMode_lastState;
+	bool camOnCharacter;
+	bool showAllConnections;
+	bool showPath;
 
 	void sendDataToHardWare();
 
@@ -40,6 +56,9 @@ private:
 
 	int mainTextureId;
 	void paintGL();
+	void updatePath(glm::vec3 newPos) {
+
+	}
 public:
 	void initializeGL();
 	void init();
