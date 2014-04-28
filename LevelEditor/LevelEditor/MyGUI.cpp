@@ -69,3 +69,13 @@ void MyGUI::saveNative() {
 
 	LevelSerializer::writeFile("level.bin",meScene.myNodeManager,saveFileName);
 }
+void MyGUI::myUpdate() {
+	toggleDebugMenu.update(.1f);
+	if(toggleDebugMenu.hasBeenClicked()) {
+		if(myDebugMenu->isHidden()) myDebugMenu->show();
+		else myDebugMenu->hide();
+	}
+	if(!myDebugMenu->isHidden()) {
+		myDebugMenu->update();
+	}
+}

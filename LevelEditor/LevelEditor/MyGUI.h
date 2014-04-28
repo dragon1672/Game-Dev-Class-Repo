@@ -29,8 +29,8 @@ private:
 
 	MyWindow meScene;
 	DebugMenuManager * myDebugMenu;
+	QTimer myTimer;
 
-	QBoxLayout * mainLayout;
 	QMenu * fileMenu;
 
 protected:
@@ -40,6 +40,10 @@ public:
 	MyGUI()
 	: toggleDebugMenu(TIDLE_KEY)
 	{
+		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
+		myTimer.start(0);
+
+
 		//setup layout
 		QVBoxLayout *layout = new QVBoxLayout;
 		//setup mainwidget
@@ -85,4 +89,6 @@ private slots:
 	void loadBin();
 	void loadLevel();
 	void saveNative();
+
+	void myUpdate();
 };

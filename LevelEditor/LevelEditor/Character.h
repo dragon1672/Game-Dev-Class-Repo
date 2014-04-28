@@ -14,13 +14,14 @@ public:
 
 	float currentPercent;
 	float progressionPercent;
+	float speed;
 
 	void nextNode();
 public:
 	void init(glm::mat4 * transformMat);
 
 	bool isComplete();
-
+	glm::vec3 getPos();
 	void setPath(AStar::Path& toSet);
 
 	void update(float dt);
