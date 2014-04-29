@@ -42,7 +42,7 @@ void Character::update(float dt) {
 	(*transformMat) = glm::translate(pos) * glm::orientation(direction,glm::vec3(-1,0,0));
 }
 glm::mat4x4 Character::getWorld2View() {
-	glm::vec3 pos = getPos();
+	glm::vec3 pos = glm::lerp(lastPos,path.currentDestination,currentPercent);
 	pos+=glm::vec3(0,7,0) + 4.0f * direction;
 	return glm::lookAt(pos,pos-direction,glm::vec3(0,1,0));
 }

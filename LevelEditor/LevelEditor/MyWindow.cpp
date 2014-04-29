@@ -107,6 +107,7 @@ void MyWindow::updatePath(GameNode * end) {
 	AStar::Path temp = pather.getPath(start,end);
 	temp.currentDestination = myCharacter.path.currentDestination;
 	myCharacter.setPath(temp, myDebugShapes);
+	myCharacter.path.setVisability(showPath);
 }
 void MyWindow::updatePath(glm::vec3 newPos) {
 	GameNode * end = closest(gNodes,numOfGNodes,newPos);
@@ -216,9 +217,21 @@ void MyWindow::myUpdate() {
 	if(editorMode_lastState != editorMode) {
 		gNodes = myNodeManager.exportToGameNode(numOfGNodes);
 		pather.init(gNodes,numOfGNodes);
-		editorMode_lastState = editorMode;
+		myNodeManager.setAllVisability(editorMode);
 	}
-
+	if(showAllConnections!=showAllConnections_lastState) {
+		if(showAllConnections) {
+			myNodeManager.activateAllConnections();
+		}
+		myNodeManager.setAllVisability(showAllConnections);
+	}
+	if(showPath!=showPath_lastState) {
+		myCharacter.path.setVisability(showPath);
+	}
+	
+	editorMode_lastState = editorMode;
+	showAllConnections_lastState = showAllConnections;
+	showPath_lastState = showPath;
 
 	if(!editorMode) {
 		myCharacter.update(1);

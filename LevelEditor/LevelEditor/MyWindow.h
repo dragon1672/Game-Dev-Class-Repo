@@ -43,9 +43,12 @@ private:
 
 	bool editorMode;
 	bool editorMode_lastState;
-	bool camOnCharacter;
 	bool showAllConnections;
+	bool showAllConnections_lastState;
 	bool showPath;
+	bool showPath_lastState;
+
+	bool camOnCharacter;
 
 	void sendDataToHardWare();
 
