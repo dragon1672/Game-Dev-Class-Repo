@@ -68,8 +68,8 @@ void MyWindow::initializeGL() {
 
 	setMouseTracking(true);
 	
-	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
-	myTimer.start(0);
+	connect(&updateTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
+	updateTimer.start(0);
 	gameTimer.start();
 
 	GeometryInfo * tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);

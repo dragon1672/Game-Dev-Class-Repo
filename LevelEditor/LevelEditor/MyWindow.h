@@ -28,7 +28,7 @@ public:
 private:
 	Timer gameTimer;
 
-	QTimer myTimer;
+	QTimer updateTimer;
 	Camera myCam;
 
 	Renderable * gameObjs[1000];

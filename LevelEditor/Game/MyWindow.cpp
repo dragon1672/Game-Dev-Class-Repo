@@ -27,6 +27,8 @@ using glm::mat4x4;
 
 const char * MyWindow::fileName = "myLevel.lvl";
 
+#pragma region init
+
 void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
@@ -40,8 +42,8 @@ void MyWindow::initializeGL() {
 
 	setMouseTracking(true);
 	
-	connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
-	myTimer.start(0);
+	connect(&updateTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
+	updateTimer.start(0);
 
 	GeometryInfo * tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
 	Renderable * tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
@@ -52,8 +54,31 @@ void MyWindow::initializeGL() {
 }
 void MyWindow::init() {
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
+	myTimer.start();
+	camOnCharacter = false;
+	showAllConnections = false;
+	showAllConnections_lastState = true;
+	showPath = true;
+	showPath_lastState = false;
+	myCharacter.speed = 1;
 }
+void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
+	datMenu->toggleBool("Put Camera on Character",camOnCharacter);
+	datMenu->toggleBool("Show All Connections",showAllConnections);
+	datMenu->toggleBool("Show Path",showPath);
+	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,5);
+}
+#pragma endregion
 
+void MyWindow::updatePath(glm::vec3 newPos) {
+	glm::vec3 characterPos = myCharacter.path.currentDestination;
+	
+	AStar::Path temp = pather.getPath(characterPos,newPos);
+	temp.currentDestination = characterPos;
+	myCharacter.setPath(temp, myDebugShapes);
+	myCharacter.path.setVisability(showPath);
+}
+#pragma region LoadingData
 void MyWindow::loadLevel(const char * filePath) {
 	myByte* levelBinary;
 	LevelSerializer::readFile(filePath,levelBinary,nodes,numOfNodes);
@@ -77,7 +102,9 @@ void MyWindow::sendDataToHardWare() {
 
 	gameObjs[numOfGameObjs++] = levelRenderable;
 }
+#pragma endregion
 
+#pragma region mouseAndKeys
 Ray  MyWindow::getMouseRay() {
 	Ray ret;
 	QPoint p = mapFromGlobal(QCursor::pos());
@@ -109,23 +136,29 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 		myCam.moveDown();
 	}
 }
+#pragma endregion
 
 void MyWindow::myUpdate() {
-	myDebugShapes.update(.1f);
-	myCharacter.update(1);
+	float dt = myTimer.interval();
+	myDebugShapes.update(dt);
+	myCharacter.update(dt);
+
+	if(showAllConnections!=showAllConnections_lastState) {
+		if(showAllConnections)
+			pather.printAll(myDebugShapes,glm::vec4(0,0,1,1),glm::vec4(.5,.5,.5,1));
+		else
+			pather.clear();
+		showAllConnections_lastState = showAllConnections;
+	}
+	if(showPath!=showPath_lastState) {
+		myCharacter.path.setVisability(showPath);
+		showPath_lastState = showPath;
+	}
+
+
 	if(myCharacter.isComplete()) {
-		GameNode * start = &nodes[Random::randomInt(0,numOfNodes)];
-		for (int i = 0; i < numOfNodes; i++)
-		{
-			if(nodes[i].pos == myCharacter.path.currentDestination) {
-				start = &nodes[i];
-				break;
-			}
-		}
-		GameNode * end   = &nodes[Random::randomInt(0,numOfNodes)];
-		AStar::Path temp = pather.getPath(start,end);
-		temp.currentDestination = myCharacter.path.currentDestination;
-		myCharacter.setPath(temp);
+		GameNode * end   = &nodes[Random::randomInt(0,numOfNodes-1)];
+		updatePath(end->pos);
 	}
 	repaint();
 }
@@ -137,7 +170,11 @@ void MyWindow::paintGL() {
 	const float aspectRatio = (float)width()/(float)height();
 	viewTransform = glm::mat4();
 	viewTransform *= glm::perspective(60.0f,aspectRatio,.1f,200.0f);
-	viewTransform *= myCam.getWorld2View();
+	if(camOnCharacter) {
+		viewTransform *= myCharacter.getWorld2View();
+	} else {
+		viewTransform *= myCam.getWorld2View();
+	}
 
 
 	myRender.resetAllShaders_validPush();

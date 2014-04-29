@@ -56,6 +56,7 @@ private:
 
 	int mainTextureId;
 	void paintGL();
+	void updatePath(glm::vec3 pos);
 public:
 	void initializeGL();
 	void init();
