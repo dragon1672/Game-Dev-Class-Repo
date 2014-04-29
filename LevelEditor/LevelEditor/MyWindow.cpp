@@ -87,7 +87,9 @@ void MyWindow::init() { //setting defaults
 	editorMode_lastState = false;
 	camOnCharacter = false;
 	showAllConnections = false;
+	showAllConnections_lastState = true;
 	showPath = true;
+	showPath_lastState = false;
 	myCharacter.speed = 1;
 }
 
@@ -192,22 +194,25 @@ void MyWindow::moveCam(QKeyEvent* e) {
 }
 
 void MyWindow::keyPressEvent(QKeyEvent* e) {
-	moveCam(e);
 	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
 	GetAsyncKeyState(VK_LCONTROL); // flush required to make it play nice
 	if(editorMode) {
 		if(e->key() == Qt::Key_Delete) {
 			if(GetAsyncKeyState(VK_SHIFT)!=0) {
 				myNodeManager.deleteAll();
+				return;
 			} else {
 				myNodeManager.deleteNodeSelectedNode();
+				return;
 			}
 		} else if(e->key() == DISPLAY_ALL.getCheckedElement() && GetAsyncKeyState(VK_LCONTROL)) {
 			myNodeManager.activateAllConnections();
+			return;
 		}
 	} else {
 		//don't think there should be anything
 	}
+	moveCam(e);
 }
 
 void MyWindow::myUpdate() {
@@ -217,12 +222,12 @@ void MyWindow::myUpdate() {
 	if(editorMode_lastState != editorMode) {
 		gNodes = myNodeManager.exportToGameNode(numOfGNodes);
 		pather.init(gNodes,numOfGNodes);
-		myNodeManager.setAllVisability(editorMode);
+		//myNodeManager.setAllVisability(editorMode);
 	}
 	if(showAllConnections!=showAllConnections_lastState) {
-		if(showAllConnections) {
-			myNodeManager.activateAllConnections();
-		}
+		//if(showAllConnections) {
+			//myNodeManager.activateAllConnections();
+		//}
 		myNodeManager.setAllVisability(showAllConnections);
 	}
 	if(showPath!=showPath_lastState) {
