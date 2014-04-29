@@ -170,6 +170,20 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 	}
 }
 
+GameNode * closest(GameNode* gNodes, int numOfNodes, glm::vec3 currentPos) {
+	float currentDist;
+	GameNode * ret = nullptr;
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		float currentTestLength = glm::length(gNodes[i].pos - currentPos);
+		if(ret == nullptr || currentTestLength < currentDist) {
+			currentDist = currentTestLength;
+			ret = &gNodes[i];
+		}
+	}
+	return ret;
+}
+
 void MyWindow::myUpdate() {
 	float dt = gameTimer.interval();
 	myDebugShapes.update(dt);
@@ -184,18 +198,12 @@ void MyWindow::myUpdate() {
 	if(!editorMode) {
 		myCharacter.update(1);
 		if(myCharacter.isComplete()) {
-			GameNode * start = &gNodes[Random::randomInt(0,numOfGNodes)];
-			for (int i = 0; i < numOfGNodes; i++)
-			{
-				if(gNodes[i].pos == myCharacter.path.currentDestination) {
-					start = &gNodes[i];
-					break;
-				}
-			}
-			GameNode * end   = &gNodes[Random::randomInt(0,numOfGNodes)];
+			GameNode * start = closest(gNodes,numOfGNodes,myCharacter.getPos());
+			int endID = Random::randomInt(0,numOfGNodes);
+			GameNode * end   = &gNodes[endID];
 			AStar::Path temp = pather.getPath(start,end);
 			temp.currentDestination = myCharacter.path.currentDestination;
-			myCharacter.setPath(temp);
+			myCharacter.setPath(temp, myDebugShapes);
 		}
 	}
 	repaint();

@@ -1,13 +1,14 @@
 #pragma once
 
 #include "AStarPath.h"
+#include "AStarDebugPath.h"
 #include "Renderer.h"
 #include <glm/gtx/compatibility.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
 class Character {
 public:
-	AStar::Path path;
+	AStar::DEBUG::DebugPath path;
 	glm::mat4 * transformMat;
 	glm::vec3 lastPos;
 	glm::vec3 direction;
@@ -22,7 +23,7 @@ public:
 
 	bool isComplete();
 	glm::vec3 getPos();
-	void setPath(AStar::Path& toSet);
+	void setPath(AStar::Path& toSet, DebugShapeManager& manager);
 
 	void update(float dt);
 	glm::mat4x4 getWorld2View();

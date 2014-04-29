@@ -18,15 +18,14 @@ void Character::nextNode() {
 void Character::init(glm::mat4 * transformMat) {
 	this->transformMat = transformMat;
 	currentPercent = -1;
-	path.positions.push_back(glm::vec3(10, 0,20));
-	path.positions.push_back(glm::vec3(15, 0,30));
 	speed = 1;
 }
 bool Character::isComplete() {
 	return path.isComplete();
 }
-void Character::setPath(AStar::Path& toSet) {
-	path = toSet;
+void Character::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
+	path.load(toSet);
+	path.drawPath(manager);
 }
 glm::vec3 Character::getPos() {
 	return glm::lerp(lastPos,path.currentDestination,currentPercent);
