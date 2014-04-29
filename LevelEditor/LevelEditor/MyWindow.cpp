@@ -27,6 +27,25 @@ using glm::mat4x4;
 
 SingleKeyManager DISPLAY_ALL  ('A'); // shows all connections, used to store key not update
 
+#pragma region GameNodeManagment
+
+GameNode * closest(GameNode* gNodes, int numOfNodes, glm::vec3 currentPos) {
+	float currentDist;
+	GameNode * ret = nullptr;
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		float currentTestLength = glm::length(gNodes[i].pos - currentPos);
+		if(ret == nullptr || currentTestLength <= currentDist) {
+			currentDist = currentTestLength;
+			ret = &gNodes[i];
+		}
+	}
+	return ret;
+}
+
+#pragma endregion
+
+
 void MyWindow::initializeGL() {
 	glewInit();
 	myRender.init();
@@ -83,8 +102,15 @@ void MyWindow::prepForLevel() {
 	myNodeManager.deleteAll();
 }
 
+void MyWindow::updatePath(GameNode * end) {
+	GameNode * start = closest(gNodes,numOfGNodes,myCharacter.path.currentDestination);
+	AStar::Path temp = pather.getPath(start,end);
+	temp.currentDestination = myCharacter.path.currentDestination;
+	myCharacter.setPath(temp, myDebugShapes);
+}
 void MyWindow::updatePath(glm::vec3 newPos) {
-
+	GameNode * end = closest(gNodes,numOfGNodes,newPos);
+	updatePath(end);
 }
 
 bool MyWindow::inEditorState() { return editorMode; }
@@ -111,6 +137,16 @@ Ray  MyWindow::getMouseRay() {
 	return ret;
 }
 
+GameNode * getNodeClicked(GameNode * leArray, int numOfNodes, Ray& ray, float radius=1) {
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		if(EditorNode::doesRayHit(ray,leArray[i].pos,radius)) {
+			return &leArray[i];
+		}
+	}
+	return nullptr;
+}
+
 void MyWindow::mousePressEvent ( QMouseEvent * e ) {
 	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
 	if(e->button() == Qt::LeftButton) {
@@ -121,7 +157,10 @@ void MyWindow::mousePressEvent ( QMouseEvent * e ) {
 				myNodeManager.addOrSelectClick(getMouseRay());
 			}
 		} else {
-			//update path
+			GameNode * selectedNode = getNodeClicked(gNodes,numOfGNodes,getMouseRay());
+			if(selectedNode!=nullptr) {
+				updatePath(selectedNode->pos);
+			}
 		}
 	}
 }
@@ -170,20 +209,6 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 	}
 }
 
-GameNode * closest(GameNode* gNodes, int numOfNodes, glm::vec3 currentPos) {
-	float currentDist;
-	GameNode * ret = nullptr;
-	for (int i = 0; i < numOfNodes; i++)
-	{
-		float currentTestLength = glm::length(gNodes[i].pos - currentPos);
-		if(ret == nullptr || currentTestLength <= currentDist) {
-			currentDist = currentTestLength;
-			ret = &gNodes[i];
-		}
-	}
-	return ret;
-}
-
 void MyWindow::myUpdate() {
 	float dt = gameTimer.interval();
 	myDebugShapes.update(dt);
@@ -198,12 +223,10 @@ void MyWindow::myUpdate() {
 	if(!editorMode) {
 		myCharacter.update(1);
 		if(myCharacter.isComplete()) {
-			GameNode * start = closest(gNodes,numOfGNodes,myCharacter.path.currentDestination);
 			int endID = Random::randomInt(0,numOfGNodes);
 			GameNode * end   = &gNodes[endID];
-			AStar::Path temp = pather.getPath(start,end);
-			temp.currentDestination = myCharacter.path.currentDestination;
-			myCharacter.setPath(temp, myDebugShapes);
+			updatePath(end);
+			
 		}
 	}
 	repaint();
