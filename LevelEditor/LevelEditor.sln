@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj",
 		{92D6CC4F-2388-446B-9BF8-2C02EEF64821} = {92D6CC4F-2388-446B-9BF8-2C02EEF64821}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CaptureTheFlag", "CaptureTheFlag\CaptureTheFlag.vcxproj", "{8981C76C-009C-4864-8F2A-4FF7A52B7343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,16 @@ Global
 		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Win32.ActiveCfg = Release|Win32
 		{18B74ACA-3E7F-40F8-9FF8-B1A3416CBE9E}.Release|Win32.Build.0 = Release|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Debug|Win32.Build.0 = Debug|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Release|Win32.ActiveCfg = Release|Win32
+		{8981C76C-009C-4864-8F2A-4FF7A52B7343}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
