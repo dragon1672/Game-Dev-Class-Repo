@@ -68,6 +68,7 @@ public:
 
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
+	void mousePressEvent(QMouseEvent * e);
 private slots:
 	void myUpdate();
 };

@@ -19,6 +19,7 @@
 #include "Ray.h"
 #include "LevelSerializer.h"
 #include "NUShapeEditor.h"
+#include "NodeManager.h"
 
 
 using glm::vec3;
@@ -134,6 +135,14 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 		myCam.moveUp();
 	} else if(e->key() == Qt::Key::Key_F) {
 		myCam.moveDown();
+	}
+}
+
+void MyWindow::mousePressEvent(QMouseEvent * e) {
+	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
+	if(e->button() == Qt::LeftButton) {
+		glm::vec3 pos = NodeManager::rayPlaneIntersection(getMouseRay(),glm::vec3(0,.25f,0),glm::vec3(0,1,0));
+		updatePath(pos);
 	}
 }
 #pragma endregion
