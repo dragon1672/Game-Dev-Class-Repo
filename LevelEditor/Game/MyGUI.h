@@ -25,21 +25,46 @@ private:
 
 	Q_OBJECT;
 
-	MyWindow meScene;
+	SingleKeyManager toggleDebugMenu;
 
-	QBoxLayout * mainLayout;
+	MyWindow meScene;
+	DebugMenuManager * myDebugMenu;
+	QTimer myTimer;
+
+	QMenu * fileMenu;
 
 protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	void keyPressEvent(QKeyEvent* e);
 public:
 	MyGUI()
+	: toggleDebugMenu(TIDLE_KEY)
 	{
-		meScene.setMinimumHeight(900);
-		setCentralWidget(&meScene);
-		
-		meScene.init();
+		connect(&myTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
+		myTimer.start(0);
 
-		this->resize(1200,800);
+
+		//setup layout
+		QVBoxLayout *layout = new QVBoxLayout;
+		//setup mainwidget
+		QWidget * window = new QWidget();
+        window->setLayout(layout);
+
+		//set up locals
+		myDebugMenu = new DebugMenuManager();
+		myDebugMenu->init();
+
+		meScene.setMinimumHeight(700);
+		meScene.setMinimumWidth(1200);
+		meScene.init();
+		meScene.addDebugMenu(myDebugMenu);
+
+		//add local widgets
+		layout->addWidget(myDebugMenu);
+		layout->addWidget(&meScene);
+
+		setCentralWidget(window);
 	}
+private slots:
+	void myUpdate();
 };

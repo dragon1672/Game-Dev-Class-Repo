@@ -12,3 +12,13 @@ void MyGUI::mouseMoveEvent(QMouseEvent* e) {
 void MyGUI::keyPressEvent(QKeyEvent* e) {
 	meScene.keyPressEvent(e);
 }
+void MyGUI::myUpdate() {
+	toggleDebugMenu.update(.1f);
+	if(toggleDebugMenu.hasBeenClicked()) {
+		if(myDebugMenu->isHidden()) myDebugMenu->show();
+		else myDebugMenu->hide();
+	}
+	if(!myDebugMenu->isHidden()) {
+		myDebugMenu->update();
+	}
+}

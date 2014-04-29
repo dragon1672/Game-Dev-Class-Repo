@@ -10,6 +10,10 @@
 #include "Ray.h"
 #include "AStarPathGenerator.h"
 #include "Character.h"
+#include "AStarDebugPath.h"
+#include "DebugMenuManager.h"
+#include "AStarDebugPathGenerator.h"
+#include "Timer.h"
 
 class MyWindow : public QGLWidget {
 	static const char * fileName;
@@ -22,8 +26,9 @@ private:
 	Renderer myRender;
 	DebugShapeManager myDebugShapes;
 private:
+	Timer myTimer;
 
-	QTimer myTimer;
+	QTimer updateTimer;
 	Camera myCam;
 
 	Renderable * gameObjs[1000];
@@ -33,8 +38,14 @@ private:
 	uint numOfNodes;
 
 	Character myCharacter;
+	bool camOnCharacter;
 
-	AStar::PathGenerator pather;
+	bool showAllConnections;
+	bool showAllConnections_lastState;
+	bool showPath;
+	bool showPath_lastState;
+
+	AStar::DEBUG::AStarDebugPathGenerator pather;
 
 	void sendDataToHardWare();
 
@@ -48,6 +59,7 @@ private:
 public:
 	void initializeGL();
 	void init();
+	void addDebugMenu(DebugMenuManager * datMenu);
 	void loadLevel(const char * filePath);
 	void loadGeoFromBinary(char * binaryData);
 

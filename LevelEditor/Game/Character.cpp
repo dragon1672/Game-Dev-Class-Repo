@@ -10,7 +10,7 @@ void Character::nextNode() {
 		float length = glm::length(direction);
 		direction = glm::normalize(direction);
 
-		progressionPercent = .25/length;
+		progressionPercent = 50/length;
 	} else {
 		currentPercent = 1;
 	}
@@ -18,24 +18,27 @@ void Character::nextNode() {
 void Character::init(glm::mat4 * transformMat) {
 	this->transformMat = transformMat;
 	currentPercent = -1;
-	path.positions.push_back(glm::vec3(10, 0,20));
-	path.positions.push_back(glm::vec3(15, 0,30));
+	speed = 1;
 }
 bool Character::isComplete() {
 	return path.isComplete();
 }
-void Character::setPath(AStar::Path& toSet) {
-	path = toSet;
+void Character::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
+	path.load(toSet);
+	path.drawPath(manager);
+}
+glm::vec3 Character::getPos() {
+	glm::vec3 pos = glm::vec3((*transformMat) * glm::vec4());
+	return pos;
 }
 void Character::update(float dt) {
-	currentPercent += progressionPercent * dt;
+	currentPercent += speed * (progressionPercent * dt);
 
 	if(0 > currentPercent || currentPercent > 1)
 		nextNode();
 
 	glm::vec3 pos = glm::lerp(lastPos,path.currentDestination,currentPercent);
-	pos += glm::vec3(0,4,0);
-	//direction = glm::vec3(1,0,0);
+	pos += glm::vec3(0,3,0);
 	(*transformMat) = glm::translate(pos) * glm::orientation(direction,glm::vec3(-1,0,0));
 }
 glm::mat4x4 Character::getWorld2View() {
