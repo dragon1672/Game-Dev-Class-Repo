@@ -176,7 +176,7 @@ GameNode * closest(GameNode* gNodes, int numOfNodes, glm::vec3 currentPos) {
 	for (int i = 0; i < numOfNodes; i++)
 	{
 		float currentTestLength = glm::length(gNodes[i].pos - currentPos);
-		if(ret == nullptr || currentTestLength < currentDist) {
+		if(ret == nullptr || currentTestLength <= currentDist) {
 			currentDist = currentTestLength;
 			ret = &gNodes[i];
 		}
@@ -198,7 +198,7 @@ void MyWindow::myUpdate() {
 	if(!editorMode) {
 		myCharacter.update(1);
 		if(myCharacter.isComplete()) {
-			GameNode * start = closest(gNodes,numOfGNodes,myCharacter.getPos());
+			GameNode * start = closest(gNodes,numOfGNodes,myCharacter.path.currentDestination);
 			int endID = Random::randomInt(0,numOfGNodes);
 			GameNode * end   = &gNodes[endID];
 			AStar::Path temp = pather.getPath(start,end);

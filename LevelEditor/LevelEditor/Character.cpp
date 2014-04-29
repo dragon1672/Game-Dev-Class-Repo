@@ -28,7 +28,8 @@ void Character::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
 	path.drawPath(manager);
 }
 glm::vec3 Character::getPos() {
-	return glm::lerp(lastPos,path.currentDestination,currentPercent);
+	glm::vec3 pos = glm::vec3((*transformMat) * glm::vec4());
+	return pos;
 }
 void Character::update(float dt) {
 	currentPercent += speed * (progressionPercent * dt);
@@ -36,7 +37,7 @@ void Character::update(float dt) {
 	if(0 > currentPercent || currentPercent > 1)
 		nextNode();
 
-	glm::vec3 pos = getPos();
+	glm::vec3 pos = glm::lerp(lastPos,path.currentDestination,currentPercent);
 	pos += glm::vec3(0,3,0);
 	(*transformMat) = glm::translate(pos) * glm::orientation(direction,glm::vec3(-1,0,0));
 }
