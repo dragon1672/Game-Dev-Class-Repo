@@ -43,6 +43,16 @@ GameNode * closest(GameNode* gNodes, int numOfNodes, glm::vec3 currentPos) {
 	return ret;
 }
 
+GameNode * getNodeClicked(GameNode * leArray, int numOfNodes, Ray& ray, float radius=1) {
+	for (int i = 0; i < numOfNodes; i++)
+	{
+		if(EditorNode::doesRayHit(ray,leArray[i].pos,radius)) {
+			return &leArray[i];
+		}
+	}
+	return nullptr;
+}
+
 #pragma endregion
 
 
@@ -136,16 +146,6 @@ Ray  MyWindow::getMouseRay() {
 	ret.init(glm::vec2(p.x(),p.y()),width(),height(),viewTransform,myCam);
 	
 	return ret;
-}
-
-GameNode * getNodeClicked(GameNode * leArray, int numOfNodes, Ray& ray, float radius=1) {
-	for (int i = 0; i < numOfNodes; i++)
-	{
-		if(EditorNode::doesRayHit(ray,leArray[i].pos,radius)) {
-			return &leArray[i];
-		}
-	}
-	return nullptr;
 }
 
 void MyWindow::mousePressEvent ( QMouseEvent * e ) {
