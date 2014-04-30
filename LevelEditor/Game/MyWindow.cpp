@@ -84,8 +84,9 @@ void MyWindow::updatePath(glm::vec3 newPos) {
 void MyWindow::loadLevel(const char * filePath) {
 	myByte* levelBinary;
 	LevelSerializer::readFile(filePath,levelBinary,nodes,numOfNodes);
-	pather.init(nodes,numOfNodes);
 	loadGeoFromBinary(levelBinary);
+	delete levelBinary;
+	pather.init(nodes,numOfNodes);
 }
 void MyWindow::loadGeoFromBinary(char * binaryData) {
 	Neumont::ShapeData fromFile = BinaryToShapeLoader::loadFromBinary(binaryData);
