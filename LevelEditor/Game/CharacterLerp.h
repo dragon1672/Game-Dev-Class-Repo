@@ -3,8 +3,6 @@
 #include "AStarPath.h"
 #include "AStarDebugPath.h"
 #include "Renderer.h"
-#include <glm/gtx/compatibility.hpp>
-#include <glm/gtx/rotate_vector.hpp>
 
 class CharacterLerp {
 public:

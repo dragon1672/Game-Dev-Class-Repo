@@ -1,4 +1,6 @@
 #include "CharacterLerp.h"
+#include <glm/gtx/compatibility.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 void CharacterLerp::nextNode() {
 	if(!path.isComplete()) {
@@ -26,7 +28,9 @@ bool CharacterLerp::isComplete() {
 	return path.isComplete();
 }
 void CharacterLerp::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
+	glm::vec3 temp = path.currentDestination;
 	path.load(toSet);
+	path.currentDestination = temp;
 	path.drawPath(manager);
 }
 glm::vec3 CharacterLerp::getPos() {
