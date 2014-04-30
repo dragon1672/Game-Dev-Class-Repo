@@ -12,6 +12,7 @@ public:
 	glm::mat4 * transformMat;
 	glm::vec3 lastPos;
 	glm::vec3 direction;
+	glm::vec3 pos;
 
 	float currentPercent;
 	float progressionPercent;

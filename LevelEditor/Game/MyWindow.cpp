@@ -72,10 +72,11 @@ void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 #pragma endregion
 
 void MyWindow::updatePath(glm::vec3 newPos) {
-	glm::vec3 characterPos = myCharacter.path.currentDestination;
+	glm::vec3 characterDest = myCharacter.path.currentDestination;
+	glm::vec3 charPos = myCharacter.getPos();
 	
-	AStar::Path temp = pather.getPath(characterPos,newPos);
-	temp.currentDestination = characterPos;
+	AStar::Path temp = pather.getPath(charPos,newPos);
+	temp.currentDestination = charPos;
 	myCharacter.setPath(temp, myDebugShapes);
 	myCharacter.path.setVisability(showPath);
 }
