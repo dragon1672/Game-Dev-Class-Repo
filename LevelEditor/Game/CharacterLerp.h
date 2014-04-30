@@ -22,6 +22,7 @@ public:
 
 	bool isComplete();
 	glm::vec3 getPos();
+	void changePath(AStar::Path& toSet, DebugShapeManager& manager);
 	void setPath(AStar::Path& toSet, DebugShapeManager& manager);
 
 	void update(float dt);

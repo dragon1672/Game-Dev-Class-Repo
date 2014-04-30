@@ -71,12 +71,18 @@ void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 }
 #pragma endregion
 
-void MyWindow::updatePath(glm::vec3 newPos) {
+void MyWindow::newPath(glm::vec3 newPos) {
 	glm::vec3 characterDest = myCharacter.path.currentDestination;
 	glm::vec3 charPos = myCharacter.getPos();
 	
 	AStar::Path temp = pather.getPath(charPos,newPos);
 	temp.currentDestination = charPos;
+	myCharacter.changePath(temp, myDebugShapes);
+	myCharacter.path.setVisability(showPath);
+}
+void MyWindow::updatePath(glm::vec3 newPos) {
+	AStar::Path temp = pather.getPath(myCharacter.path.currentDestination,newPos);
+	temp.currentDestination = myCharacter.path.currentDestination;
 	myCharacter.setPath(temp, myDebugShapes);
 	myCharacter.path.setVisability(showPath);
 }
@@ -144,7 +150,7 @@ void MyWindow::mousePressEvent(QMouseEvent * e) {
 	GetAsyncKeyState(VK_SHIFT); // flush required to make it play nice
 	if(e->button() == Qt::LeftButton) {
 		glm::vec3 pos = NodeManager::rayPlaneIntersection(getMouseRay(),glm::vec3(0,.25f,0),glm::vec3(0,1,0));
-		updatePath(pos);
+		newPath(pos);
 	}
 }
 #pragma endregion

@@ -27,6 +27,12 @@ void CharacterLerp::init(glm::mat4 * transformMat) {
 bool CharacterLerp::isComplete() {
 	return path.isComplete();
 }
+void CharacterLerp::changePath(AStar::Path& toSet, DebugShapeManager& manager) {
+	path.load(toSet);
+	path.positions.push_back(pos);
+	path.drawPath(manager);
+	nextNode();
+}
 void CharacterLerp::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
 	glm::vec3 temp = path.currentDestination;
 	path.load(toSet);
