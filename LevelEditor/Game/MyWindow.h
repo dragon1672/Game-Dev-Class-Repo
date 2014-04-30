@@ -9,7 +9,7 @@
 #include "DebugShapeManager.h"
 #include "Ray.h"
 #include "AStarPathGenerator.h"
-#include "Character.h"
+#include "CharacterLerp.h"
 #include "AStarDebugPath.h"
 #include "DebugMenuManager.h"
 #include "AStarDebugPathGenerator.h"
@@ -37,7 +37,7 @@ private:
 	GameNode * nodes;
 	uint numOfNodes;
 
-	Character myCharacter;
+	CharacterLerp myCharacter;
 	bool camOnCharacter;
 
 	bool showAllConnections;

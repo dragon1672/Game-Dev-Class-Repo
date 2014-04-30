@@ -64,7 +64,7 @@ void MyWindow::init() {
 	myCharacter.speed = 1;
 }
 void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
-	datMenu->toggleBool("Put Camera on Character",camOnCharacter);
+	datMenu->toggleBool("Put Camera on CharacterLerp",camOnCharacter);
 	datMenu->toggleBool("Show All Connections",showAllConnections);
 	datMenu->toggleBool("Show Path",showPath);
 	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,5);

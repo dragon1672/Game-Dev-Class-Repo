@@ -6,7 +6,7 @@
 #include <glm/gtx/compatibility.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-class Character {
+class CharacterLerp {
 public:
 	AStar::DEBUG::DebugPath path;
 	glm::mat4 * transformMat;

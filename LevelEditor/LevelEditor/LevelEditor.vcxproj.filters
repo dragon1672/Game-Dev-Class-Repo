@@ -6,11 +6,11 @@
     <ClCompile Include="MyGUI_mock.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow_mock.cpp" />
-    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterLerp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGUI.h" />
     <ClInclude Include="MyWindow.h" />
-    <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterLerp.h" />
   </ItemGroup>
 </Project>

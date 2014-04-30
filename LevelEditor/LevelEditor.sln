@@ -17,6 +17,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj",
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CaptureTheFlag", "CaptureTheFlag\CaptureTheFlag.vcxproj", "{8981C76C-009C-4864-8F2A-4FF7A52B7343}"
+	ProjectSection(ProjectDependencies) = postProject
+		{92D6CC4F-2388-446B-9BF8-2C02EEF64821} = {92D6CC4F-2388-446B-9BF8-2C02EEF64821}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

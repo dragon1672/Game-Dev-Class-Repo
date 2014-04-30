@@ -11,7 +11,7 @@
 #include "Ray.h"
 #include "NodeManager.h"
 #include "AStarPathGenerator.h"
-#include "Character.h"
+#include "CharacterLerp.h"
 #include "Timer.h"
 
 class MyWindow : public QGLWidget {
@@ -35,7 +35,7 @@ private:
 	uint numOfGameObjs;
 	Renderable * levelRenderable;
 
-	Character myCharacter;
+	CharacterLerp myCharacter;
 	AStar::PathGenerator pather;
 
 	GameNode * gNodes;

@@ -1,6 +1,6 @@
-#include "Character.h"
+#include "CharacterLerp.h"
 
-void Character::nextNode() {
+void CharacterLerp::nextNode() {
 	if(!path.isComplete()) {
 		currentPercent = 0;
 		lastPos = path.currentDestination;
@@ -15,23 +15,23 @@ void Character::nextNode() {
 		currentPercent = 1;
 	}
 }
-void Character::init(glm::mat4 * transformMat) {
+void CharacterLerp::init(glm::mat4 * transformMat) {
 	this->transformMat = transformMat;
 	currentPercent = -1;
 	speed = 1;
 }
-bool Character::isComplete() {
+bool CharacterLerp::isComplete() {
 	return path.isComplete();
 }
-void Character::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
+void CharacterLerp::setPath(AStar::Path& toSet, DebugShapeManager& manager) {
 	path.load(toSet);
 	path.drawPath(manager);
 }
-glm::vec3 Character::getPos() {
+glm::vec3 CharacterLerp::getPos() {
 	glm::vec3 pos = glm::vec3((*transformMat) * glm::vec4());
 	return pos;
 }
-void Character::update(float dt) {
+void CharacterLerp::update(float dt) {
 	currentPercent += speed * (progressionPercent * dt);
 
 	if(0 > currentPercent || currentPercent > 1)
@@ -41,7 +41,7 @@ void Character::update(float dt) {
 	pos += glm::vec3(0,3,0);
 	(*transformMat) = glm::translate(pos) * glm::orientation(direction,glm::vec3(-1,0,0));
 }
-glm::mat4x4 Character::getWorld2View() {
+glm::mat4x4 CharacterLerp::getWorld2View() {
 	glm::vec3 pos = glm::lerp(lastPos,path.currentDestination,currentPercent);
 	pos+=glm::vec3(0,7,0) + 4.0f * direction;
 	return glm::lookAt(pos,pos-direction,glm::vec3(0,1,0));
