@@ -184,3 +184,5 @@ Desktop.ini
 $RECYCLE.BIN/
 LevelEditor/LevelEditor/level.bin
 LevelEditor/output.lvl
+GameSolution/LogOutput.html
+GameSolution/Profile.csv
