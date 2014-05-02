@@ -98,7 +98,7 @@ void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 	datMenu->toggleBool("Put Camera on Character",camOnCharacter);
 	datMenu->toggleBool("Show All Connections",showAllConnections);
 	datMenu->toggleBool("Show Path",showPath);
-	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,5);
+	datMenu->slideFloat("Character Speed", myCharacter.speed,.1f,50);
 }
 
 void MyWindow::loadGeo(const char * binaryFilePath) {

@@ -69,6 +69,8 @@ void MyWindow::init() {
 }
 void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 	datMenu->toggleBool("Show All Connections",showAllConnections);
+	datMenu->slideFloat("Character Speed",myCharacter.speedMultiplyer,.1,10);
+	datMenu->toggleBool("Show Path", myCharacter.debugPath);
 }
 #pragma endregion
 
