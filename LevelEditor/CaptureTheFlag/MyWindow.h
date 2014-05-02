@@ -13,6 +13,8 @@
 #include "DebugMenuManager.h"
 #include "AStarDebugPathGenerator.h"
 #include "Timer.h"
+#include "Character.h"
+#include "Flag.h"
 
 class MyWindow : public QGLWidget {
 	static const char * fileName;
@@ -29,6 +31,9 @@ private:
 
 	QTimer updateTimer;
 	Camera myCam;
+
+	Character myCharacter;
+	Flag awesomeFlag;
 
 	Renderable * gameObjs[1000];
 	uint numOfGameObjs;
@@ -51,6 +56,7 @@ private:
 	int mainTextureId;
 	void paintGL();
 public:
+	MyWindow() {}
 	void initializeGL();
 	void init();
 	void addDebugMenu(DebugMenuManager * datMenu);

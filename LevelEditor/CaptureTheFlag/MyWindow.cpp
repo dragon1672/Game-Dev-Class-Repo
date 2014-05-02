@@ -45,6 +45,20 @@ void MyWindow::initializeGL() {
 	
 	connect(&updateTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	updateTimer.start(0);
+
+	GeometryInfo * tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
+	Renderable * tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	gameObjs[numOfGameObjs++] = tempRenderable;
+	tempRenderable->saveTexture("myTexture");
+	tempRenderable->saveWhereMat("model2WorldTransform");
+	myCharacter.init(&tempRenderable->whereMat,&awesomeFlag,glm::vec3(0,0,5),pather,myDebugShapes);
+
+	tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	gameObjs[numOfGameObjs++] = tempRenderable;
+	tempRenderable->saveTexture("myTexture");
+	tempRenderable->saveWhereMat("model2WorldTransform");
+
+	awesomeFlag.init(&tempRenderable->whereMat);
 }
 void MyWindow::init() {
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
@@ -118,18 +132,21 @@ void MyWindow::keyPressEvent(QKeyEvent* e) {
 }
 
 #pragma endregion
-
+#include "MyRandom.h"
 void MyWindow::myUpdate() {
 	float dt = myTimer.interval();
 	myDebugShapes.update(dt);
-
+	
 	if(showAllConnections!=showAllConnections_lastState) {
 		if(showAllConnections)
 			pather.printAll(myDebugShapes,glm::vec4(0,0,1,1),glm::vec4(.5,.5,.5,1));
 		else
 			pather.clear();
 		showAllConnections_lastState = showAllConnections;
+		
 	}
+	awesomeFlag.update(dt);
+	myCharacter.update(dt);
 
 	repaint();
 }
