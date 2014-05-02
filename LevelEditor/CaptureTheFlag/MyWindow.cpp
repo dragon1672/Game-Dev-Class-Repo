@@ -53,7 +53,8 @@ void MyWindow::initializeGL() {
 	tempRenderable->saveWhereMat("model2WorldTransform");
 	myCharacter.init(&tempRenderable->whereMat,&awesomeFlag,glm::vec3(0,0,5),pather,myDebugShapes);
 
-	tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
+	tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
 	gameObjs[numOfGameObjs++] = tempRenderable;
 	tempRenderable->saveTexture("myTexture");
 	tempRenderable->saveWhereMat("model2WorldTransform");
