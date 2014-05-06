@@ -15,7 +15,6 @@ public:
 	Flag() {
 		holder = nullptr;
 		transformMat = nullptr;
-		changedPosLastFrame = false;
 		angle = 0;
 		timeSinceLastMove = 0;
 	}
@@ -24,6 +23,6 @@ public:
 	void update(float dt);
 	void reset();
 private:
-	bool changedPosLastFrame;
+	glm::vec3 lastPos;
 	glm::mat4 * transformMat;
 };
