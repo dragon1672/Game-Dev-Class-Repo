@@ -21,3 +21,7 @@ pause
 
 LevelEditor\LevelEditor.sln
 ::start "" "LevelEditor\LevelEditor.sln"
+
+
+::this will compile and run, find a better way to link to visual studio
+::"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe" /run
