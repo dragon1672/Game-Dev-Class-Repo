@@ -25,6 +25,18 @@
     <ClInclude Include="State.h">
       <Filter>Players\States</Filter>
     </ClInclude>
+    <ClInclude Include="RunningToHomeBase.h">
+      <Filter>Players\States</Filter>
+    </ClInclude>
+    <ClInclude Include="FetchingFlag.h">
+      <Filter>Players\States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInstance.h">
+      <Filter>Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Team.h">
+      <Filter>Players</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Players">

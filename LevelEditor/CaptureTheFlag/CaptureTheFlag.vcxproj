@@ -90,8 +90,13 @@
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="Flag.h" />
+    <ClInclude Include="GameInstance.h" />
     <ClInclude Include="MyGUI.h" />
     <ClInclude Include="MyWindow.h" />
+    <ClInclude Include="FetchingFlag.h" />
+    <ClInclude Include="RunningToHomeBase.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="Team.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
