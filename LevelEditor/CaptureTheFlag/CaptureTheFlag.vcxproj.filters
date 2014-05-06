@@ -6,9 +6,32 @@
     <ClCompile Include="MyGUI_mock.cpp" />
     <ClCompile Include="MyWindow.cpp" />
     <ClCompile Include="MyWindow_mock.cpp" />
+    <ClCompile Include="Character.cpp">
+      <Filter>Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>Players</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGUI.h" />
     <ClInclude Include="MyWindow.h" />
+    <ClInclude Include="Character.h">
+      <Filter>Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>Players</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Players\States</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Players">
+      <UniqueIdentifier>{2a7ad19e-c5c9-4667-820b-baa6d29b04ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Players\States">
+      <UniqueIdentifier>{ae882297-b347-4d54-ad7d-b9c6dcc9acd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

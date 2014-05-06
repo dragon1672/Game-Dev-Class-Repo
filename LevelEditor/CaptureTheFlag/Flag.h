@@ -3,11 +3,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include "MyRandom.h"
-#include "ExportHeader.h"
 
 class Character;
 
-class ENGINE_SHARED Flag {
+class Flag {
 public:
 	float angle;
 	float timeSinceLastMove;

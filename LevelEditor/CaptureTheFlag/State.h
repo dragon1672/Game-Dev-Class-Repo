@@ -1,8 +1,6 @@
 #pragma once
 
-#include "ExportHeader.h"
-
-enum ENGINE_SHARED State {
+enum State {
 	RunningToHomeBaseState,
 	FetchingFlagState,
 };

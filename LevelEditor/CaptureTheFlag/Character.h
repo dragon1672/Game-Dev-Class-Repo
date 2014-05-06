@@ -7,13 +7,10 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include "State.h"
 #include "AStarDebugPathGenerator.h"
-#include "ExportHeader.h"
 #include "Flag.h"
 
-class ENGINE_SHARED Character {
+class Character {
 private:
-	//FetchingFlagState fetchFlagState;
-	//RunningToHomeBaseState runToHomeBaseState;
 	AStar::PathGenerator * pather;
 	DebugShapeManager * shaper;
 public:
