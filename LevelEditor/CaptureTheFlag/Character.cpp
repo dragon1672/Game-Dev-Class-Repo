@@ -3,21 +3,14 @@
 
 
 void Character::prepForNextDest() {
-	if(myState == State::FetchingFlagState && pos == meFlag->pos) {
-		myState = State::RunningToHomeBaseState;
-		reset();
-	} else if(myState==State::RunningToHomeBaseState && pos == homeBasePos) {
-		myState = State::FetchingFlagState;
-		reset();
-	} else {
-		currentDestination = path.popCurrentConnection();
+	currentDestination = path.popCurrentConnection();
+	if(pos != currentDestination) {
 		direction = glm::normalize(currentDestination - pos);
 	}
 }
 void Character::init(glm::mat4 * transformMat, Team * myTeam) {
 	this->transformMat = transformMat;
 	this->myTeam = myTeam;
-	myState = State::FetchingFlagState;
 	speed = 10;
 }
 void Character::reset() {
@@ -50,6 +43,8 @@ void Character::newFlagPos(glm::vec3 newPos) {
 	}
 }
 void Character::update(float dt) {
+	
+	myState->update(this);
 	if(meFlag->hasChangedPos()) {
 		newFlagPos(meFlag->pos);
 	} else {

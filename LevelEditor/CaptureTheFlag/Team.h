@@ -10,7 +10,7 @@ class Team {
 	Flag * leFlag;
 
 public:
-
+	Team() : leFlag(nullptr), gameInstance(nullptr) {}
 	void init(GameInstance * ctxt, uint numOfPlayers, glm::mat4 ** transformMats);
 	void update(float dt);
 	Flag * getFlag();

@@ -2,10 +2,12 @@
 
 #include "State.h"
 #include "Character.h"
+#include "Team.h"
 
 namespace STATES {
 
 class FetchingFlag : public State {
+public:
 	void init(Character * player) {
 
 	}
