@@ -89,14 +89,14 @@ void MyWindow::setupGame() {
 
 	//Bases (A)
 	GeometryInfo * baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Base.bin"),1), GL_TRIANGLES);
-	Renderable * baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	Renderable * baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\BaseA.png"));
 	gameObjs[numOfGameObjs++] = baseRenderable;
 	baseRenderable->saveTexture("myTexture");
 	baseRenderable->saveWhereMat("model2WorldTransform");
 	baseATransform = &baseRenderable->whereMat;
 	//Base B
 	baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Base.bin"),1), GL_TRIANGLES);
-	baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
+	baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\BaseB.png"));
 	gameObjs[numOfGameObjs++] = baseRenderable;
 	baseRenderable->saveTexture("myTexture");
 	baseRenderable->saveWhereMat("model2WorldTransform");

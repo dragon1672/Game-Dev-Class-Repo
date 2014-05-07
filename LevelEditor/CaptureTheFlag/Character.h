@@ -7,6 +7,7 @@
 #include "AStarDebugPath.h"
 
 class Team;
+#include "MyRandom.h"
 
 class Character {
 public:
@@ -33,7 +34,7 @@ public:
 	Character() {
 		hasFlag = false;
 		transformMat = nullptr;
-		speedMultiplyer = 1;
+		speedMultiplyer = Random::randomFloat(1,2);
 		debugPath = true;
 		lastDebugPath = true;
 	}

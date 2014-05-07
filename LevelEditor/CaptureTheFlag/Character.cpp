@@ -48,10 +48,8 @@ void Character::newFlagPos(glm::vec3 newPos) {
 	//}
 }
 void Character::update(float dt) {
-	/*
-	myState->update(this);
-	if(meFlag->hasChangedPos()) {
-		newFlagPos(meFlag->pos);
+	if(myTeam->getFlag()->hasChangedPos()) {
+		setNewDestPos(myTeam->getFlag()->pos);
 	} else {
 		glm::vec3 path2Dest = currentDestination - pos;
 		glm::vec3 movement = direction * speed * dt * speedMultiplyer;
@@ -61,9 +59,6 @@ void Character::update(float dt) {
 		} else {
 			pos += movement;
 		}
-		if(hasFlag) {
-			meFlag->pos = pos + glm::vec3(0,2,0) - 2.0f * direction;
-		}
 
 		if(debugPath != lastDebugPath) {
 			path.setVisability(debugPath);
@@ -72,7 +67,6 @@ void Character::update(float dt) {
 
 		(*transformMat) = glm::translate(pos+ glm::vec3(0,3,0)) * glm::orientation(direction,glm::vec3(1,0,0));
 	}
-	//*/
 }
 glm::mat4x4 Character::getWorld2View() {
 	glm::vec3 pos = this->pos;

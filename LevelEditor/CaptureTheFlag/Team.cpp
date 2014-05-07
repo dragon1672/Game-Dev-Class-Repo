@@ -2,6 +2,7 @@
 #include "GameInstance.h"
 
 void Team::init(GameInstance * ctxt, uint numOfPlayers, glm::mat4 ** transformMats) {
+	this->gameInstance = ctxt;
 	this->numOfPlayers = numOfPlayers;
 	for (int i = 0; i < numOfPlayers; i++)
 	{

@@ -21,14 +21,15 @@ void GameInstance::randomSetBases(GameNode * nodes, uint numOfNodes) {
 	int randomIndexForB = Random::randomInt(0,numOfNodes);
 	teamAHomeBase = nodes[randomIndexForA].pos;
 	teamBHomeBase = nodes[randomIndexForB].pos;
-	if(teamAHomeBaseTransform!= nullptr)
-		*(teamAHomeBaseTransform) = glm::translate(teamAHomeBase);
+	if(teamAHomeBaseTransform!= nullptr) *(teamAHomeBaseTransform) = glm::translate(teamAHomeBase);
 	if(teamBHomeBaseTransform!= nullptr) *(teamBHomeBaseTransform) = glm::translate(teamBHomeBase);
 }
 void GameInstance::update(float dt) {
-	theEpicFlag.update(dt);
-	theATeam.update(dt);
-	theBTeam.update(dt);
+	if(shaper!=nullptr) {
+		theEpicFlag.update(dt);
+		theATeam.update(dt);
+		theBTeam.update(dt);
+	}
 }
 glm::vec3 GameInstance::getMyBasePos(Team * myTeam) {
 	return (myTeam == &theATeam)? teamAHomeBase : teamBHomeBase;
