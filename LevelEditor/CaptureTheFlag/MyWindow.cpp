@@ -88,15 +88,15 @@ void MyWindow::setupGame() {
 	flagRenderableTransform = &flagRenderable->whereMat;
 
 	//Bases (A)
-	GeometryInfo * baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
-	Renderable * baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
+	GeometryInfo * baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Base.bin"),1), GL_TRIANGLES);
+	Renderable * baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
 	gameObjs[numOfGameObjs++] = baseRenderable;
 	baseRenderable->saveTexture("myTexture");
 	baseRenderable->saveWhereMat("model2WorldTransform");
 	baseATransform = &baseRenderable->whereMat;
 	//Base B
-	baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
-	baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
+	baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Base.bin"),1), GL_TRIANGLES);
+	baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
 	gameObjs[numOfGameObjs++] = baseRenderable;
 	baseRenderable->saveTexture("myTexture");
 	baseRenderable->saveWhereMat("model2WorldTransform");
