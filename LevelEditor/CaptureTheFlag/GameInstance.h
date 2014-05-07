@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AStarDebugPath.h"
+#include "AStarDebugPathGenerator.h"
 #include "DebugShapeManager.h"
 #include "unsigned.h"
 

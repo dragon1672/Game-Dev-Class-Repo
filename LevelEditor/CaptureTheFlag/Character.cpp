@@ -1,5 +1,8 @@
 #include "Character.h"
 #include <limits>
+#include "GameInstance.h"
+#include "Team.h"
+#include "Flag.h"
 
 
 void Character::prepForNextDest() {
@@ -14,6 +17,7 @@ void Character::init(glm::mat4 * transformMat, Team * myTeam) {
 	speed = 10;
 }
 void Character::reset() {
+	/*
 	if(myState == State::RunningToHomeBaseState) {
 		setNewDestPos(homeBasePos);
 		hasFlag = true;
@@ -25,25 +29,26 @@ void Character::reset() {
 		finalDestination = meFlag->pos;
 		hasFlag = false;
 	}
+	//*/
 }
 void Character::changePath(AStar::Path& newOne) {
 	path.load(newOne);
 	currentDestination = path.popCurrentConnection();
-	path.drawPath(*shaper);
+	path.drawPath(*this->myTeam->gameInstance->shaper);
 	path.setVisability(debugPath);
 }
 void Character::setNewDestPos(glm::vec3& newPos) {
-	changePath(pather->getPath(pos,newPos));
+	changePath(this->myTeam->gameInstance->pather->getPath(pos,newPos));
 	prepForNextDest();
 	finalDestination = newPos;
 }
 void Character::newFlagPos(glm::vec3 newPos) {
-	if(myState == State::FetchingFlagState) {
-		setNewDestPos(newPos);
-	}
+	//if(myState == State::FetchingFlagState) {
+	//	setNewDestPos(newPos);
+	//}
 }
 void Character::update(float dt) {
-	
+	/*
 	myState->update(this);
 	if(meFlag->hasChangedPos()) {
 		newFlagPos(meFlag->pos);
@@ -67,6 +72,7 @@ void Character::update(float dt) {
 
 		(*transformMat) = glm::translate(pos+ glm::vec3(0,3,0)) * glm::orientation(direction,glm::vec3(1,0,0));
 	}
+	//*/
 }
 glm::mat4x4 Character::getWorld2View() {
 	glm::vec3 pos = this->pos;

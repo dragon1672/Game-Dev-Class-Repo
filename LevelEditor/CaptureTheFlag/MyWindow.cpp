@@ -46,20 +46,66 @@ void MyWindow::initializeGL() {
 	connect(&updateTimer,SIGNAL(timeout()),this,SLOT(myUpdate()));
 	updateTimer.start(0);
 
-	GeometryInfo * tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
-	Renderable * tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\ToonTeddyBear.png"));
-	gameObjs[numOfGameObjs++] = tempRenderable;
-	tempRenderable->saveTexture("myTexture");
-	tempRenderable->saveWhereMat("model2WorldTransform");
-	myCharacter.init(&tempRenderable->whereMat,&awesomeFlag,glm::vec3(0,0,5),pather,myDebugShapes);
+	setupGame();
+}
 
-	tempGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
-	tempRenderable = myRender.addRenderable(tempGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
-	gameObjs[numOfGameObjs++] = tempRenderable;
-	tempRenderable->saveTexture("myTexture");
-	tempRenderable->saveWhereMat("model2WorldTransform");
+void MyWindow::setupGame() {
+	const int numOfPlayers = 2;
+	glm::mat4 * TeamARenderables[numOfPlayers];
+	glm::mat4 * TeamBRenderables[numOfPlayers];
+	glm::mat4 * flagRenderableTransform;
+	glm::mat4 * baseATransform;
+	glm::mat4 * baseBTransform;
 
-	awesomeFlag.init(&tempRenderable->whereMat);
+	GeometryInfo * TeamAGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
+	GeometryInfo * TeamBGeo = myRender.addGeometry(NUShapeEditor::setColor(glm::vec4(1,0,0,1),NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30)), GL_TRIANGLES);
+
+	const char * TeamATexture = "\\..\\gameData\\ToonTeddyBear.png";
+	const char * TeamBTexture = "\\..\\gameData\\ToonTeddyBear.png";
+
+	for (int i = 0; i < numOfPlayers; i++)
+	{
+		Renderable * tempRenderable = myRender.addRenderable(TeamAGeo,myRender.mainShader,myRender.addTexture(TeamATexture));
+		gameObjs[numOfGameObjs++] = tempRenderable;
+		tempRenderable->saveTexture("myTexture");
+		tempRenderable->saveWhereMat("model2WorldTransform");
+		TeamARenderables[i] = &tempRenderable->whereMat;
+
+		//team B
+		tempRenderable = myRender.addRenderable(TeamBGeo,myRender.mainShader,myRender.addTexture(TeamBTexture));
+		gameObjs[numOfGameObjs++] = tempRenderable;
+		tempRenderable->saveTexture("myTexture");
+		tempRenderable->saveWhereMat("model2WorldTransform");
+		TeamBRenderables[i] = &tempRenderable->whereMat;
+
+	}
+
+	GeometryInfo * flagGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
+	Renderable * flagRenderable = myRender.addRenderable(flagGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
+	gameObjs[numOfGameObjs++] = flagRenderable;
+	flagRenderable->saveTexture("myTexture");
+	flagRenderable->saveWhereMat("model2WorldTransform");
+	flagRenderableTransform = &flagRenderable->whereMat;
+
+	//Bases (A)
+	GeometryInfo * baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
+	Renderable * baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
+	gameObjs[numOfGameObjs++] = baseRenderable;
+	baseRenderable->saveTexture("myTexture");
+	baseRenderable->saveWhereMat("model2WorldTransform");
+	baseATransform = &baseRenderable->whereMat;
+	//Base B
+	baseGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/Flag.bin"),1), GL_TRIANGLES);
+	baseRenderable = myRender.addRenderable(baseGeo,myRender.mainShader,myRender.addTexture("\\..\\gameData\\FlagTexture.png"));
+	gameObjs[numOfGameObjs++] = baseRenderable;
+	baseRenderable->saveTexture("myTexture");
+	baseRenderable->saveWhereMat("model2WorldTransform");
+	baseBTransform = &baseRenderable->whereMat;
+
+
+	myCTFGame.init(pather,myDebugShapes,numOfPlayers,TeamARenderables,TeamBRenderables,flagRenderableTransform);
+	myCTFGame.registerBaseTransforms(baseATransform,baseBTransform);
+	myCTFGame.randomSetBases(nodes,numOfNodes);
 }
 void MyWindow::init() {
 	myCam.setPos(vec3(20,20,20),vec3(-1,-1,-1));
@@ -69,8 +115,8 @@ void MyWindow::init() {
 }
 void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 	datMenu->toggleBool("Show All Connections",showAllConnections);
-	datMenu->slideFloat("Character Speed",myCharacter.speedMultiplyer,.1,10);
-	datMenu->toggleBool("Show Path", myCharacter.debugPath);
+	//datMenu->slideFloat("Character Speed",myCharacter.speedMultiplyer,.1,10);
+	//datMenu->toggleBool("Show Path", myCharacter.debugPath);
 }
 #pragma endregion
 
@@ -146,10 +192,8 @@ void MyWindow::myUpdate() {
 		else
 			pather.clear();
 		showAllConnections_lastState = showAllConnections;
-		
 	}
-	awesomeFlag.update(dt);
-	myCharacter.update(dt);
+	myCTFGame.update(dt);
 
 	repaint();
 }

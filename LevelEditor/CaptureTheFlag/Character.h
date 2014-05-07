@@ -1,13 +1,10 @@
 #pragma once
 
-#include "AStarPath.h"
-#include "AStarDebugPath.h"
 #include "Renderer.h"
 #include <glm/gtx/compatibility.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include "State.h"
-#include "AStarDebugPathGenerator.h"
-#include "Flag.h"
+#include "AStarDebugPath.h"
 
 class Team;
 

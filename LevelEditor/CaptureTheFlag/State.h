@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GameInstance.h"
 class Character;
 
 namespace STATES {

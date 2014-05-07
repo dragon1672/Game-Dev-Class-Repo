@@ -13,8 +13,7 @@
 #include "DebugMenuManager.h"
 #include "AStarDebugPathGenerator.h"
 #include "Timer.h"
-#include "Character.h"
-#include "Flag.h"
+#include "GameInstance.h"
 
 class MyWindow : public QGLWidget {
 	static const char * fileName;
@@ -32,8 +31,7 @@ private:
 	QTimer updateTimer;
 	Camera myCam;
 
-	Character myCharacter;
-	Flag awesomeFlag;
+	GameInstance myCTFGame;
 
 	Renderable * gameObjs[1000];
 	uint numOfGameObjs;
@@ -47,6 +45,7 @@ private:
 	AStar::DEBUG::AStarDebugPathGenerator pather;
 
 	void sendDataToHardWare();
+	void setupGame();
 
 	//shader info
 	glm::mat4 viewTransform;

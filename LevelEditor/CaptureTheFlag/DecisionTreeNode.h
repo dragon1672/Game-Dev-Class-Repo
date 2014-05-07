@@ -12,11 +12,11 @@ struct DecisionTreeNode {
 
 	QUESTION question;
 
-	State * state;
+	STATES::State * state;
 
 	DecisionTreeNode() : left(nullptr), right(nullptr), state(nullptr) {}
 
-	inline State * eval(Character * player) {
+	inline STATES::State * eval(Character * player) {
 		if(left == nullptr || right == nullptr)
 			return state;
 		return (question(player))? right->eval(player) : left->eval(player);
