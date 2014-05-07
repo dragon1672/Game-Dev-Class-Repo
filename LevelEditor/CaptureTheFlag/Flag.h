@@ -22,6 +22,7 @@ public:
 	bool hasChangedPos();
 	void update(float dt);
 	void reset();
+	bool grab(Character * guyGrabbing);
 private:
 	glm::vec3 lastPos;
 	glm::mat4 * transformMat;

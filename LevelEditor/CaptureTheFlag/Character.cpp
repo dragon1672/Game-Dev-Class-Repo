@@ -14,12 +14,9 @@ void Character::prepForNextDest() {
 		direction = glm::normalize(currentDestination - pos);
 	}
 }
-void Character::init(glm::mat4 * transformMat, Flag* meFlagOfAwesome, glm::vec3 homeBasePos, AStar::PathGenerator& pather, DebugShapeManager& shaper) {
-	this->shaper = &shaper;
-	this->pather = &pather;
-	this->homeBasePos = homeBasePos;
+void Character::init(glm::mat4 * transformMat, Team * myTeam) {
 	this->transformMat = transformMat;
-	this->meFlag = meFlagOfAwesome;
+	this->myTeam = myTeam;
 	myState = State::FetchingFlagState;
 	speed = 10;
 }

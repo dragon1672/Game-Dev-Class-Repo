@@ -2,14 +2,17 @@
 
 #include "State.h"
 
+namespace STATES {
+
 class RunningToHomeBase : public State {
-	void init(Character * player, GameInstance * ctxt) {
-		player->setNewDestPos();
+	void init(Character * player) {
+		player->setNewDestPos(player->myTeam->getBase());
 		player->hasFlag = true;
-		player->meFlag->holder = player;
-		player->meFlag->timeSinceLastMove = std::numeric_limits<float>::infinity();
+		player->myTeam->getFlag()->grab(player);
 	}
-	void update(Character * player, GameInstance * ctxt) {
+	void update(Character * player) {
 
 	}
 };
+
+}

@@ -9,11 +9,12 @@
 #include "AStarDebugPathGenerator.h"
 #include "Flag.h"
 
+class Team;
+
 class Character {
-private:
-	AStar::PathGenerator * pather;
-	DebugShapeManager * shaper;
 public:
+	Team * myTeam;
+
 	AStar::DEBUG::DebugPath path;
 	glm::mat4 * transformMat;
 	float speed;
@@ -22,28 +23,24 @@ public:
 	glm::vec3 finalDestination;
 	glm::vec3 currentDestination;
 	
-	Flag * meFlag;
-	glm::vec3 homeBasePos;
-
 	float speedMultiplyer;
 	bool debugPath;
 	bool lastDebugPath;
 
 	bool hasFlag;
-	State myState;
+	STATES::State * myState;
 private:
 	void prepForNextDest();
 	void reset();
 public:
 	Character() {
 		hasFlag = false;
-		meFlag = nullptr;
 		transformMat = nullptr;
 		speedMultiplyer = 1;
 		debugPath = true;
 		lastDebugPath = true;
 	}
-	void init(glm::mat4 * transformMat, Flag* meFlagOfAwesome, glm::vec3 homeBasePos, AStar::PathGenerator& pather, DebugShapeManager& shaper);
+	void init(glm::mat4 * transformMat, Team * myTeam);
 
 	void changePath(AStar::Path& newOne);
 

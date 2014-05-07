@@ -11,23 +11,9 @@ class Team {
 
 public:
 
-	void init(GameInstance * ctxt, uint numOfPlayers, glm::mat4 ** transformMats) {
-		this->numOfPlayers = numOfPlayers;
-		for (int i = 0; i < numOfPlayers; i++)
-		{
-			members[i].init(transformMats[i],this);
-		}
-	}
-	void update(float dt) {
-		for (int i = 0; i < numOfPlayers; i++)
-		{
-			members[i].update(dt);
-		}
-	}
-	Flag * getFlag() {
-		return &gameInstance->theEpicFlag;
-	}
-	glm::vec3 getBase() {
-		return gameInstance->getMyBasePos(this);
-	}
+	void init(GameInstance * ctxt, uint numOfPlayers, glm::mat4 ** transformMats);
+	void update(float dt);
+	Flag * getFlag();
+	glm::vec3 getBase();
+	bool hasFlag();
 };
