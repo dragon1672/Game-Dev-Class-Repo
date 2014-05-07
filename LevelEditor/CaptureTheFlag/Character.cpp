@@ -4,52 +4,55 @@
 #include "Team.h"
 #include "Flag.h"
 
-
 void Character::prepForNextDest() {
 	currentDestination = path.popCurrentConnection();
 	if(pos != currentDestination) {
 		direction = glm::normalize(currentDestination - pos);
 	}
 }
+Flag * Character::getFlag() {
+	return myTeam->getFlag();
+}
+GameInstance * Character::getGame() {
+	return myTeam->gameInstance;
+}
 void Character::init(glm::mat4 * transformMat, Team * myTeam) {
 	this->transformMat = transformMat;
 	this->myTeam = myTeam;
 	speed = 10;
 }
-void Character::reset() {
-	/*
-	if(myState == State::RunningToHomeBaseState) {
-		setNewDestPos(homeBasePos);
-		hasFlag = true;
-		meFlag->holder = this;
-		meFlag->timeSinceLastMove = std::numeric_limits<float>::infinity();
-	} else if(myState==State::FetchingFlagState) {
-		meFlag->reset();
-		changePath(pather->getPath(pos,meFlag->pos));
-		finalDestination = meFlag->pos;
-		hasFlag = false;
-	}
-	//*/
+AStar::DEBUG::AStarDebugPathGenerator * Character::getPather() {
+	return getGame()->pather;
 }
+
+void Character::respawn() {
+	glm::vec3 offset = Random::glmRand::randomFloatVectorInBoxRanged(5,0,5);
+	pos = myTeam->getBase() + offset;
+	setNewDestPos(finalDestination);
+}
+
 void Character::changePath(AStar::Path& newOne) {
 	path.load(newOne);
 	currentDestination = path.popCurrentConnection();
-	path.drawPath(*this->myTeam->gameInstance->shaper);
+	path.drawPath(*getGame()->shaper);
 	path.setVisability(debugPath);
 }
 void Character::setNewDestPos(glm::vec3& newPos) {
-	changePath(this->myTeam->gameInstance->pather->getPath(pos,newPos));
+	changePath(getPather()->getPath(pos,newPos));
 	prepForNextDest();
 	finalDestination = newPos;
 }
-void Character::newFlagPos(glm::vec3 newPos) {
-	//if(myState == State::FetchingFlagState) {
-	//	setNewDestPos(newPos);
-	//}
-}
 void Character::update(float dt) {
-	if(myTeam->getFlag()->hasChangedPos()) {
-		setNewDestPos(myTeam->getFlag()->pos);
+	if(myState!=nullptr) {
+		myState->update(this);
+	}
+	if(getGame()->gameStateHasChanged()) {
+		if(theSmartTree!= nullptr) {
+			myState = theSmartTree->eval(this);
+			myState->init(this);
+		} else {
+			setNewDestPos(getFlag()->pos);
+		}
 	} else {
 		glm::vec3 path2Dest = currentDestination - pos;
 		glm::vec3 movement = direction * speed * dt * speedMultiplyer;
@@ -58,6 +61,9 @@ void Character::update(float dt) {
 			prepForNextDest();
 		} else {
 			pos += movement;
+		}
+		if(hasFlag) {
+			getFlag()->pos = pos + glm::vec3(0,2,0) - 2.0f * direction;
 		}
 
 		if(debugPath != lastDebugPath) {

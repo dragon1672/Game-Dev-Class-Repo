@@ -21,6 +21,15 @@
     <ClCompile Include="Questions.cpp">
       <Filter>Decisions</Filter>
     </ClCompile>
+    <ClCompile Include="RandomPathState.cpp">
+      <Filter>Decisions\States</Filter>
+    </ClCompile>
+    <ClCompile Include="RunningToHomeBase.cpp">
+      <Filter>Decisions\States</Filter>
+    </ClCompile>
+    <ClCompile Include="FetchingFlag.cpp">
+      <Filter>Decisions\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGUI.h" />

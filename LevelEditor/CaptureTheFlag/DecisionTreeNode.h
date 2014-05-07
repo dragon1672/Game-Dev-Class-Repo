@@ -4,7 +4,8 @@
 
 class Character;
 
-typedef bool QUESTION(Character * player);
+
+typedef bool (*QUESTION)(Character * player);
 
 struct DecisionTreeNode {
 	DecisionTreeNode * left;

@@ -29,3 +29,15 @@ bool Team::hasFlag() {
 	}
 	return ret;
 }
+void Team::respawnAll() {
+	for (int i = 0; i < numOfPlayers; i++)
+	{
+		members[i].respawn();
+	}
+}
+void Team::registerWithDecisions(DecisionTreeNode * parentNode) {
+	for (int i = 0; i < numOfPlayers; i++)
+	{
+		members[i].theSmartTree = parentNode;
+	}
+}

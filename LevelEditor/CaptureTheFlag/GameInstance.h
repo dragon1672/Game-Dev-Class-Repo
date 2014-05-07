@@ -7,6 +7,7 @@
 //states
 #include "RunningToHomeBase.h"
 #include "FetchingFlag.h"
+#include "RandomPathState.h"
 
 //characters
 #include "Team.h"
@@ -30,6 +31,7 @@ public:
 	//STATES ( to give them memory )
 	STATES::RunningToHomeBase runningToHomeBaseState;
 	STATES::FetchingFlag fetchingFlagState;
+	STATES::RandomPathState randomPathState;
 
 
 	GameInstance() : teamAHomeBaseTransform(nullptr), teamBHomeBaseTransform(nullptr) {}

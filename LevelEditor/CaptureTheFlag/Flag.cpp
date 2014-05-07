@@ -26,9 +26,11 @@ void Flag::reset() {
 }
 
 bool Flag::grab(Character * guyGrabbing) {
-	holder = guyGrabbing;
-	pos = holder->pos;
-	lastPos = pos+glm::vec3(1,1,1); // to make sure they are different and thus register and update in state
-	timeSinceLastMove = std::numeric_limits<float>::infinity();
-	return true;
+	if(holder==nullptr) {
+		holder = guyGrabbing;
+		pos = holder->pos;
+		lastPos = pos+glm::vec3(1,1,1); // to make sure they are different and thus register and update in state
+		timeSinceLastMove = std::numeric_limits<float>::infinity();
+	}
+	return holder == guyGrabbing;
 }

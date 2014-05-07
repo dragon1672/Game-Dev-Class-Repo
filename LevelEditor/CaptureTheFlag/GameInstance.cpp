@@ -2,6 +2,8 @@
 
 #include "MyRandom.h"
 #include "glm/gtx/transform.hpp"
+#include "Questions.h"
+#include "DecisionTreeNode.h"
 
 void GameInstance::init(AStar::DEBUG::AStarDebugPathGenerator& pather, DebugShapeManager& shaper, uint numOfPlayersPerTeam, glm::mat4 ** teamARenderableTransforms, glm::mat4 ** teamBRenderableTransforms, glm::mat4 * flagRenderableTransform) {
 	this->shaper = &shaper;
@@ -9,6 +11,9 @@ void GameInstance::init(AStar::DEBUG::AStarDebugPathGenerator& pather, DebugShap
 	theEpicFlag.init(flagRenderableTransform); 
 	theATeam.init(this,numOfPlayersPerTeam,teamARenderableTransforms);
 	theBTeam.init(this,numOfPlayersPerTeam,teamBRenderableTransforms);
+	DecisionTreeNode * parentDecidingNode = getBasicTree(this);
+	theATeam.registerWithDecisions(parentDecidingNode);
+	theBTeam.registerWithDecisions(parentDecidingNode);
 }
 void GameInstance::registerBaseTransforms(glm::mat4 * teamAHomeBaseTransform, glm::mat4 * teamBHomeBaseTransform) {
 	this->teamAHomeBaseTransform = teamAHomeBaseTransform;
@@ -23,6 +28,8 @@ void GameInstance::randomSetBases(GameNode * nodes, uint numOfNodes) {
 	teamBHomeBase = nodes[randomIndexForB].pos;
 	if(teamAHomeBaseTransform!= nullptr) *(teamAHomeBaseTransform) = glm::translate(teamAHomeBase);
 	if(teamBHomeBaseTransform!= nullptr) *(teamBHomeBaseTransform) = glm::translate(teamBHomeBase);
+	theATeam.respawnAll();
+	theBTeam.respawnAll();
 }
 void GameInstance::update(float dt) {
 	if(shaper!=nullptr) {

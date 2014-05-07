@@ -18,4 +18,6 @@ public:
 	Flag * getFlag();
 	glm::vec3 getBase();
 	bool hasFlag();
+	void respawnAll();
+	void registerWithDecisions(DecisionTreeNode * parentNode);
 };
