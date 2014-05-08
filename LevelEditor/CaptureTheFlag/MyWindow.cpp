@@ -57,10 +57,12 @@ void MyWindow::setupGame() {
 	glm::mat4 * baseATransform;
 	glm::mat4 * baseBTransform;
 
-	GeometryInfo * TeamAGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
+	//GeometryInfo * TeamAGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
+	GeometryInfo * TeamAGeo = myRender.addGeometry(BinaryToShapeLoader::loadFromFile("../gameData/Lego.bin"), GL_TRIANGLES);
 	GeometryInfo * TeamBGeo = myRender.addGeometry(NUShapeEditor::setColor(glm::vec4(1,0,0,1),NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30)), GL_TRIANGLES);
 
-	uint TeamATexture = myRender.addTexture("\\..\\gameData\\TeamAText.png");
+	//uint TeamATexture = myRender.addTexture("\\..\\gameData\\TeamAText.png");
+	uint TeamATexture = myRender.addTexture("\\..\\gameData\\LegoTexture.png");
 	uint TeamBTexture = myRender.addTexture("\\..\\gameData\\TeamBText.png");
 
 	for (int i = 0; i < numOfPlayers; i++)
