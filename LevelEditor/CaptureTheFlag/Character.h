@@ -52,6 +52,7 @@ public:
 	void init(glm::mat4 * transformMat, Team * myTeam);
 
 	void respawn();
+	void runDecisionTree();
 
 	void changePath(AStar::Path& newOne);
 	//void addPath(AStar::Path& newOne);

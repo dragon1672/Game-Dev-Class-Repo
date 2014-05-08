@@ -26,23 +26,30 @@ AStar::DEBUG::AStarDebugPathGenerator * Character::getPather() {
 }
 
 void Character::respawn() {
-	glm::vec3 offset = Random::glmRand::randomFloatVectorInBoxRanged(5,0,5);
+	glm::vec3 offset = Random::glmRand::randomFloatVectorInBoxRanged(10,0,10);
 	pos = myTeam->getBase() + offset;
 	setNewDestPos(finalDestination);
 }
 
 void Character::changePath(AStar::Path& newOne) {
 	path.load(newOne);
-	currentDestination = path.popCurrentConnection();
+	//currentDestination = path.popCurrentConnection();
 	path.drawPath(*getGame()->shaper);
 	path.setVisability(debugPath);
 }
 void Character::setNewDestPos(glm::vec3& newPos) {
 	changePath(getPather()->getPath(currentDestination,newPos));
-	path.currentDestination = currentDestination;
+	//path.currentDestination = currentDestination;
 	prepForNextDest();
 	finalDestination = newPos;
 }
+
+void Character::runDecisionTree() {
+	myState = theSmartTree->eval(this);
+	myState->init(this,myState_last);
+	myState_last = myState;
+}
+
 void Character::update(float dt) {
 	if(myState!=nullptr) {
 		myState->update(this);

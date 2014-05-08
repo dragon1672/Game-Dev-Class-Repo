@@ -60,19 +60,19 @@ void MyWindow::setupGame() {
 	GeometryInfo * TeamAGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
 	GeometryInfo * TeamBGeo = myRender.addGeometry(NUShapeEditor::setColor(glm::vec4(1,0,0,1),NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30)), GL_TRIANGLES);
 
-	const char * TeamATexture = "\\..\\gameData\\TeamAText.png";
-	const char * TeamBTexture = "\\..\\gameData\\TeamBText.png";
+	uint TeamATexture = myRender.addTexture("\\..\\gameData\\TeamAText.png");
+	uint TeamBTexture = myRender.addTexture("\\..\\gameData\\TeamBText.png");
 
 	for (int i = 0; i < numOfPlayers; i++)
 	{
-		Renderable * tempRenderable = myRender.addRenderable(TeamAGeo,myRender.mainShader,myRender.addTexture(TeamATexture));
+		Renderable * tempRenderable = myRender.addRenderable(TeamAGeo,myRender.mainShader,TeamATexture);
 		gameObjs[numOfGameObjs++] = tempRenderable;
 		tempRenderable->saveTexture("myTexture");
 		tempRenderable->saveWhereMat("model2WorldTransform");
 		TeamARenderables[i] = &tempRenderable->whereMat;
 
 		//team B
-		tempRenderable = myRender.addRenderable(TeamBGeo,myRender.mainShader,myRender.addTexture(TeamBTexture));
+		tempRenderable = myRender.addRenderable(TeamBGeo,myRender.mainShader,TeamBTexture);
 		gameObjs[numOfGameObjs++] = tempRenderable;
 		tempRenderable->saveTexture("myTexture");
 		tempRenderable->saveWhereMat("model2WorldTransform");

@@ -66,6 +66,7 @@ void GameInstance::checkPlayerCollisions() {
 		Team * enemyTeam = theEpicFlag.holder->myTeam == &theATeam ? &theBTeam : &theATeam;
 		if(enemyTeam->collision(theEpicFlag.holder->pos,.5,.5)) {
 			theEpicFlag.holder->hasFlag = false;
+			theEpicFlag.holder->respawn();
 			theEpicFlag.reset();
 		}
 	}
