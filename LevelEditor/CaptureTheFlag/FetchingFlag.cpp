@@ -3,7 +3,8 @@
 #include "Team.h"
 #include "GameInstance.h"
 
-void STATES::FetchingFlag::init(Character * leDude) {
+void STATES::FetchingFlag::init(Character * leDude, State * lastState) {
+	lastState;//don't care
 	leDude->setNewDestPos(leDude->getFlag()->pos);
 }
 

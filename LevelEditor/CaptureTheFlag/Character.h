@@ -31,6 +31,7 @@ public:
 
 	bool hasFlag;
 	STATES::State * myState;
+	STATES::State * myState_last;
 	DecisionTreeNode * theSmartTree;
 
 	Flag * getFlag();
@@ -53,6 +54,7 @@ public:
 	void respawn();
 
 	void changePath(AStar::Path& newOne);
+	//void addPath(AStar::Path& newOne);
 
 	void setNewDestPos(glm::vec3& newPos);
 

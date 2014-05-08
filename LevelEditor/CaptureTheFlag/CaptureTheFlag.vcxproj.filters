@@ -64,6 +64,9 @@
     <ClInclude Include="RandomPathState.h">
       <Filter>Decisions\States</Filter>
     </ClInclude>
+    <ClInclude Include="CTFBase.h">
+      <Filter>Players</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Players">

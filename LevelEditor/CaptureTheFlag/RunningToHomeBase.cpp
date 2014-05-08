@@ -3,8 +3,11 @@
 #include "Team.h"
 #include "GameInstance.h"
 
-void STATES::RunningToHomeBase::init(Character * leDude) {
-	leDude->setNewDestPos(leDude->myTeam->getBase());
+void STATES::RunningToHomeBase::init(Character * leDude, State * lastState) {
+	
+	if(lastState != this) {
+		leDude->setNewDestPos(leDude->myTeam->getBase());
+	}
 }
 
 void STATES::RunningToHomeBase::update(Character * leDude) {
@@ -14,7 +17,6 @@ void STATES::RunningToHomeBase::update(Character * leDude) {
 	glm::vec3 diff = playerPos - basePos;
 	float length = glm::dot(diff,diff);
 	if(errorRadius * errorRadius > length) { // we are close enough to the flag to grab
-		leDude->hasFlag = false;
-		leDude->getFlag()->reset();
+		leDude->myTeam->gameInstance->scorePoint(leDude);
 	}
 }

@@ -94,6 +94,7 @@
     <ClCompile Include="Team.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CTFBase.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="DecisionTreeNode.h" />
     <ClInclude Include="Flag.h" />

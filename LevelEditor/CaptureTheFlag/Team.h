@@ -20,4 +20,6 @@ public:
 	bool hasFlag();
 	void respawnAll();
 	void registerWithDecisions(DecisionTreeNode * parentNode);
+
+	bool collision(glm::vec3& toCheck, float radOfCheck, float radOfMembers);
 };

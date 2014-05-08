@@ -60,8 +60,8 @@ void MyWindow::setupGame() {
 	GeometryInfo * TeamAGeo = myRender.addGeometry(NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30), GL_TRIANGLES);
 	GeometryInfo * TeamBGeo = myRender.addGeometry(NUShapeEditor::setColor(glm::vec4(1,0,0,1),NUShapeEditor::scale(BinaryToShapeLoader::loadFromFile("../gameData/TeddyBear.bin"),30)), GL_TRIANGLES);
 
-	const char * TeamATexture = "\\..\\gameData\\ToonTeddyBear.png";
-	const char * TeamBTexture = "\\..\\gameData\\ToonTeddyBear.png";
+	const char * TeamATexture = "\\..\\gameData\\TeamAText.png";
+	const char * TeamBTexture = "\\..\\gameData\\TeamBText.png";
 
 	for (int i = 0; i < numOfPlayers; i++)
 	{
@@ -115,8 +115,16 @@ void MyWindow::init() {
 }
 void MyWindow::addDebugMenu(DebugMenuManager * datMenu) {
 	datMenu->toggleBool("Show All Connections",showAllConnections);
-	//datMenu->slideFloat("Character Speed",myCharacter.speedMultiplyer,.1,10);
-	//datMenu->toggleBool("Show Path", myCharacter.debugPath);
+	datMenu->watchFloat("BaseA",myCTFGame.aBase.score);
+	datMenu->watchFloat("BaseB",myCTFGame.bBase.score);
+	datMenu->slideFloat("A1 Character Speed",myCTFGame.theATeam.members[0].speedMultiplyer,.1,10);
+	datMenu->slideFloat("A2 Character Speed",myCTFGame.theATeam.members[1].speedMultiplyer,.1,10);
+	datMenu->slideFloat("B1 Character Speed",myCTFGame.theBTeam.members[0].speedMultiplyer,.1,10);
+	datMenu->slideFloat("B2 Character Speed",myCTFGame.theBTeam.members[1].speedMultiplyer,.1,10);
+	datMenu->toggleBool("A1 togglePath",myCTFGame.theATeam.members[0].debugPath);
+	datMenu->toggleBool("A2 togglePath",myCTFGame.theATeam.members[1].debugPath);
+	datMenu->toggleBool("B1 togglePath",myCTFGame.theBTeam.members[0].debugPath);
+	datMenu->toggleBool("B2 togglePath",myCTFGame.theBTeam.members[1].debugPath);
 }
 #pragma endregion
 
