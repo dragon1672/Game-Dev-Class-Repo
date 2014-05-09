@@ -5,8 +5,10 @@ Vector3D Matrix3D::getCol(int j) const {
 	return Vector3D(matrix[0][j],matrix[1][j],matrix[2][j]);
 }
 Matrix3D Matrix3D::rotationMatrix(float angle) {
-	Vector3D rowOne(cos(angle),-sin(angle),0);
-	Vector3D rowTwo(sin(angle),cos(angle),0);
+	float COS = cos(angle);
+	float SIN = sin(angle);
+	Vector3D rowOne(COS,-SIN,0);
+	Vector3D rowTwo(SIN,COS,0);
 	Vector3D rowThree(0,0,1);
 	return Matrix3D(rowOne,rowTwo,rowThree);
 }
