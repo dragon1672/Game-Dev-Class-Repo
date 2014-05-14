@@ -6,7 +6,7 @@ class BasicMomentum : public SingleParticleGui {
 public:
 	void init() {
 		SingleParticleGui::init();
-		myParticle.init(1,.5,1);
+		myParticle.init(1,1,1);
 		myDebugMenu.slideFloat("Mass",myParticle.mass,.01,10);
 		myDebugMenu.slideFloat("Drag",myParticle.drag,.01,1);
 		myDebugMenu.watchVector("Momentum",myParticle.momentum);

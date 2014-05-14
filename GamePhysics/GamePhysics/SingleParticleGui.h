@@ -15,13 +15,16 @@ public:
 	void init() {
 		GuiBase::initialize(false,true);
 		particalGraphic = addVectorGraphic();
+		particalGraphic->r = 150;
+		particalGraphic->g = 150;
+		particalGraphic->b = 150;
 		velGraphic = addVectorGraphic();
 		velGraphic->displayStyle = DS_ARROW;
 		velGraphic->r=255;
+		velGraphic->b = 0;
 		momentumGraphic = addVectorGraphic();
 		momentumGraphic->displayStyle = DS_ARROW;
-		momentumGraphic->g=255;
-		momentumGraphic->b=0;
+		momentumGraphic->b=255;
 		
 		
 		myDebugMenu.init();
