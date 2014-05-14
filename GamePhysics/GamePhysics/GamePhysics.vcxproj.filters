@@ -6,5 +6,6 @@
   <ItemGroup>
     <ClInclude Include="SingleParticleGui.h" />
     <ClInclude Include="Lab01VA\BasicVelocityAndAcc.h" />
+    <ClInclude Include="Lab02FMA\BasicMomentum.h" />
   </ItemGroup>
 </Project>

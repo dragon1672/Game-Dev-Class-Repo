@@ -1,14 +1,16 @@
 #pragma once
 
 #include <PhysicsGui\GuiBase.h>
+#include <Particle.h>
+#include <DebugMenuManager.h>
 
 class SingleParticleGui: public GuiBase {
 protected:
-	glm::vec3 pos;
-	glm::vec3 vel;
+	DebugMenuManager myDebugMenu;
+	Particle myParticle;
 	VectorGraphic * particalGraphic;
 	VectorGraphic * velGraphic;
-
+	VectorGraphic * momentumGraphic;
 public:
 	void init() {
 		GuiBase::initialize(false,true);
@@ -16,6 +18,17 @@ public:
 		velGraphic = addVectorGraphic();
 		velGraphic->displayStyle = DS_ARROW;
 		velGraphic->r=255;
+		momentumGraphic = addVectorGraphic();
+		momentumGraphic->displayStyle = DS_ARROW;
+		momentumGraphic->g=255;
+		momentumGraphic->b=0;
+		
+		
+		myDebugMenu.init();
+		debugLayout->addWidget(&myDebugMenu);
+	}
+	void newFrame() {
+		myDebugMenu.update();
 	}
 	glm::vec3 getUserDirection() {
 		glm::vec3 ret;
