@@ -3,8 +3,9 @@
 #include <PhysicsGui\GuiBase.h>
 #include <Particle.h>
 #include <DebugMenuManager.h>
+#include "PhysicsGUIBase.h"
 
-class SingleParticleGui: public GuiBase {
+class SingleParticleGui: public PhysicsGUIBase {
 protected:
 	DebugMenuManager myDebugMenu;
 	Particle myParticle;
@@ -13,7 +14,7 @@ protected:
 	VectorGraphic * momentumGraphic;
 public:
 	void init() {
-		GuiBase::initialize(false,true);
+		PhysicsGUIBase::initialize(false,true);
 		particalGraphic = addVectorGraphic();
 		particalGraphic->r = 150;
 		particalGraphic->g = 150;
@@ -25,22 +26,5 @@ public:
 		momentumGraphic = addVectorGraphic();
 		momentumGraphic->displayStyle = DS_ARROW;
 		momentumGraphic->b=255;
-		
-		
-		myDebugMenu.init();
-		debugLayout->addWidget(&myDebugMenu);
-	}
-	void newFrame() {
-		myDebugMenu.update();
-	}
-	glm::vec3 getUserDirection() {
-		glm::vec3 ret;
-		int count = 0;
-		if(isKeyDown("up"))    { ret += glm::vec3( 0, 1, 0); count++; }
-		if(isKeyDown("left"))  { ret += glm::vec3(-1, 0, 0); count++; }
-		if(isKeyDown("right")) { ret += glm::vec3( 1, 0, 0); count++; }
-		if(isKeyDown("down"))  { ret += glm::vec3( 0,-1, 0); count++; }
-		ret = (count>1)? glm::normalize(ret) : ret;
-		return ret;
 	}
 };

@@ -8,10 +8,9 @@ public:
 		SingleParticleGui::init();
 	}
 	void newFrame() {
-		float& acc = myParticle.acc;
+		float acc = 1;
 		glm::vec3& pos = myParticle.pos;
 		glm::vec3& vel = myParticle.vel;
-		acc = 1;
 		vel += acc * dt() * getUserDirection();
 		pos += vel * dt();
 		sync(particalGraphic,pos);

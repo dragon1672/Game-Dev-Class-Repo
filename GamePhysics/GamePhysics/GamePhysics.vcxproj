@@ -84,6 +84,8 @@
   <ItemGroup>
     <ClInclude Include="Lab01VA\BasicVelocityAndAcc.h" />
     <ClInclude Include="Lab02FMA\BasicMomentum.h" />
+    <ClInclude Include="Lab03Force\ForceAccumulationGui.h" />
+    <ClInclude Include="PhysicsGUIBase.h" />
     <ClInclude Include="SingleParticleGui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
