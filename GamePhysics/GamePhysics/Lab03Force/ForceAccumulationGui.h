@@ -7,12 +7,16 @@
 
 class ForceAccumulationGui : public PhysicsGUIBase {
 protected:
+	struct {
+		Particle * point;
+		VectorGraphic * pointGraphic;
+		VectorGraphic * velGraphic;
+		VectorGraphic * magGraphic;
+	} allPoints[3];
+	int numOfPoints;
 	Particle one;
 	Particle two;
 	Particle thr;
-	VectorGraphic * oneGraphic;
-	VectorGraphic * twoGraphic;
-	VectorGraphic * thrGraphic;
 	glm::vec3 keyboardInput;
 	ParticleForceRegistry forceManager;
 	VectorBoundForceGenerator keyboardForce;
@@ -20,33 +24,46 @@ protected:
 public:
 	void init() {
 		PhysicsGUIBase::init();
-		setupGraphics();
-
-		one.init(1);
-		one.pos = glm::vec3(-2,0,0);
-		two.init(1);
-		thr.init(1);
-		thr.pos = glm::vec3(2,0,0);
+		numOfPoints = 0;
+		allPoints[numOfPoints++].point = &one;	one.pos = glm::vec3(-2,0,0);
+		allPoints[numOfPoints++].point = &two;
+		allPoints[numOfPoints++].point = &thr;	thr.pos = glm::vec3(2,0,0);
+		
+		for (int i = 0; i < numOfPoints; i++)
+		{
+			allPoints[i].point->init(1);
+			allPoints[i].pointGraphic = addVectorGraphic();
+				allPoints[i].pointGraphic->r = 150;
+				allPoints[i].pointGraphic->g = 150;
+				allPoints[i].pointGraphic->b = 150;
+			allPoints[i].velGraphic   = addVectorGraphic();
+				allPoints[i].velGraphic->displayStyle = DS_ARROW;
+				allPoints[i].velGraphic->r=255;
+				allPoints[i].velGraphic->b = 0;
+			allPoints[i].magGraphic   = addVectorGraphic();
+				allPoints[i].magGraphic->displayStyle = DS_ARROW;
+				allPoints[i].magGraphic->b=255;
+		}
 
 		keyboardForce.init(keyboardInput);
-		gravForce.dir = glm::vec3(0,-9.81,0);
+		gravForce.dir = glm::vec3(0,-1,0);
 		forceManager.add(&one,&gravForce);
 		forceManager.add(&two,&gravForce);
 		forceManager.add(&two,&keyboardForce);
 		forceManager.add(&thr,&keyboardForce);
 
-		myDebugMenu.watchVector("One",one.pos);
-		myDebugMenu.watchVector("two",two.pos);
-		myDebugMenu.watchVector("thr",thr.pos);
-	}
-	void setupGraphics() {
-		oneGraphic = addVectorGraphic();
-		twoGraphic = addVectorGraphic();
-		thrGraphic = addVectorGraphic();
+		for (int i = 0; i < numOfPoints; i++)
+		{
+			myDebugMenu.watchVector("Pos",allPoints[i].point->pos);
+			myDebugMenu.watchVector("Vel",allPoints[i].point->vel);
+			myDebugMenu.watchVector("Mom",allPoints[i].point->momentum);
+			myDebugMenu.slideFloat("Point Mass",allPoints[i].point->mass,.1,5);
+
+		}
 	}
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
-		keyboardInput = getUserDirection() * 20.0f;
+		keyboardInput = getUserDirection() * 2.0f;
 
 		forceManager.updateForces();
 
@@ -54,12 +71,12 @@ public:
 		two.update(dt());
 		thr.update(dt());
 
-
-		oneGraphic->pointSize = one.mass;
-		twoGraphic->pointSize = two.mass;
-		thrGraphic->pointSize = thr.mass;
-		sync(oneGraphic,one.pos);
-		sync(twoGraphic,two.pos);
-		sync(thrGraphic,thr.pos);
+		for (int i = 0; i < numOfPoints; i++)
+		{
+			allPoints[i].pointGraphic->pointSize = allPoints[i].point->mass;
+			sync(allPoints[i].pointGraphic,allPoints[i].point->pos);
+			sync(allPoints[i].velGraphic,allPoints[i].point->vel, allPoints[i].point->pos);
+			sync(allPoints[i].magGraphic,allPoints[i].point->momentum, allPoints[i].point->pos);
+		}
 	}
 };
