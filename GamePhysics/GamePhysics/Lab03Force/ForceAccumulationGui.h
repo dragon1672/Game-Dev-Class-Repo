@@ -33,16 +33,13 @@ public:
 		{
 			allPoints[i].point->init(1);
 			allPoints[i].pointGraphic = addVectorGraphic();
-				allPoints[i].pointGraphic->r = 150;
-				allPoints[i].pointGraphic->g = 150;
-				allPoints[i].pointGraphic->b = 150;
+				allPoints[i].pointGraphic->color = glm::vec3(.5,.5,.5);
 			allPoints[i].velGraphic   = addVectorGraphic();
 				allPoints[i].velGraphic->displayStyle = DS_ARROW;
-				allPoints[i].velGraphic->r=255;
-				allPoints[i].velGraphic->b = 0;
+				allPoints[i].velGraphic->color = glm::vec3(1,0,0);
 			allPoints[i].magGraphic   = addVectorGraphic();
 				allPoints[i].magGraphic->displayStyle = DS_ARROW;
-				allPoints[i].magGraphic->b=255;
+				allPoints[i].magGraphic->color = glm::vec3(0,0,1);
 		}
 
 		keyboardForce.init(keyboardInput);

@@ -7,24 +7,20 @@
 
 class SingleParticleGui: public PhysicsGUIBase {
 protected:
-	DebugMenuManager myDebugMenu;
 	Particle myParticle;
 	VectorGraphic * particalGraphic;
 	VectorGraphic * velGraphic;
 	VectorGraphic * momentumGraphic;
 public:
 	void init() {
-		PhysicsGUIBase::initialize(false,true);
+		PhysicsGUIBase::init();
 		particalGraphic = addVectorGraphic();
-		particalGraphic->r = 150;
-		particalGraphic->g = 150;
-		particalGraphic->b = 150;
+		particalGraphic->color = glm::vec3(.5,.5,.5);
 		velGraphic = addVectorGraphic();
 		velGraphic->displayStyle = DS_ARROW;
-		velGraphic->r=255;
-		velGraphic->b = 0;
+		velGraphic->color = glm::vec3(1,0,0);
 		momentumGraphic = addVectorGraphic();
 		momentumGraphic->displayStyle = DS_ARROW;
-		momentumGraphic->b=255;
+		momentumGraphic->color = glm::vec3(0,0,1);
 	}
 };

@@ -17,7 +17,7 @@ struct ME_PHYSICS_DLL_SHARED VectorGraphic
 		const glm::vec3& base = glm::vec3());
 	glm::vec3 position;
 	glm::vec3 base;
-	int r, g, b; // 0 - 255
+	glm::vec3 color; // 0 - 1
 	float pointSize;
 	DisplayStyle displayStyle;
 	bool connectToNext;
