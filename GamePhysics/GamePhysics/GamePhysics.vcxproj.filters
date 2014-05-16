@@ -9,5 +9,6 @@
     <ClInclude Include="Lab02FMA\BasicMomentum.h" />
     <ClInclude Include="PhysicsGUIBase.h" />
     <ClInclude Include="Lab03Force\ForceAccumulationGui.h" />
+    <ClInclude Include="Lab04DragForce\DragForceGUI.h" />
   </ItemGroup>
 </Project>
