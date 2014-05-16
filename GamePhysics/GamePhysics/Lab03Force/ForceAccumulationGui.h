@@ -71,9 +71,9 @@ public:
 		for (int i = 0; i < numOfPoints; i++)
 		{
 			allPoints[i].pointGraphic->pointSize = allPoints[i].point->mass;
-			sync(allPoints[i].pointGraphic,allPoints[i].point->pos);
-			sync(allPoints[i].velGraphic,allPoints[i].point->vel, allPoints[i].point->pos);
-			sync(allPoints[i].magGraphic,allPoints[i].point->momentum, allPoints[i].point->pos);
+			syncVector(allPoints[i].pointGraphic,allPoints[i].point->pos);
+			syncVector(allPoints[i].velGraphic,allPoints[i].point->vel, allPoints[i].point->pos);
+			syncVector(allPoints[i].magGraphic,allPoints[i].point->momentum, allPoints[i].point->pos);
 		}
 	}
 };

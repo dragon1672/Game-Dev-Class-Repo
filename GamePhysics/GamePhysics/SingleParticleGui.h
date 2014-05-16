@@ -23,4 +23,9 @@ public:
 		momentumGraphic->displayStyle = DS_ARROW;
 		momentumGraphic->color = glm::vec3(0,0,1);
 	}
+	void syncBaseVectors() {
+		syncVector(particalGraphic,myParticle.pos);
+		syncVector(velGraphic,myParticle.vel,myParticle.pos);
+		syncVector(momentumGraphic,myParticle.momentum,myParticle.pos);
+	}
 };

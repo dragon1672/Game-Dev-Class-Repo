@@ -26,4 +26,12 @@ public:
 		ret = (count>1)? glm::normalize(ret) : ret;
 		return ret;
 	}
+	void syncVector(VectorGraphic * toSync, glm::vec3 vec, glm::vec3 base=glm::vec3()) {
+		static float maxSize = 0;
+		float currentLength = glm::dot(vec,vec);
+		maxSize = maxSize < currentLength ? currentLength : maxSize;
+		//WHAT IS GOING ON?!?!
+		base.z = -1;//Random::randomFloat();//currentLength / maxSize;
+		sync(toSync,vec,base);
+	}
 };
