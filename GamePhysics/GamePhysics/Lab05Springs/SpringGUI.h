@@ -5,6 +5,7 @@
 #include <SpringForceGenerator.h>
 #include <GravityForceGenerator.h>
 #include <VectorBoundForceGenerator.h>
+#include <Timer.h>
 
 class SpringGUI : public PhysicsGUIBase {
 	GravityForceGenerator myGrav;
@@ -13,6 +14,7 @@ class SpringGUI : public PhysicsGUIBase {
 
 	ParticleForceRegistry forceManager;
 
+	Timer mouseDragTimer;
 	Particle one;
 	Particle two;
 	Particle thr;
@@ -33,6 +35,7 @@ class SpringGUI : public PhysicsGUIBase {
 	int numOfSpringRays;
 public:
 	void init() {
+		mouseDragTimer.start();
 		PhysicsGUIBase::init();
 		myGrav.dir = glm::vec3();
 		mySprings.init(12,4);
@@ -86,22 +89,29 @@ public:
 	};
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
+		
+		if(mouseDragTimer.stop() > dt()*10) {
+			forceManager.updateForces();
 
-		forceManager.updateForces();
-		for (int i = 0; i < numOfPoints; i++)
-		{
-			allPoints[i].point->update(dt());
-			allPoints[i].pointGraphic->pointSize = allPoints[i].point->mass;
-			syncVector(allPoints[i].pointGraphic,allPoints[i].point->pos);
-			syncVector(allPoints[i].velGraphic,allPoints[i].point->vel, allPoints[i].point->pos);
+
+			for (int i = 0; i < numOfPoints; i++)
+			{
+				allPoints[i].point->update(dt());
+				allPoints[i].pointGraphic->pointSize = allPoints[i].point->mass;
+				syncVector(allPoints[i].pointGraphic,allPoints[i].point->pos);
+				syncVector(allPoints[i].velGraphic,allPoints[i].point->vel, allPoints[i].point->pos);
+			}
+			for (int i = 0; i < numOfSpringRays; i++)
+			{
+				glm::vec3 diff = *springRays[i].from - *springRays[i].to;
+				syncVector(springRays[i].graphic,diff,*springRays[i].to);
+			}
 		}
-		for (int i = 0; i < numOfSpringRays; i++)
-		{
-			glm::vec3 diff = *springRays[i].from - *springRays[i].to;
-			syncVector(springRays[i].graphic,diff,*springRays[i].to);
+	}
 		}
 	}
 	void vectorGraphicMouseDrag(uint vectorGraphicIndex, const glm::vec3& dragDelta) {
+		mouseDragTimer.start();
 		int index = vectorGraphicIndex / 2; // 2 graphics made for each point
 		allPoints[index].point->pos += dragDelta;
 
