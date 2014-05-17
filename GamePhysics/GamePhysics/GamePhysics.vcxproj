@@ -86,6 +86,7 @@
     <ClInclude Include="Lab02FMA\BasicMomentum.h" />
     <ClInclude Include="Lab03Force\ForceAccumulationGui.h" />
     <ClInclude Include="Lab04DragForce\DragForceGUI.h" />
+    <ClInclude Include="Lab05Springs\SpringGUI.h" />
     <ClInclude Include="PhysicsGUIBase.h" />
     <ClInclude Include="SingleParticleGui.h" />
   </ItemGroup>

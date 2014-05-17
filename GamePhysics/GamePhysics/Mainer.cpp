@@ -3,6 +3,7 @@
 #include "Lab02FMA\BasicMomentum.h"
 #include "Lab03Force\ForceAccumulationGui.h"
 #include "Lab04DragForce\DragForceGUI.h"
+#include "Lab05Springs\SpringGUI.h"
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
@@ -10,7 +11,8 @@ int main(int argc, char * argv[]) {
 	//BasicVelocityAndAcc widg;
 	//BasicMomentum widg;
 	//ForceAccumulationGui widg;
-	DragForceGUI widg;
+	//DragForceGUI widg;
+	SpringGUI widg;
 
 
 	widg.init();

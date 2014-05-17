@@ -10,5 +10,6 @@
     <ClInclude Include="PhysicsGUIBase.h" />
     <ClInclude Include="Lab03Force\ForceAccumulationGui.h" />
     <ClInclude Include="Lab04DragForce\DragForceGUI.h" />
+    <ClInclude Include="Lab05Springs\SpringGUI.h" />
   </ItemGroup>
 </Project>
