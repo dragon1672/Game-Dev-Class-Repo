@@ -22,16 +22,14 @@ class SpringGUI : public PhysicsGUIBase {
 	bool toggleDoubleChain_last;
 	bool toggleFull;
 	bool toggleFull_last;
+	bool toggleSep;
+	bool toggleSep_last;
 	bool pauseOnMouseClick;
 
 	float dragConst;
 
-	Particle one;
-	Particle two;
-	Particle thr;
-	Particle fur;
-	Particle fiv;
-	Particle six;
+	Particle particalMem[10];
+	int numOfParticles;
 	struct {
 		Particle * point;
 		VectorGraphic * pointGraphic;
@@ -54,6 +52,7 @@ public:
 		myDrag.init(1,1);
 
 		dragConst = 1;
+		numOfParticles = 0;
 
 		pauseOnMouseClick = true;
 
@@ -70,13 +69,13 @@ public:
 
 		numOfPoints = 0;
 		numOfSpringRays = 0;
-
-		allPoints[numOfPoints++].point = &one;	one.pos = glm::vec3( 0,   0, 0);
-		allPoints[numOfPoints++].point = &two;	two.pos = glm::vec3(-2, 3.5, 0);
-		allPoints[numOfPoints++].point = &thr;	thr.pos = glm::vec3( 2, 3.5, 0);
-		allPoints[numOfPoints++].point = &fur;	fur.pos = glm::vec3( -.001,   7, 0);
-		allPoints[numOfPoints++].point = &fiv;	fiv.pos = glm::vec3(  .001,  11, 0);
-		allPoints[numOfPoints++].point = &six;	six.pos = glm::vec3(  .002,  12, 0);
+		numOfParticles++;
+		allPoints[numOfPoints++].point = &particalMem[numOfParticles++];	particalMem[numOfParticles-1].pos = glm::vec3( 0,   0, 0);
+		allPoints[numOfPoints++].point = &particalMem[numOfParticles++];	particalMem[numOfParticles-1].pos = glm::vec3(-2, 3.5, 0);
+		allPoints[numOfPoints++].point = &particalMem[numOfParticles++];	particalMem[numOfParticles-1].pos = glm::vec3( 2, 3.5, 0);
+		allPoints[numOfPoints++].point = &particalMem[numOfParticles++];	particalMem[numOfParticles-1].pos = glm::vec3( -.001,   7, 0);
+		allPoints[numOfPoints++].point = &particalMem[numOfParticles++];	particalMem[numOfParticles-1].pos = glm::vec3(  .001,  11, 0);
+		allPoints[numOfPoints++].point = &particalMem[numOfParticles++];	particalMem[numOfParticles-1].pos = glm::vec3(  .002,  12, 0);
 		
 		for (int i = 0; i < numOfPoints; i++)
 		{
@@ -91,25 +90,30 @@ public:
 			forceManager.add(allPoints[i].point,&myDrag);
 		}
 
-		forceManager.remove(&one,&myGrav);
+		forceManager.remove(&particalMem[1],&myGrav);
 		allPoints[0].pointGraphic->color = glm::vec3(.5,0,1); // setting anchor color
 
+		toggleChain = toggleChain_last = toggleDoubleChain = toggleDoubleChain_last = toggleSep = toggleSep_last = toggleFull = toggleFull_last = false;
 
-		toggleChain = toggleChain_last = toggleDoubleChain = toggleChain_last = false;
-		toggleFull = toggleFull_last = true;
-
-		mySprings.addSpring(two,one.pos); { springRayStruct temp = {&two.pos, &one.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // start setting up to anchor
-		mySprings.addSpring(thr,one.pos); { springRayStruct temp = {&thr.pos, &one.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // end   setting up to anchor
-		mySprings.addSpring(two,thr.pos); { springRayStruct temp = {&two.pos, &thr.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // start double joints
-		mySprings.addSpring(thr,two.pos); { springRayStruct temp = {&thr.pos, &two.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } 
-		mySprings.addSpring(two,fur.pos); { springRayStruct temp = {&two.pos, &fur.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } 
-		mySprings.addSpring(fur,two.pos); { springRayStruct temp = {&fur.pos, &two.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } 
-		mySprings.addSpring(thr,fur.pos); { springRayStruct temp = {&thr.pos, &fur.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } 
-		mySprings.addSpring(fur,thr.pos); { springRayStruct temp = {&fur.pos, &thr.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
-		mySprings.addSpring(fur,fiv.pos); { springRayStruct temp = {&fur.pos, &fiv.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } 
-		mySprings.addSpring(fiv,fur.pos); { springRayStruct temp = {&fiv.pos, &fur.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
-		mySprings.addSpring(fiv,fur.pos); { springRayStruct temp = {&six.pos, &fiv.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
-		mySprings.addSpring(fiv,fur.pos); { springRayStruct temp = {&fiv.pos, &six.pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // end double joints 
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); { springRayStruct temp = {&particalMem[2].pos, &particalMem[1].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // start setting up to anchor
+		mySprings.addSpring(particalMem[3],particalMem[1].pos); { springRayStruct temp = {&particalMem[3].pos, &particalMem[1].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // end   setting up to anchor
+		mySprings.addSpring(particalMem[2],particalMem[3].pos); { springRayStruct temp = {&particalMem[2].pos, &particalMem[3].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; } // start double joints
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); { springRayStruct temp = {&particalMem[3].pos, &particalMem[2].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[2],particalMem[4].pos); { springRayStruct temp = {&particalMem[2].pos, &particalMem[4].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[4],particalMem[2].pos); { springRayStruct temp = {&particalMem[4].pos, &particalMem[2].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[3],particalMem[4].pos); { springRayStruct temp = {&particalMem[3].pos, &particalMem[4].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); { springRayStruct temp = {&particalMem[4].pos, &particalMem[3].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[4],particalMem[5].pos); { springRayStruct temp = {&particalMem[4].pos, &particalMem[5].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); { springRayStruct temp = {&particalMem[5].pos, &particalMem[4].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); { springRayStruct temp = {&particalMem[6].pos, &particalMem[5].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[5],particalMem[6].pos); { springRayStruct temp = {&particalMem[5].pos, &particalMem[6].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[3],particalMem[6].pos); { springRayStruct temp = {&particalMem[3].pos, &particalMem[6].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[6],particalMem[3].pos); { springRayStruct temp = {&particalMem[6].pos, &particalMem[3].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[2],particalMem[5].pos); { springRayStruct temp = {&particalMem[2].pos, &particalMem[5].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[5],particalMem[2].pos); { springRayStruct temp = {&particalMem[5].pos, &particalMem[2].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[6],particalMem[4].pos); { springRayStruct temp = {&particalMem[6].pos, &particalMem[4].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[4],particalMem[6].pos); { springRayStruct temp = {&particalMem[4].pos, &particalMem[6].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
+		mySprings.addSpring(particalMem[4],particalMem[1].pos); { springRayStruct temp = {&particalMem[4].pos, &particalMem[1].pos, addVectorGraphic()}; springRays[numOfSpringRays++] = temp; }
 		for (int i = 0; i < numOfSpringRays; i++)
 		{
 			springRays[i].graphic->color = glm::vec3(1,.5,0);
@@ -143,56 +147,70 @@ public:
 	void updateForces() {
 		if(toggleChain != toggleChain_last){
 			wipeSprings();
-			mySprings.addSpring(two,one.pos); springRays[0].graphic->visible = true;
-			mySprings.addSpring(thr,two.pos); springRays[3].graphic->visible = true;
-			mySprings.addSpring(fur,thr.pos); springRays[7].graphic->visible = true;
-			mySprings.addSpring(fiv,fur.pos); springRays[9].graphic->visible = true;
-			mySprings.addSpring(six,fiv.pos); springRays[10].graphic->visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
 		}
 		if(toggleDoubleChain != toggleDoubleChain_last) {
 			wipeSprings();
-			mySprings.addSpring(two,one.pos); springRays[0].graphic->visible = true;
-			mySprings.addSpring(two,thr.pos); springRays[2].graphic->visible = true;
-			mySprings.addSpring(thr,two.pos); springRays[3].graphic->visible = true;
-			mySprings.addSpring(thr,fur.pos); springRays[6].graphic->visible = true;
-			mySprings.addSpring(fur,thr.pos); springRays[7].graphic->visible = true;
-			mySprings.addSpring(fur,fiv.pos); springRays[8].graphic->visible = true;
-			mySprings.addSpring(fiv,fur.pos); springRays[9].graphic->visible = true;
-			mySprings.addSpring(six,fiv.pos); springRays[10].graphic->visible = true;
-			mySprings.addSpring(fiv,six.pos); springRays[11].graphic->visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+			mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
 		}
 		if(toggleFull!=toggleFull_last) {
 			wipeSprings();
-			mySprings.addSpring(two,one.pos); springRays[0].graphic->visible = true;
-			mySprings.addSpring(thr,one.pos); springRays[1].graphic->visible = true;
-			mySprings.addSpring(two,thr.pos); springRays[2].graphic->visible = true;
-			mySprings.addSpring(thr,two.pos); springRays[3].graphic->visible = true;
-			mySprings.addSpring(two,fur.pos); springRays[4].graphic->visible = true;
-			mySprings.addSpring(fur,two.pos); springRays[5].graphic->visible = true;
-			mySprings.addSpring(thr,fur.pos); springRays[6].graphic->visible = true;
-			mySprings.addSpring(fur,thr.pos); springRays[7].graphic->visible = true;
-			mySprings.addSpring(fur,fiv.pos); springRays[8].graphic->visible = true;
-			mySprings.addSpring(fiv,fur.pos); springRays[9].graphic->visible = true;
-			mySprings.addSpring(six,fiv.pos); springRays[10].graphic->visible = true;
-			mySprings.addSpring(fiv,six.pos); springRays[11].graphic->visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[1].pos); springRays[1].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[4].pos); springRays[4].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[2].pos); springRays[5].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
+			mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+			mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
+			mySprings.addSpring(particalMem[3],particalMem[6].pos); springRays[12].graphic -> visible = true;
+			mySprings.addSpring(particalMem[6],particalMem[3].pos); springRays[13].graphic -> visible = true;
+			mySprings.addSpring(particalMem[2],particalMem[5].pos); springRays[14].graphic -> visible = true;
+			mySprings.addSpring(particalMem[5],particalMem[2].pos); springRays[15].graphic -> visible = true;
+			mySprings.addSpring(particalMem[6],particalMem[4].pos); springRays[16].graphic -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[6].pos); springRays[17].graphic -> visible = true;
+			mySprings.addSpring(particalMem[4],particalMem[1].pos); springRays[18].graphic -> visible = true;
 		}
 		toggleChain_last = toggleChain;
 		toggleDoubleChain_last = toggleDoubleChain;
 		toggleFull_last = toggleFull;
 	}
 	void wipeSprings() {
-		mySprings.removeSpring(two,one.pos); springRays[0].graphic->visible = false;
-		mySprings.removeSpring(thr,one.pos); springRays[1].graphic->visible = false;
-		mySprings.removeSpring(two,thr.pos); springRays[2].graphic->visible = false;
-		mySprings.removeSpring(thr,two.pos); springRays[3].graphic->visible = false;
-		mySprings.removeSpring(two,fur.pos); springRays[4].graphic->visible = false;
-		mySprings.removeSpring(fur,two.pos); springRays[5].graphic->visible = false;
-		mySprings.removeSpring(thr,fur.pos); springRays[6].graphic->visible = false;
-		mySprings.removeSpring(fur,thr.pos); springRays[7].graphic->visible = false;
-		mySprings.removeSpring(fur,fiv.pos); springRays[8].graphic->visible = false;
-		mySprings.removeSpring(fiv,fur.pos); springRays[9].graphic->visible = false;
-		mySprings.removeSpring(six,fiv.pos); springRays[10].graphic->visible = false;
-		mySprings.removeSpring(fiv,six.pos); springRays[11].graphic->visible = false;
+		mySprings.removeSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[3],particalMem[1].pos); springRays[1].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[2],particalMem[4].pos); springRays[4].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[4],particalMem[2].pos); springRays[5].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = false;
+		mySprings.removeSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[3],particalMem[6].pos); springRays[12].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[6],particalMem[3].pos); springRays[13].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[2],particalMem[5].pos); springRays[14].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[5],particalMem[2].pos); springRays[15].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[6],particalMem[4].pos); springRays[16].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[4],particalMem[6].pos); springRays[17].graphic -> visible = false;
+		mySprings.removeSpring(particalMem[4],particalMem[1].pos); springRays[18].graphic -> visible = false;
 	}
 	void vectorGraphicMouseDrag(uint vectorGraphicIndex, const glm::vec3& dragDelta) {
 		mouseDragTimer.start();
