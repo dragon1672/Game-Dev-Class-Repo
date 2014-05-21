@@ -63,6 +63,14 @@ public:
 		PhysicsGUIBase::newFrame();
 		
 		//do stuff here
+		glm::vec3 posA = collisionManager.particle[0]->pos;
+		glm::vec3 posB = collisionManager.particle[1]->pos;
+		glm::vec3 diff = posB - posA;
+		float length = glm::length(diff);
+		collisionManager.contactNormal = diff / length;
+		length = (circleCollide(posA,collisionManager.particle[0]->mass,posB,collisionManager.particle[1]->mass)) ? length : -length;
+		collisionManager.penetration = length;
+		collisionManager.resolve(dt());
 
 
 		systemMom = glm::vec3();
