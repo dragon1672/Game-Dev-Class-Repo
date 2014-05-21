@@ -55,16 +55,15 @@ public:
 		numOfParticles = 0;
 
 		pauseOnMouseClick = true;
-
 		myDebugMenu.slideFloat("Gravity", myGrav.dir.y,0,-50);
 		myDebugMenu.slideFloat("K", mySprings.springConstent,0,50);
 		//myDebugMenu.slideFloat("Stiff K", mySprings.springConstent,0,500);
 		myDebugMenu.slideFloat("Rest", mySprings.springRestLength,0,10);
 		myDebugMenu.slideFloat("Rest", mySprings.springRestLength,0,100);
 		myDebugMenu.slideFloat("dragConst", dragConst,0,10);
-		myDebugMenu.toggleBool("[button] single Chain",toggleChain);
-		myDebugMenu.toggleBool("[button] double Chain",toggleDoubleChain);
-		myDebugMenu.toggleBool("[button] complex Chain",toggleFull);
+		myDebugMenu.button("single Chain", fastdelegate::MakeDelegate(this, &SpringGUI::toggleChangFun));
+		myDebugMenu.button("double Chain", fastdelegate::MakeDelegate(this, &SpringGUI::toggleChangDoubleFun));
+		myDebugMenu.button("complex Chain",fastdelegate::MakeDelegate(this, &SpringGUI::toggleComplexFun));
 		myDebugMenu.toggleBool("Pause on Mouse Drag",pauseOnMouseClick);
 
 		numOfPoints = 0;
@@ -144,48 +143,57 @@ public:
 			}
 		}
 	}
+	void toggleChangFun() {
+		wipeSprings();
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+	}
+	void toggleChangDoubleFun() {
+		wipeSprings();
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+		mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
+	}
+	void toggleComplexFun() {
+		wipeSprings();
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[1].pos); springRays[1].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[4].pos); springRays[4].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[2].pos); springRays[5].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+		mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
+		mySprings.addSpring(particalMem[3],particalMem[6].pos); springRays[12].graphic -> visible = true;
+		mySprings.addSpring(particalMem[6],particalMem[3].pos); springRays[13].graphic -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[5].pos); springRays[14].graphic -> visible = true;
+		mySprings.addSpring(particalMem[5],particalMem[2].pos); springRays[15].graphic -> visible = true;
+		mySprings.addSpring(particalMem[6],particalMem[4].pos); springRays[16].graphic -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[6].pos); springRays[17].graphic -> visible = true;
+		mySprings.addSpring(particalMem[4],particalMem[1].pos); springRays[18].graphic -> visible = true;
+	}
 	void updateForces() {
 		if(toggleChain != toggleChain_last){
-			wipeSprings();
-			mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+			toggleChangFun();
 		}
 		if(toggleDoubleChain != toggleDoubleChain_last) {
-			wipeSprings();
-			mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
-			mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
+			toggleChangDoubleFun();
 		}
 		if(toggleFull!=toggleFull_last) {
-			wipeSprings();
-			mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[1].pos); springRays[1].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[2],particalMem[4].pos); springRays[4].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[2].pos); springRays[5].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
-			mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
-			mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
-			mySprings.addSpring(particalMem[3],particalMem[6].pos); springRays[12].graphic -> visible = true;
-			mySprings.addSpring(particalMem[6],particalMem[3].pos); springRays[13].graphic -> visible = true;
-			mySprings.addSpring(particalMem[2],particalMem[5].pos); springRays[14].graphic -> visible = true;
-			mySprings.addSpring(particalMem[5],particalMem[2].pos); springRays[15].graphic -> visible = true;
-			mySprings.addSpring(particalMem[6],particalMem[4].pos); springRays[16].graphic -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[6].pos); springRays[17].graphic -> visible = true;
-			mySprings.addSpring(particalMem[4],particalMem[1].pos); springRays[18].graphic -> visible = true;
+			toggleComplexFun();
 		}
 		toggleChain_last = toggleChain;
 		toggleDoubleChain_last = toggleDoubleChain;
