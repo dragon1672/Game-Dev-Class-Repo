@@ -88,6 +88,7 @@
     <ClInclude Include="Lab04DragForce\DragForceGUI.h" />
     <ClInclude Include="Lab05Springs\SpringGUI.h" />
     <ClInclude Include="Lab05Springs\WavesGUI.h" />
+    <ClInclude Include="Lab06Collision\CollisionGUI.h" />
     <ClInclude Include="PhysicsGUIBase.h" />
     <ClInclude Include="SingleParticleGui.h" />
   </ItemGroup>

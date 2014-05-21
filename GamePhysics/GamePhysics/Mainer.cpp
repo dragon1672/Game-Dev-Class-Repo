@@ -5,6 +5,7 @@
 #include "Lab04DragForce\DragForceGUI.h"
 #include "Lab05Springs\SpringGUI.h"
 #include "Lab05Springs\WavesGUI.h"
+#include "Lab06Collision\CollisionGUI.h"
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
@@ -14,7 +15,8 @@ int main(int argc, char * argv[]) {
 	//ForceAccumulationGui widg;
 	//DragForceGUI widg;
 	//SpringGUI widg;
-	WaveGui widg;
+	//WaveGui widg;
+	CollisionGUI widg;
 
 
 	widg.init();
