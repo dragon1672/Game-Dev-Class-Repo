@@ -101,9 +101,7 @@ public:
 		if(mouseDragTimer.stop() > dt()*10) {
 			collisionManager.update();
 			if(collisionManager.hasCollided()) {
-				collisionData.contactNormal = collisionManager.getNormal();
-				collisionData.penetration = collisionManager.getPenetration();
-				collisionData.collide(dt());
+				collide();
 			}
 
 
@@ -142,7 +140,6 @@ public:
 			syncVector(allPoints[i].mom,allPoints[i].point.momentum,allPoints[i].point.pos);
 			syncVector(allPoints[i].collideVel,collisionManager.vels[i],allPoints[i].point.pos);
 			syncVector(systemMomGraphic,systemMom);
-			
 		}
 	}
 };
