@@ -15,6 +15,7 @@ class CollisionGUI : public PhysicsGUIBase {
 		VectorGraphic * mom;
 		VectorGraphic * collideVel;
 	} allPoints[2];
+	VectorGraphic * systemMomGraphic;
 	int numOfNodes;
 	glm::vec3 systemMom;
 	float totalKineticEnergy;
@@ -33,7 +34,7 @@ public:
 			allPoints[i].point.init(1,(i==0)? .5 : .3);
 			allPoints[i].point.pos = (i==0) ? glm::vec3(-3,0,0) : glm::vec3(3,0,0);
 			allPoints[i].pointGraphic = addVectorGraphic();
-			allPoints[i].startVel = (i==0) ? glm::vec3(1,0,0) : glm::vec3(-1,0,0);
+			allPoints[i].startVel = (i==0) ? glm::vec3(2,0,0) : glm::vec3(-3,0,0);
 				allPoints[i].pointGraphic->color = (i==0) ? glm::vec3(1,0,0) : glm::vec3(0,0,1);
 			allPoints[i].vel= addVectorGraphic();
 				allPoints[i].vel->displayStyle = DS_ARROW;
@@ -46,30 +47,50 @@ public:
 				allPoints[i].collideVel->color = glm::vec3(0,1,0);
 			numOfNodes++;
 		}
+		systemMomGraphic = addVectorGraphic();
+		systemMomGraphic->displayStyle = DS_ARROW;
+		systemMomGraphic->color = glm::vec3(0,0,1);
 
 		collisionManager.init(&allPoints[0].point,&allPoints[1].point);
 
 		reset();
 		
-		myDebugMenu.button("Reset Particles", fastdelegate::MakeDelegate(this,&CollisionGUI::reset));
+		myDebugMenu.button("Factory Reset (1D)", fastdelegate::MakeDelegate(this,&CollisionGUI::factoryReset));
+		myDebugMenu.button("Factory Reset (2D)", fastdelegate::MakeDelegate(this,&CollisionGUI::reset2D));
+		myDebugMenu.button("Reset Particles (Sliders)", fastdelegate::MakeDelegate(this,&CollisionGUI::reset));
 		myDebugMenu.button("Cause Collision", fastdelegate::MakeDelegate(this,&CollisionGUI::collide));
 		myDebugMenu.slideFloat("Red Mass",  allPoints[0].point.mass, 0.0f, 5.0f);
 		myDebugMenu.slideFloat("Blue Mass", allPoints[1].point.mass, 0.0f, 5.0f);
 		myDebugMenu.slideFloat("Restitution", collisionData.restitution, 0, 1);
-		myDebugMenu.slideVector("P1 Initial Velocity", allPoints[0].startVel, 0,  10);
-		myDebugMenu.slideVector("P2 Initial Velocity", allPoints[1].startVel, 0, -10);
-		myDebugMenu.watchVector("P1 Velocity", allPoints[0].point.vel);
-		myDebugMenu.watchVector("P2 Velocity", allPoints[1].point.vel);
+		myDebugMenu.slideVector("Red Initial Vel", allPoints[0].startVel, 0,  10, -5, 5, 0, 0);
+		myDebugMenu.slideVector("Blu Initial Vel", allPoints[1].startVel, 0, -10, -5, 5, 0, 0);
+		myDebugMenu.watchVector("Red Vel", allPoints[0].point.vel);
+		myDebugMenu.watchVector("Blu Vel", allPoints[1].point.vel);
 		myDebugMenu.watchVector("System Momentum",systemMom);
 		myDebugMenu.watchFloat("Total Kinetic Energy",totalKineticEnergy);
-  
-
 	};
+	void factoryReset() {
+		allPoints[0].point.init(1,.5 );
+		allPoints[0].point.pos = glm::vec3(-3,0,0);
+		allPoints[0].startVel = glm::vec3(2,0,0);
+		allPoints[1].point.init(1,.3);
+		allPoints[1].point.pos = glm::vec3(3,0,0);
+		allPoints[1].startVel = glm::vec3(-3,0,0);
+		reset();
+	}
 	void reset() {
 		allPoints[0].point.pos = glm::vec3(-3,0,0);
 		allPoints[0].point.vel = allPoints[0].startVel;
 		allPoints[1].point.pos = glm::vec3(3,0,0);
 		allPoints[1].point.vel = allPoints[1].startVel;
+	}
+	void reset2D() {
+		allPoints[0].point.mass = 3.5;
+		allPoints[1].point.mass = 1.3;
+		allPoints[0].point.pos = glm::vec3(-5,0,0);
+		allPoints[0].point.vel = glm::vec3(1,1,0);
+		allPoints[1].point.pos = glm::vec3(5,0,0);
+		allPoints[1].point.vel = glm::vec3(-1,1,0);
 	}
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
@@ -117,6 +138,8 @@ public:
 			syncVector(allPoints[i].vel,allPoints[i].point.vel,allPoints[i].point.pos);
 			syncVector(allPoints[i].mom,allPoints[i].point.momentum,allPoints[i].point.pos);
 			syncVector(allPoints[i].collideVel,collisionManager.vels[i],allPoints[i].point.pos);
+			syncVector(systemMomGraphic,systemMom);
+			
 		}
 	}
 };
