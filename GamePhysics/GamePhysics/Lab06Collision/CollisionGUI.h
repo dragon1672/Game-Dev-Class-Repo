@@ -59,15 +59,15 @@ public:
 		myDebugMenu.button("Factory Reset (2D)", fastdelegate::MakeDelegate(this,&CollisionGUI::reset2D));
 		myDebugMenu.button("Reset Particles (Sliders)", fastdelegate::MakeDelegate(this,&CollisionGUI::reset));
 		myDebugMenu.button("Cause Collision", fastdelegate::MakeDelegate(this,&CollisionGUI::collide));
-		myDebugMenu.slideFloat("Red Mass",  allPoints[0].point.mass, 0.0f, 5.0f);
-		myDebugMenu.slideFloat("Blue Mass", allPoints[1].point.mass, 0.0f, 5.0f);
-		myDebugMenu.slideFloat("Restitution", collisionData.restitution, 0, 1);
-		myDebugMenu.slideVector("Red Initial Vel", allPoints[0].startVel, 0,  10, -5, 5, 0, 0);
-		myDebugMenu.slideVector("Blu Initial Vel", allPoints[1].startVel, 0, -10, -5, 5, 0, 0);
-		myDebugMenu.watchVector("Red Vel", allPoints[0].point.vel);
-		myDebugMenu.watchVector("Blu Vel", allPoints[1].point.vel);
-		myDebugMenu.watchVector("System Momentum",systemMom);
-		myDebugMenu.watchFloat("Total Kinetic Energy",totalKineticEnergy);
+		myDebugMenu.edit("Red Mass",  allPoints[0].point.mass, 0.0f, 5.0f);
+		myDebugMenu.edit("Blue Mass", allPoints[1].point.mass, 0.0f, 5.0f);
+		myDebugMenu.edit("Restitution", collisionData.restitution, 0, 1);
+		myDebugMenu.edit("Red Initial Vel", allPoints[0].startVel, 0,  10, -5, 5, 0, 0);
+		myDebugMenu.edit("Blu Initial Vel", allPoints[1].startVel, 0, -10, -5, 5, 0, 0);
+		myDebugMenu.watch("Red Vel", allPoints[0].point.vel);
+		myDebugMenu.watch("Blu Vel", allPoints[1].point.vel);
+		myDebugMenu.watch("System Momentum",systemMom);
+		myDebugMenu.watch("Total Kinetic Energy",totalKineticEnergy);
 	};
 	void factoryReset() {
 		allPoints[0].point.init(1,.5 );
@@ -87,10 +87,13 @@ public:
 	void reset2D() {
 		allPoints[0].point.mass = 3.5;
 		allPoints[1].point.mass = 1.3;
-		allPoints[0].point.pos = glm::vec3(-5,0,0);
-		allPoints[0].point.vel = glm::vec3(1,1,0);
-		allPoints[1].point.pos = glm::vec3(5,0,0);
-		allPoints[1].point.vel = glm::vec3(-1,1,0);
+		allPoints[0].point.pos  = glm::vec3(-5,0,0);
+		allPoints[0].startVel   = glm::vec3(1.5,1,0);
+		allPoints[1].point.pos  = glm::vec3(5,0,0);
+		allPoints[1].startVel   = glm::vec3(-1.5,1,0);
+
+		allPoints[0].point.vel = allPoints[0].startVel;
+		allPoints[1].point.vel = allPoints[1].startVel;
 	}
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
