@@ -3,26 +3,32 @@
 #include "../PhysicsGUIBase.h"
 #include <ParticleContact.h>
 #include <Timer.h>
+#include <CollisionMassCircles.h>
 
 class CollisionGUI : public PhysicsGUIBase {
+	Timer mouseDragTimer;
 	struct {
 		Particle point;
 		glm::vec3 startVel;
 		VectorGraphic * pointGraphic;
 		VectorGraphic * vel;
 		VectorGraphic * mom;
+		VectorGraphic * collideVel;
 	} allPoints[2];
 	int numOfNodes;
 	glm::vec3 systemMom;
 	float totalKineticEnergy;
-	ParticleContact collisionManager;
+	ParticleContact collisionData;
+	CollisionMassCircles collisionManager;
 public:
 	void init() {
 		PhysicsGUIBase::init();
+		mouseDragTimer.start();
 		numOfNodes = 0;
+		collisionData.restitution = 1;
 		for (int i = 0; i < 2; i++)
 		{
-			collisionManager.particle[i] = &allPoints[i].point;
+			collisionData.particle[i] = &allPoints[i].point;
 
 			allPoints[i].point.init(1,(i==0)? .5 : .3);
 			allPoints[i].point.pos = (i==0) ? glm::vec3(-3,0,0) : glm::vec3(3,0,0);
@@ -31,19 +37,25 @@ public:
 				allPoints[i].pointGraphic->color = (i==0) ? glm::vec3(1,0,0) : glm::vec3(0,0,1);
 			allPoints[i].vel= addVectorGraphic();
 				allPoints[i].vel->displayStyle = DS_ARROW;
-				allPoints[i].vel->color = (i==0) ? glm::vec3(1,0,0) : glm::vec3(0,0,1);
+				allPoints[i].vel->color = (i==0) ? glm::vec3(1,0,0) : glm::vec3(1,0,0);
 			allPoints[i].mom= addVectorGraphic();
 				allPoints[i].mom->displayStyle = DS_ARROW;
-				allPoints[i].mom->color = glm::vec3(0,1,0);
+				allPoints[i].mom->color = glm::vec3(0,0,1);
+			allPoints[i].collideVel= addVectorGraphic();
+				allPoints[i].collideVel->displayStyle = DS_ARROW;
+				allPoints[i].collideVel->color = glm::vec3(0,1,0);
 			numOfNodes++;
 		}
+
+		collisionManager.init(&allPoints[0].point,&allPoints[1].point);
 
 		reset();
 		
 		myDebugMenu.button("Reset Particles", fastdelegate::MakeDelegate(this,&CollisionGUI::reset));
+		myDebugMenu.button("Cause Collision", fastdelegate::MakeDelegate(this,&CollisionGUI::collide));
 		myDebugMenu.slideFloat("Red Mass",  allPoints[0].point.mass, 0.0f, 5.0f);
 		myDebugMenu.slideFloat("Blue Mass", allPoints[1].point.mass, 0.0f, 5.0f);
-		myDebugMenu.slideFloat("Restitution", collisionManager.restitution, 0, 1);
+		myDebugMenu.slideFloat("Restitution", collisionData.restitution, 0, 1);
 		myDebugMenu.slideVector("P1 Initial Velocity", allPoints[0].startVel, 0,  10);
 		myDebugMenu.slideVector("P2 Initial Velocity", allPoints[1].startVel, 0, -10);
 		myDebugMenu.watchVector("P1 Velocity", allPoints[0].point.vel);
@@ -62,38 +74,49 @@ public:
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
 		
-		//do stuff here
-		glm::vec3 posA = collisionManager.particle[0]->pos;
-		glm::vec3 posB = collisionManager.particle[1]->pos;
-		glm::vec3 diff = posB - posA;
-		float length = glm::length(diff);
-		collisionManager.contactNormal = diff / length;
-		length = (circleCollide(posA,collisionManager.particle[0]->mass,posB,collisionManager.particle[1]->mass)) ? length : -length;
-		collisionManager.penetration = length;
-		collisionManager.resolve(dt());
+		if(mouseDragTimer.stop() > dt()*10) {
+			collisionManager.update();
+			if(collisionManager.hasCollided()) {
+				collisionData.contactNormal = collisionManager.getNormal();
+				collisionData.penetration = collisionManager.getPenetration();
+				collisionData.collide(dt());
+			}
 
 
-		systemMom = glm::vec3();
-		totalKineticEnergy = 0;
-		for (int i = 0; i < numOfNodes; i++)
-		{
-			allPoints[i].point.update(dt());
-			systemMom += allPoints[i].point.momentum;
-			totalKineticEnergy += .5 * allPoints[i].point.mass * glm::dot(allPoints[i].point.vel,allPoints[i].point.vel);
+			systemMom = glm::vec3();
+			totalKineticEnergy = 0;
+			for (int i = 0; i < numOfNodes; i++)
+			{
+				allPoints[i].point.update(dt());
+				systemMom += allPoints[i].point.momentum;
+				totalKineticEnergy += .5 * allPoints[i].point.mass * glm::dot(allPoints[i].point.vel,allPoints[i].point.vel);
+			}
 		}
 
+		redraw();
+	}
+	void collide() {
+		collisionData.contactNormal = collisionManager.getNormal();
+		collisionData.penetration = collisionManager.getPenetration();
+		collisionData.collide(dt());
+	}
+	void vectorGraphicMouseDrag(uint vectorGraphicIndex, const glm::vec3& dragDelta) {
+		mouseDragTimer.start();
+		int index = vectorGraphicIndex / 4; // 2 graphics made for each point
+		allPoints[index].point.pos += dragDelta;
+
+		collisionManager.update();
+
+		redraw();
+	}
+	void redraw() {
 		for (int i = 0; i < numOfNodes; i++)
 		{
-			allPoints[i].point.update(dt());
 			allPoints[i].pointGraphic->pointSize = allPoints[i].point.mass;
 			syncVector(allPoints[i].pointGraphic,allPoints[i].point.pos);
 			syncVector(allPoints[i].vel,allPoints[i].point.vel,allPoints[i].point.pos);
 			syncVector(allPoints[i].mom,allPoints[i].point.momentum,allPoints[i].point.pos);
+			syncVector(allPoints[i].collideVel,collisionManager.vels[i],allPoints[i].point.pos);
 		}
-	}
-	bool circleCollide(glm::vec3& object1Pos, float object1Rad, glm::vec3& object2Pos, float object2Rad) {
-		glm::vec3 diff = object1Pos - object2Pos;
-		float rads = object1Rad + object2Rad;
-		return glm::dot(diff,diff) < rads * rads;
 	}
 };
