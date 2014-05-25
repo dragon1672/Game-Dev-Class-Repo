@@ -13,14 +13,15 @@ class RestingCollisionGUI : public PhysicsGUIBase {
 	VectorGraphic * pointGraphic;
 	VectorGraphic * vel;
 	VectorGraphic * mom;
-	VectorGraphic * collideVel;
 	VectorGraphic * wallGraphicLeft;
 	VectorGraphic * wallGraphicRight;
 	Ray wall;
 	VectorGraphic * wallGraphic;
 
-	float preCollisionForce;
-	float postCollisionForce;
+	glm::vec3 preCollisionForce;
+	glm::vec3 preCollisionVel;
+	glm::vec3 postCollisionForce;
+	glm::vec3 postCollisionVel;
 	glm::vec3 gravity;
 
 
@@ -33,7 +34,7 @@ public:
 		gravity = glm::vec3(0,-9.81,0);
 		wall.origin = glm::vec3();
 		wall.direction =  glm::vec3(0,1,0);
-		collisionData.restitution = 1;
+		collisionData.restitution = .8;
 
 		collisionData.particle[0] = &point;
 		collisionData.particle[1] = nullptr;
@@ -43,9 +44,6 @@ public:
 		mom = addVectorGraphic();
 		mom->displayStyle = DS_ARROW;
 		mom->color = glm::vec3(0,0,1);
-		collideVel = addVectorGraphic();
-		collideVel->displayStyle = DS_ARROW;
-		collideVel->color = glm::vec3(1,0,0);
 		vel= addVectorGraphic();
 		vel->displayStyle = DS_ARROW;
 		vel->color = glm::vec3(0,1,0);
@@ -63,10 +61,13 @@ public:
 
 		myDebugMenu.button("Reset Bounce", fastdelegate::MakeDelegate(this,&RestingCollisionGUI::resetBounce));
 		myDebugMenu.button("Reset Rest", fastdelegate::MakeDelegate(this,&RestingCollisionGUI::resetRest));
-		myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,0,0);
-		myDebugMenu.watch("Pre Collision: ",preCollisionForce);
-		myDebugMenu.watch("Post Collision: ",postCollisionForce);
-		myDebugMenu.edit("Gravity",gravity, 10,10,0);
+		myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,0,0,false);
+		myDebugMenu.watch("Plane Norm",wall.direction);
+		myDebugMenu.watch("Pre Collision (Vel): ",preCollisionVel);
+		myDebugMenu.watch("Pre Collision (Force): ",preCollisionForce);
+		myDebugMenu.watch("Post Collision (Vel): ",postCollisionVel);
+		myDebugMenu.watch("Post Collision (Force): ",postCollisionForce);
+		myDebugMenu.edit("Gravity",gravity.y, 0, -10);
 		myDebugMenu.edit("Restitution", collisionData.restitution, 0, 1);
 		myDebugMenu.edit("Drag", point.drag, 0, 1);
 	};
@@ -86,14 +87,14 @@ public:
 		if(mouseDragTimer.stop() > dt()*10) {
 			//particle force update would go here
 			point.totalForce += gravity;
-			this->preCollisionForce = glm::dot(point.totalForce,point.totalForce);
-			this->preCollisionForce = glm::dot(point.vel,point.vel);
+			this->preCollisionForce = point.totalForce;
+			this->preCollisionVel = point.vel;
 			collisionManager.update();
 			if(collisionManager.hasCollided()) {
 				collide();
 			}
-			this->postCollisionForce = glm::dot(point.totalForce,point.totalForce);
-			this->postCollisionForce = glm::dot(point.vel,point.vel);
+			this->postCollisionForce = point.totalForce;
+			this->postCollisionVel = point.vel;
 
 			point.update(dt());
 		}
@@ -118,7 +119,6 @@ public:
 		syncVector(pointGraphic,point.pos);
 		syncVector(vel,point.vel,point.pos);
 		syncVector(mom,point.momentum,point.pos);
-		syncVector(collideVel,collisionManager.vel,point.pos);
 		glm::vec3 perpCCW = 1000.0f * glm::vec3(wall.direction.y,-wall.direction.x,0);
 		glm::vec3 perpCW = -1000.0f * glm::vec3(wall.direction.y,-wall.direction.x,0);
 		syncVector(wallGraphicLeft, perpCCW, wall.origin);
