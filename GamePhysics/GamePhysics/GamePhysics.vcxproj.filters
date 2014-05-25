@@ -13,5 +13,6 @@
     <ClInclude Include="Lab05Springs\SpringGUI.h" />
     <ClInclude Include="Lab05Springs\WavesGUI.h" />
     <ClInclude Include="Lab06Collision\CollisionGUI.h" />
+    <ClInclude Include="Lab07RestingCollision\RestingCollisionGUI.h" />
   </ItemGroup>
 </Project>
