@@ -70,13 +70,15 @@ public:
 		myDebugMenu.edit("Gravity",gravity.y, 0, -10);
 		myDebugMenu.edit("Restitution", collisionData.restitution, 0, 1);
 		myDebugMenu.edit("Drag", point.drag, 0, 1);
+		myDebugMenu.edit("Mass", point.mass,.1,10);
 	};
 	void resetBounce() {
-		point.pos = glm::vec3(-3,3,0);
+		point.pos = glm::vec3(-3,point.mass + 3,0);
 		point.vel = glm::vec3(1,0,0);
 	}
 	void resetRest() {
-		point.pos = glm::vec3(0,.5,0);
+
+		point.pos = glm::vec3(0,point.mass/2,0);
 		point.vel = glm::vec3(0,0,0);
 	}
 	void newFrame() {
