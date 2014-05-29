@@ -114,7 +114,7 @@ public:
 			{
 				allPoints[i].point.update(dt());
 			}
-			for (int potatoHack = 0; potatoHack < 75; potatoHack++)
+			for (int potatoHack = 0; potatoHack < 100; potatoHack++)
 			{
 				for (int i = 0; i < numOfPoints; i++)
 				{
