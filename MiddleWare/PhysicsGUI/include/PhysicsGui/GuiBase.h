@@ -8,6 +8,8 @@
 class QVBoxLayout;
 class CartesianGraph;
 class QCheckBox;
+class QLabel;
+class ThreeDGraph;
 
 class ME_PHYSICS_DLL_SHARED GuiBase : public QWidget
 {		
@@ -19,6 +21,8 @@ class ME_PHYSICS_DLL_SHARED GuiBase : public QWidget
 	QCheckBox* autoStepCbx;
 	QVBoxLayout* controlsLayout;
 	CartesianGraph* graph;
+	ThreeDGraph* threeDGraph;
+	QLabel* fpsLabel;
 
 	unsigned int twoDGridSize;
 	bool is3D;

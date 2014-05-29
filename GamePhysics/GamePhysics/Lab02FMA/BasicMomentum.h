@@ -11,8 +11,8 @@ public:
 		conserveMomentum=false;
 
 		//debug menus
-		myDebugMenu.slideFloat("Mass",myParticle.mass,.01,10);
-		myDebugMenu.slideFloat("Drag",myParticle.drag,.01,1);
+		myDebugMenu.slideFloat("Mass",myParticle.mass,.01f,10);
+		myDebugMenu.slideFloat("Drag",myParticle.drag,.01f,1);
 		myDebugMenu.watchVector("Momentum",myParticle.momentum);
 		myDebugMenu.watchVector("Velocity",myParticle.vel);
 		myDebugMenu.watchVector("Position",myParticle.pos);

@@ -8,8 +8,8 @@ class PhysicsGUIBase : public GuiBase {
 protected:
 	DebugMenuManager myDebugMenu;
 public:
-	void init() {
-		GuiBase::initialize(false,true);
+	void init(bool threeD = false, bool autoStep = true) {
+		GuiBase::initialize(threeD,autoStep);
 		myDebugMenu.init();
 		debugLayout->addWidget(&myDebugMenu);
 	}

@@ -34,11 +34,11 @@ public:
 		gravity = glm::vec3(0,-9.81,0);
 		wall.origin = glm::vec3();
 		wall.direction =  glm::vec3(0,1,0);
-		collisionData.restitution = .8;
+		collisionData.restitution = .8f;
 
 		collisionData.particle[0] = &point;
 		collisionData.particle[1] = nullptr;
-		point.init(.95,1);
+		point.init(.95f,1);
 		pointGraphic = addVectorGraphic();
 		pointGraphic->color = glm::vec3(1,0,0);
 		mom = addVectorGraphic();
@@ -70,7 +70,7 @@ public:
 		myDebugMenu.edit("Gravity",gravity.y, 0, -10);
 		myDebugMenu.edit("Restitution", collisionData.restitution, 0, 1);
 		myDebugMenu.edit("Drag", point.drag, 0, 1);
-		myDebugMenu.edit("Mass", point.mass,.1,10);
+		myDebugMenu.edit("Mass", point.mass,.1f,10);
 	};
 	void resetBounce() {
 		point.pos = glm::vec3(-3,point.mass + 3,0);
@@ -89,6 +89,7 @@ public:
 		if(mouseDragTimer.stop() > dt()*10) {
 			//particle force update would go here
 			point.totalForce += gravity;
+			point.update(dt());
 			this->preCollisionForce = point.totalForce;
 			this->preCollisionVel = point.vel;
 			collisionManager.update();
@@ -98,7 +99,7 @@ public:
 			this->postCollisionForce = point.totalForce;
 			this->postCollisionVel = point.vel;
 
-			point.update(dt());
+			point.clearForce();
 		}
 
 		redraw();

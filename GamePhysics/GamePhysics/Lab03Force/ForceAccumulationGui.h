@@ -54,7 +54,7 @@ public:
 			myDebugMenu.watchVector("Pos",allPoints[i].point->pos);
 			myDebugMenu.watchVector("Vel",allPoints[i].point->vel);
 			myDebugMenu.watchVector("Mom",allPoints[i].point->momentum);
-			myDebugMenu.slideFloat("Point Mass",allPoints[i].point->mass,.1,5);
+			myDebugMenu.slideFloat("Point Mass",allPoints[i].point->mass,.1f,5);
 
 		}
 	}
@@ -64,9 +64,9 @@ public:
 
 		forceManager.updateForces();
 
-		one.update(dt());
-		two.update(dt());
-		thr.update(dt());
+		one.update(dt());	one.clearForce();
+		two.update(dt());	two.clearForce();
+		thr.update(dt());	thr.clearForce();
 
 		for (int i = 0; i < numOfPoints; i++)
 		{

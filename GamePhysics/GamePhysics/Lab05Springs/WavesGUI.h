@@ -105,6 +105,7 @@ public:
 		{
 			float xBefore = allPoints[i].point.pos.x;
 			allPoints[i].point.update(dt());
+			allPoints[i].point.clearForce();
 			allPoints[i].point.pos.x = xBefore;
 			allPoints[i].pointGraphic->pointSize = allPoints[i].point.mass;
 			syncVector(allPoints[i].pointGraphic,allPoints[i].point.pos);

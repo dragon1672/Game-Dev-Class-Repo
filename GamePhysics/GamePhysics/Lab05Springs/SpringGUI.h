@@ -132,6 +132,7 @@ public:
 			for (int i = 0; i < numOfPoints; i++)
 			{
 				allPoints[i].point->update(dt());
+				allPoints[i].point->clearForce();
 				allPoints[i].pointGraphic->pointSize = allPoints[i].point->mass;
 				syncVector(allPoints[i].pointGraphic,allPoints[i].point->pos);
 				syncVector(allPoints[i].velGraphic,allPoints[i].point->vel, allPoints[i].point->pos);
@@ -145,45 +146,45 @@ public:
 	}
 	void toggleChangFun() {
 		wipeSprings();
-		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = false;//true;
 	}
 	void toggleChangDoubleFun() {
 		wipeSprings();
-		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
-		mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = false;//true;
 	}
 	void toggleComplexFun() {
 		wipeSprings();
-		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[1].pos); springRays[1].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[2],particalMem[4].pos); springRays[4].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[2].pos); springRays[5].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = true;
-		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = true;
-		mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = true;
-		mySprings.addSpring(particalMem[3],particalMem[6].pos); springRays[12].graphic -> visible = true;
-		mySprings.addSpring(particalMem[6],particalMem[3].pos); springRays[13].graphic -> visible = true;
-		mySprings.addSpring(particalMem[2],particalMem[5].pos); springRays[14].graphic -> visible = true;
-		mySprings.addSpring(particalMem[5],particalMem[2].pos); springRays[15].graphic -> visible = true;
-		mySprings.addSpring(particalMem[6],particalMem[4].pos); springRays[16].graphic -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[6].pos); springRays[17].graphic -> visible = true;
-		mySprings.addSpring(particalMem[4],particalMem[1].pos); springRays[18].graphic -> visible = true;
+		mySprings.addSpring(particalMem[2],particalMem[1].pos); springRays[0].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[1].pos); springRays[1].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[2],particalMem[3].pos); springRays[2].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[2].pos); springRays[3].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[2],particalMem[4].pos); springRays[4].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[2].pos); springRays[5].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[4].pos); springRays[6].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[3].pos); springRays[7].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[5].pos); springRays[8].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[5],particalMem[4].pos); springRays[9].graphic  -> visible = false;//true;
+		mySprings.addSpring(particalMem[6],particalMem[5].pos); springRays[10].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[5],particalMem[6].pos); springRays[11].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[3],particalMem[6].pos); springRays[12].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[6],particalMem[3].pos); springRays[13].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[2],particalMem[5].pos); springRays[14].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[5],particalMem[2].pos); springRays[15].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[6],particalMem[4].pos); springRays[16].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[6].pos); springRays[17].graphic -> visible = false;//true;
+		mySprings.addSpring(particalMem[4],particalMem[1].pos); springRays[18].graphic -> visible = false;//true;
 	}
 	void updateForces() {
 		if(toggleChain != toggleChain_last){

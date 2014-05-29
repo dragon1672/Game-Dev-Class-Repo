@@ -70,10 +70,10 @@ public:
 		myDebugMenu.watch("Total Kinetic Energy",totalKineticEnergy);
 	};
 	void factoryReset() {
-		allPoints[0].point.init(1,.5 );
+		allPoints[0].point.init(1,.5f);
 		allPoints[0].point.pos = glm::vec3(-3,0,0);
 		allPoints[0].startVel = glm::vec3(2,0,0);
-		allPoints[1].point.init(1,.3);
+		allPoints[1].point.init(1,.3f);
 		allPoints[1].point.pos = glm::vec3(3,0,0);
 		allPoints[1].startVel = glm::vec3(-3,0,0);
 		reset();
@@ -85,8 +85,8 @@ public:
 		allPoints[1].point.vel = allPoints[1].startVel;
 	}
 	void reset2D() {
-		allPoints[0].point.mass = 3.5;
-		allPoints[1].point.mass = 1.3;
+		allPoints[0].point.mass = 3.5f;
+		allPoints[1].point.mass = 1.3f;
 		allPoints[0].point.pos  = glm::vec3(-5,0,0);
 		allPoints[0].startVel   = glm::vec3(1.5,1,0);
 		allPoints[1].point.pos  = glm::vec3(5,0,0);
@@ -100,18 +100,23 @@ public:
 		
 		if(mouseDragTimer.stop() > dt()*10) {
 			collisionManager.update();
-			if(collisionManager.hasCollided()) {
-				collide();
-			}
-
-
+			
 			systemMom = glm::vec3();
 			totalKineticEnergy = 0;
+			
 			for (int i = 0; i < numOfNodes; i++)
 			{
 				allPoints[i].point.update(dt());
 				systemMom += allPoints[i].point.momentum;
 				totalKineticEnergy += .5 * allPoints[i].point.mass * glm::dot(allPoints[i].point.vel,allPoints[i].point.vel);
+			}
+
+			if(collisionManager.hasCollided()) {
+				collide();
+			}
+			for (int i = 0; i < numOfNodes; i++)
+			{
+				allPoints[i].point.clearForce();
 			}
 		}
 

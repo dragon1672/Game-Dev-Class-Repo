@@ -5,8 +5,9 @@
 #include "Lab04DragForce\DragForceGUI.h"
 #include "Lab05Springs\SpringGUI.h"
 #include "Lab05Springs\WavesGUI.h"
-#include "Lab06Collision\CollisionGUI.h"
-#include "Lab07RestingCollision\RestingCollisionGUI.h"
+#include "Lab07Collision\CollisionGUI.h"
+#include "Lab09RestingCollision\RestingCollisionGUI.h"
+#include "Lab10RestingContact\RestingContactGUI.h"
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
@@ -18,8 +19,8 @@ int main(int argc, char * argv[]) {
 	//SpringGUI widg;
 	//WaveGui widg;
 	//CollisionGUI widg;
-	RestingCollisionGUI widg;
-
+	//RestingCollisionGUI widg;
+	RestingContactGUI widg;
 
 	widg.init();
 	widg.show();

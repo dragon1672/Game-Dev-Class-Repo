@@ -41,7 +41,7 @@ public:
 		resetParticle();
 		
 		//debug menus
-		myDebugMenu.slideFloat("Mass",myParticle.mass,  .1, 10);
+		myDebugMenu.slideFloat("Mass",myParticle.mass,  .1f, 10);
 		myDebugMenu.slideFloat("Drag High",myDrag.high,   0,  5);
 		myDebugMenu.slideFloat("Drag Low", myDrag.low,    0,  5);
 		myDebugMenu.watchVector("Momentum",myParticle.momentum);
@@ -59,6 +59,7 @@ public:
 		forceManager.updateForces();
 
 		myParticle.update(dt());
+		myParticle.clearForce();
 
 		particalGraphic->pointSize = myParticle.mass;
 

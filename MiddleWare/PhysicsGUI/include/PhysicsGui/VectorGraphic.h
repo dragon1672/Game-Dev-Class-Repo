@@ -22,6 +22,7 @@ struct ME_PHYSICS_DLL_SHARED VectorGraphic
 	DisplayStyle displayStyle;
 	bool connectToNext;
 	bool visible;
+	bool operator<(const VectorGraphic& right) const;
 };
 
 #endif
