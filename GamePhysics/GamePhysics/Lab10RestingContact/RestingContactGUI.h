@@ -11,10 +11,11 @@
 class RestingContactGUI : public PhysicsGUIBase {
 	Timer mouseDragTimer;
 
-	static const int MAX_TOTAL_POINTS = 21;
-	static const int STARTING_NUM_OF_POINTS = 4;
+	static const int MAX_TOTAL_POINTS = 201;
+	static const int STARTING_NUM_OF_POINTS = 50;
 
 	float resetNumOfParticles;
+	glm::vec3 sideMovingStart;
 
 	struct {
 		Particle point;
@@ -32,11 +33,11 @@ class RestingContactGUI : public PhysicsGUIBase {
 	GravityForceGenerator gravity;
 public:
 	void init() {
-		PhysicsGUIBase::init();
+		PhysicsGUIBase::init(true);
 		mouseDragTimer.start();
 
 		numOfPoints = STARTING_NUM_OF_POINTS + 1;
-		resetNumOfParticles = numOfPoints;
+		resetNumOfParticles = numOfPoints-1;
 		
 		for (int i = 0; i < MAX_TOTAL_POINTS; i++)
 		{
@@ -49,7 +50,7 @@ public:
 			allPoints[i].velGraphic->color = glm::vec3();
 
 			sync(allPoints[i].pointGraphic,allPoints[i].point.pos);
-			syncVector(allPoints[i].velGraphic,allPoints[i].point.vel,allPoints[i].point.pos);
+			//syncVector(allPoints[i].velGraphic,allPoints[i].point.vel,allPoints[i].point.pos);
 		}
 
 		collisionManager.walls.push_back(&wall);
@@ -66,12 +67,14 @@ public:
 		wallGraphicRight->displayStyle = DS_ARROW;
 		wallGraphicRight->color = glm::vec3(0,1,0);
 
+		sideMovingStart = glm::vec3(1,.26,.026);
+
 		reset();
 
 		myDebugMenu.button("Reset", fastdelegate::MakeDelegate(this,&RestingContactGUI::reset));
-		myDebugMenu.edit("# Nodes", resetNumOfParticles, 1,6);
-		myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,0,0,false);
-		myDebugMenu.watch("Plane Norm",wall.direction);
+		myDebugMenu.edit("# Nodes", resetNumOfParticles, 1,50);
+		myDebugMenu.edit("Starting Vel:",sideMovingStart,0,1,-1,1,-.1,.1);
+		myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,1,1,false);
 		myDebugMenu.edit("Gravity",gravity.dir.y, 0, -10);
 		myDebugMenu.edit("Restitution", collisionManager.restitution, 0, 1);
 	};
@@ -89,7 +92,7 @@ public:
 		{
 			if(i==0) {
 				allPoints[i].point.pos = glm::vec3(-3,3,0);
-				allPoints[i].point.vel = glm::vec3(1,0,.1);
+				allPoints[i].point.vel = sideMovingStart;
 			} else {
 				allPoints[i].point.pos = glm::vec3(0,1,0) + (float)i * glm::vec3(0,1.5,0);
 				allPoints[i].point.vel = glm::vec3(0,0,0);
@@ -111,7 +114,7 @@ public:
 			{
 				allPoints[i].point.update(dt());
 			}
-			for (int potatoHack = 0; potatoHack < 100; potatoHack++)
+			for (int potatoHack = 0; potatoHack < 75; potatoHack++)
 			{
 				for (int i = 0; i < numOfPoints; i++)
 				{
@@ -142,12 +145,12 @@ public:
 		{
 			allPoints[i].pointGraphic->pointSize = allPoints[i].point.mass;
 			sync(allPoints[i].pointGraphic,allPoints[i].point.pos);
-			syncVector(allPoints[i].velGraphic,allPoints[i].point.vel,allPoints[i].point.pos);
+			//syncVector(allPoints[i].velGraphic,allPoints[i].point.vel,allPoints[i].point.pos);
 		}
 		glm::vec3 perpCCW = 1000.0f * glm::vec3(wall.direction.y,-wall.direction.x,0);
 		glm::vec3 perpCW = -1000.0f * glm::vec3(wall.direction.y,-wall.direction.x,0);
-		syncVector(wallGraphicLeft, perpCCW, wall.origin);
-		syncVector(wallGraphicRight, perpCW, wall.origin);
+		//syncVector(wallGraphicLeft, perpCCW, wall.origin);
+		//syncVector(wallGraphicRight, perpCW, wall.origin);
 	}
 };
 
