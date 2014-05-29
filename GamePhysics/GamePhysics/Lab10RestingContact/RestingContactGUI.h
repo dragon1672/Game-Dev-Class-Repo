@@ -11,8 +11,8 @@
 class RestingContactGUI : public PhysicsGUIBase {
 	Timer mouseDragTimer;
 
-	static const int MAX_TOTAL_POINTS = 101;
-	static const int STARTING_NUM_OF_POINTS = 1;
+	static const int MAX_TOTAL_POINTS = 21;
+	static const int STARTING_NUM_OF_POINTS = 4;
 
 	float resetNumOfParticles;
 
@@ -69,7 +69,7 @@ public:
 		reset();
 
 		myDebugMenu.button("Reset", fastdelegate::MakeDelegate(this,&RestingContactGUI::reset));
-		myDebugMenu.edit("# Nodes", resetNumOfParticles, 1,10);
+		myDebugMenu.edit("# Nodes", resetNumOfParticles, 1,6);
 		myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,0,0,false);
 		myDebugMenu.watch("Plane Norm",wall.direction);
 		myDebugMenu.edit("Gravity",gravity.dir.y, 0, -10);
@@ -88,8 +88,8 @@ public:
 		for (int i = 0; i < numOfPoints; i++)
 		{
 			if(i==0) {
-				allPoints[i].point.pos = glm::vec3(-3,2.5,0);
-				allPoints[i].point.vel = glm::vec3(); // glm::vec3(.5f,0,.1);
+				allPoints[i].point.pos = glm::vec3(-3,3,0);
+				allPoints[i].point.vel = glm::vec3(1,0,.1);
 			} else {
 				allPoints[i].point.pos = glm::vec3(0,1,0) + (float)i * glm::vec3(0,1.5,0);
 				allPoints[i].point.vel = glm::vec3(0,0,0);
@@ -110,30 +110,26 @@ public:
 			for (int i = 0; i < numOfPoints; i++)
 			{
 				allPoints[i].point.update(dt());
-				ParticleContact toAdd;
-				if(collisionManager.collide(&allPoints[i].point,&wall,toAdd)) {
-					toAdd.collide(dt());
-				}
-				for (uint j = numOfPoints-1; j > i; j--)
+			}
+			for (int potatoHack = 0; potatoHack < 100; potatoHack++)
+			{
+				for (int i = 0; i < numOfPoints; i++)
 				{
-					Particle * a = &allPoints[i].point;
-					Particle * b = &allPoints[j].point;
-					if(i!=j && collisionManager.collide(a,b,toAdd)) {
+					ParticleContact toAdd;
+					if(collisionManager.collide(&allPoints[i].point,&wall,toAdd)) {
 						toAdd.collide(dt());
 					}
-				}
-				if(collisionManager.collide(&allPoints[i].point,&wall,toAdd)) {
-					toAdd.collide(dt());
-				}
-			}
-
-
-			for (int i = 0; i < numOfPoints; i++)
-			{
-				allPoints[i].point.clearForce();
+					for (uint j = i+1; j < numOfPoints; j++)
+					{
+						Particle * a = &allPoints[i].point;
+						Particle * b = &allPoints[j].point;
+						if(i!=j && collisionManager.collide(a,b,toAdd)) {
+							toAdd.collide(dt());
+						}
+					}
+				} 
 			}
 		}
-
 		redraw();
 	}
 	void vectorGraphicMouseDrag(uint vectorGraphicIndex, const glm::vec3& dragDelta) {
