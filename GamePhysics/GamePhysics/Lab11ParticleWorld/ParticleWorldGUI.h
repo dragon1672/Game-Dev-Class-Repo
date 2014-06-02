@@ -8,8 +8,8 @@
 
 class ParticleWorldGUI : public PhysicsGUIBase {
 
-	static const int SQUARE_LENGTH = 4;
-	static const int tesselation = 4; // must be at least 2
+	static const int SQUARE_LENGTH = 5;
+	static const int tesselation = 6; // must be at least 2
 
 	SpringForceGenerator springs;
 	DragForceGenerator myDrag;

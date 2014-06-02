@@ -16,5 +16,6 @@
     <ClInclude Include="Lab09RestingCollision\RestingCollisionGUI.h" />
     <ClInclude Include="Lab10RestingContact\RestingContactGUI.h" />
     <ClInclude Include="Lab11ParticleWorld\ParticleWorldGUI.h" />
+    <ClInclude Include="Lab12AngleVel\AngleVelGUI.h" />
   </ItemGroup>
 </Project>
