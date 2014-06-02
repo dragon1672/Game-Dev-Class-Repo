@@ -12,7 +12,7 @@ class RestingContactGUI : public PhysicsGUIBase {
 	Timer mouseDragTimer;
 
 	static const int MAX_TOTAL_POINTS = 201;
-	static const int STARTING_NUM_OF_POINTS = 50;
+	static const int STARTING_NUM_OF_POINTS = 4;
 
 	float resetNumOfParticles;
 	glm::vec3 sideMovingStart;
@@ -33,7 +33,7 @@ class RestingContactGUI : public PhysicsGUIBase {
 	GravityForceGenerator gravity;
 public:
 	void init() {
-		PhysicsGUIBase::init(true);
+		PhysicsGUIBase::init();
 		mouseDragTimer.start();
 
 		numOfPoints = STARTING_NUM_OF_POINTS + 1;
@@ -53,7 +53,7 @@ public:
 			//syncVector(allPoints[i].velGraphic,allPoints[i].point.vel,allPoints[i].point.pos);
 		}
 
-		collisionManager.walls.push_back(&wall);
+		//collisionManager.walls.push_back(&wall);
 
 		gravity.dir = glm::vec3(0,-9.81,0);
 		wall.origin = glm::vec3();
@@ -86,7 +86,7 @@ public:
 			sync(allPoints[i].pointGraphic,allPoints[i].point.pos);
 			syncVector(allPoints[i].velGraphic,allPoints[i].point.vel,allPoints[i].point.pos);
 		}
-		collisionManager.particles.clear();
+		//collisionManager.particles.clear();
 		forceReg.clear();
 		for (int i = 0; i < numOfPoints; i++)
 		{
@@ -100,7 +100,7 @@ public:
 			}
 			allPoints[i].pointGraphic->color = Random::glmRand::randomUnitVector();
 			allPoints[i].velGraphic->color = glm::vec3(0,1,0);
-			collisionManager.particles.push_back(&allPoints[i].point);
+			//collisionManager.particles.push_back(&allPoints[i].point);
 		}
 	}
 	void newFrame() {
@@ -110,27 +110,23 @@ public:
 
 		if(mouseDragTimer.stop() > dt()*10) {
 			forceReg.updateForces();
+
 			for (int i = 0; i < numOfPoints; i++)
 			{
 				allPoints[i].point.update(dt());
-			}
-			for (int potatoHack = 0; potatoHack < 100; potatoHack++)
-			{
-				for (int i = 0; i < numOfPoints; i++)
+				ParticleContact wallCollision;
+				if(collisionManager.collide(&allPoints[i].point,&wall, wallCollision)) {
+					wallCollision.collide(dt());
+				}
+				for (int j = 0; j < numOfPoints; j++)
 				{
-					ParticleContact toAdd;
-					if(collisionManager.collide(&allPoints[i].point,&wall,toAdd)) {
-						toAdd.collide(dt());
-					}
-					for (uint j = i+1; j < numOfPoints; j++)
-					{
-						Particle * a = &allPoints[i].point;
-						Particle * b = &allPoints[j].point;
-						if(i!=j && collisionManager.collide(a,b,toAdd)) {
-							toAdd.collide(dt());
+					if(i!=j) {
+						ParticleContact particleCollision;
+						if(collisionManager.collide(&allPoints[i].point,&allPoints[j].point, particleCollision)) {
+							particleCollision.collide(dt());
 						}
 					}
-				} 
+				}
 			}
 		}
 		redraw();

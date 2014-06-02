@@ -8,6 +8,7 @@
 #include "Lab07Collision\CollisionGUI.h"
 #include "Lab09RestingCollision\RestingCollisionGUI.h"
 #include "Lab10RestingContact\RestingContactGUI.h"
+#include "Lab11ParticleWorld\ParticleWorldGUI.h"
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
@@ -20,7 +21,8 @@ int main(int argc, char * argv[]) {
 	//WaveGui widg;
 	//CollisionGUI widg;
 	//RestingCollisionGUI widg;
-	RestingContactGUI widg;
+	//RestingContactGUI widg;
+	ParticleWorldGUI widg;
 
 	widg.init();
 	widg.show();
