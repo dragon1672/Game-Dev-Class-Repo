@@ -5,15 +5,17 @@
 #include <SpringForceGenerator.h>
 #include <GravityForceGenerator.h>
 #include <DragForceGenerator.h>
-#include <Timer.h>
 
 class ParticleWorldGUI : public PhysicsGUIBase {
-	Timer mouseDragTimer;
+
+	static const int SQUARE_LENGTH = 4;
+	static const int tesselation = 4; // must be at least 2
+
 	SpringForceGenerator springs;
 	DragForceGenerator myDrag;
 	ParticleWorld theWorld;
 
-	static const int NUM_OF_POINTS = 8;
+	static const int NUM_OF_POINTS = (tesselation) * (tesselation) * (tesselation);
 
 	Particle points[NUM_OF_POINTS];
 	VectorGraphic * pointGraphics[NUM_OF_POINTS];
@@ -22,20 +24,22 @@ class ParticleWorldGUI : public PhysicsGUIBase {
 	Ray wall;
 
 	float damp;
+	float squareLength;
 
 	GravityForceGenerator gravity;
 	
 public:
 	void init() {
 		PhysicsGUIBase::init(true);
-		mouseDragTimer.start();
+
+		squareLength = SQUARE_LENGTH;
 
 		theWorld.init(points,NUM_OF_POINTS,&wall,1,0);
 		myDrag.init(1,1);
 
 		damp = .9f;
 
-		gravity.dir = glm::vec3(0,-9.81,0);
+		gravity.dir = glm::vec3(0,-5,0);
 		wall.origin = glm::vec3();
 		wall.direction =  glm::vec3(0,1,0);
 
@@ -54,37 +58,68 @@ public:
 			theWorld.addForce(i,&springs);
 			theWorld.addForce(i,&gravity);
 			theWorld.addForce(i,&myDrag);
-			for (int j = 0; j < NUM_OF_POINTS; j++)
-			{
-				if(i!=j) {
-					float length = glm::length(points[i].pos - points[j].pos);
-					springs.addSpring(points[i],points[j].pos, length);
-				}
-			}
 		}
 
 		myDebugMenu.button("Reset", fastdelegate::MakeDelegate(this,&ParticleWorldGUI::reset));
-		myDebugMenu.edit("Spring K",springs.springConstent,0,100);
-		myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,-1,1,false);
-		myDebugMenu.edit("Gravity",gravity.dir, -10, 10);
+		myDebugMenu.edit("Spring K",springs.springConstent,0,75);
+		myDebugMenu.edit("Square Length",squareLength,0,4);
+		//myDebugMenu.edit("Plane Norm",wall.direction,-1,1,0,1,-1,1,false);
+		myDebugMenu.edit("Gravity",gravity.dir.y, -10, 10);
+		myDebugMenu.edit("Particle\nCollisions", theWorld.collisionManager.particleCollide);
 		myDebugMenu.edit("Restitution", theWorld.getRestitution(), 0, 1);
 		myDebugMenu.edit("Damp", damp, 0, 1);
-		myDebugMenu.edit("Drag Low", myDrag.low, 0, 1);
-		myDebugMenu.edit("Drag High", myDrag.high, 0, 1);
+		//myDebugMenu.edit("Drag Low", myDrag.low, 0, 1);
+		//myDebugMenu.edit("Drag High", myDrag.high, 0, 1);
 	};
+
+	Particle * getParticle(glm::vec3& pos, float epsilon = .01) {
+		for (int i = 0; i < NUM_OF_POINTS; i++)
+		{
+			glm::vec3 diff = points[i].pos - pos;
+			if(glm::dot(diff,diff) < epsilon) return &points[i];
+		}
+		return nullptr;
+	}
 	void reset() {
 		for (int i = 0; i < NUM_OF_POINTS; i++)
 		{
 			points[i].vel = glm::vec3();
 		}
-		points[0].pos = 2.0f * glm::vec3(-1, 0, 1) + glm::vec3(0,1,0);
-		points[1].pos = 2.0f * glm::vec3(-1, 0,-1) + glm::vec3(0,1,0);
-		points[2].pos = 2.0f * glm::vec3( 1, 0, 1) + glm::vec3(0,1,0);
-		points[3].pos = 2.0f * glm::vec3( 1, 0,-1) + glm::vec3(0,1,0);
-		points[4].pos = 2.0f * glm::vec3(-1, 2, 1) + glm::vec3(0,1,0);
-		points[5].pos = 2.0f * glm::vec3(-1, 2,-1) + glm::vec3(0,1,0);
-		points[6].pos = 2.0f * glm::vec3( 1, 2, 1) + glm::vec3(0,1,0);
-		points[7].pos = 2.0f * glm::vec3( 1, 2,-1) + glm::vec3(0,1,0);
+
+		glm::vec3 offset = glm::vec3(0,squareLength+5,0);
+		float length = squareLength*2 / (tesselation-1);
+		numOfPoints = 0;
+		for (float x = -squareLength; x <= squareLength; x+=length)
+		{
+			for (float y = -squareLength; y <= squareLength; y+=length)
+			{
+				for (float z = -squareLength; z <= squareLength; z+=length)
+				{
+					points[numOfPoints++].pos = glm::vec3(x,y,z) + offset;
+				}
+			}
+		}
+		springs.clear();
+		for (int i = 0; i < NUM_OF_POINTS; i++)
+		{
+			for (float x = -length; x <= length; x+=length)
+			{
+				for (float y = -length; y <= length; y+=length)
+				{
+					for (float z = -length; z <= length; z+=length)
+					{
+						glm::vec3 offset(x,y,z);
+						if(glm::dot(offset,offset) != 0) {
+							Particle * toLinkTo = getParticle(points[i].pos + offset);
+							if(toLinkTo != nullptr) {
+								float length = glm::length(points[i].pos - toLinkTo->pos);
+								springs.addSpring(points[i],toLinkTo->pos,length);
+							}
+						}
+					}
+				}
+			} 
+		}
 	}
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
@@ -93,13 +128,10 @@ public:
 		wall.direction = glm::normalize(wall.direction);
 		for (int i = 0; i < NUM_OF_POINTS; i++) { points[i].drag = damp; }
 
-		//if(mouseDragTimer.stop() > dt()*10) {
-			theWorld.update(dt());
-		//}
+		theWorld.update(dt());
 		redraw();
 	}
 	void vectorGraphicMouseDrag(uint vectorGraphicIndex, const glm::vec3& dragDelta) {
-		mouseDragTimer.start();
 		points[vectorGraphicIndex].pos += dragDelta;
 		redraw();
 	}
