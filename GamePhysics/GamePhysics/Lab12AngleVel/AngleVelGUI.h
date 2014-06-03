@@ -36,7 +36,7 @@ public:
 
 		theWorld.init(&point,1,nullptr,0);
 		point.init(1,.5);
-		chainOrgin = glm::vec3(1,1,1);
+		chainOrgin = glm::vec3(1,1,0);
 
 		pointGraphic = addVectorGraphic();
 		chainGraphic = addVectorGraphic();
@@ -49,7 +49,7 @@ public:
 		radiusVector->color = glm::vec3(.1,.1,.1);
 
 		myDebugMenu.edit("On Chain: ",onChain);
-		myDebugMenu.edit("Chain\nPos",chainOrgin,-5,5);
+		//myDebugMenu.edit("Chain\nPos",chainOrgin,-10,10);
 		myDebugMenu.edit("Radius: ",radius,.0001,5);
 		myDebugMenu.edit("Angle Vel: ",angleVel,0,10);
 	};
@@ -84,7 +84,7 @@ public:
 	}
 	void vectorGraphicMouseDrag(uint vectorGraphicIndex, const glm::vec3& dragDelta) {
 		if(vectorGraphicIndex == 1) {
-			chainOrgin += dragDelta;
+			chainOrgin += glm::vec3(glm::vec2(dragDelta),0);
 		}
 
 		updateAnglur();
