@@ -244,11 +244,13 @@ public:
 				vec = allRidgidBodies[i].allPoints[j].cashedRadius * glm::normalize(allRidgidBodies[i].allPoints[j].point.pos - allRidgidBodies[i].point.pos);
 				pos = allRidgidBodies[i].point.pos;
 				sync(allRidgidBodies[i].allPoints[j].radiusVector, vec, pos);
+				allRidgidBodies[i].allPoints[j].radiusVector -> visible = !explode;
 
 
 				vec = allRidgidBodies[i].allPoints[j].angleVel;
 				pos = allRidgidBodies[i].allPoints[j].point.pos;
 				sync(allRidgidBodies[i].allPoints[j].angleVelGraphic, vec, pos);
+				allRidgidBodies[i].allPoints[j].angleVelGraphic -> visible = !explode;
 			}
 		}
 		for (int i = 0; i < numOfSpringGraphics; i++)
