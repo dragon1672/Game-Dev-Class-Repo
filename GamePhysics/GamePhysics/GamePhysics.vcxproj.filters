@@ -17,5 +17,6 @@
     <ClInclude Include="Lab10RestingContact\RestingContactGUI.h" />
     <ClInclude Include="Lab11ParticleWorld\ParticleWorldGUI.h" />
     <ClInclude Include="Lab12AngleVel\AngleVelGUI.h" />
+    <ClInclude Include="Lab13RigidBodyRotation\RigidBodyRotation.h" />
   </ItemGroup>
 </Project>

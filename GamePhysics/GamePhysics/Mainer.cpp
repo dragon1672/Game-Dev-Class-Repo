@@ -10,25 +10,27 @@
 #include "Lab10RestingContact\RestingContactGUI.h"
 #include "Lab11ParticleWorld\ParticleWorldGUI.h"
 #include "Lab12AngleVel\AngleVelGUI.h"
+#include "Lab13RigidBodyRotation\RigidBodyRotation.h"
 
-#define SHOW_IT_OFF(type) type widg; \
+#define SHOW(type) type widg; \
 						  widg.init(); \
 						  widg.show(); \
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
 	
-	//SHOW_IT_OFF(BasicVelocityAndAcc);
-	//SHOW_IT_OFF(BasicMomentum);
-	//SHOW_IT_OFF(ForceAccumulationGui);
-	//SHOW_IT_OFF(DragForceGUI);
-	//SHOW_IT_OFF(SpringGUI);
-	//SHOW_IT_OFF(WaveGui);
-	//SHOW_IT_OFF(CollisionGUI);
-	//SHOW_IT_OFF(RestingCollisionGUI);
-	//SHOW_IT_OFF(RestingContactGUI);
-	//SHOW_IT_OFF(ParticleWorldGUI);
-	SHOW_IT_OFF(AngleVelGUI);
+	//SHOW(BasicVelocityAndAcc);
+	//SHOW(BasicMomentum);
+	//SHOW(ForceAccumulationGui);
+	//SHOW(DragForceGUI);
+	//SHOW(SpringGUI);
+	//SHOW(WaveGui);
+	//SHOW(CollisionGUI);
+	//SHOW(RestingCollisionGUI);
+	//SHOW(RestingContactGUI);
+	//SHOW(ParticleWorldGUI);
+	//SHOW(AngleVelGUI);
+	SHOW(RigidBodyRotation);	
 
 	return app.exec();
 }
