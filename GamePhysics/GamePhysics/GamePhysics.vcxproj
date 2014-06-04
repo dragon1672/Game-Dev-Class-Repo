@@ -79,6 +79,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Lab01VA\BasicVelocityAndAcc.cpp" />
+    <ClCompile Include="SingleParticleGui.cpp" />
+    <ClCompile Include="PhysicsGUIBase.cpp" />
+    <ClCompile Include="Lab02FMA\BasicMomentum.cpp" />
+    <ClCompile Include="Lab03Force\ForceAccumulationGui.cpp" />
+    <ClCompile Include="Lab04DragForce\DragForceGUI.cpp" />
+    <ClCompile Include="Lab05Springs\SpringGUI.cpp" />
+    <ClCompile Include="Lab05Springs\WavesGUI.cpp" />
+    <ClCompile Include="Lab07Collision\CollisionGUI.cpp" />
+    <ClCompile Include="Lab09RestingCollision\RestingCollisionGUI.cpp" />
+    <ClCompile Include="Lab10RestingContact\RestingContactGUI.cpp" />
+    <ClCompile Include="Lab11ParticleWorld\ParticleWorldGUI.cpp" />
+    <ClCompile Include="Lab12AngleVel\AngleVelGUI.cpp" />
+    <ClCompile Include="Lab13RigidBodyRotation\RigidBodyRotation.cpp" />
     <ClCompile Include="Mainer.cpp" />
   </ItemGroup>
   <ItemGroup>
