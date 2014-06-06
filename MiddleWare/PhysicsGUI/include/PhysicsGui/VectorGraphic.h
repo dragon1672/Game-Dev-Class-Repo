@@ -7,7 +7,8 @@ enum DisplayStyle
 {
 	DS_SQUARE,
 	DS_POINT,
-	DS_ARROW
+	DS_ARROW,
+	DS_LINE
 };
 
 struct ME_PHYSICS_DLL_SHARED VectorGraphic
@@ -22,6 +23,7 @@ struct ME_PHYSICS_DLL_SHARED VectorGraphic
 	DisplayStyle displayStyle;
 	bool connectToNext;
 	bool visible;
+	float rotation;
 	bool operator<(const VectorGraphic& right) const;
 };
 

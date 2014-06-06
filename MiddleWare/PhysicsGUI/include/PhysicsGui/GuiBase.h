@@ -45,6 +45,7 @@ public:
 	virtual void initialize(bool threeD = true, bool autoStep = false);
 	VectorGraphic* addVectorGraphic();
 	static void sync(VectorGraphic* graphic, const glm::vec3& position, const glm::vec3& base = glm::vec3());
+	glm::vec3 getMousePosition() const;
 };
 
 

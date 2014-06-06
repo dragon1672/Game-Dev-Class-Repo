@@ -22,6 +22,7 @@ class CartesianGraph : public QWidget
 	glm::vec2 maxVisible;
 	glm::vec2 paintDelta;
 	QPoint lastMousePoint;
+	QPoint lastAlwaysTrackingMousePoint;
 	bool trackingMouse;
 	uint vectorGraphicIndexThatMouseIsOn;
 	glm::vec2 mouseOffsetOnVectorGraphic;
@@ -39,6 +40,7 @@ protected:
 public:
 	CartesianGraph(unsigned int gridSize = 20);
 	VectorGraphic* addVectorGraphic(const VectorGraphic& vectorGraphic = VectorGraphic());
+	glm::vec3 getMousePosition() const;
 	void clearVectorGraphics();
 	void setVisibleArea(float minX, float maxX, float minY, float maxY);
 	bool showGrid;
