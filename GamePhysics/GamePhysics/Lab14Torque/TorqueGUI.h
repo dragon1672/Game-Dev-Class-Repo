@@ -139,6 +139,8 @@ public:
 	void leverUpdate() {
 		if(GetAsyncKeyState(VK_LBUTTON)) {
 			lever.lever = getMousePosition() - ridgidBody.point.pos;
+			lever.force =  glm::vec3();
+			lever.perpForce = glm::vec3();
 		} else if(GetAsyncKeyState(VK_RBUTTON) && lever.lever != glm::vec3()) {
 			lever.force =  getMousePosition() - lever.lever - ridgidBody.point.pos;
 			lever.perpForce = glm::perp(lever.force, glm::normalize(lever.lever));
