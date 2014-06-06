@@ -11,7 +11,7 @@
 
 class TorqueGUI : public PhysicsGUIBase {
 	
-	static const int NUM_OF_PARTICLES = 10;
+	static const int NUM_OF_PARTICLES = 14;
 	struct {
 		struct {
 			Particle point;
@@ -28,13 +28,29 @@ class TorqueGUI : public PhysicsGUIBase {
 		VectorGraphic * velGraphic;
 		float radius;
 		float angleVel;
+		
+		float totalInertia;
 	} ridgidBody;
 	
 	bool explode;
 	float throwPower;
 
 	float drag;
+	
+	struct {
+		glm::vec3 lever;
+		glm::vec3 force;
+		glm::vec3 perpForce;
+		VectorGraphic * leverGraphic;
+		VectorGraphic * forceGraphic;
+		VectorGraphic * perpGraphic;
+	} lever;
 
+	void initGraphic(VectorGraphic** leGraphic, glm::vec3& col) {
+		(*leGraphic)  = addVectorGraphic();
+		(*leGraphic) -> displayStyle = DS_ARROW;
+		(*leGraphic) -> color = col;
+	}
 public:
 	void init() {
 		PhysicsGUIBase::init(false);
@@ -47,7 +63,7 @@ public:
 		ridgidBody.radius = Random::randomFloat(2,3);
 		ridgidBody.angleVel = Random::randomFloat(.5,2);
 		
-		ridgidBody.point.init(1,1);
+		ridgidBody.point.init(1,.3);
 		ridgidBody.pointGraphic  = addVectorGraphic();
 		ridgidBody.pointGraphic -> displayStyle = DS_SQUARE;
 		
@@ -57,22 +73,16 @@ public:
 
 		for (int j = 0; j < NUM_OF_PARTICLES; j++)
 		{
-			ridgidBody.allPoints[j].point.init(drag,.5);
 			ridgidBody.allPoints[j].pointGraphic  = addVectorGraphic();
-			ridgidBody.allPoints[j].pointGraphic -> color = glm::vec3(0,0,1);
-				
-			ridgidBody.allPoints[j].velGraphic  = addVectorGraphic();
-			ridgidBody.allPoints[j].velGraphic -> displayStyle = DS_ARROW;
-			ridgidBody.allPoints[j].velGraphic -> color = glm::vec3(0,1,0);
+			ridgidBody.allPoints[j].pointGraphic -> color = glm::vec3( 0, 0, 1);
 
-			ridgidBody.allPoints[j].radiusVector  = addVectorGraphic();
-			ridgidBody.allPoints[j].radiusVector -> displayStyle = DS_ARROW;
-			ridgidBody.allPoints[j].radiusVector -> color = glm::vec3(.7,.7,.7);
-				
-			ridgidBody.allPoints[j].angleVelGraphic  = addVectorGraphic();
-			ridgidBody.allPoints[j].angleVelGraphic -> displayStyle = DS_ARROW;
-			ridgidBody.allPoints[j].angleVelGraphic -> color = glm::vec3(.7,.7,0);
+			initGraphic(&ridgidBody.allPoints[j].velGraphic,      glm::vec3( 0, 1, 0));
+			initGraphic(&ridgidBody.allPoints[j].radiusVector,    glm::vec3(.7,.7,.7));
+			initGraphic(&ridgidBody.allPoints[j].angleVelGraphic, glm::vec3(.7,.7, 0));
 		}
+		initGraphic(&lever.forceGraphic, glm::vec3(0,.3,.8));
+		initGraphic(&lever.leverGraphic, glm::vec3(0, 0, 0));
+		initGraphic(&lever.perpGraphic,  glm::vec3(0,.8,.3));
 
 		resetRandom();
 
@@ -83,6 +93,8 @@ public:
 		myDebugMenu.edit("Explode",explode);
 		myDebugMenu.edit("Drag",drag, 0, 1);
 		myDebugMenu.watch("Angle Vel",ridgidBody.angleVel);
+		myDebugMenu.watch("Total Inertia",ridgidBody.totalInertia);
+		myDebugMenu.edit("Radius", ridgidBody.radius, .01, 20);
 	}
 	void launch() {
 		glm::vec3 dir = Random::glmRand::randomUnitVector();
@@ -93,6 +105,10 @@ public:
 	void reset(float lowRange) {
 		ridgidBody.point.pos = glm::vec3();
 		ridgidBody.point.vel = glm::vec3();
+		ridgidBody.totalInertia = 0;
+		lever.lever = glm::vec3();
+		lever.force = glm::vec3();
+		lever.perpForce = glm::vec3();
 
 		ridgidBody.angleVel = 0;
 
@@ -106,10 +122,11 @@ public:
 			posOffset *= ridgidBody.radius * ridgidBody.allPoints[j].radiusPercent;
 			currentAngle += angleOffset;
 
-
-			ridgidBody.allPoints[j].point.init(1,.5);
+			ridgidBody.allPoints[j].point.init(1,Random::randomFloat(.2,1));
 			ridgidBody.allPoints[j].point.vel = glm::vec3();
 			ridgidBody.allPoints[j].point.pos = ridgidBody.point.pos + posOffset;
+
+			ridgidBody.totalInertia += glm::dot(ridgidBody.allPoints[j].point.pos,ridgidBody.allPoints[j].point.pos) * ridgidBody.allPoints[j].point.mass;
 		}
 	}
 	void resetRandom() {
@@ -119,11 +136,30 @@ public:
 		reset(1);
 	}
 
+	void leverUpdate() {
+		if(GetAsyncKeyState(VK_LBUTTON)) {
+			lever.lever = getMousePosition() - ridgidBody.point.pos;
+		} else if(GetAsyncKeyState(VK_RBUTTON) && lever.lever != glm::vec3()) {
+			lever.force =  getMousePosition() - lever.lever - ridgidBody.point.pos;
+			lever.perpForce = glm::perp(lever.force, glm::normalize(lever.lever));
+		}
+	}
+
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
+		
+		if(!explode && ridgidBody.totalInertia != 0) {
+			leverUpdate();
+		
+			glm::vec3 totalTorque = glm::cross(lever.lever, lever.perpForce);
+			glm::vec3 angularAcceleration = (totalTorque/ridgidBody.totalInertia)*dt();
+			ridgidBody.angleVel += angularAcceleration.z;
+		}
 
 		ridgidBody.point.drag = drag;
 		ridgidBody.point.update(dt());
+
+		ridgidBody.totalInertia = 0;
 		for (int j = 0; j < NUM_OF_PARTICLES; j++)
 		{
 			ridgidBody.allPoints[j].point.update(dt());
@@ -132,9 +168,11 @@ public:
 				glm::vec3 rad = ridgidBody.allPoints[j].cashedRadius * glm::normalize(ridgidBody.allPoints[j].point.pos - ridgidBody.point.pos);
 				ridgidBody.allPoints[j].point.pos = ridgidBody.point.pos + rad;
 				glm::vec3 perp = glm::perp(rad,glm::vec3(0,0,1));
-				perp = glm::vec3(-rad.y,rad.x,0);
+				perp = glm::vec3(-rad.y,rad.x,rad.z);
 				ridgidBody.allPoints[j].angleVel = perp * ridgidBody.angleVel;
 				ridgidBody.allPoints[j].point.vel = ridgidBody.allPoints[j].angleVel + ridgidBody.point.vel;
+
+				ridgidBody.totalInertia += glm::dot(ridgidBody.allPoints[j].point.pos,ridgidBody.allPoints[j].point.pos) * ridgidBody.allPoints[j].point.mass;
 			}
 		}
 		redraw();
@@ -143,6 +181,11 @@ public:
 		ridgidBody.pointGraphic->pointSize = ridgidBody.point.mass;
 		sync(ridgidBody.pointGraphic,ridgidBody.point.pos);
 		sync(ridgidBody.velGraphic,ridgidBody.point.vel,ridgidBody.point.pos);
+		
+		
+		sync(lever.forceGraphic, lever.force,     ridgidBody.point.pos + lever.lever);
+		sync(lever.leverGraphic, lever.lever,     ridgidBody.point.pos              );
+		sync(lever.perpGraphic,  lever.perpForce, ridgidBody.point.pos + lever.lever);
 
 		for (int j = 0; j < NUM_OF_PARTICLES; j++)
 		{
