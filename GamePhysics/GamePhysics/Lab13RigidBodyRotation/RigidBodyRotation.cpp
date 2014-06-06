@@ -98,7 +98,7 @@ void RigidBodyRotation::reset(float lowRange) {
 	}
 	//setting up forces
 	springs.clear();
-	int springGraphicIndex = 0;
+	uint springGraphicIndex = 0;
 	for (int i = 0; i < NUM_OF_BODIES; i++)
 	{
 		for (int j = 0; j < NUM_OF_BODIES; j++)
@@ -120,7 +120,7 @@ void RigidBodyRotation::reset(float lowRange) {
 		}
 	}
 	//hiding all the excess
-	for (int i = springGraphicIndex; i < numOfSpringGraphics; i++)
+	for (uint i = springGraphicIndex; i < numOfSpringGraphics; i++)
 	{
 		springGraphics[i].graphic->visible = false;
 	}
@@ -133,7 +133,7 @@ void RigidBodyRotation::resetCircle() {
 }
 void RigidBodyRotation::wipeSprings() {
 	springs.clear();
-	for (int i = 0; i < numOfSpringGraphics; i++)
+	for (uint i = 0; i < numOfSpringGraphics; i++)
 	{
 		springGraphics[i].graphic->visible = false;
 	}
@@ -196,7 +196,7 @@ void RigidBodyRotation::redraw() {
 			allRidgidBodies[i].allPoints[j].angleVelGraphic -> visible = !explode;
 		}
 	}
-	for (int i = 0; i < numOfSpringGraphics; i++)
+	for (uint i = 0; i < numOfSpringGraphics; i++)
 	{
 		glm::vec3 diff = *springGraphics[i].anchor - springGraphics[i].from->pos;
 		sync(springGraphics[i].graphic, diff, springGraphics[i].from->pos);
