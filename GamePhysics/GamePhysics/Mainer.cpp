@@ -11,6 +11,7 @@
 #include "Lab11ParticleWorld\ParticleWorldGUI.h"
 #include "Lab12AngleVel\AngleVelGUI.h"
 #include "Lab13RigidBodyRotation\RigidBodyRotation.h"
+#include "Lab14Torque\TorqueGUI.h"
 
 #define SHOW(type) type widg; \
 						  widg.init(); \
@@ -30,7 +31,8 @@ int main(int argc, char * argv[]) {
 	//SHOW(RestingContactGUI);
 	//SHOW(ParticleWorldGUI);
 	//SHOW(AngleVelGUI);
-	SHOW(RigidBodyRotation);	
+	//SHOW(RigidBodyRotation);	
+	SHOW(TorqueGUI);	
 
 	return app.exec();
 }
