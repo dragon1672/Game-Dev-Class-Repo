@@ -20,7 +20,6 @@ C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverte
 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\OBJ_FILES\phone.obj
 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\OBJ_FILES\Skeleton.obj
 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\OBJ_FILES\cube.obj
-C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\OBJ_FILES\gun.big
 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\CSharpOBJConverter.exe
 C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\CSharpOBJConverter.pdb
-C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\obj\Release\CSharpOBJConverter.csprojResolveAssemblyReference.cache
+C:\Users\Anthony\Dropbox\Programming\C++\Neumont\GameDev\Tools\CSharpOBJConverter\CSharpOBJConverter\bin\Release\OBJ_FILES\basement.obj

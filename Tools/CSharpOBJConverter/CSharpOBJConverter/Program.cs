@@ -26,28 +26,40 @@ namespace CSharpOBJConverter
 
 		private void AddVerts(IndiceeSet toAdd)
 		{
-			Vec3 indexs = new Vec3
+			var verts = toAdd.verts;
+			bool temp = false;
+			while (verts.Count >= 3)
 			{
-				X = _allVerts.IndexOf(toAdd.One),
-				Y = _allVerts.IndexOf(toAdd.Two),
-				Z = _allVerts.IndexOf(toAdd.Thr)
-			};
-			if (indexs.X < 0)
-			{
-				indexs.X = _allVerts.Count;
-				_allVerts.Add(toAdd.One);
+				Vec3 indexs = new Vec3
+				{
+					X = _allVerts.IndexOf(verts[0]),
+					Y = _allVerts.IndexOf(verts[1]),
+					Z = _allVerts.IndexOf(verts[2])
+				};
+				if (indexs.X < 0)
+				{
+					indexs.X = _allVerts.Count;
+					_allVerts.Add(verts[0]);
+				}
+				if (indexs.Y < 0)
+				{
+					indexs.Y = _allVerts.Count;
+					_allVerts.Add(verts[1]);
+				}
+				if (indexs.Z < 0)
+				{
+					indexs.Z = _allVerts.Count;
+					_allVerts.Add(verts[2]);
+				}
+				_allIndicees.Add(indexs);
+				verts.RemoveAt(1);
+				if (temp)
+				{
+					int pie = 4;
+					pie++;
+				}
+				temp = true;
 			}
-			if (indexs.Y < 0)
-			{
-				indexs.Y = _allVerts.Count;
-				_allVerts.Add(toAdd.Two);
-			}
-			if (indexs.Z < 0)
-			{
-				indexs.Z = _allVerts.Count;
-				_allVerts.Add(toAdd.Thr);
-			}
-			_allIndicees.Add(indexs);
 		}
 
 		private void PopulateVertexs()
@@ -207,7 +219,8 @@ namespace CSharpOBJConverter
 			//*/
 			/* testing
 			Program myProg = new Program();
-			string inFile = "OBJ_FILES/Cube.obj";
+			string inFile = "OBJ_FILES/basement.obj";
+			//string inFile = "OBJ_FILES/Cube.obj";
 			//string inFile = "OBJ_FILES/GhoulOBJ.obj";
 			//string inFile = "OBJ_FILES/Plane_BW.obj";
 			//string inFile = "OBJ_FILES/gun.big";
