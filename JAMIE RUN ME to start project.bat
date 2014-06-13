@@ -22,14 +22,14 @@
 ::LevelEditor\LevelEditor.sln
 ::start "" "LevelEditor\LevelEditor.sln"
 
-echo "+---------------------------------------------------------------+"
-echo "| controls                                                      |"
-echo "+---------------------------------------------------------------+"
-echo "|               Editor Mode                                     |"
-echo "+-------------------+-------------------------------------------+"
-echo "| Click and Move    | Move position and vel of particle         |"
-echo "| Arrow Keys        | accelerate particle in arrow direction    |"
-echo "+-------------------+-------------------------------------------+"
+::echo "+---------------------------------------------------------------+"
+::echo "| controls                                                      |"
+::echo "+---------------------------------------------------------------+"
+::echo "|               Editor Mode                                     |"
+::echo "+-------------------+-------------------------------------------+"
+::echo "| Click and Move    | Move position and vel of particle         |"
+::echo "| Arrow Keys        | accelerate particle in arrow direction    |"
+::echo "+-------------------+-------------------------------------------+"
 
 
 GamePhysics\GamePhysics.sln

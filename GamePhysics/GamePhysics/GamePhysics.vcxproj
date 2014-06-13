@@ -109,6 +109,7 @@
     <ClInclude Include="Lab12AngleVel\AngleVelGUI.h" />
     <ClInclude Include="Lab13RigidBodyRotation\RigidBodyRotation.h" />
     <ClInclude Include="Lab14Torque\TorqueGUI.h" />
+    <ClInclude Include="Lab15TorquedParticle\TorquedParticleGui.h" />
     <ClInclude Include="PhysicsGUIBase.h" />
     <ClInclude Include="SingleParticleGui.h" />
   </ItemGroup>
