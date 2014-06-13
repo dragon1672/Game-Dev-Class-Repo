@@ -9,7 +9,7 @@ class SomethingCool : public PhysicsGUIBase {
 	GravityBodyForceGenerator myGrav;
 	CollisionManager collisionManager;
 
-	static const int NUM_OF_POINTS = 1000;
+	static const int NUM_OF_POINTS = 1500;
 
 	float spawnForce;
 	float range;
@@ -67,7 +67,7 @@ public:
 		myDebugMenu.button("Reset",fastdelegate::MakeDelegate(this,&SomethingCool::reset));
 		myDebugMenu.edit("Grav Const",myGrav.gravityConstent,0,50);
 		myDebugMenu.edit("Spawn Force",spawnForce,0,100);
-		myDebugMenu.edit("Spawn Range",range,0,100);
+		myDebugMenu.edit("Spawn Range",range,.01,100);
 	}
 	void reset() {
 		for (int i = 0; i < NUM_OF_POINTS; i++)
@@ -75,14 +75,19 @@ public:
 			points[i].point.init(1);
 			points[i].point.pos = Random::glmRand::randomFloatVectorInBoxRanged(range,range,range);
 			points[i].point.vel = spawnForce * Random::glmRand::randomUnitVector();
-			points[i].point.mass = Random::randomFloat(1, 2);
+			if(Random::randomBool(300)) {
+				points[i].point.mass = Random::randomFloat(5, 10);
+			} else {
+				points[i].point.mass = Random::randomFloat(1, 2);
+			}
 		}
 		redraw();
 	}
 
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
-		
+
+
 		for (int i = 0; i < NUM_OF_POINTS; i++)
 		{
 			myGrav.updateForce(&points[i].point);
@@ -94,9 +99,12 @@ public:
 				}
 			}
 			points[i].point.update(dt());
-		}
 
-		redraw();
+			//redraw
+			points[i].pointGraphic->pointSize = points[i].point.mass;
+			sync(points[i].pointGraphic,points[i].point.pos);
+			//redraw();
+		}
 	}
 	void redraw() {
 		for (int i = 0; i < NUM_OF_POINTS; i++)
