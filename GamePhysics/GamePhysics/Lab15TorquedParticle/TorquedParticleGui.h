@@ -9,208 +9,103 @@
 #include <MyRandom.h>
 #include <glm/gtx/rotate_vector.hpp>
 
+#include <RidgidBody.h>
+#include <RigidSpringForce.h>
+
 class TorquedParticleGui : public PhysicsGUIBase {
 	
-	static const int NUM_OF_PARTICLES = 14;
+	struct Line {
+		RidgidBody * src;
+		glm::vec3 offset;
+		VectorGraphic * theLine;
+		glm::vec3 syncPos() {
+			return src->core.pos + glm::rotate(offset,glm::degrees(src->rotation),glm::vec3(0,0,-1));
+		}
+		glm::vec3 syncVec(glm::vec3& springPos) {
+			return springPos - syncPos();
+		}
+	};
+	
 	struct {
-		struct {
-			Particle point;
-			float radiusPercent;
-			glm::vec3 angleVel;
-			float cashedRadius;
-			VectorGraphic * pointGraphic;
-			VectorGraphic * velGraphic;
-			VectorGraphic * angleVelGraphic;
-			VectorGraphic * radiusVector;
-		} allPoints[NUM_OF_PARTICLES];
-		Particle point;
+		RidgidBody point;
 		VectorGraphic * pointGraphic;
-		VectorGraphic * velGraphic;
-		float radius;
-		float angleVel;
+		VectorGraphic * angleVelGraphic;
 		
-		float totalInertia;
+		Line meSpring;
+		/*
+			RidgidBody * src;
+			glm::vec3 offset;
+			VectorGraphic * theLine;
+		//*/
 	} ridgidBody;
 	
-	bool explode;
-	float throwPower;
+	glm::vec3 mousePos;
 
-	float drag;
-	
-	struct {
-		glm::vec3 lever;
-		glm::vec3 force;
-		glm::vec3 perpForce;
-		VectorGraphic * leverGraphic;
-		VectorGraphic * forceGraphic;
-		VectorGraphic * perpGraphic;
-	} lever;
+	RigidSpringForce mySprings;
+	GravityForceGenerator myGrav;
 
-	void initGraphic(VectorGraphic** leGraphic, glm::vec3& col) {
+	void initGraphic(VectorGraphic** leGraphic, glm::vec3& col, DisplayStyle type = DS_ARROW) {
 		(*leGraphic)  = addVectorGraphic();
-		(*leGraphic) -> displayStyle = DS_ARROW;
+		(*leGraphic) -> displayStyle = type;
 		(*leGraphic) -> color = col;
 	}
 public:
 	void init() {
-		PhysicsGUIBase::init(false);
+		PhysicsGUIBase::init(false,false);
 
-		drag = .96;
+		myGrav.dir = glm::vec3(0,-10,0);
+		mySprings.init(25,2);
 
-		explode = false;
-		throwPower = 5;
+		reset();
 
-		ridgidBody.radius = Random::randomFloat(2,3);
-		ridgidBody.angleVel = Random::randomFloat(.5,2);
+		initGraphic(&ridgidBody.pointGraphic, glm::vec3(0,0,1), DisplayStyle::DS_SQUARE);
 		
-		ridgidBody.point.init(1,.3);
-		ridgidBody.pointGraphic  = addVectorGraphic();
-		ridgidBody.pointGraphic -> displayStyle = DS_SQUARE;
-		
-		ridgidBody.velGraphic  = addVectorGraphic();
-		ridgidBody.velGraphic -> displayStyle = DS_ARROW;
-		ridgidBody.velGraphic -> color = glm::vec3(0,0,0);
+		initGraphic(&ridgidBody.angleVelGraphic, glm::vec3(0,0,0));
 
-		for (int j = 0; j < NUM_OF_PARTICLES; j++)
-		{
-			ridgidBody.allPoints[j].pointGraphic  = addVectorGraphic();
-			ridgidBody.allPoints[j].pointGraphic -> color = glm::vec3( 0, 0, 1);
+		ridgidBody.meSpring.src = &ridgidBody.point;
+		ridgidBody.meSpring.offset = glm::vec3(Random::randomSign() * ridgidBody.point.core.mass/2,Random::randomSign() * ridgidBody.point.core.mass/2,0);
+		mySprings.addSpring(ridgidBody.point,ridgidBody.meSpring.offset,mousePos);
+		initGraphic(&ridgidBody.meSpring.theLine, glm::vec3(), DisplayStyle::DS_LINE);
 
-			initGraphic(&ridgidBody.allPoints[j].velGraphic,      glm::vec3( 0, 1, 0));
-			initGraphic(&ridgidBody.allPoints[j].radiusVector,    glm::vec3(.7,.7,.7));
-			initGraphic(&ridgidBody.allPoints[j].angleVelGraphic, glm::vec3(.7,.7, 0));
-		}
-		initGraphic(&lever.forceGraphic, glm::vec3(0,.3,.8));
-		initGraphic(&lever.leverGraphic, glm::vec3(0, 0, 0));
-		initGraphic(&lever.perpGraphic,  glm::vec3(0,.8,.3));
-
-		resetRandom();
-
-		myDebugMenu.button("Throw",fastdelegate::MakeDelegate(this,&TorquedParticleGui::launch));
-		myDebugMenu.button("Reset\nPerfect",fastdelegate::MakeDelegate(this,&TorquedParticleGui::resetCircle));
-		myDebugMenu.button("Reset\nRandom",fastdelegate::MakeDelegate(this,&TorquedParticleGui::resetRandom));
-		myDebugMenu.edit("Throw Power",throwPower,0,10);
-		myDebugMenu.edit("Explode",explode);
-		myDebugMenu.edit("Drag",drag, 0, 1);
-		myDebugMenu.watch("Angle Vel",ridgidBody.angleVel);
-		myDebugMenu.watch("Total Inertia",ridgidBody.totalInertia);
-		myDebugMenu.edit("Radius", ridgidBody.radius, .01, 20);
+		myDebugMenu.button("Reset",fastdelegate::MakeDelegate(this,&TorquedParticleGui::reset));
+		myDebugMenu.edit("Drag",ridgidBody.point.core.drag, 0, 1);
+		myDebugMenu.edit("SpringStiff",mySprings.springConstent,0,100);
+		myDebugMenu.watch("pos",ridgidBody.point.core.pos);
 	}
-	void launch() {
-		glm::vec3 dir = Random::glmRand::randomUnitVector();
-		dir.z = 0;
-		dir = glm::normalize(dir);
-		ridgidBody.point.vel = dir * throwPower;
-	}
-	void reset(float lowRange) {
-		ridgidBody.point.pos = glm::vec3();
-		ridgidBody.point.vel = glm::vec3();
-		ridgidBody.totalInertia = 0;
-		lever.lever = glm::vec3();
-		lever.force = glm::vec3();
-		lever.perpForce = glm::vec3();
+	void reset() {
+		ridgidBody.point.core.init(.8,1);
+		ridgidBody.point.core.pos = glm::vec3();
+		ridgidBody.point.core.vel = glm::vec3();
 
-		ridgidBody.angleVel = 0;
-
-		float angleOffset = 360 / NUM_OF_PARTICLES;
-		float currentAngle = 0;
-		glm::vec3 startingPos = glm::vec3(0,1,0);
-		for (int j = 0; j < NUM_OF_PARTICLES; j++)
-		{
-			ridgidBody.allPoints[j].radiusPercent = Random::randomFloat(lowRange,1);
-			glm::vec3 posOffset = glm::rotate(startingPos,currentAngle,glm::vec3(0,0,1));
-			posOffset *= ridgidBody.radius * ridgidBody.allPoints[j].radiusPercent;
-			currentAngle += angleOffset;
-
-			ridgidBody.allPoints[j].point.init(1,Random::randomFloat(.2,1));
-			ridgidBody.allPoints[j].point.vel = glm::vec3();
-			ridgidBody.allPoints[j].point.pos = ridgidBody.point.pos + posOffset;
-
-			ridgidBody.totalInertia += glm::dot(ridgidBody.allPoints[j].point.pos,ridgidBody.allPoints[j].point.pos) * ridgidBody.allPoints[j].point.mass;
-		}
-	}
-	void resetRandom() {
-		reset(.2);
-	}
-	void resetCircle() {
-		reset(1);
+		ridgidBody.point.angleVel = 0;
+		ridgidBody.point.rotation = 0;
+		ridgidBody.point.totalInertia = 1;
+		ridgidBody.point.totalTorque = glm::vec3();
 	}
 
-	void leverUpdate() {
-		if(GetAsyncKeyState(VK_LBUTTON)) {
-			lever.lever = getMousePosition() - ridgidBody.point.pos;
-			lever.force =  glm::vec3();
-			lever.perpForce = glm::vec3();
-		} else if(GetAsyncKeyState(VK_RBUTTON) && lever.lever != glm::vec3()) {
-			lever.force =  getMousePosition() - lever.lever - ridgidBody.point.pos;
-			lever.perpForce = glm::perp(lever.force, glm::normalize(lever.lever));
+	void mouseSpringUpdate() {
+		if(GetAsyncKeyState(VK_RBUTTON)) {
+			mousePos = getMousePosition();
 		}
 	}
 
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
 		
-		if(!explode && ridgidBody.totalInertia != 0) {
-			leverUpdate();
+		mouseSpringUpdate();
 		
-			glm::vec3 totalTorque = glm::cross(lever.lever, lever.perpForce);
-			glm::vec3 angularAcceleration = (totalTorque/ridgidBody.totalInertia)*dt();
-			ridgidBody.angleVel += angularAcceleration.z;
-		}
+		mySprings.updateForce(&ridgidBody.point);
+		myGrav.updateForce(&ridgidBody.point.core);
 
-		ridgidBody.point.drag = drag;
 		ridgidBody.point.update(dt());
 
-		ridgidBody.totalInertia = 0;
-		for (int j = 0; j < NUM_OF_PARTICLES; j++)
-		{
-			ridgidBody.allPoints[j].point.update(dt());
-			if(!explode) {
-				ridgidBody.allPoints[j].cashedRadius = ridgidBody.radius * ridgidBody.allPoints[j].radiusPercent;
-				glm::vec3 rad = ridgidBody.allPoints[j].cashedRadius * glm::normalize(ridgidBody.allPoints[j].point.pos - ridgidBody.point.pos);
-				ridgidBody.allPoints[j].point.pos = ridgidBody.point.pos + rad;
-				glm::vec3 perp = glm::perp(rad,glm::vec3(0,0,1));
-				perp = glm::vec3(-rad.y,rad.x,rad.z);
-				ridgidBody.allPoints[j].angleVel = perp * ridgidBody.angleVel;
-				ridgidBody.allPoints[j].point.vel = ridgidBody.allPoints[j].angleVel + ridgidBody.point.vel;
-
-				ridgidBody.totalInertia += glm::dot(ridgidBody.allPoints[j].point.pos,ridgidBody.allPoints[j].point.pos) * ridgidBody.allPoints[j].point.mass;
-			}
-		}
 		redraw();
 	}
 	void redraw() {
-		ridgidBody.pointGraphic->pointSize = ridgidBody.point.mass;
-		sync(ridgidBody.pointGraphic,ridgidBody.point.pos);
-		sync(ridgidBody.velGraphic,ridgidBody.point.vel,ridgidBody.point.pos);
-		
-		
-		sync(lever.forceGraphic, lever.force,     ridgidBody.point.pos + lever.lever);
-		sync(lever.leverGraphic, lever.lever,     ridgidBody.point.pos              );
-		sync(lever.perpGraphic,  lever.perpForce, ridgidBody.point.pos + lever.lever);
-
-		for (int j = 0; j < NUM_OF_PARTICLES; j++)
-		{
-			ridgidBody.allPoints[j].pointGraphic->pointSize = ridgidBody.allPoints[j].point.mass;
-
-			glm::vec3 vec = ridgidBody.allPoints[j].point.pos;
-			glm::vec3 pos = ridgidBody.allPoints[j].point.pos;
-			sync(ridgidBody.allPoints[j].pointGraphic, pos);
-				
-			vec = ridgidBody.allPoints[j].point.vel;
-			pos = ridgidBody.allPoints[j].point.pos;
-			sync(ridgidBody.allPoints[j].velGraphic, vec, pos);
-				
-			vec = ridgidBody.allPoints[j].cashedRadius * glm::normalize(ridgidBody.allPoints[j].point.pos - ridgidBody.point.pos);
-			pos = ridgidBody.point.pos;
-			sync(ridgidBody.allPoints[j].radiusVector, vec, pos);
-			ridgidBody.allPoints[j].radiusVector -> visible = !explode;
-
-
-			vec = ridgidBody.allPoints[j].angleVel;
-			pos = ridgidBody.allPoints[j].point.pos;
-			sync(ridgidBody.allPoints[j].angleVelGraphic, vec, pos);
-			ridgidBody.allPoints[j].angleVelGraphic -> visible = !explode;
-		}
+		ridgidBody.pointGraphic->pointSize = ridgidBody.point.core.mass;
+		ridgidBody.pointGraphic->rotation = ridgidBody.point.rotation;
+		sync(ridgidBody.pointGraphic,ridgidBody.point.core.pos);
+		//sync(ridgidBody.angleVelGraphic,ridgidBody.point.vel,ridgidBody.point.pos);
+		sync(ridgidBody.meSpring.theLine,ridgidBody.meSpring.syncVec(mousePos),ridgidBody.meSpring.syncPos());
 	}
 };
