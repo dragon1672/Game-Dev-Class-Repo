@@ -65,12 +65,12 @@ public:
 		ridgidBody.meSpring.src = &ridgidBody.point;
 		ridgidBody.meSpring.offset = glm::vec3(Random::randomSign() * ridgidBody.point.core.mass/2,Random::randomSign() * ridgidBody.point.core.mass/2,0);
 		mySprings.addSpring(ridgidBody.point,ridgidBody.meSpring.offset,mousePos);
+		mySprings.addSpring(ridgidBody.point,-ridgidBody.meSpring.offset,mousePos);
 		initGraphic(&ridgidBody.meSpring.theLine, glm::vec3(), DisplayStyle::DS_LINE);
 
 		myDebugMenu.button("Reset",fastdelegate::MakeDelegate(this,&TorquedParticleGui::reset));
 		myDebugMenu.edit("Drag",ridgidBody.point.core.drag, 0, 1);
 		myDebugMenu.edit("SpringStiff",mySprings.springConstent,0,100);
-		myDebugMenu.watch("pos",ridgidBody.point.core.pos);
 	}
 	void reset() {
 		ridgidBody.point.core.init(.8,1);
