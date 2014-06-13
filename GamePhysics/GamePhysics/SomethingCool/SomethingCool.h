@@ -4,6 +4,8 @@
 #include <GravityBodyForceGenerator.h>
 #include <Particle.h>
 #include <MyRandom.h>
+#include <Windows.h>
+#include <SingleKeyManager.h>
 
 class SomethingCool : public PhysicsGUIBase {
 	GravityBodyForceGenerator myGrav;
@@ -13,6 +15,7 @@ class SomethingCool : public PhysicsGUIBase {
 
 	float spawnForce;
 	float range;
+	float timeScale;
 
 	struct {
 		Particle point;
@@ -54,6 +57,7 @@ public:
 
 		spawnForce = 30;
 		range = 10;
+		timeScale = 1;
 
 		for (int i = 0; i < NUM_OF_POINTS; i++)
 		{
@@ -68,6 +72,7 @@ public:
 		myDebugMenu.edit("Grav Const",myGrav.gravityConstent,0,50);
 		myDebugMenu.edit("Spawn Force",spawnForce,0,100);
 		myDebugMenu.edit("Spawn Range",range,.01,100);
+		myDebugMenu.edit("Time Scale",timeScale,0,2);
 	}
 	void reset() {
 		for (int i = 0; i < NUM_OF_POINTS; i++)
@@ -75,11 +80,7 @@ public:
 			points[i].point.init(1);
 			points[i].point.pos = Random::glmRand::randomFloatVectorInBoxRanged(range,range,range);
 			points[i].point.vel = spawnForce * Random::glmRand::randomUnitVector();
-			if(Random::randomBool(300)) {
-				points[i].point.mass = Random::randomFloat(5, 10);
-			} else {
-				points[i].point.mass = Random::randomFloat(1, 2);
-			}
+			points[i].point.mass = Random::randomFloat(1, 2);
 		}
 		redraw();
 	}
@@ -87,6 +88,9 @@ public:
 	void newFrame() {
 		PhysicsGUIBase::newFrame();
 
+		if(GetAsyncKeyState(VK_SPACE)) {
+			reset();
+		}
 
 		for (int i = 0; i < NUM_OF_POINTS; i++)
 		{
@@ -95,10 +99,10 @@ public:
 			{
 				ParticleContact temp;
 				if(collide(&points[i].point, &points[j].point,temp)) {
-					temp.resolve(dt());
+					temp.resolve(dt() * timeScale);
 				}
 			}
-			points[i].point.update(dt());
+			points[i].point.update(dt() * timeScale);
 
 			//redraw
 			points[i].pointGraphic->pointSize = points[i].point.mass;
