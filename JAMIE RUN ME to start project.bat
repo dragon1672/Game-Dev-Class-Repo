@@ -31,8 +31,9 @@
 ::echo "| Arrow Keys        | accelerate particle in arrow direction    |"
 ::echo "+-------------------+-------------------------------------------+"
 
+echo prepare yourself for the most visual effects you have ever seen in a virtual world
 
-GamePhysics\GamePhysics.sln
+ComputerGraphics\ComputerGraphics.sln
 
 
 ::this will compile and run, find a better way to link to visual studio
