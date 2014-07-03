@@ -5,5 +5,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="labOne.h" />
+    <ClInclude Include="DebugMenuDemo.h" />
   </ItemGroup>
 </Project>
