@@ -6,6 +6,6 @@
   <ItemGroup>
     <ClInclude Include="labOne.h" />
     <ClInclude Include="DebugMenuDemo.h" />
-    <ClInclude Include="Debug\AlphaBlending.h" />
+    <ClInclude Include="AlphaBlending.h" />
   </ItemGroup>
 </Project>
