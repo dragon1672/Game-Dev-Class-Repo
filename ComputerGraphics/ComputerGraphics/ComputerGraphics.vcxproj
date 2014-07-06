@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugMenuDemo.h" />
+    <ClInclude Include="Debug\AlphaBlending.h" />
     <ClInclude Include="labOne.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -70,9 +70,13 @@ protected:
 	Camera myCam;
 	glm::mat4 additionalViewTransform; //applied after camera
 	
+	// call when ever creating a new matrix
+	void saveViewTransform(ShaderProgram * shader, const char * name);
+
 	virtual void nextFrame(float dt) {}
 	virtual void init() {}
-	void saveViewTransform(ShaderProgram * shader, const char * name);
+	virtual void preDraw() {} // called before drawing each object
+	virtual void preAllDraw() {} // called before all objects are drawn
 public:
 	void initializeGL();
 	void paintGL();
