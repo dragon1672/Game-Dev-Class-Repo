@@ -96,12 +96,12 @@ public:
 
 		blendColor = glm::vec3(1,1,1);
 
-		menu->edit("Time Scale:",timeScale,-10,100);
-		menu->edit("Smooth:",smooth);
-		menu->button("Reset Time To Now:",fastdelegate::MakeDelegate(this,&AlphaBlending::setTimeToNow));
 		menu->edit("Alpha:",alpha,0,1,true,"Clock Face");
 		menu->edit("ClockFaceTexture",clockFaceID,clockFaceLowBound,clockFaceHighBound+1-.1f,true,"Clock Face");
 		menu->button("Random Texture",fastdelegate::MakeDelegate(this,&AlphaBlending::randomClockFace),"Clock Face");
+		menu->edit("Time Scale:",timeScale,-10,100,true,"Time Scale");
+		menu->edit("Smooth:",smooth,"Time Scale");
+		menu->button("Reset Time To Now:",fastdelegate::MakeDelegate(this,&AlphaBlending::setTimeToNow),"Time Scale");
 
 		time_t t = time(0);
 		struct tm * now = localtime( & t );
@@ -129,10 +129,24 @@ public:
 
 		float secondsPercent = smooth ? (seconds / 60) : (((int)seconds) / 60.0f);
 		float minutesPercent = smooth ? (minutes + secondsPercent) / 60 : (((int)minutes) / 60.0f);
-		float hoursPercent   = smooth ? (hours   + minutesPercent) / 12 : (((int)hours  ) / 12.0f);
+		float hoursPercent   = /*smooth ? */(hours   + minutesPercent) / 12/* : (((int)hours  ) / 12.0f)*/;
 
-		hourHand->whereMat = glm::rotate(-hoursPercent   * 360, glm::vec3(0,0,1));
-		minHand->whereMat =  glm::rotate(-minutesPercent * 360, glm::vec3(0,0,1));
-		secHand->whereMat =  glm::rotate(-secondsPercent * 360, glm::vec3(0,0,1));
+		hourHand->whereMat = glm::rotate(-hoursPercent   * 360, glm::vec3(0,0,1)) * glm::translate(glm::vec3(0,0,0));
+		minHand->whereMat =  glm::rotate(-minutesPercent * 360, glm::vec3(0,0,1)) * glm::translate(glm::vec3(0,0,.0001));
+		secHand->whereMat =  glm::rotate(-secondsPercent * 360, glm::vec3(0,0,1)) * glm::translate(glm::vec3(0,0,.0002));
+		alphaAnimation(dt);
+	}
+	void alphaAnimation(float dt) {
+		static bool hasCompleted = false;
+		if(!hasCompleted) {
+			float beginAlpha = 1;
+			float endAlpha = .4;
+			float duration = 5; //seconds
+			static float currentProgress = 0;
+			currentProgress += dt;
+			float currentPercent = currentProgress / duration;
+			alpha = (endAlpha - beginAlpha) * currentPercent + beginAlpha;
+			hasCompleted = currentPercent >= 1;
+		}
 	}
 };
