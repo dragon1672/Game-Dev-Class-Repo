@@ -2,6 +2,7 @@
 #include "LabOne.h"
 #include "DebugMenuDemo.h"
 #include "AlphaBlending.h"
+#include "NormalMaps.h"
 #include <Engine\BasicGui.h>
 
 
@@ -11,7 +12,8 @@ int main(int argc, char * argv[]) {
 
 	//LabOne widg;
 	//DebugMenuDemo widg;
-	AlphaBlending widg;
+	//AlphaBlending widg;
+	NormalMaps widg;
 
 	GUI.addScene(&widg);
 	GUI.show();

@@ -85,6 +85,8 @@
     <ClInclude Include="DebugMenuDemo.h" />
     <ClInclude Include="AlphaBlending.h" />
     <ClInclude Include="labOne.h" />
+    <ClInclude Include="MatrixInfo.h" />
+    <ClInclude Include="NormalMaps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
