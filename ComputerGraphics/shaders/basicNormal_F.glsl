@@ -19,6 +19,9 @@ uniform float specPower;
 uniform vec3  camPos;
 uniform sampler2D normalMap;
 
+
+uniform bool whiteAsTexture;
+
 //repeated calculations
 vec3 rotatedNormal; // the 'real' normal
 vec3 diffuseVector; // vector between point and light
@@ -57,11 +60,11 @@ vec3 combineLight(vec3 one, vec3 two) {
 
 void main() {
 	vec3 finalCol = vec3(outCol);
-	finalCol = vec3(texture(normalMap,outUv));
+	if(!whiteAsTexture)	finalCol = vec3(texture(normalMap,outUv));
 	vec3 lightV;
 	calculateVectors(vec3(outPos));
 	lightV = diffuseLightAmount();
-	finalCol = finalCol * lightV;// + specLight();
+	finalCol = finalCol * lightV + specLight();
 	finalColorForOutput = vec4(finalCol,1);
 	//finalColorForOutput = texture(normalMap,outUv);
 	//finalColorForOutput = vec4(lightV,1);
