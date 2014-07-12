@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="mainer.cpp" />
+    <ClCompile Include="TangentSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="labOne.h" />
@@ -9,5 +10,6 @@
     <ClInclude Include="AlphaBlending.h" />
     <ClInclude Include="NormalMaps.h" />
     <ClInclude Include="MatrixInfo.h" />
+    <ClInclude Include="TangentSpace.h" />
   </ItemGroup>
 </Project>

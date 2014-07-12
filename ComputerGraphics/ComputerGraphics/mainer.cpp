@@ -3,6 +3,7 @@
 #include "DebugMenuDemo.h"
 #include "AlphaBlending.h"
 #include "NormalMaps.h"
+#include "TangentSpace.h"
 #include <Engine\BasicGui.h>
 
 
@@ -13,7 +14,8 @@ int main(int argc, char * argv[]) {
 	//LabOne widg;
 	//DebugMenuDemo widg;
 	//AlphaBlending widg;
-	NormalMaps widg;
+	//NormalMaps widg;
+	TangentSpace widg;
 
 	GUI.addScene(&widg);
 	GUI.show();
