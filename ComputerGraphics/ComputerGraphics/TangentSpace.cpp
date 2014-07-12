@@ -1,24 +1,23 @@
 #include "TangentSpace.h"
 #include <ShapeData.h>
 
-//make cube
 Neumont::Vertex stackVerts[] = 
 {
 	// Top
 	glm::vec3(-1.0f, +1.0f, +1.0f), // 0
-	glm::vec4(-1.0f, +0.0f, +0.0f, +0.0f), // Tan
+	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +1.0f, +0.0f), // Normal
 	glm::vec2(+0.0f, +1.0f), // UV
 	glm::vec3(+1.0f, +1.0f, +1.0f), // 1
-	glm::vec4(-1.0f, +0.0f, +0.0f, +0.0f), // Tan
+	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +1.0f, +0.0f), // Normal
 	glm::vec2(+1.0f, +1.0f), // UV
 	glm::vec3(+1.0f, +1.0f, -1.0f), // 2
-	glm::vec4(-1.0f, +0.0f, +0.0f, +0.0f), // Tan
+	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +1.0f, +0.0f), // Normal
 	glm::vec2(+1.0f, +0.0f), // UV
 	glm::vec3(-1.0f, +1.0f, -1.0f), // 3
-	glm::vec4(-1.0f, +0.0f, +0.0f, +0.0f), // Tan
+	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +1.0f, +0.0f), // Normal
 	glm::vec2(+0.0f, +0.0f), // UV
 	
@@ -80,19 +79,19 @@ Neumont::Vertex stackVerts[] =
 	glm::vec3(+1.0f, +1.0f, +1.0f), // 16
 	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +0.0f, +1.0f), // Normal
-	glm::vec2(+1.0f, +1.0f), // UV
+	glm::vec2(+1.0f, +0.0f), // UV
 	glm::vec3(-1.0f, +1.0f, +1.0f), // 17
 	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +0.0f, +1.0f), // Normal
-	glm::vec2(+0.0f, +1.0f), // UV
+	glm::vec2(+0.0f, +0.0f), // UV
 	glm::vec3(-1.0f, -1.0f, +1.0f), // 18
 	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +0.0f, +1.0f), // Normal
-	glm::vec2(+0.0f, +0.0f), // UV
+	glm::vec2(+0.0f, +1.0f), // UV
 	glm::vec3(+1.0f, -1.0f, +1.0f), // 19
 	glm::vec4(+1.0f, +0.0f, +0.0f, +0.0f), // Tan
 	glm::vec3(+0.0f, +0.0f, +1.0f), // Normal
-	glm::vec2(+1.0f, +0.0f), // UV
+	glm::vec2(+1.0f, +1.0f), // UV
 	
 	// Bottom
 	glm::vec3(+1.0f, -1.0f, -1.0f), // 20
@@ -153,7 +152,7 @@ void TangentSpace::init() {
 	meShader->saveUniform("specPower",  ParameterType::PT_FLOAT, &specPower            );
 	meShader->saveUniform("whiteAsTexture", ParameterType::PT_BOOLEAN, &whiteAsTexture );
 		
-	meCube = addRenderable(meGeo,meShader,addTexture("./../textures/basicNormal.png"));
+	meCube = addRenderable(meGeo,meShader,addTexture("./../textures/basicNormal.png",false,true));
 	meCube->saveTexture("normalMap");
 	meCube->saveMatrixInfo("model2WorldTransform");
 	meCube->addUniformParameter("modelRotation", cubeRotation );

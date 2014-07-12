@@ -71,5 +71,5 @@ void main() {
 	//finalColorForOutput = texture(normalMap,outUv);
 	//finalColorForOutput = vec4(lightV,1);
 	//finalColorForOutput = vec4(rotatedNormal,1);
-	finalColorForOutput = vec4(outCol,1);
+	//finalColorForOutput = vec4(outCol,1);
 }
