@@ -10,7 +10,6 @@
     <ClInclude Include="DebugMenuDemo.h" />
     <ClInclude Include="AlphaBlending.h" />
     <ClInclude Include="NormalMaps.h" />
-    <ClInclude Include="MatrixInfo.h" />
     <ClInclude Include="TangentSpace.h" />
     <ClInclude Include="Orge.h" />
   </ItemGroup>
