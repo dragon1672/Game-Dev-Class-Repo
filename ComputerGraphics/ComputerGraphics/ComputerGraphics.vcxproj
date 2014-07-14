@@ -80,6 +80,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="mainer.cpp" />
+    <ClCompile Include="Orge.cpp" />
     <ClCompile Include="TangentSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +89,7 @@
     <ClInclude Include="labOne.h" />
     <ClInclude Include="MatrixInfo.h" />
     <ClInclude Include="NormalMaps.h" />
+    <ClInclude Include="Orge.h" />
     <ClInclude Include="TangentSpace.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
