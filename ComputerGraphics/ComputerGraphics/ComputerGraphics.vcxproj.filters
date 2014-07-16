@@ -4,6 +4,8 @@
     <ClCompile Include="mainer.cpp" />
     <ClCompile Include="TangentSpace.cpp" />
     <ClCompile Include="Orge.cpp" />
+    <ClCompile Include="LibNoiseDemo.cpp" />
+    <ClCompile Include="noiseutils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="labOne.h" />
@@ -12,5 +14,7 @@
     <ClInclude Include="NormalMaps.h" />
     <ClInclude Include="TangentSpace.h" />
     <ClInclude Include="Orge.h" />
+    <ClInclude Include="LibNoiseDemo.h" />
+    <ClInclude Include="noiseutils.h" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "TangentSpace.h"
 #include "Orge.h"
 #include <Engine\BasicGui.h>
+#include "LibNoiseDemo.h"
 
 
 int main(int argc, char * argv[]) {
@@ -17,7 +18,8 @@ int main(int argc, char * argv[]) {
 	//AlphaBlending widg;
 	//NormalMaps widg;
 	//TangentSpace widg;
-	Orge widg;
+	//Orge widg;
+	LibNoise widg;
 
 	GUI.addScene(&widg);
 	GUI.show();
