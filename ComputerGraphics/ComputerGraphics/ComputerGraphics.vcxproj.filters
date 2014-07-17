@@ -6,6 +6,7 @@
     <ClCompile Include="Orge.cpp" />
     <ClCompile Include="LibNoiseDemo.cpp" />
     <ClCompile Include="noiseutils.cpp" />
+    <ClCompile Include="Noise.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="labOne.h" />

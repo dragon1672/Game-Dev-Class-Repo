@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClCompile Include="LibNoiseDemo.cpp" />
     <ClCompile Include="mainer.cpp" />
+    <ClCompile Include="Noise.cpp" />
     <ClCompile Include="noiseutils.cpp" />
     <ClCompile Include="Orge.cpp" />
     <ClCompile Include="TangentSpace.cpp" />
