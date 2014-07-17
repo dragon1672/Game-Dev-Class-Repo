@@ -90,6 +90,7 @@
     <ClInclude Include="AlphaBlending.h" />
     <ClInclude Include="labOne.h" />
     <ClInclude Include="LibNoiseDemo.h" />
+    <ClInclude Include="Noise.h" />
     <ClInclude Include="noiseutils.h" />
     <ClInclude Include="NormalMaps.h" />
     <ClInclude Include="Orge.h" />

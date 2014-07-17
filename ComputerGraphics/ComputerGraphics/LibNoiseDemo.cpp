@@ -15,9 +15,9 @@ void LibNoise::init() {
 		ds[i] = myModule.GetValue(i,i,i);
 	}
 
-	const uint BYTES_PER_COLOR = 4;
-	const uint width = 2;
-	const uint height = 2;
+	const unsigned int BYTES_PER_COLOR = 4;
+	const unsigned int width = 2;
+	const unsigned int height = 2;
 	GLbyte * meTexture = new GLbyte[BYTES_PER_COLOR * width * height];
 	meTexture[0x0] = 0xFF;
 	meTexture[0x5] = 0xFF;

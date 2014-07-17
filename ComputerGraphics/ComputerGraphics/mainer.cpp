@@ -7,6 +7,7 @@
 #include "Orge.h"
 #include <Engine\BasicGui.h>
 #include "LibNoiseDemo.h"
+#include "noise.h"
 
 
 int main(int argc, char * argv[]) {
@@ -19,7 +20,8 @@ int main(int argc, char * argv[]) {
 	//NormalMaps widg;
 	//TangentSpace widg;
 	//Orge widg;
-	LibNoise widg;
+	//LibNoise widg;
+	Noise widg;
 
 	GUI.addScene(&widg);
 	GUI.show();

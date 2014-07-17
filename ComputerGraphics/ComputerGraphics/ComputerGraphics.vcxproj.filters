@@ -16,5 +16,6 @@
     <ClInclude Include="Orge.h" />
     <ClInclude Include="LibNoiseDemo.h" />
     <ClInclude Include="noiseutils.h" />
+    <ClInclude Include="Noise.h" />
   </ItemGroup>
 </Project>
