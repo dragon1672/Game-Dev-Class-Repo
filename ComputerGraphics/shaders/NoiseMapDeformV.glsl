@@ -5,8 +5,6 @@ in layout(location=2) vec3 norm;
 in layout(location=3) vec2 uv;
 
 out vec2 outUv;
-out vec3 outPos;
-out vec3 outNorm;
 
 uniform vec2 uvOffset;
 uniform sampler2D noiseMap;
@@ -23,6 +21,4 @@ void main() {
 	vec4 transformedPos =  model2WorldTransform * vec4(pos.x,pos.y,pos.z,1);
 	gl_Position =  viewTransform * transformedPos;
 	outUv = uv;
-	outPos = pos;
-	outNorm = norm;
 }
