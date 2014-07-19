@@ -11,6 +11,12 @@ public:
 
 	std::vector<Renderable *> allMyRenderables;
 
+	glm::vec3  lightColor;
+	glm::vec3  diffusePos;
+	float specPower;
+
+	Camera * myCam;
+
 	struct {
 		Renderable * renderable;
 		int noiseTexture;
@@ -26,12 +32,21 @@ public:
 	} teapot;
 
 	virtual void init(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
+		this->myCam = &myCam;
 		myCam.lookAt(glm::vec3(0,1,-7),glm::vec3(0,0,0));
 		teapot.magnitude = .6;
+
+		lightColor = glm::vec3(1,1,1);
+		specPower = 10;
+
 		menu->edit("magnitude",teapot.magnitude,0,2);
 
 		ShaderProgram * deformWithTexture = renderer->addShader("./../shaders/NoiseMapDeformv.glsl","./../shaders/NoiseMapDeformF.glsl");
 		renderer->saveViewTransform(deformWithTexture,"viewTransform");
+		deformWithTexture->saveUniform("lightColor", ParameterType::PT_VEC3,  &lightColor[0]);
+		deformWithTexture->saveUniform("diffusePos", ParameterType::PT_VEC3,  &diffusePos[0]);
+		deformWithTexture->saveUniform("camPos",     ParameterType::PT_VEC3,  &myCam.getPos()[0]);
+		deformWithTexture->saveUniform("specPower",  ParameterType::PT_FLOAT, &specPower);
 		
 		auto  teaPotGeo = renderer->addGeometry((NUShapeEditor::rotate(Neumont::ShapeGenerator::makeTeapot(30,glm::mat4()),-90,0,0)),GL_TRIANGLES);
 		teapot.noiseTexture = renderer->addTexture("./../textures/seamlessNoise.png");
@@ -91,6 +106,8 @@ public:
 
 		teapot.uvOffset.x = abs(spotInRange - range/2);
 		teapot.uvOffset.y = abs(spotInRange - range/2);
+
+		diffusePos = myCam->getPos() + 2.0f*myCam->getViewDir();
 
 		for (int i = 0; i < sizeof(bears) / sizeof(*bears); i++)
 		{
