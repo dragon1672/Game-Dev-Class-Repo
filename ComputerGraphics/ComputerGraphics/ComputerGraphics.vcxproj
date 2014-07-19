@@ -96,6 +96,7 @@
     <ClInclude Include="NormalMaps.h" />
     <ClInclude Include="Orge.h" />
     <ClInclude Include="TangentSpace.h" />
+    <ClInclude Include="UsingNoise.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

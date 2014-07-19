@@ -32,7 +32,7 @@ public:
 		blendColor = Random::glmRand::randomFloatVectorInBox(1,1,1);
 		
 		myString = "pie is good";
-		menu->watch("Demo:",myString,"Stats");
+		//menu->watch("Demo:",myStrin,"Stats");
 		myString = "Pie is really good (edited)";
 
 		menu->watch("Blend: ",blendColor,"Stats");

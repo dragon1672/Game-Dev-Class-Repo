@@ -9,6 +9,11 @@
 #include "LibNoiseDemo.h"
 #include "noise.h"
 
+#include "UsingNoise.h"
+
+#include <Engine\SceneManager.h>
+
+
 
 int main(int argc, char * argv[]) {
 	QApplication app(argc, argv);
@@ -21,7 +26,10 @@ int main(int argc, char * argv[]) {
 	//TangentSpace widg;
 	//Orge widg;
 	//LibNoise widg;
-	Noise widg;
+	//Noise widg;
+	SceneManager widg;
+	
+	UsingNoise tab1; widg.addScene(&tab1);
 
 	GUI.addScene(&widg);
 	GUI.show();

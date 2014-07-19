@@ -2,21 +2,60 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="mainer.cpp" />
-    <ClCompile Include="TangentSpace.cpp" />
-    <ClCompile Include="Orge.cpp" />
-    <ClCompile Include="LibNoiseDemo.cpp" />
-    <ClCompile Include="noiseutils.cpp" />
-    <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="LibNoiseDemo.cpp">
+      <Filter>Old Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="Noise.cpp">
+      <Filter>Old Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="noiseutils.cpp">
+      <Filter>Old Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="Orge.cpp">
+      <Filter>Old Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="TangentSpace.cpp">
+      <Filter>Old Labs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="labOne.h" />
-    <ClInclude Include="DebugMenuDemo.h" />
-    <ClInclude Include="AlphaBlending.h" />
-    <ClInclude Include="NormalMaps.h" />
-    <ClInclude Include="TangentSpace.h" />
-    <ClInclude Include="Orge.h" />
-    <ClInclude Include="LibNoiseDemo.h" />
-    <ClInclude Include="noiseutils.h" />
-    <ClInclude Include="Noise.h" />
+    <ClInclude Include="AlphaBlending.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMenuDemo.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="labOne.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="LibNoiseDemo.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="noiseutils.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalMaps.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="Orge.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="TangentSpace.h">
+      <Filter>Old Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="UsingNoise.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Old Labs">
+      <UniqueIdentifier>{fd3806e0-5594-4bdc-97db-9888270179df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{c6afb8a1-13fd-4588-badf-23d6bbaf8f60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
