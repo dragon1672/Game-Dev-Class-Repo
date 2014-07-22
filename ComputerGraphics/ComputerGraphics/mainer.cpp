@@ -27,9 +27,11 @@ int main(int argc, char * argv[]) {
 	//Orge widg;
 	//LibNoise widg;
 	//Noise widg;
-	SceneManager widg;
 	
+	//*
+	SceneManager widg;
 	UsingNoise tab1; widg.addScene(&tab1);
+	//*/
 
 	GUI.addScene(&widg);
 	GUI.show();
