@@ -95,6 +95,7 @@
     <ClInclude Include="noiseutils.h" />
     <ClInclude Include="NormalMaps.h" />
     <ClInclude Include="Orge.h" />
+    <ClInclude Include="PassInfoDemo.h" />
     <ClInclude Include="TangentSpace.h" />
     <ClInclude Include="UsingNoise.h" />
   </ItemGroup>

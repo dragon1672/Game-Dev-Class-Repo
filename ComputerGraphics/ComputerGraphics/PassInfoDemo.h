@@ -1,13 +1,15 @@
 #pragma once
 
 #include <Engine\Scene.h>
-#include <ShapeGenerator.h>
-#include <noise\noise.h>
 #include <Engine\Tools\NUShapeEditor.h>
+#include <ShapeGenerator.h>
+#include <Engine\Tools\BinaryToShapeLoader.h>
+#include <Engine\Tools\Random\Glm.h>
+#include <noise\noise.h>
 
-class UsingNoise : public Scene {
+class PassInfoDemo : public Scene {
 public:
-	UsingNoise() : Scene("Using Noise") {}
+	PassInfoDemo() : Scene("Pass Info Demo") {}
 
 	struct {
 		Renderable * renderable;
@@ -23,11 +25,10 @@ public:
 		float magnitude;
 	} teapot;
 
-	float colorPower;
-	float depthPower;
+	PassInfo * meEpicTexture;
 
-	virtual void init(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
-#pragma region makin Scene
+
+	void addToFakeOutput(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
 		myCam.lookAt(glm::vec3(0,1,-7),glm::vec3(0,0,0));
 		teapot.magnitude = .6;
 		menu->edit("magnitude",teapot.magnitude,0,2);
@@ -67,31 +68,29 @@ public:
 			bears[i].renderable->addUniformParameter("noiseMap",ParameterType::PT_TEXTURE,&bears[i].noiseTexture);
 			bears[i].renderable->addUniformParameter("discardThreshold",ParameterType::PT_FLOAT,&bears[i].discardThreshold);
 		}
-#pragma endregion
-		PassInfo * output = renderer->addPassInfo(true);
-		output->initTextures(renderer->width(),renderer->height());
-		output->clearColor = glm::vec3();
+	}
 
-		ShaderProgram * screenSpaceHeros = renderer->addShader("./../shaders/ScreenSpace_V.glsl","./../shaders/ScreenSpace_F.glsl");
-		renderer->saveViewTransform(screenSpaceHeros,"viewTransform");
+	virtual void init(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
+		myCam.lookAt(glm::vec3(10,10,10),glm::vec3());
+		meEpicTexture = renderer->addPassInfo(false);
+		renderer->setDefaultPassInfo(meEpicTexture);
+		meEpicTexture->initTextures(renderer->width(),renderer->height());
+		meEpicTexture->cam.enabled = true;
+		addToFakeOutput(renderer,meEpicTexture->cam,menu);
 
-		auto planeGeo = renderer->addGeometry(NUShapeEditor::rotate(NUShapeEditor::scaleToRange(Neumont::ShapeGenerator::makePlane(2),.3,.3,.3),90,0,0));
-		auto colorPlane = renderer->addRenderable(planeGeo,screenSpaceHeros, output->colorTexture);
-		auto depthPlane = renderer->addRenderable(planeGeo,screenSpaceHeros, output->depthTexture);
+		meEpicTexture->clearColor = glm::vec3();
 
-		colorPlane->transformData.position = glm::vec3(1,.7,-1);
-		colorPlane->saveMatrixInfo("meTransform");
-		colorPlane->saveTexture("myTexture");
-		colorPlane->addUniformParameter("power",colorPower);
+		//renderer->resetDefaultPassInfoToScreen();
+		renderer->setDefaultPassInfo(myDefaultPass);
 
-		depthPlane->transformData.position = glm::vec3(.7,.7,-1);
-		depthPlane->saveMatrixInfo("meTransform");
-		depthPlane->saveTexture("myTexture");
-		depthPlane->addUniformParameter("power",depthPower);
-
-		colorPower = 1;
-		depthPower = 2;
-		menu->edit("Depth Power:",depthPower,1,20);
+		auto tempRenderable = renderer->addRenderable(renderer->addGeometry(Neumont::ShapeGenerator::makeCube()),renderer->defaultShaders.passThroughTexture, meEpicTexture->colorTexture);
+		tempRenderable->saveTexture("myTexture");
+		tempRenderable->saveMatrixInfo("model2WorldTransform");
+		tempRenderable->transformData.rotation.x = 90;
+		tempRenderable->transformData.scale = glm::vec3(5,5,5);
+		tempRenderable->transformData.position.y = 2;
+		tempRenderable->transformData.position.x = 2;
+		
 	}
 	virtual void update(float dt) {
 		float speed = .1;

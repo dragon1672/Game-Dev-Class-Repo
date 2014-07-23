@@ -10,6 +10,7 @@
 #include "noise.h"
 
 #include "UsingNoise.h"
+#include "PassInfoDemo.h"
 
 #include <Engine\SceneManager.h>
 
@@ -30,6 +31,7 @@ int main(int argc, char * argv[]) {
 	
 	//*
 	SceneManager widg;
+	PassInfoDemo tab2; widg.addScene(&tab2);
 	UsingNoise tab1; widg.addScene(&tab1);
 	//*/
 

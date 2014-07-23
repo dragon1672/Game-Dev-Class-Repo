@@ -49,6 +49,9 @@
     <ClInclude Include="UsingNoise.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="PassInfoDemo.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Old Labs">
