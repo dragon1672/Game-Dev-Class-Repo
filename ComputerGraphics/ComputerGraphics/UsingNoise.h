@@ -14,6 +14,7 @@ public:
 		int noiseTexture;
 		float percent;
 		float discardThreshold;
+		glm::vec3 rotAcc;
 	} bears[4];
 
 	struct {
@@ -29,6 +30,7 @@ public:
 	virtual void init(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
 #pragma region makin Scene
 		myCam.lookAt(glm::vec3(0,1,-7),glm::vec3(0,0,0));
+		myCam.MOVEMENT_SPEED *= .2;
 		teapot.magnitude = .6;
 		menu->edit("magnitude",teapot.magnitude,0,2);
 
@@ -66,6 +68,7 @@ public:
 			bears[i].renderable->saveTexture("myTexture");
 			bears[i].renderable->addUniformParameter("noiseMap",ParameterType::PT_TEXTURE,&bears[i].noiseTexture);
 			bears[i].renderable->addUniformParameter("discardThreshold",ParameterType::PT_FLOAT,&bears[i].discardThreshold);
+			bears[i].rotAcc = Random::randomFloat(180,360) * Random::glmRand::randomUnitVector();
 		}
 #pragma endregion
 		PassInfo * output = renderer->addPassInfo(true);
@@ -114,6 +117,7 @@ public:
 			glm::vec3 left(-1.5,1,-6);
 			glm::vec3 right(0,0,-1);
 			bears[i].renderable->transformData.position = (1-percent) * right + (percent * left);
+			bears[i].renderable->transformData.rotation += dt * bears[i].rotAcc;
 		}
 	}
 
