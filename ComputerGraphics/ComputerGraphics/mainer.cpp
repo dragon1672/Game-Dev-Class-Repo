@@ -11,9 +11,12 @@
 
 #include "UsingNoise.h"
 #include "PassInfoDemo.h"
+#include "Shadows.h"
+#include "CubeMap.h"
 
 #include <Engine\SceneManager.h>
 
+#define ADD_SCENE(uniqueName,type) type uniqueName; widg.addScene(&uniqueName)
 
 
 int main(int argc, char * argv[]) {
@@ -31,8 +34,10 @@ int main(int argc, char * argv[]) {
 	
 	//*
 	SceneManager widg;
-	PassInfoDemo tab2; widg.addScene(&tab2);
-	UsingNoise tab1; widg.addScene(&tab1);
+	ADD_SCENE(tab2,PassInfoDemo);
+	ADD_SCENE(tab1,UsingNoise);
+	ADD_SCENE(tab3,Shadows);
+	ADD_SCENE(tab4,CubeMap);
 	//*/
 
 	GUI.addScene(&widg);

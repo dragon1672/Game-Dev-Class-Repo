@@ -17,6 +17,9 @@
     <ClCompile Include="TangentSpace.cpp">
       <Filter>Old Labs</Filter>
     </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlphaBlending.h">
@@ -50,6 +53,12 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="PassInfoDemo.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadows.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMap.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

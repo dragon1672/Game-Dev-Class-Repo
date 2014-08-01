@@ -12,12 +12,11 @@ void main() {
 	finalColor = texture(myTexture,outUv);
 	//finalColor = texture(noiseMap,outUv);
 	float noise = texture(noiseMap,outUv).r - discardThreshold;
-	float startFallOff = .05;
-	if(noise < startFallOff) {
-		float percent = noise / startFallOff;
-		vec4 mixColor = vec4(mix(vec3(0,0,.8), vec3(1,1,0),percent),1);
-		finalColor = mix(mixColor,finalColor,.5);
-		//finalColor *= vec4((1-percent) * fireEnd + (percent * fireStart),1);
+	if(noise < .01) {
+		vec3 fireStart = vec3(0,0,.8);
+		vec3 fireEnd = vec3(1,1,0);
+		float percent = noise / .01;
+		finalColor = vec4((1-percent) * fireEnd + (percent * fireStart),1);
 	}
 	finalColor.a = 1;
 	//finalColor = vec4(discardThreshold*vec3(1,1,1),1);

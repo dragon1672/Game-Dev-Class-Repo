@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="LibNoiseDemo.cpp" />
     <ClCompile Include="mainer.cpp" />
     <ClCompile Include="Noise.cpp" />
@@ -87,6 +88,7 @@
     <ClCompile Include="TangentSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DebugMenuDemo.h" />
     <ClInclude Include="AlphaBlending.h" />
     <ClInclude Include="labOne.h" />
@@ -96,6 +98,7 @@
     <ClInclude Include="NormalMaps.h" />
     <ClInclude Include="Orge.h" />
     <ClInclude Include="PassInfoDemo.h" />
+    <ClInclude Include="Shadows.h" />
     <ClInclude Include="TangentSpace.h" />
     <ClInclude Include="UsingNoise.h" />
   </ItemGroup>
