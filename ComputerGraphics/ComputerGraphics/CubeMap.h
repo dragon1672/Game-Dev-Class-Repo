@@ -17,6 +17,9 @@ public:
 	std::vector<uint> textures;
 	int currentTextureID;
 
+	bool shouldRefract;
+	float refractFloat;
+
 	Renderable * world;
 	Renderable * meObject;
 	glm::vec3 angleVel;
