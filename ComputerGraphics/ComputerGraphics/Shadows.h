@@ -10,12 +10,17 @@ public:
 
 
 	PassInfo * shadowMap; //  has light cam
-	Camera * sceneCam;
+	Camera * viewCamera, sceneCam;
+	bool camIsLight, camWasLight;
+
+	glm::mat4 biasMatrix;
 
 	glm::vec3 lightColor;
 	float specPower;
 
 	Renderable * lightRenderable;
+
+	float thres;
 	
 	float depthPower;
 
@@ -27,11 +32,20 @@ public:
 
 
 	void init(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
-		myCam.lookAt(glm::vec3(-6,5,-10),glm::vec3());
-		sceneCam = &myCam;
+		myCam.lookAt(glm::vec3(-30,20,0),glm::vec3());
+		viewCamera = &myCam;
+		sceneCam = *viewCamera;
 		depthPower = 50;
 		specPower = 100;
+		thres = .0005f;
 		lightColor = glm::vec3(.5,.5,.5);
+
+		biasMatrix = glm::mat4 (
+								0.5, 0.0, 0.0, 0.0,
+								0.0, 0.5, 0.0, 0.0,
+								0.0, 0.0, 0.5, 0.0,
+								0.5, 0.5, 0.5, 1.0
+							);
 		
 		ShaderProgram * shadowShader = renderer->addShader("./../shaders/Shadow_V.glsl","./../shaders/Shadow_F.glsl");
 		renderer->saveViewTransform(shadowShader,"viewTransform");
@@ -47,20 +61,24 @@ public:
 
 		Renderable * meObject = setupRenderable(renderer->addRenderable(objectGeo,shadowShader));
 		meObject->transformData.position.y = 1;
+		meObject->transformData.position.z = -4;
+		meObject->transformData.setScale(4);
 		meObject->transformData.rotation.x = -90;
 		
 		//save into passInfo
 		shadowMap = renderer->addPassInfo(true);
 		shadowMap->initTextures(renderer->width(),renderer->height());
-		shadowMap->cam.enabled;
-		shadowMap->cam.lookAt(glm::vec3(0,6,-10),glm::vec3());
+		shadowMap->cam.enabled = true;
+		shadowMap->cam.lookAt(glm::vec3(0,20,-40),glm::vec3());
 
-		shadowShader->saveUniform("lightColor",ParameterType::PT_VEC3,&lightColor[0]);
-		shadowShader->saveUniform("diffusePos",ParameterType::PT_VEC3,&shadowMap->cam.getPos()[0]);
-		shadowShader->saveUniform("specPower",ParameterType::PT_FLOAT,&specPower);
-		shadowShader->saveUniform("camPos",ParameterType::PT_VEC3,&myCam.getPos()[0]);
-		shadowShader->saveUniform("shadowMap",ParameterType::PT_TEXTURE,&shadowMap->depthTexture);
-		shadowShader->saveUniform("camLookAt",ParameterType::PT_MAT4,&shadowMap->cam.getWorld2View()[0][0]);
+		shadowShader->saveUniform("shadowMap",ParameterType::PT_TEXTURE, &shadowMap->depthTexture);
+		shadowShader->saveUniform("lightColor", lightColor);
+		shadowShader->saveUniform("diffusePos", shadowMap->cam.getPos());
+		shadowShader->saveUniform("specPower",  specPower);
+		shadowShader->saveUniform("camPos",     myCam.getPos());
+		shadowShader->saveUniform("camLookAt",  shadowMap->cam.getWorld2View());
+		shadowShader->saveUniform("biasMatrix", biasMatrix);
+		shadowShader->saveUniform("thres", thres);
 		renderer->savePerspectiveMat(shadowShader,"perspectiveMat");
 
 
@@ -80,15 +98,31 @@ public:
 		depthPlane->saveTexture("myTexture");
 		depthPlane->addUniformParameter("power",depthPower);
 		
-		lightRenderable->visible = false;
-		menu->edit("Disconnect Light",lightRenderable->visible);
+		menu->setSliderGranularity(100000);
+		menu->edit("Set Cam As Light",camIsLight);
+		menu->edit("thres",thres,0,.001);
+		menu->edit("nearPlane",renderer->nearPlane,0,.1);
+		menu->edit("farPlane",renderer->farPlane,10,100);
 	}
 	void update(float dt) {
-		if(!lightRenderable->visible) {
-			shadowMap->cam = *sceneCam;
+		if(camWasLight != camIsLight) {
+
+			if(camIsLight) {
+				viewCamera->setPos(shadowMap->cam.getPos(),shadowMap->cam.getViewDir());
+			} else {
+				viewCamera->setPos(sceneCam.getPos(),sceneCam.getViewDir());
+			}
+		} else {
+			if(camIsLight) {
+				shadowMap->cam = *viewCamera;
+			} else {
+				sceneCam = *viewCamera;
+			}
 		}
+		camWasLight = camIsLight;
+		lightRenderable->visible = !camIsLight;	
 		lightRenderable->transformData.position = shadowMap->cam.getPos();
-		sceneCam->getWorld2View();
+		sceneCam.getWorld2View();
 		shadowMap->cam.getWorld2View();
 	}
 };

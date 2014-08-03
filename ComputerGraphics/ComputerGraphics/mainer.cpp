@@ -36,8 +36,8 @@ int main(int argc, char * argv[]) {
 	SceneManager widg;
 	ADD_SCENE(tab2,PassInfoDemo);
 	ADD_SCENE(tab1,UsingNoise);
+	//ADD_SCENE(tab4,CubeMap);
 	ADD_SCENE(tab3,Shadows);
-	ADD_SCENE(tab4,CubeMap);
 	//*/
 
 	GUI.addScene(&widg);

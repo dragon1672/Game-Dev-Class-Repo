@@ -14,6 +14,7 @@ out vec4 ShadowCoord;
 //mats
 uniform mat4 perspectiveMat;
 uniform mat4 camLookAt;
+uniform mat4 biasMatrix;
 
 uniform mat4x4 viewTransform;
 uniform mat4x4 model2WorldTransform;
@@ -27,10 +28,6 @@ void main() {
 	fragNorm = norm;
 	fragPos = vec3(transformedPos);
 	
-	vec4 unbiasTexture = perspectiveMat * camLookAt * transformedPos;
-	ShadowCoord = unbiasTexture;
-	ShadowCoord /= ShadowCoord.w;
-	ShadowCoord.x = (ShadowCoord.x + 1) / 2;
-	ShadowCoord.y = (ShadowCoord.y + 1) / 2;
-	ShadowCoord.z = (ShadowCoord.z + 1) / 2;
+	ShadowCoord = biasMatrix * perspectiveMat * camLookAt * transformedPos;
+	//ShadowCoord /= ShadowCoord.w;
 }

@@ -8,8 +8,6 @@ in vec3 fragNorm;
 in vec3 fragPos;
 in vec4 ShadowCoord;
 
-in vec2 shadowUV;
-
 out vec4 finalColorForOutput;
 
 uniform vec3  lightColor;
@@ -49,22 +47,23 @@ vec3 combineLight(vec3 one, vec3 two) {
 	return vec3(x,y,z);
 }
 
-in vec3 outCol;
+uniform float thres;
 
 void main() {
-	float visibility = 1;
+	float visibility = 0;
 	//check depth
-	//if(!(abs(texture( shadowMap, ShadowCoord.xy ).z - ShadowCoord.z) < .005)) {
-		visibility = .5;
-		
-		finalColorForOutput = texture(shadowMap, ShadowCoord.xy);
-		finalColorForOutput.r = pow(finalColorForOutput.r,100);
-		finalColorForOutput.g = pow(finalColorForOutput.g,100);
-		finalColorForOutput.b = pow(finalColorForOutput.b,100);
-		finalColorForOutput = vec4(ShadowCoord.xy,1,1);
-		finalColorForOutput.a = 1;
-		return;
-	//}
+	float shadowIntensity = textureProj( shadowMap, ShadowCoord );
+	
+	if(abs(shadowIntensity - ShadowCoord.z/ShadowCoord.w) < thres) {
+		visibility = 1;
+		//finalColorForOutput = texture(shadowMap, ShadowCoord.xy);
+		//finalColorForOutput.r = pow(finalColorForOutput.r,100);
+		//finalColorForOutput.g = pow(finalColorForOutput.g,100);
+		//finalColorForOutput.b = pow(finalColorForOutput.b,100);
+		//finalColorForOutput = vec4(ShadowCoord.xy,1,1);
+		//finalColorForOutput.a = 1;
+		//return;
+	}
 	//lighting
 	vec3 finalCol = vec3(1,1,1);
 	vec3 lightV;
@@ -72,6 +71,16 @@ void main() {
 	lightV = diffuseLightAmount();
 	finalCol = visibility * finalCol * lightV + specLight();
 	finalColorForOutput = vec4(finalCol,1);
+	
+	
+	
+	
+	
+	//finalColorForOutput.r = pow(shadowIntensity,56);
+	//finalColorForOutput.g = pow(shadowIntensity,56);
+	//finalColorForOutput.b = pow(shadowIntensity,56);
+	//finalColorForOutput.a = 1;
+	
 	//finalColorForOutput = vec4(lightV,1);
 	//finalColorForOutput = vec4(rotatedNormal,1);
 	//finalColorForOutput = vec4(outCol,1);
