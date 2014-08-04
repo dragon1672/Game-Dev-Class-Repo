@@ -13,6 +13,7 @@
 #include "PassInfoDemo.h"
 #include "Shadows.h"
 #include "CubeMap.h"
+#include "CoolScene.h"
 
 #include <Engine\SceneManager.h>
 
@@ -34,10 +35,12 @@ int main(int argc, char * argv[]) {
 	
 	//*
 	SceneManager widg;
-	ADD_SCENE(tab2,PassInfoDemo);
-	ADD_SCENE(tab1,UsingNoise);
 	//ADD_SCENE(tab4,CubeMap);
-	ADD_SCENE(tab3,Shadows);
+
+	//ADD_SCENE(tab2,PassInfoDemo);
+	//ADD_SCENE(tab1,UsingNoise);
+	//ADD_SCENE(tab3,Shadows);
+	ADD_SCENE(tab5,CoolScene);
 	//*/
 
 	GUI.addScene(&widg);

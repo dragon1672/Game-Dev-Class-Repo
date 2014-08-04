@@ -85,9 +85,13 @@
     <ClCompile Include="Noise.cpp" />
     <ClCompile Include="noiseutils.cpp" />
     <ClCompile Include="Orge.cpp" />
+    <ClCompile Include="PassInfoDemo.cpp" />
+    <ClCompile Include="Shadows.cpp" />
     <ClCompile Include="TangentSpace.cpp" />
+    <ClCompile Include="UsingNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoolScene.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DebugMenuDemo.h" />
     <ClInclude Include="AlphaBlending.h" />

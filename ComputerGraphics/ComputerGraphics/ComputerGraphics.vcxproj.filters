@@ -20,6 +20,15 @@
     <ClCompile Include="CubeMap.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Shadows.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="PassInfoDemo.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UsingNoise.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlphaBlending.h">
@@ -59,6 +68,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="CubeMap.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CoolScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
