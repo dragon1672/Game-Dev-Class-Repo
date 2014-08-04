@@ -28,7 +28,7 @@ class CoolScene : public Scene {
 			mirror->transformData = transData;
 			mirrorOutside->transformData = transData;
 		}
-	} mirrors[20];
+	} mirrors[2];
 public:
 	CoolScene() : Scene("My Cool Scene Of Awesome") {}
 
@@ -56,8 +56,17 @@ public:
 		for (int i = 0; i < sizeof(mirrors) / sizeof(*mirrors); i++)
 		{
 			int range = 50;
-			mirrors[i].transData.position = Random::glmRand::randomFloatVectorInBoxRanged(range,range,range);
-			mirrors[i].transData.rotation = Random::glmRand::randomFloatVectorInBoxRanged(.00001,180,.00001);
+			//mirrors[i].transData.position = Random::glmRand::randomFloatVectorInBoxRanged(range,range,range);
+			//mirrors[i].transData.rotation = Random::glmRand::randomFloatVectorInBoxRanged(.00001,180,.00001);
+			float scale = 4;
+			if(i==0) {
+				mirrors[i].transData.position.z = 30;
+				mirrors[i].transData.rotation.y = 180;
+			} else {
+				mirrors[i].transData.position.z = -30;
+			}
+
+			mirrors[i].transData.setScale(2);
 
 			mirrors[i].normal = glm::vec3(0,0,1); // change if the geo changes
 			mirrors[i].mirror = renderer->addRenderable(mirrorGeo,mirrorShader);
@@ -79,7 +88,7 @@ public:
 			mirrors[i].mirror->addUniformParameter("myTexture",ParameterType::PT_TEXTURE,&mirrors[i].mirrorData->colorTexture);
 		}
 
-
+		playerCharacter->visible = false;
 		swapOutCurrentPassInfo(renderer);
 		//removing current character
 		myDefaultPass->remove(playerCharacter);
