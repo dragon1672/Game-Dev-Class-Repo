@@ -25,10 +25,8 @@
     <ClInclude Include="Engine\Tools\NUShapeEditor.h" />
     <ClInclude Include="Engine\Tools\SingleKeyManager.h" />
     <ClInclude Include="Engine\Tools\Timer.h" />
-    <ClInclude Include="Engine\BasicGui.h" />
     <ClInclude Include="Engine\FastDelegate.h" />
     <ClInclude Include="Engine\unsigned.h" />
-    <ClInclude Include="Engine\WidgetRenderer.h" />
     <ClInclude Include="Engine\DebugTools\Logging\LogData.h" />
     <ClInclude Include="Engine\DebugTools\Logging\LogManager.h" />
     <ClInclude Include="Engine\DebugTools\Profiling\AutoProfileManager.h" />
@@ -75,6 +73,13 @@
     <ClInclude Include="Engine\DebugTools\DebugShapeManager.h" />
     <ClInclude Include="Engine\Pathing\AStar\AStarDebug\AStarDebugPath.h" />
     <ClInclude Include="Engine\Pathing\AStar\AStarDebug\AStarDebugPathGenerator.h" />
+    <ClInclude Include="Engine\Systems\BasicGui.h" />
+    <ClInclude Include="Engine\Systems\Scene.h" />
+    <ClInclude Include="Engine\Systems\SceneManager.h" />
+    <ClInclude Include="Engine\Systems\WidgetRenderer.h" />
+    <ClInclude Include="Engine\Renderer\Output\PassInfo.h" />
+    <ClInclude Include="Engine\Tools\MatrixInfo.h" />
+    <ClInclude Include="Engine\Tools\QT\LinkedIntSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\DebugTools\DebugMenuManager.cpp" />
@@ -94,10 +99,6 @@
     <ClCompile Include="Engine\Tools\Camera.cpp" />
     <ClCompile Include="Engine\Tools\NUShapeEditor.cpp" />
     <ClCompile Include="Engine\Tools\Timer.cpp" />
-    <ClCompile Include="Engine\BasicGui.cpp" />
-    <ClCompile Include="Engine\BasicGui_mock.cpp" />
-    <ClCompile Include="Engine\WidgetRenderer.cpp" />
-    <ClCompile Include="Engine\WidgetRenderer_mock.cpp" />
     <ClCompile Include="Engine\DebugTools\Logging\LogManager.cpp" />
     <ClCompile Include="Engine\DebugTools\Profiling\AutoProfilerManager.cpp" />
     <ClCompile Include="Engine\DebugTools\DebugTimer.cpp" />
@@ -110,6 +111,14 @@
     <ClCompile Include="Engine\Physics\Particles\Particle.cpp" />
     <ClCompile Include="Engine\DebugTools\DebugShapeManager.cpp" />
     <ClCompile Include="Engine\Pathing\AStar\AStarDebug\AStarDebugPath.cpp" />
+    <ClCompile Include="Engine\Systems\BasicGui.cpp" />
+    <ClCompile Include="Engine\Systems\BasicGui_mock.cpp" />
+    <ClCompile Include="Engine\Systems\SceneManager.cpp" />
+    <ClCompile Include="Engine\Systems\WidgetRenderer.cpp" />
+    <ClCompile Include="Engine\Systems\WidgetRenderer_mock.cpp" />
+    <ClCompile Include="Engine\Renderer\Output\PassInfo.cpp" />
+    <ClCompile Include="Engine\Tools\MatrixInfo.cpp" />
+    <ClCompile Include="Engine\Tools\QT\LinkedIntSlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Tools\MyMath\Matrix2D.inl" />

@@ -87,7 +87,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\BasicGui.h" />
     <ClInclude Include="Engine\DebugTools\DebugMemHeader.h" />
     <ClInclude Include="Engine\DebugTools\DebugMenuManager.h" />
     <ClInclude Include="Engine\DebugTools\DebugShapeManager.h" />
@@ -138,13 +137,19 @@
     <ClInclude Include="Engine\Physics\RidgidBody\RigidSpringForce.h" />
     <ClInclude Include="Engine\Renderer\Geo\BufferManager.h" />
     <ClInclude Include="Engine\Renderer\Geo\GeometryInfo.h" />
+    <ClInclude Include="Engine\Renderer\Output\PassInfo.h" />
     <ClInclude Include="Engine\Renderer\ParameterType.h" />
     <ClInclude Include="Engine\Renderer\Renderable.h" />
     <ClInclude Include="Engine\Renderer\Renderer.h" />
     <ClInclude Include="Engine\Renderer\Shader\ShaderProgram.h" />
     <ClInclude Include="Engine\Renderer\Shader\ShaderUniformPram.h" />
+    <ClInclude Include="Engine\Systems\BasicGui.h" />
+    <ClInclude Include="Engine\Systems\Scene.h" />
+    <ClInclude Include="Engine\Systems\SceneManager.h" />
+    <ClInclude Include="Engine\Systems\WidgetRenderer.h" />
     <ClInclude Include="Engine\Tools\BinaryToShapeLoader.h" />
     <ClInclude Include="Engine\Tools\Camera.h" />
+    <ClInclude Include="Engine\Tools\MatrixInfo.h" />
     <ClInclude Include="Engine\Tools\MyMath\Matrix2D.h" />
     <ClInclude Include="Engine\Tools\MyMath\Matrix3D.h" />
     <ClInclude Include="Engine\Tools\MyMath\SquareMatrix.h" />
@@ -153,6 +158,7 @@
     <ClInclude Include="Engine\Tools\NUShapeEditor.h" />
     <ClInclude Include="Engine\Tools\QT\ButtonInfo.h" />
     <ClInclude Include="Engine\Tools\QT\DebugSlider.h" />
+    <ClInclude Include="Engine\Tools\QT\LinkedIntSlider.h" />
     <ClInclude Include="Engine\Tools\QT\LinkedSlider.h" />
     <ClInclude Include="Engine\Tools\Random\Glm.h" />
     <ClInclude Include="Engine\Tools\Random\MyRandom.h" />
@@ -160,11 +166,8 @@
     <ClInclude Include="Engine\Tools\SingleKeyManager.h" />
     <ClInclude Include="Engine\Tools\Timer.h" />
     <ClInclude Include="Engine\unsigned.h" />
-    <ClInclude Include="Engine\WidgetRenderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\BasicGui.cpp" />
-    <ClCompile Include="Engine\BasicGui_mock.cpp" />
     <ClCompile Include="Engine\DebugTools\DebugMenuManager.cpp" />
     <ClCompile Include="Engine\DebugTools\DebugShapeManager.cpp" />
     <ClCompile Include="Engine\DebugTools\DebugTimer.cpp" />
@@ -180,22 +183,28 @@
     <ClCompile Include="Engine\Physics\Particles\Particle.cpp" />
     <ClCompile Include="Engine\Renderer\Geo\BufferManager.cpp" />
     <ClCompile Include="Engine\Renderer\Geo\GeometryInfo.cpp" />
+    <ClCompile Include="Engine\Renderer\Output\PassInfo.cpp" />
     <ClCompile Include="Engine\Renderer\Renderable.cpp" />
     <ClCompile Include="Engine\Renderer\Renderer.cpp" />
     <ClCompile Include="Engine\Renderer\Shader\ShaderProgram.cpp" />
     <ClCompile Include="Engine\Renderer\Shader\ShaderUniformPram.cpp" />
+    <ClCompile Include="Engine\Systems\BasicGui.cpp" />
+    <ClCompile Include="Engine\Systems\BasicGui_mock.cpp" />
+    <ClCompile Include="Engine\Systems\SceneManager.cpp" />
+    <ClCompile Include="Engine\Systems\WidgetRenderer.cpp" />
+    <ClCompile Include="Engine\Systems\WidgetRenderer_mock.cpp" />
     <ClCompile Include="Engine\Tools\BinaryToShapeLoader.cpp" />
     <ClCompile Include="Engine\Tools\Camera.cpp" />
+    <ClCompile Include="Engine\Tools\MatrixInfo.cpp" />
     <ClCompile Include="Engine\Tools\NUShapeEditor.cpp" />
     <ClCompile Include="Engine\Tools\QT\ButtonInfo_mock.cpp" />
     <ClCompile Include="Engine\Tools\QT\DebugSlider.cpp" />
     <ClCompile Include="Engine\Tools\QT\DebugSlider_mock.cpp" />
+    <ClCompile Include="Engine\Tools\QT\LinkedIntSlider.cpp" />
     <ClCompile Include="Engine\Tools\QT\LinkedSlider.cpp" />
     <ClCompile Include="Engine\Tools\Random\Glm.cpp" />
     <ClCompile Include="Engine\Tools\Random\MyRandom.cpp" />
     <ClCompile Include="Engine\Tools\Timer.cpp" />
-    <ClCompile Include="Engine\WidgetRenderer.cpp" />
-    <ClCompile Include="Engine\WidgetRenderer_mock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Tools\MyMath\Matrix2D.inl" />

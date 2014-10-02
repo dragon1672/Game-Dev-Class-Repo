@@ -8,6 +8,8 @@
 #include <Qt/qimage.h>
 #include <Qt/qfile.h>
 #pragma warning(pop)
+#include <cassert>
+#include <Engine\Defines\Vectors.h>
 
 
 GLuint ShaderProgram::currentProgram;
@@ -32,12 +34,14 @@ bool ShaderProgram::validFile(const char * filePath) {
 }
 
 void ShaderProgram::startup() {
-	numOfPrams = 0;
 	programID = glCreateProgram();
 	qDebug() << "Creating Shader Program ID: " << programID;
 }
+ShaderProgram::~ShaderProgram() {
+	shutdown();
+}
 void ShaderProgram::shutdown() {
-	// ?
+	CLEAR_VECTOR(prams);
 }
 void ShaderProgram::buildBasicProgram(const char * vertexShaderFilePath, const char * fragmentShaderFilePath) {
 	//startup();
@@ -54,6 +58,7 @@ bool ShaderProgram::addProgram(const char * filePath, unsigned short shaderType)
 		isValid = addProgram_srcCode(file2str(filePath),shaderType);
 	} else {
 		qDebug() << "File(" << filePath << ") was not found\n";
+		assert(false);
 	}
 	return isValid;
 }
@@ -73,6 +78,7 @@ bool ShaderProgram::addProgram_srcCode(std::string shaderCode, unsigned short sh
 		qDebug() << "File(" << shaderInfo.id << ") Complile Successful ProgramID: " << programID << "\n";
 	} else {
 		qDebug() << "File(" << shaderInfo.id << ") Failed to Complile - NOT ADDED TO PROGRAM\n";
+		assert(false);
 	}
 	return isValid;
 }
@@ -80,44 +86,45 @@ bool ShaderProgram::addProgram_srcCode(std::string shaderCode, unsigned short sh
 int ShaderProgram::getUniform(const char* title) {
 	return glGetUniformLocation(getProgramID(),title);
 }
-
-void ShaderProgram::passUniform(const char* name, ParameterType parameterType, const float * value) {
+void ShaderProgram::passUniform(const char* name, ParameterType parameterType, const void * value) {
 	uint location = getUniform(name);
+	passUniform(location,parameterType,value);
+}
+void ShaderProgram::passUniform(uint location, ParameterType parameterType, const void * value) {
 	if(parameterType == ParameterType::PT_FLOAT) {
-		glUniform1f(location, *value);
+		glUniform1f(location, *(float*)value);
 	} else if(parameterType == ParameterType::PT_VEC2) {
-		glUniform2fv(location,1,value);
+		glUniform2fv(location,1,(float*)value);
 	} else if(parameterType == ParameterType::PT_VEC3) {
-		glUniform3fv(location,1,value);
+		glUniform3fv(location,1,(float*)value);
 	} else if(parameterType == ParameterType::PT_VEC4) {
-		glUniform4fv(location,1,value);
+		glUniform4fv(location,1,(float*)value);
 	} else if(parameterType == ParameterType::PT_MAT3) {
-		glUniformMatrix3fv(location,1,false,value);
+		glUniformMatrix3fv(location,1,false,(float*)value);
 	} else if(parameterType == ParameterType::PT_MAT4) {
-		glUniformMatrix4fv(location,1,false,value);
+		glUniformMatrix4fv(location,1,false,(float*)value);
+	} else if(ParameterType::PT_BOOLEAN) {
+		bool decodedValue = *(bool*)value;
+		glUniform1i(location,decodedValue);
+	} else if(parameterType == ParameterType::PT_TEXTURE || ParameterType::PT_INT) {
+		int decodedValue = *(int*)value;
+		glUniform1i(location,decodedValue);
 	} else {
 		//wat?
-		qDebug() << "Uniform " << name << " of type: " << parameterType << " was not passed down correctly, (was passed as float *)";
+		qDebug() << "Uniform " << location << " of type: " << parameterType << " was not passed down correctly";
+		assert(false);
 	}
 }
-void ShaderProgram::passUniform(const char* name, ParameterType parameterType, const int value) {
-	uint location = getUniform(name);
 
-	if(parameterType == ParameterType::PT_TEXTURE || ParameterType::PT_BOOLEAN) {
-		glUniform1i(location,value);
-	} else {
-		//wat?
-		qDebug() << "Uniform " << name << " of type: " << parameterType << " was not passed down correctly, (was passed as int *)";
-	}
-}
-void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const float * value) {
-	prams[numOfPrams++].init(this,name,parameterType,value);
-}
-void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const int * value) {
-	prams[numOfPrams++].init(this,name,parameterType,value);
-}
-void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const bool * value) {
-	prams[numOfPrams++].init(this,name,parameterType,value);
+void ShaderProgram::saveUniform(const char * name, const bool& value)      { saveUniform(name,ParameterType::PT_BOOLEAN,&value);    }
+void ShaderProgram::saveUniform(const char * name, const float& value)     { saveUniform(name,ParameterType::PT_FLOAT,&value);      }
+void ShaderProgram::saveUniform(const char * name, const glm::vec3& value) { saveUniform(name,ParameterType::PT_VEC3,&value[0]);    }
+void ShaderProgram::saveUniform(const char * name, const glm::vec4& value) { saveUniform(name,ParameterType::PT_VEC4,&value[0]);    }
+void ShaderProgram::saveUniform(const char * name, const glm::mat3& value) { saveUniform(name,ParameterType::PT_MAT3,&value[0][0]); }
+void ShaderProgram::saveUniform(const char * name, const glm::mat4& value) { saveUniform(name,ParameterType::PT_MAT4,&value[0][0]); }
+void ShaderProgram::saveUniform(const char* name, ParameterType parameterType, const void * value) {
+	prams.push_back(new ShaderUniformPram());
+	prams[prams.size()-1]->init(this,name,parameterType,value);
 }
 
 void ShaderProgram::passSavedUniforms_try() {
@@ -125,9 +132,9 @@ void ShaderProgram::passSavedUniforms_try() {
 		passSavedUniforms_force();
 }
 void ShaderProgram::passSavedUniforms_force() {
-	for (uint i = 0; i < numOfPrams; i++)
+	for (uint i = 0; i < prams.size(); i++)
 	{
-		prams[i].sendData();
+		prams[i]->sendData();
 	}
 	validPush = false;
 }
@@ -194,7 +201,7 @@ GLuint ShaderProgram::linkAndRun() {
 	return programID;
 }
 
-QString formatFileName(QString fileName) {
+QString formatFileName(QString& fileName) {
 	QString formatedName = fileName.replace(QRegExp("[_]")," ");
 	formatedName = formatedName.remove(".jpg",Qt::CaseInsensitive);
 	formatedName = formatedName.remove(".png",Qt::CaseInsensitive);
@@ -205,11 +212,12 @@ QString formatFileName(QString fileName) {
 	return formatedName;
 }
 
-QImage ShaderProgram::getImageFromFile(QString fileName) {
-	QImage myTexture = QGLWidget::convertToGLFormat(QImage(fileName));
+QImage ShaderProgram::getImageFromFile(QString& fileName, bool flipHorz, bool flipVert) {
+	QImage myTexture = QGLWidget::convertToGLFormat(QImage(fileName).mirrored(flipHorz,flipVert));
 
 	if(myTexture.isNull()) {
 		qDebug() << "attempt to load " << fileName << " failed";
+		assert(false);
 	} else {
 		QString formatedName = fileName.replace(QRegExp("[_]")," ");
 		formatedName = formatedName.remove(".jpg",Qt::CaseInsensitive);
@@ -224,31 +232,128 @@ QImage ShaderProgram::getImageFromFile(QString fileName) {
 	return myTexture;
 }
 //returns the bufferID
-GLuint ShaderProgram::load2DTexture(QString fileName) {
+GLuint ShaderProgram::load2DTexture(QImage& image, GLenum type) {
+	return load2DTexture(image,type,type);
+}
+GLuint ShaderProgram::load2DTexture(QImage& image, GLenum type, GLenum type2) {
+	return load2DTexture(image.bits(),image.width(),image.height(), type, type2);
+}
+GLuint ShaderProgram::load2DTexture(QString& fileName, bool flipHorz, bool flipVert) {
 	QString filePath = /**/QCoreApplication::applicationDirPath() + /**/fileName;
 	QFile tempFile(filePath);
 	if(tempFile.exists()) {
-		uint ID = numOfTextures++;
-
-		GLuint bufferID;
-
-		QImage data = getImageFromFile(filePath);
-
-		glActiveTexture(GL_TEXTURE0+ID);
-
-		glEnable(GL_TEXTURE_2D);
-
-		glGenTextures(1,&bufferID);
-
-		glBindTexture(GL_TEXTURE_2D, bufferID);
-
-		glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, data.width(), data.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data.bits());
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-		return ID;
+		QImage data = getImageFromFile(filePath,flipHorz,flipVert);
+		return load2DTexture(data);
 	} else {
 		qDebug() << "Invalid file path " << formatFileName(filePath) << " Texture not loaded";
+		assert(false);
 		return -1;
 	}
+}
+GLuint ShaderProgram::load2DTexture(ubyte * data, uint width, uint height, GLenum fileType) {
+	return load2DTexture(data,width,height,fileType,fileType);
+}
+GLuint ShaderProgram::load2DTexture(ImageData& imageData) {
+	return load2DTexture(imageData.data,imageData.width,imageData.height,imageData.type, imageData.type2 == -1 ? imageData.type : imageData.type2);
+}
+GLuint ShaderProgram::load2DTexture(ubyte * data, uint width, uint height, GLenum fileType, GLenum fileType2) {
+	static uint ID = 0;
+	GLuint bufferID;
+	uint slot = ID++;
+	glGenTextures(1,&bufferID);
+	update2DTexture(bufferID,slot,data,width,height,fileType,fileType2);
+	return slot;
+}
+
+void ShaderProgram::update2DTexture(uint textureID, uint slot, QImage& image, GLenum type, GLenum type2) {
+	update2DTexture(textureID,slot, image.bits(),image.width(),image.height(), type, type2);
+}
+void ShaderProgram::update2DTexture(uint textureID, uint slot, QImage& image, GLenum type) {
+	update2DTexture(textureID,slot, image.bits(),image.width(),image.height(), type, type);
+}
+void ShaderProgram::update2DTexture(uint textureID, uint slot, QString& fileName, bool flipHorz, bool flipVert) {
+	QString filePath = /**/QCoreApplication::applicationDirPath() + /**/fileName;
+	QFile tempFile(filePath);
+	if(tempFile.exists()) {
+		QImage data = getImageFromFile(filePath,flipHorz,flipVert);
+		update2DTexture(textureID,slot, data);
+	} else {
+		qDebug() << "Invalid file path " << formatFileName(filePath) << " Texture not loaded";
+		assert(false);
+	}
+}
+void ShaderProgram::update2DTexture(uint textureID, uint slot, ubyte * data, uint width, uint height, GLenum fileType) {
+	update2DTexture(textureID,slot,data,width,height,fileType,fileType);
+}
+void ShaderProgram::update2DTexture(uint textureID, uint slot, ImageData& imageData) {
+	update2DTexture(textureID,slot, imageData.data,imageData.width,imageData.height,imageData.type, imageData.type2 == -1 ? imageData.type : imageData.type2);
+}
+void ShaderProgram::update2DTexture(uint textureID, uint slot, ubyte * data, uint width, uint height, GLenum fileType, GLenum fileType2) {
+	glEnable(GL_TEXTURE_2D);
+	glActiveTexture(GL_TEXTURE0+slot);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	
+	//find a better way to do this
+	glTexImage2D(GL_TEXTURE_2D,0, fileType, width, height, 0, fileType2, GL_UNSIGNED_BYTE, data);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+}
+
+GLuint ShaderProgram::loadCubeTexture(QString& posX,QString& negX,QString& posY,QString& negY,QString& posZ,QString& negZ) {
+	QString paths[] = { posX, negX, posY, negY, posZ, negZ };
+	const int pathSize = sizeof(paths) / sizeof(*paths);
+	QImage imageData[pathSize];
+	ImageData ret[pathSize];
+
+	for(int i=0;i<pathSize;i++) {
+		QString filePath = /**/QCoreApplication::applicationDirPath() + /**/paths[i];
+		QFile tempFile(filePath);
+		if(tempFile.exists()) {
+			imageData[i] = getImageFromFile(filePath,false,true);
+			ret[i].init(imageData[i]);
+		} else {
+			qDebug() << "Invalid file path " << formatFileName(filePath) << " Texture not loaded";
+			assert(false);
+		}
+	}
+	return loadCubeTexture(ret[0],ret[1],ret[2],ret[3],ret[4],ret[5]);
+}
+GLuint ShaderProgram::loadCubeTexture(QString& directory,QString& posX,QString& negX,QString& posY,QString& negY,QString& posZ,QString& negZ) {
+	QString paths[] = { posX, negX, posY, negY, posZ, negZ };
+	const int pathSize = sizeof(paths) / sizeof(*paths);
+	for(int i=0;i<pathSize;i++) {
+		paths[i] = directory+"/"+paths[i];
+	}
+	return loadCubeTexture(paths[0],paths[1],paths[2],paths[3],paths[4],paths[5]);
+}
+GLuint ShaderProgram::loadCubeTexture(ImageData& posX,ImageData& negX,ImageData& posY,ImageData& negY,ImageData& posZ,ImageData& negZ) {
+	static uint ID = 0;
+	GLuint bufferID;
+
+	uint slot = ID++;
+
+	glEnable(GL_TEXTURE_2D);
+	glGenTextures(1,&bufferID);
+	glActiveTexture(GL_TEXTURE0+slot);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, bufferID);
+
+	//copy paste time :D
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0); 
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 0); 
+
+	ImageData images[] = { posX, negX, posY, negY, posZ, negZ };
+	const int pathSize = sizeof(images) / sizeof(*images);
+	for(int i=0;i<pathSize;i++) {
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X+i, 0, images[i].type, images[i].width, images[i].height, 0, images[i].type, GL_UNSIGNED_BYTE, images[i].data);
+	}
+	
+	return slot;
+}
+GLuint ShaderProgram::loadCubeTexture(QImage& posX,QImage& negX,QImage& posY,QImage& negY,QImage& posZ,QImage& negZ) {
+	return loadCubeTexture(ImageData(posX),ImageData(negX),ImageData(posY),ImageData(negY),ImageData(posZ),ImageData(negZ));
 }
