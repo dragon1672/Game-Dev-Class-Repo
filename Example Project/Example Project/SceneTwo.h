@@ -35,7 +35,7 @@ public:
 
 	void addToFakeOutput(WidgetRenderer * renderer, Camera& myCam, DebugMenuManager * menu) {
 		myCam.lookAt(glm::vec3(0,1,-7),glm::vec3(0,0,0));
-		teapot.magnitude = .6;
+		teapot.magnitude = .6f;
 		menu->edit("magnitude",teapot.magnitude,0,2);
 
 		ShaderProgram * deformWithTexture = renderer->addShader("./../shaders/NoiseMapDeformv.glsl","./../shaders/NoiseMapDeformF.glsl");
@@ -62,7 +62,7 @@ public:
 		{
 			bears[i].noiseTexture = genTexture(renderer,Random::randomInt(0,20));
 			bears[i].percent = (float)i/(sizeof(bears) / sizeof(*bears));
-			bears[i].discardThreshold = .01;
+			bears[i].discardThreshold = .01f;
 			bears[i].renderable = renderer->addRenderable(bearGeo,bearShader,bearTexture);
 
 			bears[i].renderable->transformData.scale = glm::vec3(4,4,4);
@@ -76,7 +76,7 @@ public:
 		}
 
 
-		menu->watch("rot",bears[0].renderable->transformData.genRotMat());
+		menu->watch("rot",bears[0].renderable->transformData.getRotMat());
 
 		//menu->watch("Matrix",teapot.Teapot->transformData.genRotMat());
 	}
@@ -117,7 +117,7 @@ public:
 	}
 	virtual void update(float dt) {
 		for (int i = 0; i < sizeof(bears) / sizeof(*bears); i++) bears[i].renderable->transformData.rotation += dt * bears[i].rotAcc;
-		float speed = .1;
+		float speed = .1f;
 		float range = 2;
 		static float spotInRange = range/2;
 		spotInRange += speed * dt;

@@ -34,7 +34,7 @@ int genTexture(Renderer * renderer) {
 void Testing::init() {
 	//myCam.lookAt(glm::vec3(0,2,1),glm::vec3(0,0,0));
 	myCam.setPos(glm::vec3(-.5,1,.5), glm::vec3(0,-1,-.3));
-	myCam.MOVEMENT_SPEED *= .1;
+	myCam.MOVEMENT_SPEED *= .1f;
 
 	layer = 1;
 	updateRate = 2;

@@ -50,7 +50,7 @@ public:
 		auto meObjectGeo = renderer->addGeometry(Neumont::ShapeGenerator::makeSphere(20));
 		meObject = renderer->addRenderable(meObjectGeo,cubeMapShader);
 		meObject->saveMatrixInfo("model2WorldTransform");
-		meObject->addUniformParameter("modelRotation",meObject->transformData.genRotMat());
+		meObject->addUniformParameter("modelRotation",meObject->transformData.getRotMat());
 		meObject->addUniformParameter("worldMap",ParameterType::PT_TEXTURE,&worldTexture);
 
 		geos.push_back(meObjectGeo);

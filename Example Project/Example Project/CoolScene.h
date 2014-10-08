@@ -19,7 +19,7 @@ class CoolScene : public Scene {
 		Renderable * mirrorOutside;
 
 		void updateData(Camera * theCam) {
-			glm::vec3 rotatedNorm = glm::mat3(transData.genRotMat()) * normal;
+			glm::vec3 rotatedNorm = glm::mat3(transData.getRotMat()) * normal;
 			glm::vec3 eyeVec = -glm::normalize(theCam->getPos() - transData.position);
 			
 			mirrorData->cam.setPos(transData.position,rotatedNorm);
@@ -57,7 +57,7 @@ public:
 		{
 			int range = 50;
 			mirrors[i].transData.position = Random::glmRand::randomFloatVectorInBoxRanged(range,range,range);
-			mirrors[i].transData.rotation = Random::glmRand::randomFloatVectorInBoxRanged(.00001,180,.00001);
+			mirrors[i].transData.rotation = Random::glmRand::randomFloatVectorInBoxRanged(.00001f,180,.00001f);
 
 			mirrors[i].normal = glm::vec3(0,0,1); // change if the geo changes
 			mirrors[i].mirror = renderer->addRenderable(mirrorGeo,mirrorShader);
