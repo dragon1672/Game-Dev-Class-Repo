@@ -20,10 +20,10 @@ class CoolScene : public Scene {
 
 		void updateData(Camera * theCam) {
 			glm::vec3 rotatedNorm = glm::mat3(transData.getRotMat()) * normal;
-			glm::vec3 eyeVec = -glm::normalize(theCam->getPos() - transData.position);
+			glm::vec3 eyeVec = -glm::normalize(theCam->getPos() - transData.getpos());
 			
-			mirrorData->cam.setPos(transData.position,rotatedNorm);
-			mirrorData->cam.setPos(transData.position,glm::reflect(eyeVec,rotatedNorm));
+			mirrorData->cam.setPos(transData.getpos(),rotatedNorm);
+			mirrorData->cam.setPos(transData.getpos(),glm::reflect(eyeVec,rotatedNorm));
 			
 			mirror->transformData = transData;
 			mirrorOutside->transformData = transData;
@@ -40,7 +40,7 @@ public:
 		int mirrorOutsideTexture = renderer->addTexture("./../textures/clockTexture.png");
 
 		auto temp = renderer->addRenderable(renderer->addGeometry(Neumont::ShapeGenerator::makeCube()),renderer->defaultShaders.passThroughColor);
-		temp -> transformData.setScale(100);
+		temp -> transformData.setscale(100,100,100);
 		temp -> saveMatrixInfo("model2WorldTransform");
 
 		ShaderProgram * mirrorShader = renderer->addShader("./../shaders/MirrorTexture_V.glsl","./../shaders/MirrorTexture_F.glsl");
@@ -48,7 +48,7 @@ public:
 
 		auto playerGeo = renderer->addGeometry(BinaryToShapeLoader::loadFromFile("./../models/Ogre.bin"));
 		playerCharacter = renderer->addRenderable(playerGeo,renderer->defaultShaders.passThroughTexture,renderer->addTexture("./../textures/ogre_diffuse.png"));
-		playerCharacter->transformData.setScale(10);
+		playerCharacter->transformData.setscale(10,10,10);
 		playerCharacter->saveTexture("myTexture");
 		playerCharacter->saveMatrixInfo("model2WorldTransform");
 		
@@ -56,8 +56,8 @@ public:
 		for (int i = 0; i < sizeof(mirrors) / sizeof(*mirrors); i++)
 		{
 			int range = 50;
-			mirrors[i].transData.position = Random::glmRand::randomFloatVectorInBoxRanged(range,range,range);
-			mirrors[i].transData.rotation = Random::glmRand::randomFloatVectorInBoxRanged(.00001f,180,.00001f);
+			mirrors[i].transData.setpos(Random::glmRand::randomFloatVectorInBoxRanged(range,range,range));
+			mirrors[i].transData.setrot(Random::glmRand::randomFloatVectorInBoxRanged(.00001f,180,.00001f));
 
 			mirrors[i].normal = glm::vec3(0,0,1); // change if the geo changes
 			mirrors[i].mirror = renderer->addRenderable(mirrorGeo,mirrorShader);
@@ -92,8 +92,8 @@ public:
 		theCam = &temp->cam;
 	}
 	void update(float dt) {
-		playerCharacter->transformData.position = theCam->getPos();
-		playerCharacter->transformData.postTransform = glm::orientation(theCam->getViewDir(),glm::vec3(0,0,1)) * glm::translate(glm::vec3(0,0,.1));
+		playerCharacter->transformData.setpos(theCam->getPos());
+		//playerCharacter->transformData.postTransform = glm::orientation(theCam->getViewDir(),glm::vec3(0,0,1)) * glm::translate(glm::vec3(0,0,.1));
 		for (int i = 0; i < sizeof(mirrors) / sizeof(*mirrors); i++)
 		{
 			//mirrors[i].transData.rotation.y += 90*dt;

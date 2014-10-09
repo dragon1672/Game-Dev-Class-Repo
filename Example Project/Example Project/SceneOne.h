@@ -13,6 +13,6 @@ public:
 		meRenderable->saveMatrixInfo("model2WorldTransform");
 	}
 	void update(float dt) {
-		meRenderable->transformData.rotation.x += 30 * dt;
+		meRenderable->transformData.setrotX(meRenderable->transformData.getposX() + 30 * dt);
 	}
 };

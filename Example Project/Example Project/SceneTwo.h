@@ -50,8 +50,8 @@ public:
 		teapot.Teapot->addUniformParameter("noiseMap",ParameterType::PT_TEXTURE,&teapot.noiseTexture);
 		teapot.Teapot->addUniformParameter("uvOffset",ParameterType::PT_VEC2,&teapot.uvOffset[0]);
 		teapot.Teapot->addUniformParameter("magnitude",teapot.magnitude);
-		teapot.Teapot->transformData.scale = glm::vec3(.75,.75,.75);
-		teapot.Teapot->transformData.position.y = -.5;
+		teapot.Teapot->transformData.setscale(.75,.75,.75);
+		teapot.Teapot->transformData.setposY(-.5);
 
 		int bearTexture = renderer->addTexture("./../textures/ToonTeddyBear.png");
 		auto bearGeo = renderer->addGeometry(BinaryToShapeLoader::loadFromFile("./../models/TeddyBear.bin"),GL_TRIANGLES);// doo it
@@ -65,8 +65,8 @@ public:
 			bears[i].discardThreshold = .01f;
 			bears[i].renderable = renderer->addRenderable(bearGeo,bearShader,bearTexture);
 
-			bears[i].renderable->transformData.scale = glm::vec3(4,4,4);
-			bears[i].renderable->transformData.rotation.y = 90;
+			bears[i].renderable->transformData.setscale(4,4,4);
+			bears[i].renderable->transformData.setrotY(90);
 
 			bears[i].renderable->saveMatrixInfo("model2WorldTransform");
 			bears[i].renderable->saveTexture("myTexture");
@@ -97,10 +97,10 @@ public:
 		auto tempRenderable = renderer->addRenderable(renderer->addGeometry(Neumont::ShapeGenerator::makeCube()),renderer->defaultShaders.passThroughTexture, meEpicTexture->colorTexture);
 		tempRenderable->saveTexture("myTexture");
 		tempRenderable->saveMatrixInfo("model2WorldTransform");
-		tempRenderable->transformData.rotation.x = 90;
-		tempRenderable->transformData.scale = glm::vec3(5,5,5);
-		tempRenderable->transformData.position.y = 2;
-		tempRenderable->transformData.position.x = 2;
+		tempRenderable->transformData.setrotX(90);
+		tempRenderable->transformData.setscale(5,5,5);
+		tempRenderable->transformData.setposY(2);
+		tempRenderable->transformData.setposX(2);
 
 
 
@@ -116,7 +116,10 @@ public:
 		
 	}
 	virtual void update(float dt) {
-		for (int i = 0; i < sizeof(bears) / sizeof(*bears); i++) bears[i].renderable->transformData.rotation += dt * bears[i].rotAcc;
+		for (int i = 0; i < sizeof(bears) / sizeof(*bears); i++) {
+			glm::vec3 temp = bears[i].renderable->transformData.getrot() + dt * bears[i].rotAcc;
+			bears[i].renderable->transformData.setrot(temp);
+		}
 		float speed = .1f;
 		float range = 2;
 		static float spotInRange = range/2;
@@ -136,7 +139,7 @@ public:
 
 			glm::vec3 left(-1.5,1,-6);
 			glm::vec3 right(0,0,-1);
-			bears[i].renderable->transformData.position = (1-percent) * right + (percent * left);
+			bears[i].renderable->transformData.setpos((1-percent) * right + (percent * left));
 		}
 	}
 

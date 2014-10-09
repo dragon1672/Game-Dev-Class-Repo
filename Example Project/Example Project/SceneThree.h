@@ -43,7 +43,7 @@ public:
 		//setup renderables
 		auto worldGeo = renderer->addGeometry(Neumont::ShapeGenerator::makeSphere(20));
 		world = renderer->addRenderable(worldGeo,renderer->defaultShaders.passThroughCubeMap);
-		world->transformData.setScale(30);
+		world->transformData.setscale(30,30,30);
 		world->saveMatrixInfo("model2WorldTransform");
 		world->addUniformParameter("worldMap",ParameterType::PT_TEXTURE,&worldTexture);
 
@@ -79,7 +79,7 @@ public:
 		
 	}
 	void update(float dt) {
-		meObject->transformData.rotation += angleVel * dt;
+		meObject->transformData.setrot(meObject->transformData.getrot() + angleVel * dt);
 		meObject->whatGeo = geos[geoID];
 		worldTexture = textures[currentTextureID];
 	}
