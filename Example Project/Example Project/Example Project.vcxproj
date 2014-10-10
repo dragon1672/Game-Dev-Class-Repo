@@ -80,14 +80,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="mainer.cpp" />
-    <ClCompile Include="testing.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CoolScene.h" />
-    <ClInclude Include="SceneOne.h" />
-    <ClInclude Include="SceneThree.h" />
-    <ClInclude Include="SceneTwo.h" />
-    <ClInclude Include="testing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
