@@ -1,6 +1,0 @@
-[submodule "Engine"]
-	path = Engine
-url=https://github.com/dragon1672/C-Game-Engine
-[submodule "MiddleWare"]
-	path = MiddleWare
-	url = https://anthony_corbin@bitbucket.org/anthony_corbin/c-game-dev-middleware.git
